@@ -1,16 +1,15 @@
 //
-//  EditIncomeViewController.swift
+//  AutoIncomeViewController.swift
 //  MoneyManageApp
 //
-//  Created by yuji nakamoto on 2020/11/07.
+//  Created by yuji nakamoto on 2020/11/09.
 //
 
 import UIKit
 import PKHUD
-import FSCalendar
 import RealmSwift
 
-class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
+class AutoIncomeViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
     
@@ -36,63 +35,26 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var devideButton: UIButton!
     @IBOutlet weak var equalButton: UIButton!
-    @IBOutlet weak var calender: FSCalendar!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var categoryImageView: UIImageView!
-    @IBOutlet weak var date2Label: UILabel!
-    @IBOutlet weak var yearLabel: UILabel!
-    @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var pickerKeyboardView: PickerKeyboard1!
     
     lazy var buttons = [zeroButton, oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton, sevenButton, eightButton, nineButton, clearButton, multiplyButton, minusButton, plusButton, devideButton]
     private var firstNumeric = false
     private var lastNumeric = false
-    private let realm = try? Realm()
-    var income = Income()
+    private var auto = Auto()
+    private var inputNumber = 0
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchIncome()
-        setup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setup()
         setCategory()
-        navigationController?.navigationBar.isHidden = false
-    }
-    
-    // MARK: - Fetch
-    
-    private func fetchIncome() {
-        
-        numberLabel.text = String(income.numeric)
-        categoryLabel.text = income.category
-        dateLabel.text = income.date_jp
-        textField.text = income.memo
-        date2Label.text = income.date
-        yearLabel.text = income.year
-        monthLabel.text = income.month
-        
-        if income.category == "未分類" {
-            categoryImageView.image = UIImage(systemName: "questionmark.circle")
-            categoryImageView.tintColor = .systemGray
-        } else if income.category == "給料" {
-            categoryImageView.image = UIImage(named: "en_mark")
-        } else if income.category == "一時所得" {
-            categoryImageView.image = UIImage(named: "en_mark")
-        } else if income.category == "事業・副業" {
-            categoryImageView.image = UIImage(named: "en_mark")
-        } else if income.category == "年金" {
-            categoryImageView.image = UIImage(named: "en_mark")
-        } else if income.category == "配当所得" {
-            categoryImageView.image = UIImage(named: "en_mark")
-        } else if income.category == "不動産所得" {
-            categoryImageView.image = UIImage(named: "en_mark")
-        } else if income.category == "その他入金" {
-            categoryImageView.image = UIImage(named: "en_mark")
-        }
     }
     
     // MARK: - Actions
@@ -105,15 +67,12 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
         
         textField.resignFirstResponder()
         caluclatorView.isHidden = true
-        UIView.animate(withDuration: 0.3) {
-            self.calender.isHidden = !self.calender.isHidden
-        }
+      
     }
     
     @IBAction func calculatorButtonPressed(_ sender: Any) {
         
         textField.resignFirstResponder()
-        calender.isHidden = true
         UIView.animate(withDuration: 0.25) {
             self.caluclatorView.isHidden = !self.caluclatorView.isHidden
         }
@@ -122,12 +81,17 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
     @IBAction func saveButtonPressed(_ sender: Any) {
         
         if textField.text == "" && categoryLabel.text == "未分類" && numberLabel.text == "0" {
-            HUD.flash(.labeledError(title: "入力欄が空です", subtitle: ""), delay: 2)
+            HUD.flash(.labeledError(title: "", subtitle: "入力欄が空です"), delay: 1)
+            return
+        }
+        
+        if dateLabel.text == "日付を入力" {
+            HUD.flash(.labeledError(title: "", subtitle: "日付を入力してください"), delay: 1)
             return
         }
         
         textField.resignFirstResponder()
-        updateIncome()
+        createIncome()
     }
     
     @IBAction func zeroButtonPressed(_ sender: Any) {
@@ -343,16 +307,61 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
     
     // MARK: - Helpers
     
-    private func updateIncome() {
+    private func createIncome() {
         
-        try! realm!.write {
-            income.numeric = Int(numberLabel.text!) ?? 0
-            income.category = categoryLabel.text ?? ""
-            income.memo = textField.text ?? ""
-            income.date_jp = dateLabel.text ?? ""
-            income.date = date2Label.text ?? ""
-            income.year = yearLabel.text ?? ""
-            income.month = monthLabel.text ?? ""
+        let realm = try! Realm()
+        let id = UUID().uuidString
+        let calendar = Calendar.current
+        var dateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month), day: inputNumber))
+        
+        var timestamp: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "yyyy年M月d日 (EEEEE)"
+            return dateFormatter.string(from: dateComp!)
+        }
+        var year_month_day: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.string(from: dateComp!)
+        }
+        var lastDay: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "d"
+            return dateFormatter.string(from: lastday!)
+        }
+        
+        auto.date = year_month_day
+        auto.timestamp = timestamp
+        
+        if inputNumber == 29 {
+            inputNumber = Int(lastDay)!
+            dateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month), day: inputNumber))
+            var timestamp: String {
+                dateFormatter.locale = Locale(identifier: "ja_JP")
+                dateFormatter.dateFormat = "yyyy年M月d日 (EEEEE)"
+                return dateFormatter.string(from: dateComp!)
+            }
+            var year_month_day: String {
+                dateFormatter.locale = Locale(identifier: "ja_JP")
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                return dateFormatter.string(from: dateComp!)
+            }
+            auto.date = year_month_day
+            auto.timestamp = timestamp
+        }
+
+        auto.price = Int(numberLabel.text!) ?? 0
+        auto.category = categoryLabel.text ?? ""
+        auto.memo = textField.text ?? ""
+        auto.payment = "収入"
+        auto.input_auto_day = dateLabel.text ?? ""
+        auto.isInput = false
+        auto.month = Int(month)!
+        auto.day = inputNumber
+        auto.id = id
+        
+        try! realm.write {
+            realm.add(auto)
             navigationController?.popViewController(animated: true)
         }
     }
@@ -395,32 +404,6 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
         }
     }
     
-    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition){
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ja_JP")
-        var timestamp: String {
-            dateFormatter.dateFormat = "yyyy年M月d日 (EEEEE)"
-            return dateFormatter.string(from: date)
-        }
-        var date2: String {
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            return dateFormatter.string(from: date)
-        }
-        var year: String {
-            dateFormatter.dateFormat = "yyyy"
-            return dateFormatter.string(from: date)
-        }
-        var month: String {
-            dateFormatter.dateFormat = "MM"
-            return dateFormatter.string(from: date)
-        }
-        dateLabel.text = timestamp
-        date2Label.text = date2
-        yearLabel.text = year
-        monthLabel.text = month
-    }
-    
     private func isNumericAndValidate() {
         isNumericTrue()
         if numberLabel.text!.count > 10 {
@@ -457,22 +440,15 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
     
     private func setup() {
         
+        pickerKeyboardView.delegate = self
         textField.delegate = self
+        
+        categoryLabel.text = "未分類"
+        dateLabel.text = "日付を入力"
+        dateLabel.textColor = .systemGray3
         saveButton.layer.cornerRadius = 10
         buttons.forEach({ $0?.layer.borderWidth = 0.2; $0?.layer.borderColor = UIColor.systemGray.cgColor })
         textField.addTarget(self, action: #selector(textFieldTap), for: .editingDidBegin)
-        
-        calender.calendarWeekdayView.weekdayLabels[0].text = "日"
-        calender.calendarWeekdayView.weekdayLabels[1].text = "月"
-        calender.calendarWeekdayView.weekdayLabels[2].text = "火"
-        calender.calendarWeekdayView.weekdayLabels[3].text = "水"
-        calender.calendarWeekdayView.weekdayLabels[4].text = "木"
-        calender.calendarWeekdayView.weekdayLabels[5].text = "金"
-        calender.calendarWeekdayView.weekdayLabels[6].text = "土"
-        
-        navigationController?.navigationBar.titleTextAttributes
-            = [NSAttributedString.Key.font: UIFont(name: "HiraMaruProN-W4", size: 15)!, .foregroundColor: UIColor(named: O_BLACK) as Any]
-        navigationItem.title = "入金の修正"
     }
     
     private func removeUserDefaults() {
@@ -484,7 +460,6 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
     }
     
     @objc func textFieldTap() {
-        calender.isHidden = true
         caluclatorView.isHidden = true
     }
     
@@ -494,5 +469,80 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         textField.resignFirstResponder()
+    }
+}
+
+extension AutoIncomeViewController: PickerKeyboard1Delegate {
+    func titlesOfPickerViewKeyboard(_ pickerKeyboard: PickerKeyboard1) -> Array<String> {
+        return dataArray1
+    }
+    
+    func didDone(_ pickerKeyboard: PickerKeyboard1, selectData: String) {
+        if selectData == "未設定" {
+            dateLabel.text = "日付を入力"
+            dateLabel.textColor = .systemGray3
+        } else {
+            dateLabel.text = selectData
+            dateLabel.textColor = UIColor(named: O_BLACK)
+            if dateLabel.text == "月初" {
+                inputNumber = 1
+            } else if dateLabel.text == "2日" {
+                inputNumber = 2
+            } else if dateLabel.text == "3日" {
+                inputNumber = 4
+            } else if dateLabel.text == "4日" {
+                inputNumber = 4
+            } else if dateLabel.text == "5日" {
+                inputNumber = 5
+            } else if dateLabel.text == "6日" {
+                inputNumber = 6
+            } else if dateLabel.text == "7日" {
+                inputNumber = 7
+            } else if dateLabel.text == "8日" {
+                inputNumber = 8
+            } else if dateLabel.text == "9日" {
+                inputNumber = 9
+            } else if dateLabel.text == "10日" {
+                inputNumber = 10
+            } else if dateLabel.text == "11日" {
+                inputNumber = 11
+            } else if dateLabel.text == "12日" {
+                inputNumber = 12
+            } else if dateLabel.text == "13日" {
+                inputNumber = 13
+            } else if dateLabel.text == "14日" {
+                inputNumber = 14
+            } else if dateLabel.text == "15日" {
+                inputNumber = 15
+            } else if dateLabel.text == "16日" {
+                inputNumber = 16
+            } else if dateLabel.text == "17日" {
+                inputNumber = 17
+            } else if dateLabel.text == "18日" {
+                inputNumber = 18
+            } else if dateLabel.text == "19日" {
+                inputNumber = 19
+            } else if dateLabel.text == "20日" {
+                inputNumber = 20
+            } else if dateLabel.text == "21日" {
+                inputNumber = 21
+            } else if dateLabel.text == "22日" {
+                inputNumber = 22
+            } else if dateLabel.text == "23日" {
+                inputNumber = 23
+            } else if dateLabel.text == "24日" {
+                inputNumber = 24
+            } else if dateLabel.text == "25日" {
+                inputNumber = 25
+            } else if dateLabel.text == "26日" {
+                inputNumber = 26
+            } else if dateLabel.text == "27日" {
+                inputNumber = 27
+            } else if dateLabel.text == "28日" {
+                inputNumber = 28
+            } else if dateLabel.text == "月末" {
+                inputNumber = 29
+            }
+        }
     }
 }

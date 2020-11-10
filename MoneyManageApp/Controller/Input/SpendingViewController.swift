@@ -42,14 +42,17 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
     @IBOutlet weak var categoryImageView: UIImageView!
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var bannerView: GADBannerView!
-    @IBOutlet weak var inputButton: UIButton!
-    @IBOutlet weak var date2Label: UILabel!
-    @IBOutlet weak var yearLabel: UILabel!
-    @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var completionButton: UIButton!
+    @IBOutlet weak var autofillSwitch: UISwitch!
     
     lazy var buttons = [zeroButton, oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton, sevenButton, eightButton, nineButton, clearButton, multiplyButton, minusButton, plusButton, devideButton]
     private var firstNumeric = false
     private var lastNumeric = false
+    private var inputNumber = 0
+    private var year_month_day2 = ""
+    private var year2 = ""
+    private var month2 = ""
+    private var day2 = ""
     
     // MARK: - Lifecycle
     
@@ -67,13 +70,14 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
     
     // MARK: - Actions
     
-    @IBAction func inputButtonPressed(_ sender: Any) {
+    @IBAction func completionButtonPressed(_ sender: Any) {
         
         numberLabel.text = "0"
         categoryLabel.text = "未分類"
         textField.text = ""
         firstNumeric = false
         lastNumeric = false
+        autofillSwitch.isOn = false
         nowDate()
         removeUserDefaults()
         categoryImageView.image = UIImage(systemName: "questionmark.circle")
@@ -107,7 +111,7 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
     @IBAction func saveButtonPressed(_ sender: Any) {
         
         if textField.text == "" && categoryLabel.text == "未分類" && numberLabel.text == "0" {
-            HUD.flash(.labeledError(title: "入力欄が空です", subtitle: ""), delay: 2)
+            HUD.flash(.labeledError(title: "入力欄が空です", subtitle: ""), delay: 1)
             return
         }
         
@@ -410,44 +414,73 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         let realm = try! Realm()
         let spending = Spending()
         
-        spending.numeric = Int(numberLabel.text!) ?? 0
+        spending.price = Int(numberLabel.text!) ?? 0
         spending.category = categoryLabel.text ?? ""
         spending.memo = textField.text ?? ""
-        spending.date_jp = dateLabel.text ?? ""
-        spending.date = date2Label.text ?? ""
-        spending.year = yearLabel.text ?? ""
-        spending.month = monthLabel.text ?? ""
+        spending.timestamp = dateLabel.text ?? ""
+        spending.date = self.year_month_day2
+        spending.year = self.year2
+        spending.month = self.month2
         
         try! realm.write {
             realm.add(spending)
+        }
+        
+        if autofillSwitch.isOn {
+            let auto = Auto()
+            let id = UUID().uuidString
+            conversionDay(auto)
+            auto.id = id
+            auto.price = Int(numberLabel.text!) ?? 0
+            auto.category = categoryLabel.text ?? ""
+            auto.memo = textField.text ?? ""
+            auto.payment = "支出"
+            auto.timestamp = dateLabel.text ?? ""
+            auto.date = self.year_month_day2
+            auto.isInput = true
+            auto.isRegister = true
+            auto.month = Int(self.month2) ?? 0
+            auto.day = Int(self.day2) ?? 0
+            
+            try! realm.write {
+                realm.add(auto)
+            }
         }
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition){
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ja_JP")
         var timestamp: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
             dateFormatter.dateFormat = "yyyy年M月d日 (EEEEE)"
             return dateFormatter.string(from: date)
         }
-        
-        var date2: String {
+        var year_month_day: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
             dateFormatter.dateFormat = "yyyy-MM-dd"
             return dateFormatter.string(from: date)
         }
         var year: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
             dateFormatter.dateFormat = "yyyy"
             return dateFormatter.string(from: date)
         }
         var month: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
             dateFormatter.dateFormat = "MM"
             return dateFormatter.string(from: date)
         }
+        var day: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "d"
+            return dateFormatter.string(from: date)
+        }
+        
         dateLabel.text = timestamp
-        date2Label.text = date2
-        yearLabel.text = year
-        monthLabel.text = month
+        self.year_month_day2 = year_month_day
+        self.year2 = year
+        self.month2 = month
+        self.day2 = day
     }
     
     private func isNumericAndValidate() {
@@ -474,29 +507,11 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
     
     private func nowDate() {
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ja_JP")
-        let now = Date()
-        var timestamp: String {
-            dateFormatter.dateFormat = "yyyy年M月d日 (EEEEE)"
-            return dateFormatter.string(from: now)
-        }
-        var date2: String {
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            return dateFormatter.string(from: now)
-        }
-        var year: String {
-            dateFormatter.dateFormat = "yyyy"
-            return dateFormatter.string(from: now)
-        }
-        var month: String {
-            dateFormatter.dateFormat = "MM"
-            return dateFormatter.string(from: now)
-        }
         dateLabel.text = timestamp
-        date2Label.text = date2
-        yearLabel.text = year
-        monthLabel.text = month
+        self.year_month_day2 = year_month_day
+        self.year2 = year
+        self.month2 = month
+        self.day2 = day
     }
     
     private func setup() {
@@ -505,7 +520,7 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         textField.delegate = self
         backView.isHidden = true
         backView.alpha = 0
-        inputButton.layer.cornerRadius = 3
+        completionButton.layer.cornerRadius = 3
         saveButton.layer.cornerRadius = 10
         buttons.forEach({ $0?.layer.borderWidth = 0.2; $0?.layer.borderColor = UIColor.systemGray.cgColor })
         textField.addTarget(self, action: #selector(textFieldTap), for: .editingDidBegin)
@@ -545,5 +560,72 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         textField.resignFirstResponder()
+    }
+    
+    private func conversionDay(_ auto: Auto) {
+        
+        if day2 == "1" {
+            auto.input_auto_day = "月初"
+        } else if day2 == "2" {
+            auto.input_auto_day = "2日"
+        } else if day2 == "3" {
+            auto.input_auto_day = "3日"
+        } else if day2 == "4" {
+            auto.input_auto_day = "4日"
+        } else if day2 == "5" {
+            auto.input_auto_day = "5日"
+        } else if day2 == "6" {
+            auto.input_auto_day = "6日"
+        } else if day2 == "7" {
+            auto.input_auto_day = "7日"
+        } else if day2 == "8" {
+            auto.input_auto_day = "8日"
+        } else if day2 == "9" {
+            auto.input_auto_day = "9日"
+        } else if day2 == "10" {
+            auto.input_auto_day = "10日"
+        } else if day2 == "11" {
+            auto.input_auto_day = "11日"
+        } else if day2 == "12" {
+            auto.input_auto_day = "12日"
+        } else if day2 == "13" {
+            auto.input_auto_day = "13日"
+        } else if day2 == "14" {
+            auto.input_auto_day = "14日"
+        } else if day2 == "15" {
+            auto.input_auto_day = "15日"
+        } else if day2 == "16" {
+            auto.input_auto_day = "16日"
+        } else if day2 == "17" {
+            auto.input_auto_day = "17日"
+        } else if day2 == "18" {
+            auto.input_auto_day = "18日"
+        } else if day2 == "19" {
+            auto.input_auto_day = "19日"
+        } else if day2 == "20" {
+            auto.input_auto_day = "20日"
+        } else if day2 == "21" {
+            auto.input_auto_day = "21日"
+        } else if day2 == "22" {
+            auto.input_auto_day = "22日"
+        } else if day2 == "23" {
+            auto.input_auto_day = "23日"
+        } else if day2 == "24" {
+            auto.input_auto_day = "24日"
+        } else if day2 == "25" {
+            auto.input_auto_day = "25日"
+        } else if day2 == "26" {
+            auto.input_auto_day = "26日"
+        } else if day2 == "27" {
+            auto.input_auto_day = "27日"
+        } else if day2 == "28" {
+            auto.input_auto_day = "28日"
+        } else if day2 == "29" {
+            auto.input_auto_day = "月末"
+        } else if day2 == "30" {
+            auto.input_auto_day = "月末"
+        } else if day2 == "31" {
+            auto.input_auto_day = "月末"
+        }
     }
 }

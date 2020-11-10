@@ -39,11 +39,11 @@ class ParchmentPaymentViewController: UIViewController {
             pagingVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pagingVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             pagingVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 40)
+            pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 35)
         ])
-        
+   
         pagingVC.font = UIFont(name: "HiraMaruProN-W4", size: 12)!
-        pagingVC.selectedFont = UIFont(name: "HiraMaruProN-W4", size: 14)!
+        pagingVC.selectedFont = UIFont(name: "HiraMaruProN-W4", size: 15)!
         pagingVC.selectedTextColor = UIColor(named: O_BLACK)!
         pagingVC.textColor = .systemGray
         pagingVC.indicatorColor = .systemGreen
@@ -51,5 +51,18 @@ class ParchmentPaymentViewController: UIViewController {
         pagingVC.menuHorizontalAlignment = .center
         pagingVC.menuBackgroundColor = UIColor(named: O_WHITE)!
         pagingVC.borderColor = .systemGray5
+        
+        switch (UIScreen.main.nativeBounds.height) {
+        case 1334:
+            NSLayoutConstraint.activate([
+                pagingVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                pagingVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                pagingVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 25)
+            ])
+            break
+        default:
+            break
+        }
     }
 }

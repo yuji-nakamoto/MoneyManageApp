@@ -11,4 +11,13 @@ class IncomeCategoryTableViewCell: UITableViewCell {
 
     @IBOutlet weak var categoryImageView: UIImageView!
     @IBOutlet weak var incomeLabel: UILabel!
+    @IBOutlet weak var backView: UIView!
+    
+    func resetColer() {
+        backView.backgroundColor = .white
+    }
+
+    @IBAction func cellButtonPressed(_ sender: Any) {
+        backView.backgroundColor = .systemGray4
+    }
 }

@@ -14,6 +14,7 @@ class PaymentTableViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var bannerView: GADBannerView!
+    @IBOutlet weak var sortButton: UIButton!
     
     private var incomeArray = [Income]()
     private let realm = try? Realm()
@@ -25,6 +26,7 @@ class PaymentTableViewController: UIViewController {
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
         tableView.tableFooterView = UIView()
+        sortButton.layer.cornerRadius = 35 / 2
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,9 +39,28 @@ class PaymentTableViewController: UIViewController {
         incomeArray.removeAll()
         let income = realm!.objects(Income.self)
         incomeArray.append(contentsOf: income)
-        incomeArray = incomeArray.sorted(by: { (a, b) -> Bool in
-            return a.date > b.date
-        })
+        
+        if UserDefaults.standard.object(forKey: DATE_ASCE) != nil {
+            incomeArray = incomeArray.sorted(by: { (a, b) -> Bool in
+                return a.date < b.date
+            })
+        } else if UserDefaults.standard.object(forKey: PRICE_DESC) != nil {
+            incomeArray = incomeArray.sorted(by: { (a, b) -> Bool in
+                return a.price > b.price
+            })
+        } else if UserDefaults.standard.object(forKey: PRICE_ASCE) != nil {
+            incomeArray = incomeArray.sorted(by: { (a, b) -> Bool in
+                return a.price < b.price
+            })
+        } else if UserDefaults.standard.object(forKey: CATEGORY_DESC) != nil {
+            incomeArray = incomeArray.sorted(by: { (a, b) -> Bool in
+                return a.category > b.category
+            })
+        } else {
+            incomeArray = incomeArray.sorted(by: { (a, b) -> Bool in
+                return a.date > b.date
+            })
+        }
         tableView.reloadData()
     }
     

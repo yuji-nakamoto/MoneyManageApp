@@ -12,7 +12,7 @@ class TotalMoneyTableViewCell: UITableViewCell {
 
     @IBOutlet weak var totalMoneyLabel: UILabel!
     
-    func fetchMoney() {
+    func fetchTotalMoney() {
         let realm = try! Realm()
         let results = realm.objects(Money.self)
         
@@ -23,6 +23,6 @@ class TotalMoneyTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        totalMoneyLabel.text = "0"
+        totalMoneyLabel.text = "¥0"
     }
 }

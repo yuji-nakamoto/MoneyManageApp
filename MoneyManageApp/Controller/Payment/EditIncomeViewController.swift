@@ -1,5 +1,5 @@
 //
-//  EditSpendingViewController.swift
+//  EditIncomeViewController.swift
 //  MoneyManageApp
 //
 //  Created by yuji nakamoto on 2020/11/07.
@@ -10,7 +10,7 @@ import PKHUD
 import FSCalendar
 import RealmSwift
 
-class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
+class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
     // MARK: - Properties
     
@@ -42,18 +42,19 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
     @IBOutlet weak var date2Label: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var deleteButton: UIButton!
     
     lazy var buttons = [zeroButton, oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton, sevenButton, eightButton, nineButton, clearButton, multiplyButton, minusButton, plusButton, devideButton]
     private var firstNumeric = false
     private var lastNumeric = false
     private let realm = try? Realm()
-    var spending = Spending()
+    var income = Income()
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchSpending()
+        fetchIncome()
         setup()
     }
     
@@ -65,72 +66,60 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
     
     // MARK: - Fetch
     
-    private func fetchSpending() {
+    private func fetchIncome() {
         
-        numberLabel.text = String(spending.numeric)
-        categoryLabel.text = spending.category
-        dateLabel.text = spending.date_jp
-        textField.text = spending.memo
-        date2Label.text = spending.date
-        yearLabel.text = spending.year
-        monthLabel.text = spending.month
+        numberLabel.text = String(income.price)
+        categoryLabel.text = income.category
+        dateLabel.text = income.timestamp
+        textField.text = income.memo
+        date2Label.text = income.date
+        yearLabel.text = income.year
+        monthLabel.text = income.month
         
-        if spending.category == "未分類" {
+        if income.category == "未分類" {
             categoryImageView.image = UIImage(systemName: "questionmark.circle")
             categoryImageView.tintColor = .systemGray
-            categoryLabel.text = "未分類"
-        } else if spending.category == "食費" {
-            categoryImageView.image = UIImage(named: "food")
-            categoryLabel.text = "食費"
-        } else if spending.category == "日用品" {
-            categoryImageView.image = UIImage(named: "brush")
-            categoryLabel.text = "日用品"
-        } else if spending.category == "趣味" {
-            categoryImageView.image = UIImage(named: "hobby")
-            categoryLabel.text = "趣味"
-        } else if spending.category == "交際費" {
-            categoryImageView.image = UIImage(named: "dating")
-            categoryLabel.text = "交際費"
-        } else if spending.category == "交通費" {
-            categoryImageView.image = UIImage(named: "traffic")
-            categoryLabel.text = "交通費"
-        } else if spending.category == "衣服・美容" {
-            categoryImageView.image = UIImage(named: "clothe")
-            categoryLabel.text = "衣服・美容"
-        } else if spending.category == "健康・医療" {
-            categoryImageView.image = UIImage(named: "health")
-            categoryLabel.text = "健康・医療"
-        } else if spending.category == "自動車" {
-            categoryImageView.image = UIImage(named: "car")
-            categoryLabel.text = "自動車"
-        } else if spending.category == "教養・教育" {
-            categoryImageView.image = UIImage(named: "education")
-            categoryLabel.text = "教養・教育"
-        } else if spending.category == "特別な支出" {
-            categoryImageView.image = UIImage(named: "special")
-            categoryLabel.text = "特別な支出"
-        } else if spending.category == "水道・光熱費" {
-            categoryImageView.image = UIImage(named: "utility")
-            categoryLabel.text = "水道・光熱費"
-        } else if spending.category == "通信費" {
-            categoryImageView.image = UIImage(named: "communication")
-            categoryLabel.text = "通信費"
-        } else if spending.category == "住宅" {
-            categoryImageView.image = UIImage(named: "house")
-            categoryLabel.text = "住宅"
-        } else if spending.category == "税・社会保険" {
-            categoryImageView.image = UIImage(named: "tax")
-            categoryLabel.text = "税・社会保険"
-        } else if spending.category == "保険" {
-            categoryImageView.image = UIImage(named: "insrance")
-            categoryLabel.text = "保険"
-        } else if spending.category == "その他" {
-            categoryImageView.image = UIImage(named: "etcetra")
-            categoryLabel.text = "その他"
+        } else if income.category == "給料" {
+            categoryImageView.image = UIImage(named: "en_mark")
+        } else if income.category == "一時所得" {
+            categoryImageView.image = UIImage(named: "en_mark")
+        } else if income.category == "事業・副業" {
+            categoryImageView.image = UIImage(named: "en_mark")
+        } else if income.category == "年金" {
+            categoryImageView.image = UIImage(named: "en_mark")
+        } else if income.category == "配当所得" {
+            categoryImageView.image = UIImage(named: "en_mark")
+        } else if income.category == "不動産所得" {
+            categoryImageView.image = UIImage(named: "en_mark")
+        } else if income.category == "その他入金" {
+            categoryImageView.image = UIImage(named: "en_mark")
         }
     }
     
     // MARK: - Actions
+    
+    @IBAction func deleteButtonPressd(_ sender: Any) {
+        
+        let alert = UIAlertController(title: income.category, message: "データを削除しますか？", preferredStyle: .actionSheet)
+        let delete = UIAlertAction(title: "削除する", style: UIAlertAction.Style.default) { [self] (alert) in
+            
+            try! realm!.write {
+                realm!.delete(income)
+                HUD.flash(.labeledSuccess(title: "", subtitle: "削除しました"), delay: 1)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    navigationController?.popViewController(animated: true)
+                }
+            }
+        }
+        let cancel = UIAlertAction(title: "キャンセル", style: .cancel)
+        let screenSize = UIScreen.main.bounds
+        
+        alert.popoverPresentationController?.sourceView = self.view
+        alert.popoverPresentationController?.sourceRect = CGRect(x: screenSize.size.width/2, y: screenSize.size.height, width: 0, height: 0)
+        alert.addAction(delete)
+        alert.addAction(cancel)
+        self.present(alert,animated: true,completion: nil)
+    }
     
     @IBAction func backButtonPressed(_ sender: Any) {
         navigationController?.popViewController(animated: true)
@@ -157,12 +146,12 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
     @IBAction func saveButtonPressed(_ sender: Any) {
         
         if textField.text == "" && categoryLabel.text == "未分類" && numberLabel.text == "0" {
-            HUD.flash(.labeledError(title: "入力欄が空です", subtitle: ""), delay: 2)
+            HUD.flash(.labeledError(title: "入力欄が空です", subtitle: ""), delay: 1)
             return
         }
         
         textField.resignFirstResponder()
-        updateSpending()
+        updateIncome()
     }
     
     @IBAction func zeroButtonPressed(_ sender: Any) {
@@ -378,90 +367,55 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
     
     // MARK: - Helpers
     
-    private func updateSpending() {
+    private func updateIncome() {
         
         try! realm!.write {
-            spending.numeric = Int(numberLabel.text!) ?? 0
-            spending.category = categoryLabel.text ?? ""
-            spending.memo = textField.text ?? ""
-            spending.date_jp = dateLabel.text ?? ""
-            spending.date = date2Label.text ?? ""
-            spending.year = yearLabel.text ?? ""
-            spending.month = monthLabel.text ?? ""
+            income.price = Int(numberLabel.text!) ?? 0
+            income.category = categoryLabel.text ?? ""
+            income.memo = textField.text ?? ""
+            income.timestamp = dateLabel.text ?? ""
+            income.date = date2Label.text ?? ""
+            income.year = yearLabel.text ?? ""
+            income.month = monthLabel.text ?? ""
             navigationController?.popViewController(animated: true)
         }
     }
     
     private func setCategory() {
         
-        if UserDefaults.standard.object(forKey: FOOD) != nil {
-            categoryLabel.text = "食費"
-            categoryImageView.image = UIImage(named: "food")
-            UserDefaults.standard.removeObject(forKey: FOOD)
-        } else if UserDefaults.standard.object(forKey: NECESSITIES) != nil {
-            categoryLabel.text = "日用品"
-            categoryImageView.image = UIImage(named: "brush")
-            UserDefaults.standard.removeObject(forKey: NECESSITIES)
-        } else if UserDefaults.standard.object(forKey: HOBBY) != nil {
-            categoryLabel.text = "趣味"
-            categoryImageView.image = UIImage(named: "hobby")
-            UserDefaults.standard.removeObject(forKey: HOBBY)
-        } else if UserDefaults.standard.object(forKey: DATING) != nil {
-            categoryLabel.text = "交際費"
-            categoryImageView.image = UIImage(named: "dating")
-            UserDefaults.standard.removeObject(forKey: DATING)
-        } else if UserDefaults.standard.object(forKey: TRAFFIC) != nil {
-            categoryLabel.text = "交通費"
-            categoryImageView.image = UIImage(named: "traffic")
-            UserDefaults.standard.removeObject(forKey: TRAFFIC)
-        } else if UserDefaults.standard.object(forKey: CLOTHES) != nil {
-            categoryLabel.text = "衣服・美容"
-            categoryImageView.image = UIImage(named: "clothe")
-            UserDefaults.standard.removeObject(forKey: CLOTHES)
-        } else if UserDefaults.standard.object(forKey: HEALTH) != nil {
-            categoryLabel.text = "健康・医療"
-            categoryImageView.image = UIImage(named: "health")
-            UserDefaults.standard.removeObject(forKey: HEALTH)
-        } else if UserDefaults.standard.object(forKey: CAR) != nil {
-            categoryLabel.text = "自動車"
-            categoryImageView.image = UIImage(named: "car")
-            UserDefaults.standard.removeObject(forKey: CAR)
-        } else if UserDefaults.standard.object(forKey: EDUCATION) != nil {
-            categoryLabel.text = "教養・教育"
-            categoryImageView.image = UIImage(named: "education")
-            UserDefaults.standard.removeObject(forKey: EDUCATION)
-        } else if UserDefaults.standard.object(forKey: SPECIAL) != nil {
-            categoryLabel.text = "特別な支出"
-            categoryImageView.image = UIImage(named: "special")
-            UserDefaults.standard.removeObject(forKey: SPECIAL)
-        } else if UserDefaults.standard.object(forKey: UTILITY) != nil {
-            categoryLabel.text = "水道・光熱費"
-            categoryImageView.image = UIImage(named: "utility")
-            UserDefaults.standard.removeObject(forKey: UTILITY)
-        } else if UserDefaults.standard.object(forKey: COMMUNICATION) != nil {
-            categoryLabel.text = "通信費"
-            categoryImageView.image = UIImage(named: "communication")
-            UserDefaults.standard.removeObject(forKey: COMMUNICATION)
-        } else if UserDefaults.standard.object(forKey: HOUSE) != nil {
-            categoryLabel.text = "住宅"
-            categoryImageView.image = UIImage(named: "house")
-            UserDefaults.standard.removeObject(forKey: HOUSE)
-        } else if UserDefaults.standard.object(forKey: TAX) != nil {
-            categoryLabel.text = "税・社会保険"
-            categoryImageView.image = UIImage(named: "tax")
-            UserDefaults.standard.removeObject(forKey: TAX)
-        } else if UserDefaults.standard.object(forKey: INSRACE) != nil {
-            categoryLabel.text = "保険"
-            categoryImageView.image = UIImage(named: "insrance")
-            UserDefaults.standard.removeObject(forKey: INSRACE)
-        } else if UserDefaults.standard.object(forKey: ETCETRA) != nil {
-            categoryLabel.text = "その他"
-            categoryImageView.image = UIImage(named: "etcetra")
-            UserDefaults.standard.removeObject(forKey: ETCETRA)
-        } else if UserDefaults.standard.object(forKey: UN_CATEGORY) != nil {
+        if UserDefaults.standard.object(forKey: SALARY) != nil {
+            categoryLabel.text = "給料"
+            categoryImageView.image = UIImage(named: "en_mark")
+            UserDefaults.standard.removeObject(forKey: SALARY)
+        } else if UserDefaults.standard.object(forKey: TEMPORARY) != nil {
+            categoryLabel.text = "一時所得"
+            categoryImageView.image = UIImage(named: "en_mark")
+            UserDefaults.standard.removeObject(forKey: TEMPORARY)
+        } else if UserDefaults.standard.object(forKey: BUSINESS) != nil {
+            categoryLabel.text = "事業・副業"
+            categoryImageView.image = UIImage(named: "en_mark")
+            UserDefaults.standard.removeObject(forKey: BUSINESS)
+        } else if UserDefaults.standard.object(forKey: PENSION) != nil {
+            categoryLabel.text = "年金"
+            categoryImageView.image = UIImage(named: "en_mark")
+            UserDefaults.standard.removeObject(forKey: PENSION)
+        } else if UserDefaults.standard.object(forKey: DEVIDENT) != nil {
+            categoryLabel.text = "配当所得"
+            categoryImageView.image = UIImage(named: "en_mark")
+            UserDefaults.standard.removeObject(forKey: DEVIDENT)
+        } else if UserDefaults.standard.object(forKey: ESTATE) != nil {
+            categoryLabel.text = "不動産所得"
+            categoryImageView.image = UIImage(named: "en_mark")
+            UserDefaults.standard.removeObject(forKey: ESTATE)
+        } else if UserDefaults.standard.object(forKey: PAYMENT) != nil {
+            categoryLabel.text = "その他入金"
+            categoryImageView.image = UIImage(named: "en_mark")
+            UserDefaults.standard.removeObject(forKey: PAYMENT)
+        } else if UserDefaults.standard.object(forKey: UN_CATEGORY2) != nil {
             categoryLabel.text = "未分類"
             categoryImageView.image = UIImage(systemName: "questionmark.circle")
-            UserDefaults.standard.removeObject(forKey: UN_CATEGORY)
+            categoryImageView.tintColor = .systemGray
+            UserDefaults.standard.removeObject(forKey: UN_CATEGORY2)
         }
     }
     
@@ -528,6 +482,7 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
     private func setup() {
         
         textField.delegate = self
+        deleteButton.layer.cornerRadius = 10
         saveButton.layer.cornerRadius = 10
         buttons.forEach({ $0?.layer.borderWidth = 0.2; $0?.layer.borderColor = UIColor.systemGray.cgColor })
         textField.addTarget(self, action: #selector(textFieldTap), for: .editingDidBegin)
@@ -542,7 +497,7 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
         
         navigationController?.navigationBar.titleTextAttributes
             = [NSAttributedString.Key.font: UIFont(name: "HiraMaruProN-W4", size: 15)!, .foregroundColor: UIColor(named: O_BLACK) as Any]
-        navigationItem.title = "出金の修正"
+        navigationItem.title = "入金の修正"
     }
     
     private func removeUserDefaults() {

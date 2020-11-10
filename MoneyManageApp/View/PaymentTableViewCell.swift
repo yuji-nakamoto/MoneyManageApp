@@ -17,8 +17,9 @@ class PaymentTableViewCell: UITableViewCell {
     
     func configureIncomeCell(_ income: Income) {
         
-        dateLabel.text = income.date_jp
-        numericLabel.text = "¥" + String(income.numeric)
+        dateLabel.text = income.timestamp
+        let result = String.localizedStringWithFormat("%d", income.price)
+        numericLabel.text = "¥" + String(result)
         if income.memo == "" {
             memoLabel.text = "不明な入金"
         } else {
@@ -55,8 +56,9 @@ class PaymentTableViewCell: UITableViewCell {
     
     func configureWithdrawalCell(_ spending: Spending) {
         
-        dateLabel.text = spending.date_jp
-        numericLabel.text = "¥-" + String(spending.numeric)
+        dateLabel.text = spending.timestamp
+        let result = String.localizedStringWithFormat("%d", spending.price)
+        numericLabel.text = "¥-" + String(result)
         if spending.memo == "" {
             memoLabel.text = "不明な出金"
         } else {
