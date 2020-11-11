@@ -191,9 +191,9 @@ class HouseholdABCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        spendingButton.layer.cornerRadius = 25 / 2
-        incomeButton.layer.cornerRadius = 25 / 2
-        nextButton.layer.cornerRadius = 25 / 2
-        lastButton.layer.cornerRadius = 25 / 2
+        spendingButton.layer.cornerRadius = 30 / 2
+        incomeButton.layer.cornerRadius = 30 / 2
+        nextButton.layer.cornerRadius = 30 / 2
+        lastButton.layer.cornerRadius = 30 / 2
     }
 }

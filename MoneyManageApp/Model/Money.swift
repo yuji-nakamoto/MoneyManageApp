@@ -10,4 +10,7 @@ import RealmSwift
 
 class Money: Object {
     @objc dynamic var totalMoney = 0
+    @objc dynamic var holdMoney = 0
+    @objc dynamic var createMoney = false
+    @objc dynamic var nextMonth = ""
 }

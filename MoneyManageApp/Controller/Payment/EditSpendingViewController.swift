@@ -667,67 +667,67 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
     private func conversionDay(_ auto: Auto) {
         
         if day2 == "1" {
-            auto.input_auto_day = "月初"
+            auto.autofillDay = "月初"
         } else if day2 == "2" {
-            auto.input_auto_day = "2日"
+            auto.autofillDay = "2日"
         } else if day2 == "3" {
-            auto.input_auto_day = "3日"
+            auto.autofillDay = "3日"
         } else if day2 == "4" {
-            auto.input_auto_day = "4日"
+            auto.autofillDay = "4日"
         } else if day2 == "5" {
-            auto.input_auto_day = "5日"
+            auto.autofillDay = "5日"
         } else if day2 == "6" {
-            auto.input_auto_day = "6日"
+            auto.autofillDay = "6日"
         } else if day2 == "7" {
-            auto.input_auto_day = "7日"
+            auto.autofillDay = "7日"
         } else if day2 == "8" {
-            auto.input_auto_day = "8日"
+            auto.autofillDay = "8日"
         } else if day2 == "9" {
-            auto.input_auto_day = "9日"
+            auto.autofillDay = "9日"
         } else if day2 == "10" {
-            auto.input_auto_day = "10日"
+            auto.autofillDay = "10日"
         } else if day2 == "11" {
-            auto.input_auto_day = "11日"
+            auto.autofillDay = "11日"
         } else if day2 == "12" {
-            auto.input_auto_day = "12日"
+            auto.autofillDay = "12日"
         } else if day2 == "13" {
-            auto.input_auto_day = "13日"
+            auto.autofillDay = "13日"
         } else if day2 == "14" {
-            auto.input_auto_day = "14日"
+            auto.autofillDay = "14日"
         } else if day2 == "15" {
-            auto.input_auto_day = "15日"
+            auto.autofillDay = "15日"
         } else if day2 == "16" {
-            auto.input_auto_day = "16日"
+            auto.autofillDay = "16日"
         } else if day2 == "17" {
-            auto.input_auto_day = "17日"
+            auto.autofillDay = "17日"
         } else if day2 == "18" {
-            auto.input_auto_day = "18日"
+            auto.autofillDay = "18日"
         } else if day2 == "19" {
-            auto.input_auto_day = "19日"
+            auto.autofillDay = "19日"
         } else if day2 == "20" {
-            auto.input_auto_day = "20日"
+            auto.autofillDay = "20日"
         } else if day2 == "21" {
-            auto.input_auto_day = "21日"
+            auto.autofillDay = "21日"
         } else if day2 == "22" {
-            auto.input_auto_day = "22日"
+            auto.autofillDay = "22日"
         } else if day2 == "23" {
-            auto.input_auto_day = "23日"
+            auto.autofillDay = "23日"
         } else if day2 == "24" {
-            auto.input_auto_day = "24日"
+            auto.autofillDay = "24日"
         } else if day2 == "25" {
-            auto.input_auto_day = "25日"
+            auto.autofillDay = "25日"
         } else if day2 == "26" {
-            auto.input_auto_day = "26日"
+            auto.autofillDay = "26日"
         } else if day2 == "27" {
-            auto.input_auto_day = "27日"
+            auto.autofillDay = "27日"
         } else if day2 == "28" {
-            auto.input_auto_day = "28日"
+            auto.autofillDay = "28日"
         } else if day2 == "29" {
-            auto.input_auto_day = "月末"
+            auto.autofillDay = "月末"
         } else if day2 == "30" {
-            auto.input_auto_day = "月末"
+            auto.autofillDay = "月末"
         } else if day2 == "31" {
-            auto.input_auto_day = "月末"
+            auto.autofillDay = "月末"
         }
     }
 }

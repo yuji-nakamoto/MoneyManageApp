@@ -27,10 +27,13 @@ public var comps = calendar.dateComponents([.year, .month], from: date)
 public var firstday = calendar.date(from: comps)
 public var add = DateComponents(month: 1, day: -1)
 public var add2 = DateComponents(month: 2, day: -1)
+public var add3 = DateComponents(month: 0, day: -1)
 public var lastday = calendar.date(byAdding: add, to: firstday!)
 public var lastday2 = calendar.date(byAdding: add2, to: firstday!)
+public var previousMonthLastdayDate = calendar.date(byAdding: add3, to: firstday!)
 
 public let dateFormatter = DateFormatter()
+
 public var timestamp: String {
     dateFormatter.dateFormat = "yyyy年M月d日 (EEEEE)"
     return dateFormatter.string(from: date)
@@ -45,7 +48,7 @@ public var lastDay2: String {
     dateFormatter.dateFormat = "d"
     return dateFormatter.string(from: lastday2!)
 }
-public var year_month_day: String {
+public var yyyy_mm_dd: String {
     dateFormatter.locale = Locale(identifier: "ja_JP")
     dateFormatter.dateFormat = "yyyy-MM-dd"
     return dateFormatter.string(from: date)
@@ -65,4 +68,53 @@ public var day: String {
     dateFormatter.locale = Locale(identifier: "ja_JP")
     dateFormatter.dateFormat = "d"
     return dateFormatter.string(from: date)
+}
+
+extension Calendar {
+    
+    func startOfWeek(for date:Date) -> Date {
+        let comps = self.dateComponents([.weekOfYear, .yearForWeekOfYear], from: date)
+        return self.date(from: comps)!
+    }
+    
+    func endOfWeek(for date:Date) -> Date {
+        return nextWeek(for: date)
+    }
+    
+    func previousWeek(for date:Date) -> Date {
+        return move(date, byWeeks: -1)
+    }
+    
+    func nextWeek(for date:Date) -> Date {
+        return move(date, byWeeks: 1)
+    }
+    
+    //MARK: - Month operations
+    
+    func startOfMonth(for date:Date) -> Date {
+        let comps = dateComponents([.month, .year], from: date)
+        return self.date(from: comps)!
+    }
+    
+    func endOfMonth(for date:Date) -> Date {
+        return nextMonth(for: date)
+    }
+    
+    func previousMonth(for date:Date) -> Date {
+        return move(date, byMonths: -1)
+    }
+    
+    func nextMonth(for date:Date) -> Date {
+        return move(date, byMonths: 1)
+    }
+    
+    //MARK: - Move operations
+    
+    func move(_ date:Date, byWeeks weeks:Int) -> Date {
+        return self.date(byAdding: .weekOfYear, value: weeks, to: startOfWeek(for: date))!
+    }
+    
+    func move(_ date:Date, byMonths months:Int) -> Date {
+        return self.date(byAdding: .month, value: months, to: startOfMonth(for: date))!
+    }
 }

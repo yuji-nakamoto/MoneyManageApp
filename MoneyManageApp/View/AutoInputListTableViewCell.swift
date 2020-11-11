@@ -19,10 +19,10 @@ class AutoInputListTableViewCell: UITableViewCell {
     func configureAutoCell(_ auto: Auto) {
         
         let result = String.localizedStringWithFormat("%d", auto.price)
-        if auto.input_auto_day == "月初" || auto.input_auto_day == "月末" {
-            dayLabel.text = auto.input_auto_day
+        if auto.autofillDay == "月初" || auto.autofillDay == "月末" {
+            dayLabel.text = auto.autofillDay
         } else {
-            dayLabel.text = "毎月" + auto.input_auto_day + "~"
+            dayLabel.text = "毎月" + auto.autofillDay + "~"
         }
         
         if auto.memo == "" {

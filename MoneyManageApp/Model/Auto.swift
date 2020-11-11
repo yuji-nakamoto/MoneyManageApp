@@ -20,6 +20,6 @@ class Auto: Object {
     @objc dynamic var isInput = false
     @objc dynamic var onRegister = false
     @objc dynamic var isRegister = false
-    @objc dynamic var input_auto_day = ""
+    @objc dynamic var autofillDay = ""
     @objc dynamic var id = ""
 }

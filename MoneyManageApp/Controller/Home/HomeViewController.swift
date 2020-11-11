@@ -23,23 +23,23 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        let realmURL = Realm.Configuration.defaultConfiguration.fileURL!
-        //        let realmURLs = [
-        //            realmURL,
-        //            realmURL.appendingPathExtension("lock"),
-        //            realmURL.appendingPathExtension("note"),
-        //            realmURL.appendingPathExtension("management")
-        //        ]
-        //        for URL in realmURLs {
-        //            do {
-        //                try FileManager.default.removeItem(at: URL)
-        //                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-        //                    self.navigationController?.popViewController(animated: true)
-        //                }
-        //            } catch {
-        //                print(error.localizedDescription)
-        //            }
-        //        }
+//        let realmURL = Realm.Configuration.defaultConfiguration.fileURL!
+//        let realmURLs = [
+//            realmURL,
+//            realmURL.appendingPathExtension("lock"),
+//            realmURL.appendingPathExtension("note"),
+//            realmURL.appendingPathExtension("management")
+//        ]
+//        for URL in realmURLs {
+//            do {
+//                try FileManager.default.removeItem(at: URL)
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                    self.navigationController?.popViewController(animated: true)
+//                }
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//        }
         
         navigationItem.title = "ホーム"
         setupBanner()
@@ -59,7 +59,7 @@ class HomeViewController: UIViewController {
         let realm = try! Realm()
         // 自動入力作成時 & 入出金反映時
         let auto1 = realm.objects(Auto.self).filter("isInput == false").filter("onRegister == false")
-        // 入力作成の際に自動入力登録時
+        // 入力作成時の自動入力登録時
         let auto2 = realm.objects(Auto.self).filter("isInput == true").filter("onRegister == false")
         // 入出金一覧を自動入力登録時
         let auto3 = realm.objects(Auto.self).filter("isInput == true").filter("onRegister == true")
@@ -72,13 +72,13 @@ class HomeViewController: UIViewController {
         autoArray3.append(contentsOf: auto3)
         
         autoArray1.forEach { (auto) in
-            if year_month_day >= auto.date {
+            if yyyy_mm_dd >= auto.date {
                 writeData(auto)
             }
         }
         
         autoArray2.forEach { (auto) in
-            if year_month_day >= auto.date {
+            if yyyy_mm_dd >= auto.date {
                 try! realm.write {
                     auto.isInput = false
                 }
@@ -123,7 +123,7 @@ class HomeViewController: UIViewController {
             
             try! realm.write {
                 realm.add(spending)
-                if auto.input_auto_day == "月末" {
+                if auto.autofillDay == "月末" {
                     
                     day = Int(lastDay2)!
                     dateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month)! + 1, day: day))
@@ -161,7 +161,7 @@ class HomeViewController: UIViewController {
             
             try! realm.write {
                 realm.add(income)
-                if auto.input_auto_day == "月末" {
+                if auto.autofillDay == "月末" {
                     
                     day = Int(lastDay2)!
                     dateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month)! + 1, day: day))
@@ -176,25 +176,13 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func incomeData(_ income: Income, _ auto: Auto) {
-        
-        income.price = auto.price
-        income.category = auto.category
-        income.memo = auto.memo
-        income.timestamp = auto.timestamp
-        income.date = auto.date
-        income.year = year
-        income.month = month
-        income.day = day
-    }
-    
     private func prepareUpdate(_ auto: Auto) {
         
         var day = auto.day
         let calendar = Calendar.current
         var dateComp = calendar.date(from: DateComponents(year: Int(year), month: auto.month + 1, day: day))
         
-        if auto.input_auto_day == "月末" {
+        if auto.autofillDay == "月末" {
             
             day = Int(lastDay2)!
             dateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month)! + 1, day: day))
@@ -267,19 +255,23 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UITabBarDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell1 = tableView.dequeueReusableCell(withIdentifier: "Cell1") as! TotalMoneyTableViewCell
         let cell2 = tableView.dequeueReusableCell(withIdentifier: "Cell2") as! BalanceTableViewCell
+        let cell3 = tableView.dequeueReusableCell(withIdentifier: "Cell3") as! BarChartTableViewCell
         
         if indexPath.row == 0 {
             cell1.fetchTotalMoney()
             return cell1
+        } else if indexPath.row == 1 {
+            cell2.homeVC = self
+            cell2.fetchChart()
+            return cell2
         }
-        cell2.homeVC = self
-        cell2.fetchChart()
-        return cell2
+        cell3.configureBarChartCell()
+        return cell3
     }
 }

@@ -73,7 +73,7 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
         
         autoArray.forEach { (auto) in
             numberLabel.text = String(auto.price)
-            dateLabel.text = auto.input_auto_day
+            dateLabel.text = auto.autofillDay
             textField.text = auto.memo
             month = auto.month
             conversionDay()
@@ -437,7 +437,7 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
     private func setAutoData(_ auto: Auto) {
         auto.price = Int(numberLabel.text!) ?? 0
         auto.memo = textField.text ?? ""
-        auto.input_auto_day = dateLabel.text ?? ""
+        auto.autofillDay = dateLabel.text ?? ""
         auto.month = self.month
     }
     

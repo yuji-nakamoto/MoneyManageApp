@@ -94,7 +94,7 @@ class SortListTableViewController: UITableViewController {
             userDefaults.removeObject(forKey: PRICE_ASCE)
             userDefaults.removeObject(forKey: CATEGORY_DESC)
             selectedSort()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.dismiss(animated: true, completion: nil)
             }
             
@@ -104,7 +104,7 @@ class SortListTableViewController: UITableViewController {
             userDefaults.removeObject(forKey: PRICE_ASCE)
             userDefaults.removeObject(forKey: CATEGORY_DESC)
             selectedSort()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.dismiss(animated: true, completion: nil)
             }
 
@@ -114,7 +114,7 @@ class SortListTableViewController: UITableViewController {
             userDefaults.removeObject(forKey: DATE_ASCE)
             userDefaults.removeObject(forKey: CATEGORY_DESC)
             selectedSort()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.dismiss(animated: true, completion: nil)
             }
 
@@ -124,7 +124,7 @@ class SortListTableViewController: UITableViewController {
             userDefaults.set(true, forKey: PRICE_ASCE)
             userDefaults.removeObject(forKey: CATEGORY_DESC)
             selectedSort()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.dismiss(animated: true, completion: nil)
             }
 
@@ -134,7 +134,7 @@ class SortListTableViewController: UITableViewController {
             userDefaults.removeObject(forKey: PRICE_ASCE)
             userDefaults.set(true, forKey: CATEGORY_DESC)
             selectedSort()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.dismiss(animated: true, completion: nil)
             }
         }

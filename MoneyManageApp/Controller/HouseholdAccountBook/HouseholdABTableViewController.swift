@@ -274,4 +274,8 @@ extension HouseholdABTableViewController: EmptyDataSetSource, EmptyDataSetDelega
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.systemGray2 as Any, .font: UIFont(name: "HiraMaruProN-W4", size: 13) as Any]
         return NSAttributedString(string: "入力タブから作成できます", attributes: attributes)
     }
+    
+    func verticalOffset(forEmptyDataSet scrollView: UIScrollView) -> CGFloat {
+        return 50
+    }
 }

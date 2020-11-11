@@ -326,7 +326,7 @@ class AutoIncomeViewController: UIViewController, UITextFieldDelegate {
         auto.category = categoryLabel.text ?? ""
         auto.memo = textField.text ?? ""
         auto.payment = "収入"
-        auto.input_auto_day = dateLabel.text ?? ""
+        auto.autofillDay = dateLabel.text ?? ""
         auto.isInput = false
         auto.isRegister = true
         auto.month = Int(month)!

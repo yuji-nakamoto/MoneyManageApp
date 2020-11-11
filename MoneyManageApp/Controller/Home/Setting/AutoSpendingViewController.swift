@@ -325,7 +325,7 @@ class AutoSpendingViewController: UIViewController, UITextFieldDelegate {
         auto.category = categoryLabel.text ?? ""
         auto.memo = textField.text ?? ""
         auto.payment = "支出"
-        auto.input_auto_day = dateLabel.text ?? ""
+        auto.autofillDay = dateLabel.text ?? ""
         auto.isInput = false
         auto.month = Int(month)!
         auto.day = inputNumber
