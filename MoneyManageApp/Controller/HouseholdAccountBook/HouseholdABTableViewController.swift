@@ -30,22 +30,12 @@ class HouseholdABTableViewController: UIViewController {
     private var sendMonth = ""
     private var sendYear = ""
     private var updateTimestamp = ""
-    
-    private var calendar = Calendar.current
-    lazy var comps = calendar.dateComponents([.year, .month, .day], from: date)
-    lazy var firstday = calendar.date(from: comps)
-    private let date = Date()
-    private let dateFormatter = DateFormatter()
 
     private var timestamp: String {
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateFormat = "yyyy年M月"
         return dateFormatter.string(from: date)
     }
-    
-    private let realm = try? Realm()
-    lazy var spending = realm!.objects(Spending.self)
-    lazy var income = realm!.objects(Income.self)
     
     // MARK: - Lifecycle
     
@@ -139,8 +129,10 @@ class HouseholdABTableViewController: UIViewController {
     
     private func fetchSpending(_ month: String, _ year: String) {
         
+        let realm = try! Realm()
+        
         spendingArray.removeAll()
-        let spending = realm!.objects(Spending.self).filter("month == '\(month)'").filter("year == '\(year)'")
+        let spending = realm.objects(Spending.self).filter("month == '\(month)'").filter("year == '\(year)'")
         spendingArray.append(contentsOf: spending)
         spendingArray = spendingArray.sorted(by: { (a, b) -> Bool in
             return a.price > b.price
@@ -150,8 +142,10 @@ class HouseholdABTableViewController: UIViewController {
     
     private func fetchIncome(_ month: String, _ year: String) {
         
+        let realm = try! Realm()
+       
         incomeArray.removeAll()
-        let income = realm!.objects(Income.self).filter("month == '\(month)'").filter("year == '\(year)'")
+        let income = realm.objects(Income.self).filter("month == '\(month)'").filter("year == '\(year)'")
         incomeArray.append(contentsOf: income)
         incomeArray = incomeArray.sorted(by: { (a, b) -> Bool in
             return a.price > b.price
@@ -191,10 +185,9 @@ class HouseholdABTableViewController: UIViewController {
     
     private func setupTopLabel(_ month: String, _ year: String, _ timestamp: String) {
         
-        dateLabel.text = timestamp
-        
-        let spenResults = realm!.objects(Spending.self).filter("month == '\(month)'").filter("year == '\(year)'")
-        let incomeResults = realm!.objects(Income.self).filter("month == '\(month)'").filter("year == '\(year)'")
+        let realm = try! Realm()
+        let spenResults = realm.objects(Spending.self).filter("month == '\(month)'").filter("year == '\(year)'")
+        let incomeResults = realm.objects(Income.self).filter("month == '\(month)'").filter("year == '\(year)'")
         
         let totalSpending = spenResults.reduce(0) { (result, spending) -> Int in
             return result + spending.price
@@ -209,7 +202,8 @@ class HouseholdABTableViewController: UIViewController {
         
         incomeLabel.text = "¥" + String(result1)
         spendingLabel.text = "¥-" + String(result2)
-        balanceLabel.text = "¥" + String(result3)        
+        balanceLabel.text = "¥" + String(result3)
+        dateLabel.text = timestamp
     }
     
     private func viewHeightChange() {

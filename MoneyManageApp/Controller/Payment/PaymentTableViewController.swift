@@ -15,13 +15,13 @@ class PaymentTableViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var bannerView: GADBannerView!
     @IBOutlet weak var sortButton: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     private var incomeArray = [Income]()
-    private let realm = try? Realm()
-    lazy var income = realm!.objects(Income.self)
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setSearchBar()
         setupBanner()
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
@@ -36,8 +36,9 @@ class PaymentTableViewController: UIViewController {
 
     private func fetchIncome() {
         
+        let realm = try! Realm()
+        let income = realm.objects(Income.self)
         incomeArray.removeAll()
-        let income = realm!.objects(Income.self)
         incomeArray.append(contentsOf: income)
         
         if UserDefaults.standard.object(forKey: DATE_ASCE) != nil {
@@ -62,6 +63,25 @@ class PaymentTableViewController: UIViewController {
             })
         }
         tableView.reloadData()
+    }
+    
+    private func doSearch() {
+        
+        let realm = try! Realm()
+        let spending = realm.objects(Income.self).filter("memo CONTAINS '\(searchBar.text ?? "")'")
+        
+        incomeArray.removeAll()
+        incomeArray.append(contentsOf: spending)
+        tableView.reloadData()
+    }
+    
+    private func setSearchBar() {
+        
+        searchBar.delegate = self
+        searchBar.placeholder = "内容を検索"
+        searchBar.searchTextField.font = UIFont(name: "HiraMaruProN-W4", size: 13)
+        navigationItem.titleView = searchBar
+        navigationItem.titleView?.frame = searchBar.frame
     }
     
     private func setupBanner() {
@@ -110,5 +130,33 @@ extension PaymentTableViewController: EmptyDataSetSource, EmptyDataSetDelegate {
     func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.systemGray2 as Any, .font: UIFont(name: "HiraMaruProN-W4", size: 13) as Any]
         return NSAttributedString(string: "入力タブから入金（収入）を作成できます", attributes: attributes)
+    }
+}
+
+extension PaymentTableViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        doSearch()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        incomeArray.removeAll()
+        tableView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        doSearch()
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.showsCancelButton = true
+        return true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        fetchIncome()
     }
 }

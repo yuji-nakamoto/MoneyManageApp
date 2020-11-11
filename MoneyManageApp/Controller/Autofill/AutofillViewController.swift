@@ -7,17 +7,19 @@
 
 import UIKit
 import RealmSwift
+import GoogleMobileAds
 
 class AutofillViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var bannerView: GADBannerView!
     
     private var autoArray = [Auto]()
-    private let realm = try? Realm()
     private var id = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupBanner()
         navigationItem.title = "自動入力"
     }
     
@@ -28,13 +30,22 @@ class AutofillViewController: UIViewController {
     
     private func fetchAuto() {
         
+        let realm = try! Realm()
+        
         autoArray.removeAll()
-        let auto = realm!.objects(Auto.self)
+        let auto = realm.objects(Auto.self)
         autoArray.append(contentsOf: auto)
         autoArray = autoArray.sorted(by: { (a, b) -> Bool in
             return a.payment > b.payment
         })
         tableView.reloadData()
+    }
+    
+    private func setupBanner() {
+        
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

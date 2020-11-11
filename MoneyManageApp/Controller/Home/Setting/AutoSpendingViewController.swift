@@ -49,7 +49,6 @@ class AutoSpendingViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -314,40 +313,12 @@ class AutoSpendingViewController: UIViewController, UITextFieldDelegate {
         let calendar = Calendar.current
         var dateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month), day: inputNumber))
         
-        var timestamp: String {
-            dateFormatter.locale = Locale(identifier: "ja_JP")
-            dateFormatter.dateFormat = "yyyy年M月d日 (EEEEE)"
-            return dateFormatter.string(from: dateComp!)
-        }
-        var year_month_day: String {
-            dateFormatter.locale = Locale(identifier: "ja_JP")
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            return dateFormatter.string(from: dateComp!)
-        }
-        var lastDay: String {
-            dateFormatter.locale = Locale(identifier: "ja_JP")
-            dateFormatter.dateFormat = "d"
-            return dateFormatter.string(from: lastday!)
-        }
-        
-        auto.date = year_month_day
-        auto.timestamp = timestamp
-        
         if inputNumber == 29 {
             inputNumber = Int(lastDay)!
             dateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month), day: inputNumber))
-            var timestamp: String {
-                dateFormatter.locale = Locale(identifier: "ja_JP")
-                dateFormatter.dateFormat = "yyyy年M月d日 (EEEEE)"
-                return dateFormatter.string(from: dateComp!)
-            }
-            var year_month_day: String {
-                dateFormatter.locale = Locale(identifier: "ja_JP")
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-                return dateFormatter.string(from: dateComp!)
-            }
-            auto.date = year_month_day
-            auto.timestamp = timestamp
+            formatterFunc(auto, dateComp!)
+        } else {
+            formatterFunc(auto, dateComp!)
         }
 
         auto.price = Int(numberLabel.text!) ?? 0
@@ -358,12 +329,29 @@ class AutoSpendingViewController: UIViewController, UITextFieldDelegate {
         auto.isInput = false
         auto.month = Int(month)!
         auto.day = inputNumber
+        auto.isRegister = true
         auto.id = id
         
         try! realm.write {
             realm.add(auto)
             navigationController?.popViewController(animated: true)
         }
+    }
+    
+    private func formatterFunc(_ auto: Auto, _ date: Date) {
+        
+        var timestamp: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "yyyy年M月d日 (EEEEE)"
+            return dateFormatter.string(from: date)
+        }
+        var year_month_day: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.string(from: date)
+        }
+        auto.date = year_month_day
+        auto.timestamp = timestamp
     }
     
     private func setCategory() {
@@ -512,7 +500,7 @@ extension AutoSpendingViewController: PickerKeyboard1Delegate {
             } else if dateLabel.text == "2日" {
                 inputNumber = 2
             } else if dateLabel.text == "3日" {
-                inputNumber = 4
+                inputNumber = 3
             } else if dateLabel.text == "4日" {
                 inputNumber = 4
             } else if dateLabel.text == "5日" {

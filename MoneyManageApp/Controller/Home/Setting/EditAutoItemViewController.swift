@@ -43,9 +43,8 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
     private var lastNumeric = false
     private var inputNumber = 0
     private var autoArray = [Auto]()
-    private let realm = try? Realm()
+    private var month = 0
     var id = ""
-    lazy var auto = realm!.objects(Auto.self).filter("id == '\(id)'")
     
     // MARK: - Lifecycle
     
@@ -63,6 +62,10 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
     
     private func fetchAuto() {
         
+        let realm = try! Realm()
+        let auto = realm.objects(Auto.self).filter("id == '\(id)'")
+        
+        autoArray.removeAll()
         autoArray.append(contentsOf: auto)
         autoArray = autoArray.sorted(by: { (a, b) -> Bool in
             return a.payment > b.payment
@@ -72,6 +75,8 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
             numberLabel.text = String(auto.price)
             dateLabel.text = auto.input_auto_day
             textField.text = auto.memo
+            month = auto.month
+            conversionDay()
         }
     }
     
@@ -83,12 +88,14 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
         
+        let realm = try! Realm()
+
         autoArray.forEach { (auto) in
             let alert = UIAlertController(title: auto.category, message: "自動入力を削除しますか？", preferredStyle: .actionSheet)
             let delete = UIAlertAction(title: "削除する", style: UIAlertAction.Style.default) { [self] (alert) in
                 
-                try! realm!.write {
-                    realm!.delete(auto)
+                try! realm.write {
+                    realm.delete(auto)
                     HUD.flash(.labeledSuccess(title: "", subtitle: "削除しました"), delay: 1)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         navigationController?.popViewController(animated: true)
@@ -125,7 +132,6 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
             HUD.flash(.labeledError(title: "", subtitle: "日付を入力してください"), delay: 1)
             return
         }
-        
         textField.resignFirstResponder()
         updateAutoItem()
     }
@@ -347,57 +353,92 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
         
         let realm = try! Realm()
         let calendar = Calendar.current
-        var dateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month), day: inputNumber))
-        
-        var lastDay: String {
-            dateFormatter.locale = Locale(identifier: "ja_JP")
-            dateFormatter.dateFormat = "d"
-            return dateFormatter.string(from: lastday!)
-        }
         
         autoArray.forEach { (auto) in
             
-            try! realm.write {
+            if auto.isInput == true && auto.onRegister == true {
                 
-                if inputNumber == 29 {
-                    inputNumber = Int(lastDay)!
-                    dateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month), day: inputNumber))
-                    var timestamp: String {
-                        dateFormatter.locale = Locale(identifier: "ja_JP")
-                        dateFormatter.dateFormat = "yyyy年M月d日 (EEEEE)"
-                        return dateFormatter.string(from: dateComp!)
-                    }
-                    var year_month_day: String {
-                        dateFormatter.locale = Locale(identifier: "ja_JP")
-                        dateFormatter.dateFormat = "yyyy-MM-dd"
-                        return dateFormatter.string(from: dateComp!)
-                    }
-                    auto.date = year_month_day
-                    auto.timestamp = timestamp
+                var dateComp = calendar.date(from: DateComponents(year: Int(year), month: auto.month, day: auto.day))
+                let dateComp2 = calendar.date(from: DateComponents(year: Int(year), month: auto.month, day: inputNumber))
+                
+                try! realm.write {
                     
-                } else {
-                    var timestamp: String {
-                        dateFormatter.locale = Locale(identifier: "ja_JP")
-                        dateFormatter.dateFormat = "yyyy年M月d日 (EEEEE)"
-                        return dateFormatter.string(from: dateComp!)
+                    if inputNumber == 29 {
+                        
+                        inputNumber = Int(lastDay)!
+                        dateComp = calendar.date(from: DateComponents(year: Int(year), month: auto.month, day: inputNumber))
+                        formatterFunc(auto: auto, date: dateComp!)
+                        
+                    } else if inputNumber >= 1 || inputNumber < 29 {
+                        formatterFunc(auto: auto, date: dateComp2!)
                     }
-                    var year_month_day: String {
-                        dateFormatter.locale = Locale(identifier: "ja_JP")
-                        dateFormatter.dateFormat = "yyyy-MM-dd"
-                        return dateFormatter.string(from: dateComp!)
-                    }
-                    auto.date = year_month_day
-                    auto.timestamp = timestamp
+                    setAutoData(auto)
+                    navigationController?.popViewController(animated: true)
                 }
-                auto.price = Int(numberLabel.text!) ?? 0
-                auto.memo = textField.text ?? ""
-                auto.input_auto_day = dateLabel.text ?? ""
-                auto.month = Int(month)!
-                auto.day = inputNumber
-                auto.isInput = false
-                navigationController?.popViewController(animated: true)
+            } else if auto.isInput == true && auto.onRegister == false {
+                
+                var dateComp = calendar.date(from: DateComponents(year: Int(year), month: auto.month, day: auto.day))
+                let dateComp2 = calendar.date(from: DateComponents(year: Int(year), month: auto.month, day: inputNumber))
+                
+                try! realm.write {
+                    
+                    if inputNumber == 29 {
+                        
+                        inputNumber = Int(lastDay2)!
+                        dateComp = calendar.date(from: DateComponents(year: Int(year), month: auto.month, day: inputNumber))
+                        formatterFunc(auto: auto, date: dateComp!)
+                        
+                    } else if inputNumber >= 1 || inputNumber < 29 {
+                        formatterFunc(auto: auto, date: dateComp2!)
+                    }
+                    setAutoData(auto)
+                    navigationController?.popViewController(animated: true)
+                }
+            } else if auto.isInput == false && auto.onRegister == false {
+                
+                var dateComp = calendar.date(from: DateComponents(year: Int(year), month: auto.month, day: auto.day))
+                let dateComp2 = calendar.date(from: DateComponents(year: Int(year), month: auto.month, day: inputNumber))
+                
+                try! realm.write {
+                    
+                    if inputNumber == 29 {
+                        
+                        inputNumber = Int(lastDay)!
+                        dateComp = calendar.date(from: DateComponents(year: Int(year), month: auto.month, day: inputNumber))
+                        formatterFunc(auto: auto, date: dateComp!)
+                        
+                    } else if inputNumber >= 1 || inputNumber < 29 {
+                        formatterFunc(auto: auto, date: dateComp2!)
+                    }
+                    setAutoData(auto)
+                    navigationController?.popViewController(animated: true)
+                }
             }
         }
+    }
+    
+    private func formatterFunc(auto: Auto, date: Date) {
+        
+        var timestamp: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "yyyy年M月d日 (EEEEE)"
+            return dateFormatter.string(from: date)
+        }
+        var year_month_day: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.string(from: date)
+        }
+        auto.date = year_month_day
+        auto.timestamp = timestamp
+        auto.day = inputNumber
+    }
+    
+    private func setAutoData(_ auto: Auto) {
+        auto.price = Int(numberLabel.text!) ?? 0
+        auto.memo = textField.text ?? ""
+        auto.input_auto_day = dateLabel.text ?? ""
+        auto.month = self.month
     }
     
     private func isNumericAndValidate() {
@@ -427,6 +468,7 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
         navigationItem.title = "自動入力の編集"
         pickerKeyboardView.delegate = self
         textField.delegate = self
+        
         deleteButton.layer.cornerRadius = 10
         saveButton.layer.cornerRadius = 10
         buttons.forEach({ $0?.layer.borderWidth = 0.2; $0?.layer.borderColor = UIColor.systemGray.cgColor })
@@ -452,6 +494,68 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         textField.resignFirstResponder()
     }
+    
+    private func conversionDay() {
+        if dateLabel.text == "月初" {
+            inputNumber = 1
+        } else if dateLabel.text == "2日" {
+            inputNumber = 2
+        } else if dateLabel.text == "3日" {
+            inputNumber = 3
+        } else if dateLabel.text == "4日" {
+            inputNumber = 4
+        } else if dateLabel.text == "5日" {
+            inputNumber = 5
+        } else if dateLabel.text == "6日" {
+            inputNumber = 6
+        } else if dateLabel.text == "7日" {
+            inputNumber = 7
+        } else if dateLabel.text == "8日" {
+            inputNumber = 8
+        } else if dateLabel.text == "9日" {
+            inputNumber = 9
+        } else if dateLabel.text == "10日" {
+            inputNumber = 10
+        } else if dateLabel.text == "11日" {
+            inputNumber = 11
+        } else if dateLabel.text == "12日" {
+            inputNumber = 12
+        } else if dateLabel.text == "13日" {
+            inputNumber = 13
+        } else if dateLabel.text == "14日" {
+            inputNumber = 14
+        } else if dateLabel.text == "15日" {
+            inputNumber = 15
+        } else if dateLabel.text == "16日" {
+            inputNumber = 16
+        } else if dateLabel.text == "17日" {
+            inputNumber = 17
+        } else if dateLabel.text == "18日" {
+            inputNumber = 18
+        } else if dateLabel.text == "19日" {
+            inputNumber = 19
+        } else if dateLabel.text == "20日" {
+            inputNumber = 20
+        } else if dateLabel.text == "21日" {
+            inputNumber = 21
+        } else if dateLabel.text == "22日" {
+            inputNumber = 22
+        } else if dateLabel.text == "23日" {
+            inputNumber = 23
+        } else if dateLabel.text == "24日" {
+            inputNumber = 24
+        } else if dateLabel.text == "25日" {
+            inputNumber = 25
+        } else if dateLabel.text == "26日" {
+            inputNumber = 26
+        } else if dateLabel.text == "27日" {
+            inputNumber = 27
+        } else if dateLabel.text == "28日" {
+            inputNumber = 28
+        } else if dateLabel.text == "月末" {
+            inputNumber = 29
+        }
+    }
 }
 
 extension EditAutoItemViewController: PickerKeyboard1Delegate {
@@ -466,65 +570,7 @@ extension EditAutoItemViewController: PickerKeyboard1Delegate {
         } else {
             dateLabel.text = selectData
             dateLabel.textColor = UIColor(named: O_BLACK)
-            if dateLabel.text == "月初" {
-                inputNumber = 1
-            } else if dateLabel.text == "2日" {
-                inputNumber = 2
-            } else if dateLabel.text == "3日" {
-                inputNumber = 4
-            } else if dateLabel.text == "4日" {
-                inputNumber = 4
-            } else if dateLabel.text == "5日" {
-                inputNumber = 5
-            } else if dateLabel.text == "6日" {
-                inputNumber = 6
-            } else if dateLabel.text == "7日" {
-                inputNumber = 7
-            } else if dateLabel.text == "8日" {
-                inputNumber = 8
-            } else if dateLabel.text == "9日" {
-                inputNumber = 9
-            } else if dateLabel.text == "10日" {
-                inputNumber = 10
-            } else if dateLabel.text == "11日" {
-                inputNumber = 11
-            } else if dateLabel.text == "12日" {
-                inputNumber = 12
-            } else if dateLabel.text == "13日" {
-                inputNumber = 13
-            } else if dateLabel.text == "14日" {
-                inputNumber = 14
-            } else if dateLabel.text == "15日" {
-                inputNumber = 15
-            } else if dateLabel.text == "16日" {
-                inputNumber = 16
-            } else if dateLabel.text == "17日" {
-                inputNumber = 17
-            } else if dateLabel.text == "18日" {
-                inputNumber = 18
-            } else if dateLabel.text == "19日" {
-                inputNumber = 19
-            } else if dateLabel.text == "20日" {
-                inputNumber = 20
-            } else if dateLabel.text == "21日" {
-                inputNumber = 21
-            } else if dateLabel.text == "22日" {
-                inputNumber = 22
-            } else if dateLabel.text == "23日" {
-                inputNumber = 23
-            } else if dateLabel.text == "24日" {
-                inputNumber = 24
-            } else if dateLabel.text == "25日" {
-                inputNumber = 25
-            } else if dateLabel.text == "26日" {
-                inputNumber = 26
-            } else if dateLabel.text == "27日" {
-                inputNumber = 27
-            } else if dateLabel.text == "28日" {
-                inputNumber = 28
-            } else if dateLabel.text == "月末" {
-                inputNumber = 29
-            }
+            conversionDay()
         }
     }
 }

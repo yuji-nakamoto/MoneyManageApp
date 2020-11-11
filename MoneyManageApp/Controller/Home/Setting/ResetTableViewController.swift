@@ -13,7 +13,6 @@ class ResetTableViewController: UITableViewController {
     
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var resetSwitch: UISwitch!
-    private let realm = try? Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,11 +43,12 @@ class ResetTableViewController: UITableViewController {
     
     @IBAction func resetButtonPressed(_ sender: Any) {
         
+        let realm = try! Realm()
         let alert = UIAlertController(title: "", message: "データをリセットしますか？", preferredStyle: .actionSheet)
         let reset = UIAlertAction(title: "データをリセットする", style: UIAlertAction.Style.default) { [self] (alert) in
             
-            try! realm!.write {
-                realm!.deleteAll()
+            try! realm.write {
+                realm.deleteAll()
                 HUD.flash(.labeledSuccess(title: "", subtitle: "データをリセットしました"), delay: 1)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.navigationController?.popViewController(animated: true)

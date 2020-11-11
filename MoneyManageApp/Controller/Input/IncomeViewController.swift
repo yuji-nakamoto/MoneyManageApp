@@ -9,6 +9,7 @@ import UIKit
 import PKHUD
 import FSCalendar
 import RealmSwift
+import CalculateCalendarLogic
 import GoogleMobileAds
 
 class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
@@ -80,6 +81,7 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
         firstNumeric = false
         lastNumeric = false
         autofillSwitch.isOn = false
+        textField.resignFirstResponder()
         categoryImageView.image = UIImage(systemName: "questionmark.circle")
         
         UIView.animate(withDuration: 0.3) { [self] in
@@ -379,18 +381,6 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
         let realm = try! Realm()
         let income = Income()
         
-        income.price = Int(numberLabel.text!) ?? 0
-        income.category = categoryLabel.text ?? ""
-        income.memo = textField.text ?? ""
-        income.timestamp = dateLabel.text ?? ""
-        income.date = self.year_month_day2
-        income.year = self.year2
-        income.month = self.month2
-        
-        try! realm.write {
-            realm.add(income)
-        }
-        
         if autofillSwitch.isOn {
             let auto = Auto()
             let id = UUID().uuidString
@@ -400,17 +390,41 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
             auto.category = categoryLabel.text ?? ""
             auto.memo = textField.text ?? ""
             auto.payment = "収入"
-            auto.timestamp = dateLabel.text ?? ""
-            auto.date = self.year_month_day2
+            auto.timestamp = timestamp
+            auto.date = year_month_day
             auto.isInput = true
+            auto.onRegister = true
             auto.isRegister = true
-            auto.month = Int(self.month2) ?? 0
-            auto.day = Int(self.day2) ?? 0
+            auto.month = Int(month)!
+            auto.day = Int(day)!
             
             try! realm.write {
                 realm.add(auto)
             }
+            
+            incomeData(income)
+            income.isAutofill = true
+            try! realm.write {
+                realm.add(income)
+            }
+        } else {
+            incomeData(income)
+            try! realm.write {
+                realm.add(income)
+            }
         }
+    }
+    
+    private func incomeData(_ income: Income) {
+        
+        income.price = Int(numberLabel.text!) ?? 0
+        income.category = categoryLabel.text ?? ""
+        income.memo = textField.text ?? ""
+        income.timestamp = dateLabel.text ?? ""
+        income.date = self.year_month_day2
+        income.year = self.year2
+        income.month = self.month2
+        income.day = self.day2
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition){
@@ -512,6 +526,38 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
         bannerView.load(GADRequest())
     }
     
+    func judgeHoliday(_ date : Date) -> Bool {
+        let tmpCalendar = Calendar(identifier: .gregorian)
+        
+        let year = tmpCalendar.component(.year, from: date)
+        let month = tmpCalendar.component(.month, from: date)
+        let day = tmpCalendar.component(.day, from: date)
+        
+        let holiday = CalculateCalendarLogic()
+        
+        return holiday.judgeJapaneseHoliday(year: year, month: month, day: day)
+    }
+    
+    func getWeekIdx(_ date: Date) -> Int{
+        let tmpCalendar = Calendar(identifier: .gregorian)
+        return tmpCalendar.component(.weekday, from: date)
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        if self.judgeHoliday(date){
+            return UIColor.red
+        }
+        
+        let weekday = self.getWeekIdx(date)
+        if weekday == 1 {
+            return UIColor.red
+        }
+        else if weekday == 7 {
+            return UIColor.blue
+        }
+        return nil
+    }
+    
     @objc func textFieldTap() {
         calender.isHidden = true
         caluclatorView.isHidden = true
@@ -527,67 +573,67 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
     
     private func conversionDay(_ auto: Auto) {
         
-        if day2 == "1" {
+        if day == "1" {
             auto.input_auto_day = "月初"
-        } else if day2 == "2" {
+        } else if day == "2" {
             auto.input_auto_day = "2日"
-        } else if day2 == "3" {
+        } else if day == "3" {
             auto.input_auto_day = "3日"
-        } else if day2 == "4" {
+        } else if day == "4" {
             auto.input_auto_day = "4日"
-        } else if day2 == "5" {
+        } else if day == "5" {
             auto.input_auto_day = "5日"
-        } else if day2 == "6" {
+        } else if day == "6" {
             auto.input_auto_day = "6日"
-        } else if day2 == "7" {
+        } else if day == "7" {
             auto.input_auto_day = "7日"
-        } else if day2 == "8" {
+        } else if day == "8" {
             auto.input_auto_day = "8日"
-        } else if day2 == "9" {
+        } else if day == "9" {
             auto.input_auto_day = "9日"
-        } else if day2 == "10" {
+        } else if day == "10" {
             auto.input_auto_day = "10日"
-        } else if day2 == "11" {
+        } else if day == "11" {
             auto.input_auto_day = "11日"
-        } else if day2 == "12" {
+        } else if day == "12" {
             auto.input_auto_day = "12日"
-        } else if day2 == "13" {
+        } else if day == "13" {
             auto.input_auto_day = "13日"
-        } else if day2 == "14" {
+        } else if day == "14" {
             auto.input_auto_day = "14日"
-        } else if day2 == "15" {
+        } else if day == "15" {
             auto.input_auto_day = "15日"
-        } else if day2 == "16" {
+        } else if day == "16" {
             auto.input_auto_day = "16日"
-        } else if day2 == "17" {
+        } else if day == "17" {
             auto.input_auto_day = "17日"
-        } else if day2 == "18" {
+        } else if day == "18" {
             auto.input_auto_day = "18日"
-        } else if day2 == "19" {
+        } else if day == "19" {
             auto.input_auto_day = "19日"
-        } else if day2 == "20" {
+        } else if day == "20" {
             auto.input_auto_day = "20日"
-        } else if day2 == "21" {
+        } else if day == "21" {
             auto.input_auto_day = "21日"
-        } else if day2 == "22" {
+        } else if day == "22" {
             auto.input_auto_day = "22日"
-        } else if day2 == "23" {
+        } else if day == "23" {
             auto.input_auto_day = "23日"
-        } else if day2 == "24" {
+        } else if day == "24" {
             auto.input_auto_day = "24日"
-        } else if day2 == "25" {
+        } else if day == "25" {
             auto.input_auto_day = "25日"
-        } else if day2 == "26" {
+        } else if day == "26" {
             auto.input_auto_day = "26日"
-        } else if day2 == "27" {
+        } else if day == "27" {
             auto.input_auto_day = "27日"
-        } else if day2 == "28" {
+        } else if day == "28" {
             auto.input_auto_day = "28日"
-        } else if day2 == "29" {
+        } else if day == "29" {
             auto.input_auto_day = "月末"
-        } else if day2 == "30" {
+        } else if day == "30" {
             auto.input_auto_day = "月末"
-        } else if day2 == "31" {
+        } else if day == "31" {
             auto.input_auto_day = "月末"
         }
     }

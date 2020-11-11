@@ -58,7 +58,7 @@ class ParchmentInputViewController: UIViewController {
                 pagingVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 pagingVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 pagingVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 25)
+                pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 15)
             ])
             break
         default:

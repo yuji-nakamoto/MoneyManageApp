@@ -50,7 +50,7 @@ class ParchmentPaymentViewController: UIViewController {
         pagingVC.menuItemSize = .fixed(width: 150, height: 40)
         pagingVC.menuHorizontalAlignment = .center
         pagingVC.menuBackgroundColor = UIColor(named: O_WHITE)!
-        pagingVC.borderColor = .systemGray5
+        pagingVC.borderColor = .clear
         
         switch (UIScreen.main.nativeBounds.height) {
         case 1334:
@@ -58,7 +58,7 @@ class ParchmentPaymentViewController: UIViewController {
                 pagingVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 pagingVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 pagingVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 25)
+                pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 15)
             ])
             break
         default:

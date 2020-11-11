@@ -18,6 +18,7 @@ class BalanceTableViewCell: UITableViewCell {
     @IBOutlet weak var firstDayLabel: UILabel!
     @IBOutlet weak var lastDayLabel: UILabel!
     @IBOutlet weak var changeButton: UIButton!
+    @IBOutlet weak var noDataLabel: UILabel!
     
     var homeVC: HomeViewController?
     
@@ -79,6 +80,15 @@ class BalanceTableViewCell: UITableViewCell {
                 changeButton.alpha = 1
                 changeButton.backgroundColor = UIColor(named: O_RED)
                 changeButton.setTitle("支出", for: .normal)
+            }
+            
+            if spenResults.count == 0 {
+                pieChartView.isHidden = true
+                noDataLabel.isHidden = false
+                noDataLabel.text = "支出のデータはありません"
+            } else {
+                pieChartView.isHidden = false
+                noDataLabel.isHidden = true
             }
             
             for i in 0..<spenResults.count {
@@ -156,6 +166,15 @@ class BalanceTableViewCell: UITableViewCell {
                 changeButton.alpha = 1
                 changeButton.backgroundColor = .systemGreen
                 changeButton.setTitle("収入", for: .normal)
+            }
+            
+            if incomeResults.count == 0 {
+                pieChartView.isHidden = true
+                noDataLabel.isHidden = false
+                noDataLabel.text = "収入のデータはありません"
+            } else {
+                pieChartView.isHidden = false
+                noDataLabel.isHidden = true
             }
             
             for i in 0..<incomeResults.count {

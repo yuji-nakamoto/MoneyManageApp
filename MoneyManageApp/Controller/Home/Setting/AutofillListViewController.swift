@@ -13,7 +13,6 @@ class AutofillListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private var autoArray = [Auto]()
-    private let realm = try? Realm()
     private var id = ""
 
     override func viewDidLoad() {
@@ -33,8 +32,9 @@ class AutofillListViewController: UIViewController {
     
     private func fetchAuto() {
         
+        let realm = try! Realm()
+        let auto = realm.objects(Auto.self)
         autoArray.removeAll()
-        let auto = realm!.objects(Auto.self)
         autoArray.append(contentsOf: auto)
         autoArray = autoArray.sorted(by: { (a, b) -> Bool in
             return a.payment > b.payment
