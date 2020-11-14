@@ -78,7 +78,7 @@ class BalanceTableViewCell: UITableViewCell {
             changeButton.alpha = 0
             UIView.animate(withDuration: 0.5) { [self] in
                 changeButton.alpha = 1
-                changeButton.backgroundColor = UIColor(named: O_RED)
+                changeButton.backgroundColor = UIColor(named: CARROT_ORANGE)
                 changeButton.setTitle("支出", for: .normal)
             }
             
@@ -93,6 +93,8 @@ class BalanceTableViewCell: UITableViewCell {
             
             for i in 0..<spenResults.count {
 
+                pieChartView.isHidden = true
+                
                 dataEntries.append(PieChartDataEntry(value: Double(spenResults[i].price), label: spenResults[i].category, data: ""))
                 let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: "")
                 pieChartView.data = PieChartData(dataSet: pieChartDataSet)
@@ -152,9 +154,15 @@ class BalanceTableViewCell: UITableViewCell {
                 }
                 pieChartDataSet.colors = colors
                 
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                    pieChartView.isHidden = false
+                }
+                
                 if UserDefaults.standard.object(forKey: ON_ANIME) != nil {
-                    pieChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
-                } 
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                        pieChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
+                    }
+                }
                 pieChartView.highlightPerTapEnabled = false
                 pieChartView.legend.enabled = false
             }
@@ -164,7 +172,7 @@ class BalanceTableViewCell: UITableViewCell {
             changeButton.alpha = 0
             UIView.animate(withDuration: 0.5) { [self] in
                 changeButton.alpha = 1
-                changeButton.backgroundColor = .systemGreen
+                changeButton.backgroundColor = UIColor(named: O_BLUE)
                 changeButton.setTitle("収入", for: .normal)
             }
             
@@ -178,6 +186,9 @@ class BalanceTableViewCell: UITableViewCell {
             }
             
             for i in 0..<incomeResults.count {
+                
+                pieChartView.isHidden = true
+
                 dataEntries.append(PieChartDataEntry(value: Double(incomeResults[i].price), label: incomeResults[i].category, data: ""))
                 let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: "")
                 pieChartView.data = PieChartData(dataSet: pieChartDataSet)
@@ -210,8 +221,13 @@ class BalanceTableViewCell: UITableViewCell {
                 }
                 pieChartDataSet.colors = colors
 
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                    pieChartView.isHidden = false
+                }
                 if UserDefaults.standard.object(forKey: ON_ANIME) != nil {
-                    pieChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                        pieChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
+                    }
                 }
                 pieChartView.highlightPerTapEnabled = false
                 pieChartView.legend.enabled = false

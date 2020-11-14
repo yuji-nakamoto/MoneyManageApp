@@ -23,9 +23,6 @@ class ResetTableViewController: UITableViewController {
         } else {
             resetButton.isEnabled = false
         }
-        
-        navigationController?.navigationBar.titleTextAttributes
-            = [NSAttributedString.Key.font: UIFont(name: "HiraMaruProN-W4", size: 15)!, .foregroundColor: UIColor(named: O_BLACK) as Any]
         navigationItem.title = "データリセット"
     }
     

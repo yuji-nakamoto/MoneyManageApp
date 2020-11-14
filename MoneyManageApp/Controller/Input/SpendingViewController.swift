@@ -18,6 +18,7 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
     
     @IBOutlet weak var caluclatorView: UIView!
     @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var numberLabel2: UILabel!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -48,6 +49,8 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
     @IBOutlet weak var numberLblTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var numberLblBottomConstraint: NSLayoutConstraint!
     
+    private let calendar = Calendar.current
+    
     lazy var buttons = [zeroButton, oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton, sevenButton, eightButton, nineButton, clearButton, multiplyButton, minusButton, plusButton, devideButton]
     private var firstNumeric = false
     private var lastNumeric = false
@@ -75,6 +78,7 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
     @IBAction func completionButtonPressed(_ sender: Any) {
         
         numberLabel.text = "0"
+        numberLabel2.text = "0"
         categoryLabel.text = "未分類"
         textField.text = ""
         firstNumeric = false
@@ -113,8 +117,8 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
     
     @IBAction func saveButtonPressed(_ sender: Any) {
         
-        if textField.text == "" && categoryLabel.text == "未分類" && numberLabel.text == "0" {
-            HUD.flash(.labeledError(title: "入力欄が空です", subtitle: ""), delay: 1)
+        if numberLabel.text == "0" {
+            HUD.flash(.labeledError(title: "", subtitle: "価格を入力してください"), delay: 1)
             return
         }
         
@@ -140,10 +144,16 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         }
         
         if firstNumeric {
-            if numberLabel.text!.count > 12 {
-                return
-            }
+            if numberLabel.text!.count > 12 { return }
+            if numberLabel2.text!.count > 12 { return }
             numberLabel.text?.append("0")
+            let number = Int(numberLabel.text!)
+            let formatter: NumberFormatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.groupingSeparator = ","
+            formatter.groupingSize = 3
+            let result: String = formatter.string(from: NSNumber.init(integerLiteral: number!))!
+            numberLabel2.text = result
         }
     }
     
@@ -154,7 +164,15 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         }
         isNumericAndValidate()
         if numberLabel.text!.count > 12 { return }
+        if numberLabel2.text!.count > 12 { return }
         numberLabel.text?.append("1")
+        let number = Int(numberLabel.text!)
+        let formatter: NumberFormatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        formatter.groupingSize = 3
+        let result: String = formatter.string(from: NSNumber.init(integerLiteral: number!))!
+        numberLabel2.text = result
     }
     
     @IBAction func twoButtonPressed(_ sender: Any) {
@@ -164,7 +182,15 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         }
         isNumericAndValidate()
         if numberLabel.text!.count > 12 { return }
+        if numberLabel2.text!.count > 12 { return }
         numberLabel.text?.append("2")
+        let number = Int(numberLabel.text!)
+        let formatter: NumberFormatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        formatter.groupingSize = 3
+        let result: String = formatter.string(from: NSNumber.init(integerLiteral: number!))!
+        numberLabel2.text = result
     }
     
     @IBAction func threeButtonPressed(_ sender: Any) {
@@ -174,7 +200,15 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         }
         isNumericAndValidate()
         if numberLabel.text!.count > 12 { return }
+        if numberLabel2.text!.count > 12 { return }
         numberLabel.text?.append("3")
+        let number = Int(numberLabel.text!)
+        let formatter: NumberFormatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        formatter.groupingSize = 3
+        let result: String = formatter.string(from: NSNumber.init(integerLiteral: number!))!
+        numberLabel2.text = result
     }
     
     @IBAction func fourButtonPressed(_ sender: Any) {
@@ -184,7 +218,15 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         }
         isNumericAndValidate()
         if numberLabel.text!.count > 12 { return }
+        if numberLabel2.text!.count > 12 { return }
         numberLabel.text?.append("4")
+        let number = Int(numberLabel.text!)
+        let formatter: NumberFormatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        formatter.groupingSize = 3
+        let result: String = formatter.string(from: NSNumber.init(integerLiteral: number!))!
+        numberLabel2.text = result
     }
     
     @IBAction func fiveButtonPressed(_ sender: Any) {
@@ -194,7 +236,15 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         }
         isNumericAndValidate()
         if numberLabel.text!.count > 12 { return }
+        if numberLabel2.text!.count > 12 { return }
         numberLabel.text?.append("5")
+        let number = Int(numberLabel.text!)
+        let formatter: NumberFormatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        formatter.groupingSize = 3
+        let result: String = formatter.string(from: NSNumber.init(integerLiteral: number!))!
+        numberLabel2.text = result
     }
     
     @IBAction func sixButtonPressed(_ sender: Any) {
@@ -204,7 +254,15 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         }
         isNumericAndValidate()
         if numberLabel.text!.count > 12 { return }
+        if numberLabel2.text!.count > 12 { return }
         numberLabel.text?.append("6")
+        let number = Int(numberLabel.text!)
+        let formatter: NumberFormatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        formatter.groupingSize = 3
+        let result: String = formatter.string(from: NSNumber.init(integerLiteral: number!))!
+        numberLabel2.text = result
     }
     
     @IBAction func sevenButtonPressed(_ sender: Any) {
@@ -214,7 +272,15 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         }
         isNumericAndValidate()
         if numberLabel.text!.count > 12 { return }
+        if numberLabel2.text!.count > 12 { return }
         numberLabel.text?.append("7")
+        let number = Int(numberLabel.text!)
+        let formatter: NumberFormatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        formatter.groupingSize = 3
+        let result: String = formatter.string(from: NSNumber.init(integerLiteral: number!))!
+        numberLabel2.text = result
     }
     
     @IBAction func eightButtonPressed(_ sender: Any) {
@@ -224,7 +290,15 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         }
         isNumericAndValidate()
         if numberLabel.text!.count > 12 { return }
+        if numberLabel2.text!.count > 12 { return }
         numberLabel.text?.append("8")
+        let number = Int(numberLabel.text!)
+        let formatter: NumberFormatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        formatter.groupingSize = 3
+        let result: String = formatter.string(from: NSNumber.init(integerLiteral: number!))!
+        numberLabel2.text = result
     }
     
     @IBAction func nineButtonPressed(_ sender: Any) {
@@ -234,7 +308,15 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         }
         isNumericTrue()
         if numberLabel.text!.count > 12 { return }
+        if numberLabel2.text!.count > 12 { return }
         numberLabel.text?.append("9")
+        let number = Int(numberLabel.text!)
+        let formatter: NumberFormatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        formatter.groupingSize = 3
+        let result: String = formatter.string(from: NSNumber.init(integerLiteral: number!))!
+        numberLabel2.text = result
     }
     
     @IBAction func clearButtonPressed(_ sender: Any) {
@@ -243,6 +325,7 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
             clearButton.backgroundColor = UIColor(named: O_BLACK)
         }
         numberLabel.text = "0"
+        numberLabel2.text = "0"
         firstNumeric = false
         lastNumeric = false
         removeUserDefaults()
@@ -298,9 +381,17 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
             let numeric = UserDefaults.standard.object(forKey: PLUS)
             let lastNumeric = Int(numberLabel.text!)
             let totalNumeric = numeric as! Int + lastNumeric!
+            
+            let formatter: NumberFormatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.groupingSeparator = ","
+            formatter.groupingSize = 3
+            let result: String = formatter.string(from: NSNumber.init(integerLiteral: totalNumeric))!
+            numberLabel2.text = result
             numberLabel.text = String(totalNumeric)
-            if numberLabel.text!.count > 13 {
-                numberLabel.text = "9999999999999"
+            if numberLabel.text!.count > 11 && numberLabel2.text!.count > 11 {
+                numberLabel.text = "99999999999"
+                numberLabel2.text = "99,999,999,999"
             }
         }
         
@@ -312,6 +403,12 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
                 totalNumeric = 0
                 firstNumeric = false
             }
+            let formatter: NumberFormatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.groupingSeparator = ","
+            formatter.groupingSize = 3
+            let result: String = formatter.string(from: NSNumber.init(integerLiteral: totalNumeric))!
+            numberLabel2.text = result
             numberLabel.text = String(totalNumeric)
         }
         
@@ -319,9 +416,17 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
             let numeric = UserDefaults.standard.object(forKey: MULTIPLY)
             let lastNumeric = Int(numberLabel.text!)
             let totalNumeric = numeric as! Int * lastNumeric!
+            
+            let formatter: NumberFormatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.groupingSeparator = ","
+            formatter.groupingSize = 3
+            let result: String = formatter.string(from: NSNumber.init(integerLiteral: totalNumeric))!
+            numberLabel2.text = result
             numberLabel.text = String(totalNumeric)
-            if numberLabel.text!.count > 13 {
-                numberLabel.text = "9999999999999"
+            if numberLabel.text!.count > 11 && numberLabel2.text!.count > 11 {
+                numberLabel.text = "99999999999"
+                numberLabel2.text = "99,999,999,999"
             }
         }
         
@@ -331,6 +436,13 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
             guard lastNumeric != 0 else { return }
             let totalNumeric = numeric as! Int / lastNumeric!
             if totalNumeric == 0 { firstNumeric = false }
+            
+            let formatter: NumberFormatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.groupingSeparator = ","
+            formatter.groupingSize = 3
+            let result: String = formatter.string(from: NSNumber.init(integerLiteral: totalNumeric))!
+            numberLabel2.text = result
             numberLabel.text = String(totalNumeric)
         }
         removeUserDefaults()
@@ -381,6 +493,10 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
             categoryLabel.text = "特別な支出"
             categoryImageView.image = UIImage(named: "special")
             UserDefaults.standard.removeObject(forKey: SPECIAL)
+        } else if UserDefaults.standard.object(forKey: CARD) != nil {
+            categoryLabel.text = "現金・カード"
+            categoryImageView.image = UIImage(named: "card")
+            UserDefaults.standard.removeObject(forKey: CARD)
         } else if UserDefaults.standard.object(forKey: UTILITY) != nil {
             categoryLabel.text = "水道・光熱費"
             categoryImageView.image = UIImage(named: "utility")
@@ -416,23 +532,30 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         
         let realm = try! Realm()
         let spending = Spending()
+        let nextDateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month)! + 1, day: 1))
+        var nextMonth: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.string(from: nextDateComp!)
+        }
         
         if autofillSwitch.isOn {
             let auto = Auto()
             let id = UUID().uuidString
-            conversionDay(auto)
+            conversionDay(auto, day2)
             auto.id = id
             auto.price = Int(numberLabel.text!) ?? 0
             auto.category = categoryLabel.text ?? ""
             auto.memo = textField.text ?? ""
             auto.payment = "支出"
             auto.timestamp = timestamp
-            auto.date = yyyy_mm_dd
+            auto.date = yyyy_mm_dd2
+            auto.nextMonth = nextMonth
             auto.isInput = true
             auto.onRegister = true
             auto.isRegister = true
-            auto.month = Int(month)!
-            auto.day = Int(day)!
+            auto.month = Int(month2)!
+            auto.day = Int(day2)!
             
             try! realm.write {
                 realm.add(auto)
@@ -496,13 +619,23 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         year2 = year
         month2 = month
         day2 = day
+        
+        switch (UIScreen.main.nativeBounds.height) {
+        case 1334:
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                UIView.animate(withDuration: 0.5) {
+                    self.calender.isHidden = true
+                }
+            }
+            break
+        default:
+            break
+        }
     }
     
     private func isNumericAndValidate() {
         isNumericTrue()
-        if numberLabel.text!.count > 10 {
-            return
-        }
+        if numberLabel.text!.count > 10 { return }
     }
     
     private func isNumericTrue() {
@@ -510,12 +643,14 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         if !lastNumeric {
             if UserDefaults.standard.object(forKey: PLUS) != nil || UserDefaults.standard.object(forKey: MINUS) != nil || UserDefaults.standard.object(forKey: MULTIPLY) != nil || UserDefaults.standard.object(forKey: DEVIDE) != nil {
                 numberLabel.text = ""
+                numberLabel2.text = ""
                 lastNumeric = true
             }
         }
         
         if !firstNumeric {
             numberLabel.text = ""
+            numberLabel2.text = ""
         }
         firstNumeric = true
     }
@@ -532,6 +667,7 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
     private func setup() {
         
         nowDate()
+        numberLabel.isHidden = true
         textField.delegate = self
         backView.isHidden = true
         backView.alpha = 0
@@ -616,72 +752,5 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         textField.resignFirstResponder()
-    }
-    
-    private func conversionDay(_ auto: Auto) {
-        
-        if day == "1" {
-            auto.autofillDay = "月初"
-        } else if day == "2" {
-            auto.autofillDay = "2日"
-        } else if day == "3" {
-            auto.autofillDay = "3日"
-        } else if day == "4" {
-            auto.autofillDay = "4日"
-        } else if day == "5" {
-            auto.autofillDay = "5日"
-        } else if day == "6" {
-            auto.autofillDay = "6日"
-        } else if day == "7" {
-            auto.autofillDay = "7日"
-        } else if day == "8" {
-            auto.autofillDay = "8日"
-        } else if day == "9" {
-            auto.autofillDay = "9日"
-        } else if day == "10" {
-            auto.autofillDay = "10日"
-        } else if day == "11" {
-            auto.autofillDay = "11日"
-        } else if day == "12" {
-            auto.autofillDay = "12日"
-        } else if day == "13" {
-            auto.autofillDay = "13日"
-        } else if day == "14" {
-            auto.autofillDay = "14日"
-        } else if day == "15" {
-            auto.autofillDay = "15日"
-        } else if day == "16" {
-            auto.autofillDay = "16日"
-        } else if day == "17" {
-            auto.autofillDay = "17日"
-        } else if day == "18" {
-            auto.autofillDay = "18日"
-        } else if day == "19" {
-            auto.autofillDay = "19日"
-        } else if day == "20" {
-            auto.autofillDay = "20日"
-        } else if day == "21" {
-            auto.autofillDay = "21日"
-        } else if day == "22" {
-            auto.autofillDay = "22日"
-        } else if day == "23" {
-            auto.autofillDay = "23日"
-        } else if day == "24" {
-            auto.autofillDay = "24日"
-        } else if day == "25" {
-            auto.autofillDay = "25日"
-        } else if day == "26" {
-            auto.autofillDay = "26日"
-        } else if day == "27" {
-            auto.autofillDay = "27日"
-        } else if day == "28" {
-            auto.autofillDay = "28日"
-        } else if day == "29" {
-            auto.autofillDay = "月末"
-        } else if day == "30" {
-            auto.autofillDay = "月末"
-        } else if day == "31" {
-            auto.autofillDay = "月末"
-        }
     }
 }

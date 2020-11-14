@@ -19,7 +19,11 @@ class HouseholdABTableViewCell: UITableViewCell {
         let result = String.localizedStringWithFormat("%d", spending.price)
         priceLabel.text = "¥" + String(result)
         categoryLabel.text = spending.category
-        memoLabel.text = spending.memo
+        if spending.memo == "" {
+            memoLabel.text = spending.category
+        } else {
+            memoLabel.text = spending.memo
+        }
         
         if spending.category == "未分類" {
             categoryImageView.image = UIImage(systemName: "questionmark.circle")
@@ -44,6 +48,8 @@ class HouseholdABTableViewCell: UITableViewCell {
             categoryImageView.image = UIImage(named: "education")
         } else if spending.category == "特別な支出" {
             categoryImageView.image = UIImage(named: "special")
+        } else if spending.category == "現金・カード" {
+            categoryImageView.image = UIImage(named: "card")
         } else if spending.category == "水道・光熱費" {
             categoryImageView.image = UIImage(named: "utility")
         } else if spending.category == "通信費" {

@@ -99,14 +99,14 @@ class InquiryTableViewController: UITableViewController, UITextFieldDelegate {
     @objc func emailTextFieldTap() {
         emailTopConstraint.constant = 20
         emailLIneHeight.constant = 2
-        emailLineView.backgroundColor = UIColor(named: O_RED)
+        emailLineView.backgroundColor = UIColor(named: CARROT_ORANGE)
     }
     
     @objc func emailLabelDown() {
         if emailTextField.text == "" {
             emailTopConstraint.constant = 40
             emailLIneHeight.constant = 1
-            emailLineView.backgroundColor = UIColor.systemGreen
+            emailLineView.backgroundColor = UIColor(named: O_BLUE)
         }
     }
     

@@ -46,7 +46,7 @@ class ParchmentInputViewController: UIViewController {
         pagingVC.selectedFont = UIFont(name: "HiraMaruProN-W4", size: 15)!
         pagingVC.selectedTextColor = UIColor(named: O_BLACK)!
         pagingVC.textColor = .systemGray
-        pagingVC.indicatorColor = .systemGreen
+        pagingVC.indicatorColor = UIColor(named: CARROT_ORANGE)!
         pagingVC.menuItemSize = .fixed(width: 150, height: 40)
         pagingVC.menuHorizontalAlignment = .center
         pagingVC.menuBackgroundColor = UIColor(named: O_WHITE)!

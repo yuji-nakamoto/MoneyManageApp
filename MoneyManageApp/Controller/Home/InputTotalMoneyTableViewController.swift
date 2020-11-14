@@ -89,6 +89,7 @@ class InputTotalMoneyTableViewController: UITableViewController, UITextFieldDele
         moneyLabel.text = "0"
         saveButton.layer.cornerRadius = 15
         tableView.tableFooterView = UIView()
+        navigationItem.title = "資産の登録"
         moneyTextField.becomeFirstResponder()
         moneyTextField.delegate = self
         moneyTextField.addTarget(self, action: #selector(textFieldTap), for: .editingDidBegin)
@@ -100,14 +101,14 @@ class InputTotalMoneyTableViewController: UITableViewController, UITextFieldDele
         moneyLabel.text = "0"
         labelTopConstraint.constant = 60
         lineHeightConstraint.constant = 2
-        lineView.backgroundColor = UIColor(named: O_RED)
+        lineView.backgroundColor = UIColor(named: CARROT_ORANGE)
     }
     
     @objc func labelDown() {
         if moneyTextField.text == "" {
             labelTopConstraint.constant = 80
             lineHeightConstraint.constant = 1
-            lineView.backgroundColor = UIColor.systemGreen
+            lineView.backgroundColor = UIColor(named: O_BLUE)
         }
     }
     

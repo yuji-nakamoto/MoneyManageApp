@@ -15,6 +15,7 @@ class Auto: Object {
     @objc dynamic var payment = ""
     @objc dynamic var timestamp = ""
     @objc dynamic var date = ""
+    @objc dynamic var nextMonth = ""
     @objc dynamic var month = 0
     @objc dynamic var day = 0
     @objc dynamic var isInput = false

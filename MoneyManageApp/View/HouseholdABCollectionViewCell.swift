@@ -42,7 +42,7 @@ class HouseholdABCollectionViewCell: UICollectionViewCell {
             incomeButton.backgroundColor = .clear
             incomeButton.setTitleColor(.systemGray, for: .normal)
             UIView.animate(withDuration: 0.5) { [self] in
-                spendingButton.backgroundColor = UIColor(named: O_RED)
+                spendingButton.backgroundColor = UIColor(named: CARROT_ORANGE)
                 spendingButton.setTitleColor(.white, for: .normal)
             }
             
@@ -82,6 +82,9 @@ class HouseholdABCollectionViewCell: UICollectionViewCell {
                 }
                 if spenResults[i].category == "特別な支出" {
                     colors.append(UIColor(named: "icon_color10")!)
+                }
+                if spenResults[i].category == "現金・カード" {
+                    colors.append(UIColor(named: "icon_color24")!)
                 }
                 if spenResults[i].category == "水道・光熱費" {
                     colors.append(UIColor(named: "icon_color11")!)
@@ -127,7 +130,7 @@ class HouseholdABCollectionViewCell: UICollectionViewCell {
             spendingButton.backgroundColor = .clear
             spendingButton.setTitleColor(.systemGray, for: .normal)
             UIView.animate(withDuration: 0.5) { [self] in
-                incomeButton.backgroundColor = .systemGreen
+                incomeButton.backgroundColor = UIColor(named: O_BLUE)
                 incomeButton.setTitleColor(.white, for: .normal)
             }
             

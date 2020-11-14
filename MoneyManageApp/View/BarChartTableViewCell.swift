@@ -69,10 +69,10 @@ class BarChartTableViewCell: UITableViewCell, ChartViewDelegate {
         lineChartView.leftAxis.drawAxisLineEnabled = false
         lineChartView.legend.enabled = false
         
-        dataSet.circleHoleColor = .systemGreen
-        dataSet.circleColors = [.systemGreen]
+        dataSet.circleHoleColor = UIColor(named: O_BLUE)
+        dataSet.circleColors = [UIColor(named: O_BLUE)!]
         dataSet.drawValuesEnabled = false
-        dataSet.colors = [.systemBlue]
+        dataSet.colors = [UIColor(named: CARROT_ORANGE)!]
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {

@@ -36,7 +36,7 @@ class AutofillViewController: UIViewController {
         let auto = realm.objects(Auto.self)
         autoArray.append(contentsOf: auto)
         autoArray = autoArray.sorted(by: { (a, b) -> Bool in
-            return a.payment > b.payment
+            return a.date < b.date
         })
         tableView.reloadData()
     }
@@ -65,12 +65,9 @@ extension AutofillViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell1 = tableView.dequeueReusableCell(withIdentifier: "Cell1") as! IncomeCategoryTableViewCell
         let cell2 = tableView.dequeueReusableCell(withIdentifier: "Cell2")
-        let cell3 = tableView.dequeueReusableCell(withIdentifier: "Cell3", for: indexPath) as! AutoInputListTableViewCell
+        let cell3 = tableView.dequeueReusableCell(withIdentifier: "Cell3", for: indexPath) as! AutofillListTableViewCell
         
         if indexPath.row == 0 {
-            let backView = cell1.viewWithTag(1)!
-            backView.layer.cornerRadius = 10
-            cell1.resetColer()
             return cell1
         } else if indexPath.row == 1 {
             return cell2!

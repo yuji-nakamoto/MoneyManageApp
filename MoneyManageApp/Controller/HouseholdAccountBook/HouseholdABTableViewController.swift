@@ -50,6 +50,7 @@ class HouseholdABTableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.navigationBar.isHidden = true
         setupTopLabel(sendMonth, sendYear, updateTimestamp)
         collectionView.reloadData()
         
@@ -58,6 +59,11 @@ class HouseholdABTableViewController: UIViewController {
         } else {
             fetchSpending(sendMonth, sendYear)
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
     }
     
     // MARK: - Actions
@@ -165,15 +171,6 @@ class HouseholdABTableViewController: UIViewController {
         tableView.emptyDataSetDelegate = self
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "EditSpendingVC" {
-            let editSpendingVC = segue.destination as! EditSpendingViewController
-            let spending = sender as! Spending
-            editSpendingVC.spending = spending
-        }
-    }
-    
     private func setup() {
         
         sendMonth = month
@@ -217,6 +214,21 @@ class HouseholdABTableViewController: UIViewController {
             break
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "EditSpendingVC" {
+            let editSpendingVC = segue.destination as! EditSpendingViewController
+            let spending = sender as! Spending
+            editSpendingVC.spending = spending
+        }
+        
+        if segue.identifier == "EditIncomeVC" {
+            let editIncomeVC = segue.destination as! EditIncomeViewController
+            let income = sender as! Income
+            editIncomeVC.income = income
+        }
+    }
 }
 
 // MARK: - Collection view
@@ -258,7 +270,11 @@ extension HouseholdABTableViewController: UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+        if UserDefaults.standard.object(forKey: CHANGE) != nil {
+            performSegue(withIdentifier: "EditIncomeVC", sender: incomeArray[indexPath.row])
+        } else {
+            performSegue(withIdentifier: "EditSpendingVC", sender: spendingArray[indexPath.row])
+        }
     }
 }
 

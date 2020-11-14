@@ -13,7 +13,7 @@ class CategoryCollectionViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var bannerView: GADBannerView!
     
-    private let categoryTitles = ["食費", "日用品", "趣味", "交際費", "交通費", "衣服・美容", "健康・医療", "自動車", "教養・教育", "特別な支出", "水道・光熱費", "通信費", "住宅", "税・社会保険", "保険", "その他", "未分類"]
+    private let categoryTitles = ["食費", "日用品", "趣味", "交際費", "交通費", "衣服・美容", "健康・医療", "自動車", "教養・教育", "特別な支出", "現金・カード", "水道・光熱費", "通信費", "住宅", "税・社会保険", "保険", "その他", "未分類"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,18 +71,20 @@ extension CategoryCollectionViewController: UICollectionViewDataSource, UICollec
         } else if indexPath.row == 9 {
             cell.categoryImageView.image = UIImage(named: "special")
         } else if indexPath.row == 10 {
-            cell.categoryImageView.image = UIImage(named: "utility")
+            cell.categoryImageView.image = UIImage(named: "card")
         } else if indexPath.row == 11 {
-            cell.categoryImageView.image = UIImage(named: "communication")
+            cell.categoryImageView.image = UIImage(named: "utility")
         } else if indexPath.row == 12 {
-            cell.categoryImageView.image = UIImage(named: "house")
+            cell.categoryImageView.image = UIImage(named: "communication")
         } else if indexPath.row == 13 {
-            cell.categoryImageView.image = UIImage(named: "tax")
+            cell.categoryImageView.image = UIImage(named: "house")
         } else if indexPath.row == 14 {
-            cell.categoryImageView.image = UIImage(named: "insrance")
+            cell.categoryImageView.image = UIImage(named: "tax")
         } else if indexPath.row == 15 {
-            cell.categoryImageView.image = UIImage(named: "etcetra")
+            cell.categoryImageView.image = UIImage(named: "insrance")
         } else if indexPath.row == 16 {
+            cell.categoryImageView.image = UIImage(named: "etcetra")
+        } else if indexPath.row == 17 {
             cell.categoryImageView.image = UIImage(systemName: "questionmark.circle")
             cell.categoryImageView.tintColor = .systemGray
         }
@@ -123,24 +125,27 @@ extension CategoryCollectionViewController: UICollectionViewDataSource, UICollec
             UserDefaults.standard.set(true, forKey: SPECIAL)
             navigationController?.popViewController(animated: true)
         } else if indexPath.row == 10 {
-            UserDefaults.standard.set(true, forKey: UTILITY)
+            UserDefaults.standard.set(true, forKey: CARD)
             navigationController?.popViewController(animated: true)
         } else if indexPath.row == 11 {
-            UserDefaults.standard.set(true, forKey: COMMUNICATION)
+            UserDefaults.standard.set(true, forKey: UTILITY)
             navigationController?.popViewController(animated: true)
         } else if indexPath.row == 12 {
-            UserDefaults.standard.set(true, forKey: HOUSE)
+            UserDefaults.standard.set(true, forKey: COMMUNICATION)
             navigationController?.popViewController(animated: true)
         } else if indexPath.row == 13 {
-            UserDefaults.standard.set(true, forKey: TAX)
+            UserDefaults.standard.set(true, forKey: HOUSE)
             navigationController?.popViewController(animated: true)
         } else if indexPath.row == 14 {
-            UserDefaults.standard.set(true, forKey: INSRACE)
+            UserDefaults.standard.set(true, forKey: TAX)
             navigationController?.popViewController(animated: true)
         } else if indexPath.row == 15 {
-            UserDefaults.standard.set(true, forKey: ETCETRA)
+            UserDefaults.standard.set(true, forKey: INSRACE)
             navigationController?.popViewController(animated: true)
         } else if indexPath.row == 16 {
+            UserDefaults.standard.set(true, forKey: ETCETRA)
+            navigationController?.popViewController(animated: true)
+        } else if indexPath.row == 17 {
             UserDefaults.standard.set(true, forKey: UN_CATEGORY)
             navigationController?.popViewController(animated: true)
         }

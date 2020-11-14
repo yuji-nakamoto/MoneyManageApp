@@ -47,31 +47,38 @@ class TotalMoneyTableViewCell: UITableViewCell {
         let totalIncome = incomeResults.reduce(0) { (result, income) -> Int in
             return result + income.price
         }
-        
+
         let balance = totalIncome - totalSpending
+        let result = String.localizedStringWithFormat("%d", balance)
         if balance > 0 {
-            balanceLabel.text = "⬆️ ¥" + String(balance)
-            balanceLabel.textColor = UIColor(named: O_BLACK)
+            balanceLabel.text = "⬆️ ¥" + String(result)
+            balanceLabel.textColor = UIColor(named: O_BLUE)
         } else if balance < 0 {
-            balanceLabel.text = "⬇️ ¥" + String(balance)
-            balanceLabel.textColor = .systemPink
+            balanceLabel.text = "⬇️ ¥" + String(result)
+            balanceLabel.textColor = UIColor(named: "fire_brick")
         } else {
-            balanceLabel.text = "⬅️ ¥" + String(balance)
-            balanceLabel.textColor = UIColor(named: O_BLACK)
+            balanceLabel.text = "➡️ ¥" + String(result)
+            balanceLabel.textColor = .systemGray
         }
+        
+        if money.count == 0 {
+            totalMoneyLabel.text = "¥0"
+        }
+        registerButton.isHidden = false
         
         money.forEach { (money) in
             
             if money.createMoney == true {
                 registerButton.isHidden = true
-            } else {
-                registerButton.isHidden = false
-                registerButton.setTitle("資産の登録", for: .normal)
             }
             
             let totalMoney = money.totalMoney + totalIncome - totalSpending
-            let result = String.localizedStringWithFormat("%d", totalMoney)
-            totalMoneyLabel.text = "¥" + String(result)
+            let formatter: NumberFormatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.groupingSeparator = ","
+            formatter.groupingSize = 3
+            let result: String = formatter.string(from: NSNumber.init(integerLiteral: totalMoney))!
+            totalMoneyLabel.text = "¥" + result
             
             try! realm.write() {
                 money.holdMoney = totalMoney

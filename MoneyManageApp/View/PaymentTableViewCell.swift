@@ -21,7 +21,7 @@ class PaymentTableViewCell: UITableViewCell {
         let result = String.localizedStringWithFormat("%d", income.price)
         numericLabel.text = "¥" + String(result)
         if income.memo == "" {
-            memoLabel.text = "不明な入金"
+            memoLabel.text = income.category
         } else {
             memoLabel.text = income.memo
         }
@@ -60,7 +60,7 @@ class PaymentTableViewCell: UITableViewCell {
         let result = String.localizedStringWithFormat("%d", spending.price)
         numericLabel.text = "¥-" + String(result)
         if spending.memo == "" {
-            memoLabel.text = "不明な出金"
+            memoLabel.text = spending.category
         } else {
             memoLabel.text = spending.memo
         }
@@ -99,6 +99,9 @@ class PaymentTableViewCell: UITableViewCell {
         } else if spending.category == "特別な支出" {
             categoryImageView.image = UIImage(named: "special")
             categoryLabel.text = "特別な支出"
+        } else if spending.category == "現金・カード" {
+            categoryImageView.image = UIImage(named: "card")
+            categoryLabel.text = "現金・カード"
         } else if spending.category == "水道・光熱費" {
             categoryImageView.image = UIImage(named: "utility")
             categoryLabel.text = "水道・光熱費"
