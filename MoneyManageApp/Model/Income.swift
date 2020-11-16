@@ -17,5 +17,6 @@ class Income: Object {
     @objc dynamic var year = ""
     @objc dynamic var month = ""
     @objc dynamic var day = ""
+    @objc dynamic var id = ""
     @objc dynamic var isAutofill = false
 }

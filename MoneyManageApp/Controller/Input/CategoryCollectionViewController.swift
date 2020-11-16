@@ -18,8 +18,7 @@ class CategoryCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBanner()
-        navigationController?.navigationBar.titleTextAttributes
-            = [NSAttributedString.Key.font: UIFont(name: "HiraMaruProN-W4", size: 15)!, .foregroundColor: UIColor(named: O_BLACK) as Any]
+        navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.title = "カテゴリ選択"
     }
     
@@ -34,7 +33,7 @@ class CategoryCollectionViewController: UIViewController {
     
     private func setupBanner() {
         
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = "ca-app-pub-4750883229624981/1880671698"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
     }

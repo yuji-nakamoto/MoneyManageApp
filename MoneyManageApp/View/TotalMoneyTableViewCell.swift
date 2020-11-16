@@ -113,6 +113,6 @@ class TotalMoneyTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         totalMoneyLabel.text = "¥0"
-        registerButton.layer.cornerRadius = 5
+        registerButton.layer.cornerRadius = 30 / 2
     }
 }

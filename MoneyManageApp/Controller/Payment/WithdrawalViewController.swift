@@ -18,6 +18,7 @@ class WithdrawalViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     private var spendingArray = [Spending]()
+    private var id = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +87,7 @@ class WithdrawalViewController: UIViewController {
     
     private func setupBanner() {
         
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = "ca-app-pub-4750883229624981/5819916703"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
     }
@@ -95,8 +96,7 @@ class WithdrawalViewController: UIViewController {
         
         if segue.identifier == "EditSpendingVC" {
             let editSpendingVC = segue.destination as! EditSpendingViewController
-            let spending = sender as! Spending
-            editSpendingVC.spending = spending
+            editSpendingVC.id = id
         }
     }
 }
@@ -115,7 +115,8 @@ extension WithdrawalViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        performSegue(withIdentifier: "EditSpendingVC", sender: spendingArray[indexPath.row])
+        id = spendingArray[indexPath.row].id
+        performSegue(withIdentifier: "EditSpendingVC", sender: nil)
     }
 }
 

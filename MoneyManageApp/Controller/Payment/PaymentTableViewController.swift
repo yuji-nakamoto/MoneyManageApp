@@ -18,6 +18,7 @@ class PaymentTableViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     private var incomeArray = [Income]()
+    private var id = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +87,7 @@ class PaymentTableViewController: UIViewController {
     
     private func setupBanner() {
         
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = "ca-app-pub-4750883229624981/5819916703"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
     }
@@ -95,8 +96,7 @@ class PaymentTableViewController: UIViewController {
         
         if segue.identifier == "EditIncomeVC" {
             let editIncomeVC = segue.destination as! EditIncomeViewController
-            let income = sender as! Income
-            editIncomeVC.income = income
+            editIncomeVC.id = id
         }
     }
 }
@@ -115,7 +115,8 @@ extension PaymentTableViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        performSegue(withIdentifier: "EditIncomeVC", sender: incomeArray[indexPath.row])
+        id = incomeArray[indexPath.row].id
+        performSegue(withIdentifier: "EditIncomeVC", sender: nil)
     }
 }
 

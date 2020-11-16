@@ -52,7 +52,27 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
     private var year2 = ""
     private var month2 = ""
     private var day2 = ""
-    var spending = Spending()
+    
+    var id = ""
+    let realm = try? Realm()
+    lazy var food = realm!.objects(Food.self).filter("id = '\(id)'")
+    lazy var brush = realm!.objects(Brush.self).filter("id = '\(id)'")
+    lazy var hobby = realm!.objects(Hobby.self).filter("id = '\(id)'")
+    lazy var dating = realm!.objects(Dating.self).filter("id = '\(id)'")
+    lazy var traffic = realm!.objects(Traffic.self).filter("id = '\(id)'")
+    lazy var clothe = realm!.objects(Clothe.self).filter("id = '\(id)'")
+    lazy var health = realm!.objects(Health.self).filter("id = '\(id)'")
+    lazy var car = realm!.objects(Car.self).filter("id = '\(id)'")
+    lazy var education = realm!.objects(Education.self).filter("id = '\(id)'")
+    lazy var special = realm!.objects(Special.self).filter("id = '\(id)'")
+    lazy var utility = realm!.objects(Utility.self).filter("id = '\(id)'")
+    lazy var communication = realm!.objects(Communicaton.self).filter("id = '\(id)'")
+    lazy var house = realm!.objects(House.self).filter("id = '\(id)'")
+    lazy var tax = realm!.objects(Tax.self).filter("id = '\(id)'")
+    lazy var insrance = realm!.objects(Insrance.self).filter("id = '\(id)'")
+    lazy var etcetora = realm!.objects(Etcetora.self).filter("id = '\(id)'")
+    lazy var unCategory = realm!.objects(UnCategory.self).filter("id = '\(id)'")
+    lazy var card = realm!.objects(Card.self).filter("id = '\(id)'")
     
     // MARK: - Lifecycle
     
@@ -67,121 +87,333 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
         setCategory()
         navigationController?.navigationBar.isHidden = false
     }
-        
+    
     // MARK: - Fetch
     
     private func fetchSpending() {
         
-        numberLabel.text = String(spending.price)
+        let realm = try! Realm()
+        let spending = realm.objects(Spending.self).filter("id = '\(id)'")
         
-        let number = Int(numberLabel.text!)
-        let formatter: NumberFormatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.groupingSeparator = ","
-        formatter.groupingSize = 3
-        let result: String = formatter.string(from: NSNumber.init(integerLiteral: number!))!
-        numberLabel2.text = result
-        categoryLabel.text = spending.category
-        dateLabel.text = spending.timestamp
-        textField.text = spending.memo
-        year_month_day2 = spending.date
-        year2 = spending.year
-        month2 = spending.month
-        day2 = spending.month
-        
-        if spending.isAutofill == true {
-            autofillLabel.text = "自動入力に登録済み"
-            autofillLabel.textColor = .systemGray
-            autofillSwitch.isEnabled = false
-        } else {
-            autofillLabel.text = "自動入力に登録"
-            autofillLabel.textColor = UIColor(named: O_BLACK)
-            autofillSwitch.isEnabled = true
+        spending.forEach { (spending) in
+            numberLabel.text = String(spending.price)
+            
+            let number = Int(numberLabel.text!)
+            let formatter: NumberFormatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.groupingSeparator = ","
+            formatter.groupingSize = 3
+            let result: String = formatter.string(from: NSNumber.init(integerLiteral: number!))!
+            numberLabel2.text = result
+            categoryLabel.text = spending.category
+            dateLabel.text = spending.timestamp
+            textField.text = spending.memo
+            year_month_day2 = spending.date
+            year2 = spending.year
+            month2 = spending.month
+            day2 = spending.month
+            id = spending.id
+            
+            if spending.isAutofill == true {
+                autofillLabel.text = "自動入力に登録済み"
+                autofillLabel.textColor = .systemGray
+                autofillSwitch.isEnabled = false
+            } else {
+                autofillLabel.text = "自動入力に登録"
+                autofillLabel.textColor = UIColor(named: O_BLACK)
+                autofillSwitch.isEnabled = true
+            }
+            
+            if spending.category == "未分類" {
+                categoryImageView.image = UIImage(systemName: "questionmark.circle")
+                categoryImageView.tintColor = .systemGray
+                categoryLabel.text = "未分類"
+            } else if spending.category == "食費" {
+                categoryImageView.image = UIImage(named: "food")
+                categoryLabel.text = "食費"
+            } else if spending.category == "日用品" {
+                categoryImageView.image = UIImage(named: "brush")
+                categoryLabel.text = "日用品"
+            } else if spending.category == "趣味" {
+                categoryImageView.image = UIImage(named: "hobby")
+                categoryLabel.text = "趣味"
+            } else if spending.category == "交際費" {
+                categoryImageView.image = UIImage(named: "dating")
+                categoryLabel.text = "交際費"
+            } else if spending.category == "交通費" {
+                categoryImageView.image = UIImage(named: "traffic")
+                categoryLabel.text = "交通費"
+            } else if spending.category == "衣服・美容" {
+                categoryImageView.image = UIImage(named: "clothe")
+                categoryLabel.text = "衣服・美容"
+            } else if spending.category == "健康・医療" {
+                categoryImageView.image = UIImage(named: "health")
+                categoryLabel.text = "健康・医療"
+            } else if spending.category == "自動車" {
+                categoryImageView.image = UIImage(named: "car")
+                categoryLabel.text = "自動車"
+            } else if spending.category == "教養・教育" {
+                categoryImageView.image = UIImage(named: "education")
+                categoryLabel.text = "教養・教育"
+            } else if spending.category == "特別な支出" {
+                categoryImageView.image = UIImage(named: "special")
+                categoryLabel.text = "特別な支出"
+            } else if spending.category == "現金・カード" {
+                categoryImageView.image = UIImage(named: "card")
+                categoryLabel.text = "現金・カード"
+            } else if spending.category == "水道・光熱費" {
+                categoryImageView.image = UIImage(named: "utility")
+                categoryLabel.text = "水道・光熱費"
+            } else if spending.category == "通信費" {
+                categoryImageView.image = UIImage(named: "communication")
+                categoryLabel.text = "通信費"
+            } else if spending.category == "住宅" {
+                categoryImageView.image = UIImage(named: "house")
+                categoryLabel.text = "住宅"
+            } else if spending.category == "税・社会保険" {
+                categoryImageView.image = UIImage(named: "tax")
+                categoryLabel.text = "税・社会保険"
+            } else if spending.category == "保険" {
+                categoryImageView.image = UIImage(named: "insrance")
+                categoryLabel.text = "保険"
+            } else if spending.category == "その他" {
+                categoryImageView.image = UIImage(named: "etcetra")
+                categoryLabel.text = "その他"
+            }
         }
+    }
+    
+    // MARK: - Delete
+    
+    @IBAction func deleteButtonPressd(_ sender: Any) {
         
-        if spending.category == "未分類" {
-            categoryImageView.image = UIImage(systemName: "questionmark.circle")
-            categoryImageView.tintColor = .systemGray
-            categoryLabel.text = "未分類"
-        } else if spending.category == "食費" {
-            categoryImageView.image = UIImage(named: "food")
-            categoryLabel.text = "食費"
-        } else if spending.category == "日用品" {
-            categoryImageView.image = UIImage(named: "brush")
-            categoryLabel.text = "日用品"
-        } else if spending.category == "趣味" {
-            categoryImageView.image = UIImage(named: "hobby")
-            categoryLabel.text = "趣味"
-        } else if spending.category == "交際費" {
-            categoryImageView.image = UIImage(named: "dating")
-            categoryLabel.text = "交際費"
-        } else if spending.category == "交通費" {
-            categoryImageView.image = UIImage(named: "traffic")
-            categoryLabel.text = "交通費"
-        } else if spending.category == "衣服・美容" {
-            categoryImageView.image = UIImage(named: "clothe")
-            categoryLabel.text = "衣服・美容"
-        } else if spending.category == "健康・医療" {
-            categoryImageView.image = UIImage(named: "health")
-            categoryLabel.text = "健康・医療"
-        } else if spending.category == "自動車" {
-            categoryImageView.image = UIImage(named: "car")
-            categoryLabel.text = "自動車"
-        } else if spending.category == "教養・教育" {
-            categoryImageView.image = UIImage(named: "education")
-            categoryLabel.text = "教養・教育"
-        } else if spending.category == "特別な支出" {
-            categoryImageView.image = UIImage(named: "special")
-            categoryLabel.text = "特別な支出"
-        } else if spending.category == "現金・カード" {
-            categoryImageView.image = UIImage(named: "card")
-            categoryLabel.text = "現金・カード"
-        } else if spending.category == "水道・光熱費" {
-            categoryImageView.image = UIImage(named: "utility")
-            categoryLabel.text = "水道・光熱費"
-        } else if spending.category == "通信費" {
-            categoryImageView.image = UIImage(named: "communication")
-            categoryLabel.text = "通信費"
-        } else if spending.category == "住宅" {
-            categoryImageView.image = UIImage(named: "house")
-            categoryLabel.text = "住宅"
-        } else if spending.category == "税・社会保険" {
-            categoryImageView.image = UIImage(named: "tax")
-            categoryLabel.text = "税・社会保険"
-        } else if spending.category == "保険" {
-            categoryImageView.image = UIImage(named: "insrance")
-            categoryLabel.text = "保険"
-        } else if spending.category == "その他" {
-            categoryImageView.image = UIImage(named: "etcetra")
-            categoryLabel.text = "その他"
+        let realm = try! Realm()
+        let spending = realm.objects(Spending.self).filter("id = '\(id)'")
+        spending.forEach { (spending) in
+            let alert = UIAlertController(title: spending.category, message: "データを削除しますか？", preferredStyle: .actionSheet)
+            let delete = UIAlertAction(title: "削除する", style: UIAlertAction.Style.default) { [self] (alert) in
+                
+                try! realm.write {
+                    if spending.category == "食費" {
+                        food.forEach { (food) in
+                            let mFood = realm.objects(MonthlyFood.self).filter("year == '\(food.year)'").filter("month == '\(food.month)'")
+                            mFood.forEach { (data) in
+                                data.totalPrice = data.totalPrice - food.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mFood)
+                                }
+                            }
+                        }
+                        realm.delete(food)
+                    } else if spending.category == "日用品" {
+                        brush.forEach { (brush) in
+                            let mBrush = realm.objects(MonthlyBrush.self).filter("year == '\(brush.year)'").filter("month == '\(brush.month)'")
+                            mBrush.forEach { (data) in
+                                data.totalPrice = data.totalPrice - brush.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mBrush)
+                                }
+                            }
+                        }
+                        realm.delete(brush)
+                    } else if spending.category == "趣味" {
+                        hobby.forEach { (hobby) in
+                            let mHobby = realm.objects(MonthlyHobby.self).filter("year == '\(hobby.year)'").filter("month == '\(hobby.month)'")
+                            mHobby.forEach { (data) in
+                                data.totalPrice = data.totalPrice - hobby.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mHobby)
+                                }
+                            }
+                        }
+                        realm.delete(hobby)
+                    } else if spending.category == "交際費" {
+                        dating.forEach { (dating) in
+                            let mDating = realm.objects(MonthlyDating.self).filter("year == '\(dating.year)'").filter("month == '\(dating.month)'")
+                            mDating.forEach { (data) in
+                                data.totalPrice = data.totalPrice - dating.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mDating)
+                                }
+                            }
+                        }
+                        realm.delete(dating)
+                    } else if spending.category == "交通費" {
+                        traffic.forEach { (traffic) in
+                            let mTraffic = realm.objects(MonthlyTraffic.self).filter("year == '\(traffic.year)'").filter("month == '\(traffic.month)'")
+                            mTraffic.forEach { (data) in
+                                data.totalPrice = data.totalPrice - traffic.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mTraffic)
+                                }
+                            }
+                        }
+                        realm.delete(traffic)
+                    } else if spending.category == "衣服・美容" {
+                        clothe.forEach { (clothe) in
+                            let mClothe = realm.objects(MonthlyClothe.self).filter("year == '\(clothe.year)'").filter("month == '\(clothe.month)'")
+                            mClothe.forEach { (data) in
+                                data.totalPrice = data.totalPrice - clothe.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mClothe)
+                                }
+                            }
+                        }
+                        realm.delete(clothe)
+                    } else if spending.category == "健康・医療" {
+                        health.forEach { (health) in
+                            let mhealth = realm.objects(MonthlyHealth.self).filter("year == '\(health.year)'").filter("month == '\(health.month)'")
+                            mhealth.forEach { (data) in
+                                data.totalPrice = data.totalPrice - health.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mhealth)
+                                }
+                            }
+                        }
+                        realm.delete(health)
+                    } else if spending.category == "自動車" {
+                        car.forEach { (car) in
+                            let mCar = realm.objects(MonthlyCar.self).filter("year == '\(car.year)'").filter("month == '\(car.month)'")
+                            mCar.forEach { (data) in
+                                data.totalPrice = data.totalPrice - car.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mCar)
+                                }
+                            }
+                        }
+                        realm.delete(car)
+                    } else if spending.category == "教養・教育" {
+                        education.forEach { (education) in
+                            let mEducation = realm.objects(MonthlyEducation.self).filter("year == '\(education.year)'").filter("month == '\(education.month)'")
+                            mEducation.forEach { (data) in
+                                data.totalPrice = data.totalPrice - education.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mEducation)
+                                }
+                            }
+                        }
+                        realm.delete(education)
+                    } else if spending.category == "特別な支出" {
+                        special.forEach { (special) in
+                            let mSpecial = realm.objects(MonthlySpecial.self).filter("year == '\(special.year)'").filter("month == '\(special.month)'")
+                            mSpecial.forEach { (data) in
+                                data.totalPrice = data.totalPrice - special.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mSpecial)
+                                }
+                            }
+                        }
+                        realm.delete(special)
+                    } else if spending.category == "現金・カード" {
+                        card.forEach { (card) in
+                            let mCard = realm.objects(MonthlyFood.self).filter("year == '\(card.year)'").filter("month == '\(card.month)'")
+                            mCard.forEach { (data) in
+                                data.totalPrice = data.totalPrice - card.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mCard)
+                                }
+                            }
+                        }
+                        realm.delete(card)
+                    } else if spending.category == "水道・光熱費" {
+                        utility.forEach { (utility) in
+                            let mUtility = realm.objects(MonthlyUtility.self).filter("year == '\(utility.year)'").filter("month == '\(utility.month)'")
+                            mUtility.forEach { (data) in
+                                data.totalPrice = data.totalPrice - utility.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mUtility)
+                                }
+                            }
+                        }
+                        realm.delete(utility)
+                    } else if spending.category == "通信費" {
+                        communication.forEach { (communication) in
+                            let mCommunication = realm.objects(MonthlyCommunication.self).filter("year == '\(communication.year)'").filter("month == '\(communication.month)'")
+                            mCommunication.forEach { (data) in
+                                data.totalPrice = data.totalPrice - communication.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mCommunication)
+                                }
+                            }
+                        }
+                        realm.delete(communication)
+                    } else if spending.category == "住宅" {
+                        house.forEach { (house) in
+                            let mHouse = realm.objects(MonthlyHouse.self).filter("year == '\(house.year)'").filter("month == '\(house.month)'")
+                            mHouse.forEach { (data) in
+                                data.totalPrice = data.totalPrice - house.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mHouse)
+                                }
+                            }
+                        }
+                        realm.delete(house)
+                    } else if spending.category == "税・社会保険" {
+                        tax.forEach { (tax) in
+                            let mTax = realm.objects(MonthlyTax.self).filter("year == '\(tax.year)'").filter("month == '\(tax.month)'")
+                            mTax.forEach { (data) in
+                                data.totalPrice = data.totalPrice - tax.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mTax)
+                                }
+                            }
+                        }
+                        realm.delete(tax)
+                    } else if spending.category == "保険" {
+                        insrance.forEach { (insrance) in
+                            let mInsrance = realm.objects(MonthlyInsrance.self).filter("year == '\(insrance.year)'").filter("month == '\(insrance.month)'")
+                            mInsrance.forEach { (data) in
+                                data.totalPrice = data.totalPrice - insrance.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mInsrance)
+                                }
+                            }
+                        }
+                        realm.delete(insrance)
+                    } else if spending.category == "その他" {
+                        etcetora.forEach { (etcetora) in
+                            let mEtcetora = realm.objects(MonthlyEtcetora.self).filter("year == '\(etcetora.year)'").filter("month == '\(etcetora.month)'")
+                            mEtcetora.forEach { (data) in
+                                data.totalPrice = data.totalPrice - etcetora.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mEtcetora)
+                                }
+                            }
+                        }
+                        realm.delete(etcetora)
+                    } else if spending.category == "未分類" {
+                        unCategory.forEach { (unCategory) in
+                            let mUnCategory = realm.objects(MonthlyUnCategory.self).filter("year == '\(unCategory.year)'").filter("month == '\(unCategory.month)'")
+                            mUnCategory.forEach { (data) in
+                                data.totalPrice = data.totalPrice - unCategory.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mUnCategory)
+                                }
+                            }
+                        }
+                        realm.delete(unCategory)
+                    }
+                    realm.delete(spending)
+                    
+                    HUD.flash(.labeledSuccess(title: "", subtitle: "削除しました"), delay: 0.5)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        navigationController?.popViewController(animated: true)
+                    }
+                }
+            }
+            let cancel = UIAlertAction(title: "キャンセル", style: .cancel)
+            let screenSize = UIScreen.main.bounds
+            
+            alert.popoverPresentationController?.sourceView = self.view
+            alert.popoverPresentationController?.sourceRect = CGRect(x: screenSize.size.width/2, y: screenSize.size.height, width: 0, height: 0)
+            alert.addAction(delete)
+            alert.addAction(cancel)
+            self.present(alert,animated: true,completion: nil)
         }
     }
     
     // MARK: - Actions
     
-    @IBAction func deleteButtonPressd(_ sender: Any) {
-        
-        let realm = try! Realm()
-        let alert = UIAlertController(title: spending.category, message: "データを削除しますか？", preferredStyle: .actionSheet)
-        let delete = UIAlertAction(title: "削除する", style: UIAlertAction.Style.default) { [self] (alert) in
-            
-            try! realm.write {
-                realm.delete(spending)
-                HUD.flash(.labeledSuccess(title: "", subtitle: "削除しました"), delay: 0.5)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    navigationController?.popViewController(animated: true)
-                }
-            }
-        }
-        let cancel = UIAlertAction(title: "キャンセル", style: .cancel)
-        let screenSize = UIScreen.main.bounds
-        
-        alert.popoverPresentationController?.sourceView = self.view
-        alert.popoverPresentationController?.sourceRect = CGRect(x: screenSize.size.width/2, y: screenSize.size.height, width: 0, height: 0)
-        alert.addAction(delete)
-        alert.addAction(cancel)
-        self.present(alert,animated: true,completion: nil)
-    }
     
     @IBAction func backButtonPressed(_ sender: Any) {
         navigationController?.popViewController(animated: true)
@@ -535,40 +767,81 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
         lastNumeric = false
     }
     
-    // MARK: - Helpers
+    // MARK: - Update spending
     
     private func updateSpending() {
         
         let realm = try! Realm()
-        
-        if autofillSwitch.isOn {
-            let auto = Auto()
-            let id = UUID().uuidString
-            conversionDay(auto, day2)
-            auto.id = id
-            auto.price = Int(numberLabel.text!) ?? 0
-            auto.category = categoryLabel.text ?? ""
-            auto.memo = textField.text ?? ""
-            auto.payment = "支出"
-            auto.timestamp = dateLabel.text ?? ""
-            auto.date = self.year_month_day2
-            auto.isInput = true
-            auto.onRegister = true
-            auto.isRegister = true
-            auto.month = Int(self.month2) ?? 0
-            auto.day = Int(self.day2) ?? 0
+        let spending = realm.objects(Spending.self).filter("id = '\(id)'")
+        spending.forEach { (spending) in
             
-            try! realm.write {
-                realm.add(auto)
+            if autofillSwitch.isOn {
+                let auto = Auto()
+                let id = UUID().uuidString
+                conversionDay(auto, day2)
+                auto.id = id
+                auto.price = Int(numberLabel.text!) ?? 0
+                auto.category = categoryLabel.text ?? ""
+                auto.memo = textField.text ?? ""
+                auto.payment = "支出"
+                auto.timestamp = dateLabel.text ?? ""
+                auto.date = self.year_month_day2
+                auto.isInput = true
+                auto.onRegister = true
+                auto.isRegister = true
+                auto.month = Int(self.month2) ?? 0
+                auto.day = Int(self.day2) ?? 0
+                
+                try! realm.write {
+                    realm.add(auto)
+                }
+                
+                try! realm.write {
+                    spendingData(spending)
+                    spending.isAutofill = true
+                }
+            } else {
+                try! realm.write {
+                    spendingData(spending)
+                }
             }
             
-            try! realm.write {
-                spendingData(spending)
-                spending.isAutofill = true
-            }
-        } else {
-            try! realm.write {
-                spendingData(spending)
+            if spending.category == "食費" {
+                updateFood(spending)
+            } else if spending.category == "日用品" {
+                updateBrush(spending)
+            } else if spending.category == "趣味" {
+                updateHobby(spending)
+            } else if spending.category == "交際費" {
+                updateDating(spending)
+            } else if spending.category == "交通費" {
+                updateTraffic(spending)
+            } else if spending.category == "衣服・美容" {
+                updateClothe(spending)
+            } else if spending.category == "健康・医療" {
+                updateHealth(spending)
+            } else if spending.category == "自動車" {
+                updateCar(spending)
+            } else if spending.category == "教養・教育" {
+                updateEducation(spending)
+            } else if spending.category == "特別な支出" {
+                updateSpecial(spending)
+            } else if spending.category == "現金・カード" {
+                updateCard(spending)
+            } else if spending.category == "水道・光熱費" {
+                updateUtility(spending)
+            } else if spending.category == "通信費" {
+                updateCommunicaton(spending)
+            } else if spending.category == "住宅" {
+                updateHouse(spending)
+            } else if spending.category == "税・社会保険" {
+                updateTax(spending)
+            } else if spending.category == "保険" {
+                updateInsrance(spending)
+            } else if spending.category == "その他" {
+                updateEtcetora(spending)
+            } else if spending.category == "未分類" {
+                updateUnCategory(spending)
             }
         }
         navigationController?.popViewController(animated: true)
@@ -585,6 +858,423 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
         spending.month = month2
         spending.day = day2
     }
+    
+    private func updateFood(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let food = realm.objects(Food.self).filter("id = '\(id)'")
+        
+        food.forEach { (food) in
+            try! realm.write {
+                let mFood = realm.objects(MonthlyFood.self).filter("year == '\(food.year)'").filter("month == '\(food.month)'")
+                mFood.forEach { (mFood) in
+                    mFood.totalPrice = mFood.totalPrice - food.price
+                    mFood.totalPrice = mFood.totalPrice + Int(numberLabel.text!)!
+                }
+                food.price = Int(numberLabel.text!) ?? 0
+                food.category = categoryLabel.text ?? ""
+                food.memo = textField.text ?? ""
+                food.timestamp = dateLabel.text ?? ""
+                food.year = year2
+                food.month = month2
+                food.day = day2
+            }
+        }
+    }
+    
+    private func updateBrush(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let brush = realm.objects(Brush.self).filter("id = '\(id)'")
+        brush.forEach { (brush) in
+            try! realm.write {
+                let mBrush = realm.objects(MonthlyBrush.self).filter("year == '\(brush.year)'").filter("month == '\(brush.month)'")
+                mBrush.forEach { (mBrush) in
+                    mBrush.totalPrice = mBrush.totalPrice - brush.price
+                    mBrush.totalPrice = mBrush.totalPrice + Int(numberLabel.text!)!
+                }
+                brush.price = Int(numberLabel.text!) ?? 0
+                brush.category = categoryLabel.text ?? ""
+                brush.memo = textField.text ?? ""
+                brush.timestamp = dateLabel.text ?? ""
+                brush.year = year2
+                brush.month = month2
+                brush.day = day2
+            }
+        }
+    }
+    
+    private func updateHobby(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let hobby = realm.objects(Hobby.self).filter("id = '\(id)'")
+        hobby.forEach { (hobby) in
+            try! realm.write {
+                let mHobby = realm.objects(MonthlyHobby.self).filter("year == '\(hobby.year)'").filter("month == '\(hobby.month)'")
+                mHobby.forEach { (mHobby) in
+                    mHobby.totalPrice = mHobby.totalPrice - hobby.price
+                    mHobby.totalPrice = mHobby.totalPrice + Int(numberLabel.text!)!
+                }
+                hobby.price = Int(numberLabel.text!) ?? 0
+                hobby.category = categoryLabel.text ?? ""
+                hobby.memo = textField.text ?? ""
+                hobby.timestamp = dateLabel.text ?? ""
+                hobby.year = year2
+                hobby.month = month2
+                hobby.day = day2
+            }
+        }
+    }
+    
+    private func updateDating(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let dating = realm.objects(Dating.self).filter("id = '\(id)'")
+        dating.forEach { (dating) in
+            try! realm.write {
+                let mDating = realm.objects(MonthlyDating.self).filter("year == '\(dating.year)'").filter("month == '\(dating.month)'")
+                mDating.forEach { (mDating) in
+                    mDating.totalPrice = mDating.totalPrice - dating.price
+                    mDating.totalPrice = mDating.totalPrice + Int(numberLabel.text!)!
+                }
+                dating.price = Int(numberLabel.text!) ?? 0
+                dating.category = categoryLabel.text ?? ""
+                dating.memo = textField.text ?? ""
+                dating.timestamp = dateLabel.text ?? ""
+                dating.year = year2
+                dating.month = month2
+                dating.day = day2
+            }
+        }
+    }
+    
+    private func updateTraffic(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let traffic = realm.objects(Traffic.self).filter("id = '\(id)'")
+        traffic.forEach { (traffic) in
+            try! realm.write {
+                let mTraffic = realm.objects(MonthlyTraffic.self).filter("year == '\(traffic.year)'").filter("month == '\(traffic.month)'")
+                mTraffic.forEach { (mTraffic) in
+                    mTraffic.totalPrice = mTraffic.totalPrice - traffic.price
+                    mTraffic.totalPrice = mTraffic.totalPrice + Int(numberLabel.text!)!
+                }
+                traffic.price = Int(numberLabel.text!) ?? 0
+                traffic.category = categoryLabel.text ?? ""
+                traffic.memo = textField.text ?? ""
+                traffic.timestamp = dateLabel.text ?? ""
+                traffic.year = year2
+                traffic.month = month2
+                traffic.day = day2
+            }
+        }
+    }
+    
+    private func updateClothe(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let clothe = realm.objects(Clothe.self).filter("id = '\(id)'")
+        clothe.forEach { (clothe) in
+            try! realm.write {
+                let mClothe = realm.objects(MonthlyClothe.self).filter("year == '\(clothe.year)'").filter("month == '\(clothe.month)'")
+                mClothe.forEach { (mClothe) in
+                    mClothe.totalPrice = mClothe.totalPrice - clothe.price
+                    mClothe.totalPrice = mClothe.totalPrice + Int(numberLabel.text!)!
+                }
+                clothe.price = Int(numberLabel.text!) ?? 0
+                clothe.category = categoryLabel.text ?? ""
+                clothe.memo = textField.text ?? ""
+                clothe.timestamp = dateLabel.text ?? ""
+                clothe.year = year2
+                clothe.month = month2
+                clothe.day = day2
+            }
+        }
+    }
+    
+    private func updateHealth(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let health = realm.objects(Health.self).filter("id = '\(id)'")
+        health.forEach { (health) in
+            try! realm.write {
+                let mHealth = realm.objects(MonthlyHealth.self).filter("year == '\(health.year)'").filter("month == '\(health.month)'")
+                mHealth.forEach { (mHealth) in
+                    mHealth.totalPrice = mHealth.totalPrice - health.price
+                    mHealth.totalPrice = mHealth.totalPrice + Int(numberLabel.text!)!
+                }
+                health.price = Int(numberLabel.text!) ?? 0
+                health.category = categoryLabel.text ?? ""
+                health.memo = textField.text ?? ""
+                health.timestamp = dateLabel.text ?? ""
+                health.year = year2
+                health.month = month2
+                health.day = day2
+            }
+        }
+    }
+    
+    private func updateCar(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let car = realm.objects(Car.self).filter("id = '\(id)'")
+        car.forEach { (car) in
+            try! realm.write {
+                let mCar = realm.objects(MonthlyCar.self).filter("year == '\(car.year)'").filter("month == '\(car.month)'")
+                mCar.forEach { (mCar) in
+                    mCar.totalPrice = mCar.totalPrice - car.price
+                    mCar.totalPrice = mCar.totalPrice + Int(numberLabel.text!)!
+                }
+                car.price = Int(numberLabel.text!) ?? 0
+                car.category = categoryLabel.text ?? ""
+                car.memo = textField.text ?? ""
+                car.timestamp = dateLabel.text ?? ""
+                car.year = year2
+                car.month = month2
+                car.day = day2
+            }
+        }
+    }
+    
+    private func updateEducation(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let education = realm.objects(Education.self).filter("id = '\(id)'")
+        education.forEach { (education) in
+            try! realm.write {
+                let mEducation = realm.objects(MonthlyEducation.self).filter("year == '\(education.year)'").filter("month == '\(education.month)'")
+                mEducation.forEach { (mEducation) in
+                    mEducation.totalPrice = mEducation.totalPrice - education.price
+                    mEducation.totalPrice = mEducation.totalPrice + Int(numberLabel.text!)!
+                }
+                education.price = Int(numberLabel.text!) ?? 0
+                education.category = categoryLabel.text ?? ""
+                education.memo = textField.text ?? ""
+                education.timestamp = dateLabel.text ?? ""
+                education.year = year2
+                education.month = month2
+                education.day = day2
+            }
+        }
+    }
+    
+    private func updateSpecial(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let special = realm.objects(Special.self).filter("id = '\(id)'")
+        special.forEach { (special) in
+            try! realm.write {
+                let mSpecial = realm.objects(MonthlySpecial.self).filter("year == '\(special.year)'").filter("month == '\(special.month)'")
+                mSpecial.forEach { (mSpecial) in
+                    mSpecial.totalPrice = mSpecial.totalPrice - special.price
+                    mSpecial.totalPrice = mSpecial.totalPrice + Int(numberLabel.text!)!
+                }
+                special.price = Int(numberLabel.text!) ?? 0
+                special.category = categoryLabel.text ?? ""
+                special.memo = textField.text ?? ""
+                special.timestamp = dateLabel.text ?? ""
+                special.year = year2
+                special.month = month2
+                special.day = day2
+            }
+        }
+    }
+    
+    private func updateCard(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let card = realm.objects(Card.self).filter("id = '\(id)'")
+        card.forEach { (card) in
+            try! realm.write {
+                let mCard = realm.objects(MonthlyCard.self).filter("year == '\(card.year)'").filter("month == '\(card.month)'")
+                mCard.forEach { (mCard) in
+                    mCard.totalPrice = mCard.totalPrice - card.price
+                    mCard.totalPrice = mCard.totalPrice + Int(numberLabel.text!)!
+                }
+                card.price = Int(numberLabel.text!) ?? 0
+                card.category = categoryLabel.text ?? ""
+                card.memo = textField.text ?? ""
+                card.timestamp = dateLabel.text ?? ""
+                card.year = year2
+                card.month = month2
+                card.day = day2
+            }
+        }
+    }
+    
+    private func updateUtility(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let utility = realm.objects(Utility.self).filter("id = '\(id)'")
+        utility.forEach { (utility) in
+            try! realm.write {
+                let mUtility = realm.objects(MonthlyUtility.self).filter("year == '\(utility.year)'").filter("month == '\(utility.month)'")
+                mUtility.forEach { (mUtility) in
+                    mUtility.totalPrice = mUtility.totalPrice - utility.price
+                    mUtility.totalPrice = mUtility.totalPrice + Int(numberLabel.text!)!
+                }
+                utility.price = Int(numberLabel.text!) ?? 0
+                utility.category = categoryLabel.text ?? ""
+                utility.memo = textField.text ?? ""
+                utility.timestamp = dateLabel.text ?? ""
+                utility.year = year2
+                utility.month = month2
+                utility.day = day2
+            }
+        }
+    }
+    
+    private func updateCommunicaton(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let communication = realm.objects(Communicaton.self).filter("id = '\(id)'")
+        communication.forEach { (communication) in
+            try! realm.write {
+                let mCommunication = realm.objects(MonthlyCommunication.self).filter("year == '\(communication.year)'").filter("month == '\(communication.month)'")
+                mCommunication.forEach { (mCommunication) in
+                    mCommunication.totalPrice = mCommunication.totalPrice - communication.price
+                    mCommunication.totalPrice = mCommunication.totalPrice + Int(numberLabel.text!)!
+                }
+                communication.price = Int(numberLabel.text!) ?? 0
+                communication.category = categoryLabel.text ?? ""
+                communication.memo = textField.text ?? ""
+                communication.timestamp = dateLabel.text ?? ""
+                communication.year = year2
+                communication.month = month2
+                communication.day = day2
+            }
+        }
+    }
+    
+    private func updateHouse(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let house = realm.objects(House.self).filter("id = '\(id)'")
+        house.forEach { (house) in
+            try! realm.write {
+                let mHouse = realm.objects(MonthlyHouse.self).filter("year == '\(house.year)'").filter("month == '\(house.month)'")
+                mHouse.forEach { (mHouse) in
+                    mHouse.totalPrice = mHouse.totalPrice - house.price
+                    mHouse.totalPrice = mHouse.totalPrice + Int(numberLabel.text!)!
+                }
+                house.price = Int(numberLabel.text!) ?? 0
+                house.category = categoryLabel.text ?? ""
+                house.memo = textField.text ?? ""
+                house.timestamp = dateLabel.text ?? ""
+                house.year = year2
+                house.month = month2
+                house.day = day2
+            }
+        }
+    }
+    
+    private func updateTax(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let tax = realm.objects(Tax.self).filter("id = '\(id)'")
+        tax.forEach { (tax) in
+            try! realm.write {
+                let mTax = realm.objects(MonthlyTax.self).filter("year == '\(tax.year)'").filter("month == '\(tax.month)'")
+                mTax.forEach { (mTax) in
+                    mTax.totalPrice = mTax.totalPrice - tax.price
+                    mTax.totalPrice = mTax.totalPrice + Int(numberLabel.text!)!
+                }
+                tax.price = Int(numberLabel.text!) ?? 0
+                tax.category = categoryLabel.text ?? ""
+                tax.memo = textField.text ?? ""
+                tax.timestamp = dateLabel.text ?? ""
+                tax.year = year2
+                tax.month = month2
+                tax.day = day2
+            }
+        }
+    }
+    
+    private func updateInsrance(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let insrance = realm.objects(Insrance.self).filter("id = '\(id)'")
+        insrance.forEach { (insrance) in
+            try! realm.write {
+                let mInsrance = realm.objects(MonthlyInsrance.self).filter("year == '\(insrance.year)'").filter("month == '\(insrance.month)'")
+                mInsrance.forEach { (mInsrance) in
+                    mInsrance.totalPrice = mInsrance.totalPrice - insrance.price
+                    mInsrance.totalPrice = mInsrance.totalPrice + Int(numberLabel.text!)!
+                }
+                insrance.price = Int(numberLabel.text!) ?? 0
+                insrance.category = categoryLabel.text ?? ""
+                insrance.memo = textField.text ?? ""
+                insrance.timestamp = dateLabel.text ?? ""
+                insrance.year = year2
+                insrance.month = month2
+                insrance.day = day2
+            }
+        }
+    }
+    
+    private func updateEtcetora(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let etcetra = realm.objects(Etcetora.self).filter("id = '\(id)'")
+        etcetra.forEach { (etcetra) in
+            try! realm.write {
+                let mEtcetora = realm.objects(MonthlyEtcetora.self).filter("year == '\(etcetra.year)'").filter("month == '\(etcetra.month)'")
+                mEtcetora.forEach { (mEtcetora) in
+                    mEtcetora.totalPrice = mEtcetora.totalPrice - etcetra.price
+                    mEtcetora.totalPrice = mEtcetora.totalPrice + Int(numberLabel.text!)!
+                }
+                etcetra.price = Int(numberLabel.text!) ?? 0
+                etcetra.category = categoryLabel.text ?? ""
+                etcetra.memo = textField.text ?? ""
+                etcetra.timestamp = dateLabel.text ?? ""
+                etcetra.year = year2
+                etcetra.month = month2
+                etcetra.day = day2
+            }
+        }
+    }
+    
+    private func updateUnCategory(_ spending: Spending) {
+        
+        let realm = try! Realm()
+        let id = spending.id
+        let unCategory = realm.objects(UnCategory.self).filter("id = '\(id)'")
+        unCategory.forEach { (unCategory) in
+            try! realm.write {
+                let mUnCategory = realm.objects(MonthlyUnCategory.self).filter("year == '\(unCategory.year)'").filter("month == '\(unCategory.month)'")
+                mUnCategory.forEach { (mUnCategory) in
+                    mUnCategory.totalPrice = mUnCategory.totalPrice - unCategory.price
+                    mUnCategory.totalPrice = mUnCategory.totalPrice + Int(numberLabel.text!)!
+                }
+                unCategory.price = Int(numberLabel.text!) ?? 0
+                unCategory.category = categoryLabel.text ?? ""
+                unCategory.memo = textField.text ?? ""
+                unCategory.timestamp = dateLabel.text ?? ""
+                unCategory.year = year2
+                unCategory.month = month2
+                unCategory.day = day2
+            }
+        }
+    }
+    
+    // MARK: - Helpers
     
     private func setCategory() {
         
@@ -780,6 +1470,14 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
         calender.calendarWeekdayView.weekdayLabels[5].text = "金"
         calender.calendarWeekdayView.weekdayLabels[6].text = "土"
         navigationItem.title = "出金の修正"
+        
+        switch (UIScreen.main.nativeBounds.height) {
+        case 1334:
+            caluclatorView.isHidden = true
+            break
+        default:
+            break
+        }
     }
     
     private func removeUserDefaults() {

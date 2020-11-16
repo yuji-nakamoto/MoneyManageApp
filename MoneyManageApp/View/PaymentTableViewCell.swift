@@ -30,9 +30,9 @@ class PaymentTableViewCell: UITableViewCell {
             categoryImageView.image = UIImage(systemName: "questionmark.circle")
             categoryImageView.tintColor = .systemGray
             categoryLabel.text = "未分類"
-        } else if income.category == "給料" {
+        } else if income.category == "給与" {
             categoryImageView.image = UIImage(named: "en_mark")
-            categoryLabel.text = "給料"
+            categoryLabel.text = "給与"
         } else if income.category == "一時所得" {
             categoryImageView.image = UIImage(named: "en_mark")
             categoryLabel.text = "一時所得"

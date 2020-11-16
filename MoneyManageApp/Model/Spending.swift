@@ -18,4 +18,5 @@ class Spending: Object {
     @objc dynamic var month = ""
     @objc dynamic var day = ""
     @objc dynamic var isAutofill = false
+    @objc dynamic var id = ""
 }

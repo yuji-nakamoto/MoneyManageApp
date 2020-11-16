@@ -43,7 +43,7 @@ class AutofillViewController: UIViewController {
     
     private func setupBanner() {
         
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = "ca-app-pub-4750883229624981/5979521196"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
     }

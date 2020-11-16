@@ -53,6 +53,11 @@ public var yyyy_mm_dd: String {
     dateFormatter.dateFormat = "yyyy-MM-dd"
     return dateFormatter.string(from: date)
 }
+public var yyyy_mm: String {
+    dateFormatter.locale = Locale(identifier: "ja_JP")
+    dateFormatter.dateFormat = "yyyy-MM"
+    return dateFormatter.string(from: date)
+}
 public var year: String {
     dateFormatter.locale = Locale(identifier: "ja_JP")
     dateFormatter.dateFormat = "yyyy"

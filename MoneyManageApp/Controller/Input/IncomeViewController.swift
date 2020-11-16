@@ -56,6 +56,7 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
     private var lastNumeric = false
     private var inputNumber = 0
     private var yyyy_mm_dd2 = ""
+    private var yyyy_mm2 = ""
     private var year2 = ""
     private var month2 = ""
     private var day2 = ""
@@ -82,7 +83,6 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
         numberLabel2.text = "0"
         categoryLabel.text = "未分類"
         textField.text = ""
-        nowDate()
         removeUserDefaults()
         firstNumeric = false
         lastNumeric = false
@@ -450,12 +450,456 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
         lastNumeric = false
     }
     
+    // MARK: - Create income
+    
+    private func createIncome() {
+        
+        let realm = try! Realm()
+        let id = UUID().uuidString
+        let income = Income()
+        let salary = Salary()
+        let temporary = Temporary()
+        let business = Business()
+        let pension = Pension()
+        let devident = Devident()
+        let estate = Estate()
+        let payment = Payment()
+        let unCategory2 = UnCategory2()
+        let nextDateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month)! + 1, day: 1))
+        let firstDateComp = calendar.date(from: DateComponents(year: Int(year2), month: Int(month2)!, day: 1))
+        
+        let add = DateComponents(month: Int(month2)! + 2, day: -1)
+        let lastday = calendar.date(byAdding: add, to: firstday!)
+        
+        var nextMonth: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.string(from: nextDateComp!)
+        }
+        var yearMonthTotal: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "yyyy年M月合計"
+            return dateFormatter.string(from: firstDateComp!)
+        }
+        var firstDayString: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "M月d日"
+            return dateFormatter.string(from: firstDateComp!)
+        }
+        
+        var lastDayString: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "M月d日"
+            return dateFormatter.string(from: lastday!)
+        }
+        
+        if autofillSwitch.isOn {
+            let auto = Auto()
+            conversionDay(auto, day2)
+            auto.id = id
+            auto.price = Int(numberLabel.text!) ?? 0
+            auto.category = categoryLabel.text ?? ""
+            auto.memo = textField.text ?? ""
+            auto.payment = "収入"
+            auto.timestamp = timestamp
+            auto.date = yyyy_mm_dd2
+            auto.nextMonth = nextMonth
+            auto.isInput = true
+            auto.onRegister = true
+            auto.isRegister = true
+            auto.month = Int(month2)!
+            auto.day = Int(day2)!
+            
+            try! realm.write {
+                realm.add(auto)
+            }
+            
+            incomeData(income, id)
+            income.isAutofill = true
+            try! realm.write {
+                realm.add(income)
+            }
+        } else {
+            incomeData(income, id)
+            try! realm.write {
+                realm.add(income)
+            }
+        }
+        
+        if income.category == "給与" {
+            salaryData(salary, id)
+            mSalaryCreate(yearMonthTotal, firstDayString, lastDayString)
+            try! realm.write {
+                realm.add(salary)
+            }
+        } else if income.category == "一時所得" {
+            temporaryData(temporary, id)
+            mTemporaryCreate(yearMonthTotal, firstDayString, lastDayString)
+            try! realm.write {
+                realm.add(temporary)
+            }
+        } else if income.category == "事業・副業" {
+            businessData(business, id)
+            mBusinessCreate(yearMonthTotal, firstDayString, lastDayString)
+            try! realm.write {
+                realm.add(business)
+            }
+        } else if income.category == "年金" {
+            pensionData(pension, id)
+            mPensionCreate(yearMonthTotal, firstDayString, lastDayString)
+            try! realm.write {
+                realm.add(pension)
+            }
+        } else if income.category == "配当所得" {
+            devidentData(devident, id)
+            mDevidentCreate(yearMonthTotal, firstDayString, lastDayString)
+            try! realm.write {
+                realm.add(devident)
+            }
+        } else if income.category == "不動産所得" {
+            estateData(estate, id)
+            mEstateCreate(yearMonthTotal, firstDayString, lastDayString)
+            try! realm.write {
+                realm.add(estate)
+            }
+        } else if income.category == "その他入金" {
+            paymentData(payment, id)
+            mPaymentCreate(yearMonthTotal, firstDayString, lastDayString)
+            try! realm.write {
+                realm.add(payment)
+            }
+        } else if income.category == "未分類" {
+            unCategory2Data(unCategory2, id)
+            mUnCategory2Create(yearMonthTotal, firstDayString, lastDayString)
+            try! realm.write {
+                realm.add(unCategory2)
+            }
+        }
+    }
+    
+    private func incomeData(_ income: Income, _ id: String) {
+        
+        income.price = Int(numberLabel.text!) ?? 0
+        income.category = categoryLabel.text ?? ""
+        income.memo = textField.text ?? ""
+        income.timestamp = dateLabel.text ?? ""
+        income.date = yyyy_mm_dd2
+        income.year = year2
+        income.month = month2
+        income.day = day2
+        income.id = id
+    }
+    
+    private func salaryData(_ salary: Salary, _ id: String) {
+        
+        salary.price = Int(numberLabel.text!) ?? 0
+        salary.category = categoryLabel.text ?? ""
+        salary.memo = textField.text ?? ""
+        salary.timestamp = dateLabel.text ?? ""
+        salary.year = year2
+        salary.month = month2
+        salary.day = day2
+        salary.id = id
+    }
+    
+    private func temporaryData(_ temporary: Temporary, _ id: String) {
+        
+        temporary.price = Int(numberLabel.text!) ?? 0
+        temporary.category = categoryLabel.text ?? ""
+        temporary.memo = textField.text ?? ""
+        temporary.timestamp = dateLabel.text ?? ""
+        temporary.year = year2
+        temporary.month = month2
+        temporary.day = day2
+        temporary.id = id
+    }
+    
+    private func businessData(_ business: Business, _ id: String) {
+        
+        business.price = Int(numberLabel.text!) ?? 0
+        business.category = categoryLabel.text ?? ""
+        business.memo = textField.text ?? ""
+        business.timestamp = dateLabel.text ?? ""
+        business.year = year2
+        business.month = month2
+        business.day = day2
+        business.id = id
+    }
+    
+    private func pensionData(_ pension: Pension, _ id: String) {
+        
+        pension.price = Int(numberLabel.text!) ?? 0
+        pension.category = categoryLabel.text ?? ""
+        pension.memo = textField.text ?? ""
+        pension.timestamp = dateLabel.text ?? ""
+        pension.year = year2
+        pension.month = month2
+        pension.day = day2
+        pension.id = id
+    }
+    
+    private func devidentData(_ devident: Devident, _ id: String) {
+        
+        devident.price = Int(numberLabel.text!) ?? 0
+        devident.category = categoryLabel.text ?? ""
+        devident.memo = textField.text ?? ""
+        devident.timestamp = dateLabel.text ?? ""
+        devident.year = year2
+        devident.month = month2
+        devident.day = day2
+        devident.id = id
+    }
+    
+    private func estateData(_ estate: Estate, _ id: String) {
+        
+        estate.price = Int(numberLabel.text!) ?? 0
+        estate.category = categoryLabel.text ?? ""
+        estate.memo = textField.text ?? ""
+        estate.timestamp = dateLabel.text ?? ""
+        estate.year = year2
+        estate.month = month2
+        estate.day = day2
+        estate.id = id
+    }
+    
+    private func paymentData(_ payment: Payment, _ id: String) {
+        
+        payment.price = Int(numberLabel.text!) ?? 0
+        payment.category = categoryLabel.text ?? ""
+        payment.memo = textField.text ?? ""
+        payment.timestamp = dateLabel.text ?? ""
+        payment.year = year2
+        payment.month = month2
+        payment.day = day2
+        payment.id = id
+    }
+    
+    private func unCategory2Data(_ unCategory2: UnCategory2, _ id: String) {
+        
+        unCategory2.price = Int(numberLabel.text!) ?? 0
+        unCategory2.category = categoryLabel.text ?? ""
+        unCategory2.memo = textField.text ?? ""
+        unCategory2.timestamp = dateLabel.text ?? ""
+        unCategory2.year = year2
+        unCategory2.month = month2
+        unCategory2.day = day2
+        unCategory2.id = id
+    }
+    
+    private func mSalaryCreate(_ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
+        
+        let realm = try! Realm()
+        let monthlySalary = realm.objects(MonthlySalary.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+        
+        if monthlySalary.count == 0 {
+            let monthlySalary = MonthlySalary()
+            monthlySalary.totalPrice = Int(numberLabel.text!) ?? 0
+            monthlySalary.category = "給与"
+            monthlySalary.timestamp = yearMonthTotal
+            monthlySalary.monthly = "(\(firstDayString)~\(lastDayString))"
+            monthlySalary.date = yyyy_mm2
+            monthlySalary.year = year2
+            monthlySalary.month = month2
+            try! realm.write {
+                realm.add(monthlySalary)
+            }
+        } else {
+            monthlySalary.forEach { (monthlySalary) in
+                try! realm.write {
+                    monthlySalary.totalPrice = monthlySalary.totalPrice + Int(numberLabel.text!)!
+                }
+            }
+        }
+    }
+    
+    private func mTemporaryCreate(_ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
+        
+        let realm = try! Realm()
+        let monthlyTemporary = realm.objects(MonthlyTemporary.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+        
+        if monthlyTemporary.count == 0 {
+            let monthlyTemporary = MonthlyTemporary()
+            monthlyTemporary.totalPrice = Int(numberLabel.text!) ?? 0
+            monthlyTemporary.category = "一時所得"
+            monthlyTemporary.timestamp = yearMonthTotal
+            monthlyTemporary.monthly = "(\(firstDayString)~\(lastDayString))"
+            monthlyTemporary.date = yyyy_mm2
+            monthlyTemporary.year = year2
+            monthlyTemporary.month = month2
+            try! realm.write {
+                realm.add(monthlyTemporary)
+            }
+        } else {
+            monthlyTemporary.forEach { (monthlyTemporary) in
+                try! realm.write {
+                    monthlyTemporary.totalPrice = monthlyTemporary.totalPrice + Int(numberLabel.text!)!
+                }
+            }
+        }
+    }
+    
+    private func mBusinessCreate(_ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
+        
+        let realm = try! Realm()
+        let monthlyBusiness = realm.objects(MonthlyBusiness.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+        
+        if monthlyBusiness.count == 0 {
+            let monthlyBusiness = MonthlyBusiness()
+            monthlyBusiness.totalPrice = Int(numberLabel.text!) ?? 0
+            monthlyBusiness.category = "事業・副業"
+            monthlyBusiness.timestamp = yearMonthTotal
+            monthlyBusiness.monthly = "(\(firstDayString)~\(lastDayString))"
+            monthlyBusiness.date = yyyy_mm2
+            monthlyBusiness.year = year2
+            monthlyBusiness.month = month2
+            try! realm.write {
+                realm.add(monthlyBusiness)
+            }
+        } else {
+            monthlyBusiness.forEach { monthlyBusiness in
+                try! realm.write {
+                    monthlyBusiness.totalPrice = monthlyBusiness.totalPrice + Int(numberLabel.text!)!
+                }
+            }
+        }
+    }
+    
+    private func mPensionCreate(_ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
+        
+        let realm = try! Realm()
+        let monthlyPension = realm.objects(MonthlyPension.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+        
+        if monthlyPension.count == 0 {
+            let monthlyPension = MonthlyPension()
+            monthlyPension.totalPrice = Int(numberLabel.text!) ?? 0
+            monthlyPension.category = "年金"
+            monthlyPension.timestamp = yearMonthTotal
+            monthlyPension.monthly = "(\(firstDayString)~\(lastDayString))"
+            monthlyPension.date = yyyy_mm2
+            monthlyPension.year = year2
+            monthlyPension.month = month2
+            try! realm.write {
+                realm.add(monthlyPension)
+            }
+        } else {
+            monthlyPension.forEach { (monthlyPension) in
+                try! realm.write {
+                    monthlyPension.totalPrice = monthlyPension.totalPrice + Int(numberLabel.text!)!
+                }
+            }
+        }
+    }
+    
+    private func mDevidentCreate(_ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
+        
+        let realm = try! Realm()
+        let monthlyDevident = realm.objects(MonthlyDevident.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+        
+        if monthlyDevident.count == 0 {
+            let monthlyDevident = MonthlyDevident()
+            monthlyDevident.totalPrice = Int(numberLabel.text!) ?? 0
+            monthlyDevident.category = "配当所得"
+            monthlyDevident.timestamp = yearMonthTotal
+            monthlyDevident.monthly = "(\(firstDayString)~\(lastDayString))"
+            monthlyDevident.date = yyyy_mm2
+            monthlyDevident.year = year2
+            monthlyDevident.month = month2
+            try! realm.write {
+                realm.add(monthlyDevident)
+            }
+        } else {
+            monthlyDevident.forEach { (monthlyDevident) in
+                try! realm.write {
+                    monthlyDevident.totalPrice = monthlyDevident.totalPrice + Int(numberLabel.text!)!
+                }
+            }
+        }
+    }
+    
+    private func mEstateCreate(_ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
+        
+        let realm = try! Realm()
+        let monthlyEstate = realm.objects(MonthlyEstate.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+        
+        if monthlyEstate.count == 0 {
+            let monthlyEstate = MonthlyEstate()
+            monthlyEstate.totalPrice = Int(numberLabel.text!) ?? 0
+            monthlyEstate.category = "不動産所得"
+            monthlyEstate.timestamp = yearMonthTotal
+            monthlyEstate.monthly = "(\(firstDayString)~\(lastDayString))"
+            monthlyEstate.date = yyyy_mm2
+            monthlyEstate.year = year2
+            monthlyEstate.month = month2
+            try! realm.write {
+                realm.add(monthlyEstate)
+            }
+        } else {
+            monthlyEstate.forEach { (monthlyEstate) in
+                try! realm.write {
+                    monthlyEstate.totalPrice = monthlyEstate.totalPrice + Int(numberLabel.text!)!
+                }
+            }
+        }
+    }
+    
+    private func mPaymentCreate(_ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
+        
+        let realm = try! Realm()
+        let monthlyPayment = realm.objects(MonthlyPayment.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+        
+        if monthlyPayment.count == 0 {
+            let monthlyPayment = MonthlyPayment()
+            monthlyPayment.totalPrice = Int(numberLabel.text!) ?? 0
+            monthlyPayment.category = "その他入金"
+            monthlyPayment.timestamp = yearMonthTotal
+            monthlyPayment.monthly = "(\(firstDayString)~\(lastDayString))"
+            monthlyPayment.date = yyyy_mm2
+            monthlyPayment.year = year2
+            monthlyPayment.month = month2
+            try! realm.write {
+                realm.add(monthlyPayment)
+            }
+        } else {
+            monthlyPayment.forEach { (monthlyPayment) in
+                try! realm.write {
+                    monthlyPayment.totalPrice = monthlyPayment.totalPrice + Int(numberLabel.text!)!
+                }
+            }
+        }
+    }
+    
+    private func mUnCategory2Create(_ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
+        
+        let realm = try! Realm()
+        let monthlyUnCategory2 = realm.objects(MonthlyUnCategory2.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+        
+        if monthlyUnCategory2.count == 0 {
+            let monthlyUnCategory2 = MonthlyUnCategory2()
+            monthlyUnCategory2.totalPrice = Int(numberLabel.text!) ?? 0
+            monthlyUnCategory2.category = "未分類"
+            monthlyUnCategory2.timestamp = yearMonthTotal
+            monthlyUnCategory2.monthly = "(\(firstDayString)~\(lastDayString))"
+            monthlyUnCategory2.date = yyyy_mm2
+            monthlyUnCategory2.year = year2
+            monthlyUnCategory2.month = month2
+            try! realm.write {
+                realm.add(monthlyUnCategory2)
+            }
+        } else {
+            monthlyUnCategory2.forEach { (monthlyUnCategory2) in
+                try! realm.write {
+                    monthlyUnCategory2.totalPrice = monthlyUnCategory2.totalPrice + Int(numberLabel.text!)!
+                }
+            }
+        }
+    }
+    
     // MARK: - Helpers
     
     private func setCategory() {
         
         if UserDefaults.standard.object(forKey: SALARY) != nil {
-            categoryLabel.text = "給料"
+            categoryLabel.text = "給与"
             categoryImageView.image = UIImage(named: "en_mark")
             UserDefaults.standard.removeObject(forKey: SALARY)
         } else if UserDefaults.standard.object(forKey: TEMPORARY) != nil {
@@ -490,85 +934,35 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
         }
     }
     
-    private func createIncome() {
-        
-        let realm = try! Realm()
-        let income = Income()
-        let nextDateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month)! + 1, day: 1))
-        var nextMonth: String {
-            dateFormatter.locale = Locale(identifier: "ja_JP")
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            return dateFormatter.string(from: nextDateComp!)
-        }
-        
-        if autofillSwitch.isOn {
-            let auto = Auto()
-            let id = UUID().uuidString
-            conversionDay(auto, day2)
-            auto.id = id
-            auto.price = Int(numberLabel.text!) ?? 0
-            auto.category = categoryLabel.text ?? ""
-            auto.memo = textField.text ?? ""
-            auto.payment = "収入"
-            auto.timestamp = timestamp
-            auto.date = yyyy_mm_dd2
-            auto.nextMonth = nextMonth
-            auto.isInput = true
-            auto.onRegister = true
-            auto.isRegister = true
-            auto.month = Int(month2)!
-            auto.day = Int(day2)!
-            
-            try! realm.write {
-                realm.add(auto)
-            }
-            
-            incomeData(income)
-            income.isAutofill = true
-            try! realm.write {
-                realm.add(income)
-            }
-        } else {
-            incomeData(income)
-            try! realm.write {
-                realm.add(income)
-            }
-        }
-    }
-    
-    private func incomeData(_ income: Income) {
-        
-        income.price = Int(numberLabel.text!) ?? 0
-        income.category = categoryLabel.text ?? ""
-        income.memo = textField.text ?? ""
-        income.timestamp = dateLabel.text ?? ""
-        income.date = yyyy_mm_dd2
-        income.year = year2
-        income.month = month2
-        income.day = day2
-    }
-    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition){
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ja_JP")
         var timestamp: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
             dateFormatter.dateFormat = "yyyy年M月d日 (EEEEE)"
             return dateFormatter.string(from: date)
         }
-        var date2: String {
+        var yyyy_mm_dd: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
             dateFormatter.dateFormat = "yyyy-MM-dd"
             return dateFormatter.string(from: date)
         }
+        var yyyy_mm: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "yyyy-MM"
+            return dateFormatter.string(from: date)
+        }
         var year: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
             dateFormatter.dateFormat = "yyyy"
             return dateFormatter.string(from: date)
         }
         var month: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
             dateFormatter.dateFormat = "MM"
             return dateFormatter.string(from: date)
         }
         var day: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
             dateFormatter.locale = Locale(identifier: "ja_JP")
             dateFormatter.dateFormat = "d"
             return dateFormatter.string(from: date)
@@ -576,6 +970,7 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
         
         dateLabel.text = timestamp
         yyyy_mm_dd2 = yyyy_mm_dd
+        yyyy_mm2 = yyyy_mm
         year2 = year
         month2 = month
         day2 = day
@@ -621,6 +1016,7 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
         
         dateLabel.text = timestamp
         yyyy_mm_dd2 = yyyy_mm_dd
+        yyyy_mm2 = yyyy_mm
         year2 = year
         month2 = month
         day2 = day
@@ -666,7 +1062,7 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
     
     private func setupBanner() {
         
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = "ca-app-pub-4750883229624981/1880671698"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
     }

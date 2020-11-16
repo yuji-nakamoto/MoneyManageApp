@@ -52,7 +52,16 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
     private var year2 = ""
     private var month2 = ""
     private var day2 = ""
-    var income = Income()
+    var id = ""
+    let realm = try? Realm()
+    lazy var salary = realm!.objects(Salary.self).filter("id = '\(id)'")
+    lazy var temporary = realm!.objects(Temporary.self).filter("id = '\(id)'")
+    lazy var business = realm!.objects(Business.self).filter("id = '\(id)'")
+    lazy var pension = realm!.objects(Pension.self).filter("id = '\(id)'")
+    lazy var devident = realm!.objects(Devident.self).filter("id = '\(id)'")
+    lazy var estate = realm!.objects(Estate.self).filter("id = '\(id)'")
+    lazy var payment = realm!.objects(Payment.self).filter("id = '\(id)'")
+    lazy var unCategory2 = realm!.objects(UnCategory2.self).filter("id = '\(id)'")
     
     // MARK: - Lifecycle
     
@@ -72,78 +81,178 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
     
     private func fetchIncome() {
         
-        numberLabel.text = String(income.price)
-        
-        let number = Int(numberLabel.text!)
-        let formatter: NumberFormatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.groupingSeparator = ","
-        formatter.groupingSize = 3
-        let result: String = formatter.string(from: NSNumber.init(integerLiteral: number!))!
-        numberLabel2.text = result
-        categoryLabel.text = income.category
-        dateLabel.text = income.timestamp
-        textField.text = income.memo
-        year_month_day2 = income.date
-        year2 = income.year
-        month2 = income.month
-        day2 = income.day
-        
-        if income.isAutofill == true {
-            autofillLabel.text = "自動入力に登録済み"
-            autofillLabel.textColor = .systemGray
-            autofillSwitch.isEnabled = false
-        } else {
-            autofillLabel.text = "自動入力に登録"
-            autofillLabel.textColor = UIColor(named: O_BLACK)
-            autofillSwitch.isEnabled = true
-        }
-        
-        if income.category == "未分類" {
-            categoryImageView.image = UIImage(systemName: "questionmark.circle")
-            categoryImageView.tintColor = .systemGray
-        } else if income.category == "給料" {
-            categoryImageView.image = UIImage(named: "en_mark")
-        } else if income.category == "一時所得" {
-            categoryImageView.image = UIImage(named: "en_mark")
-        } else if income.category == "事業・副業" {
-            categoryImageView.image = UIImage(named: "en_mark")
-        } else if income.category == "年金" {
-            categoryImageView.image = UIImage(named: "en_mark")
-        } else if income.category == "配当所得" {
-            categoryImageView.image = UIImage(named: "en_mark")
-        } else if income.category == "不動産所得" {
-            categoryImageView.image = UIImage(named: "en_mark")
-        } else if income.category == "その他入金" {
-            categoryImageView.image = UIImage(named: "en_mark")
+        let realm = try! Realm()
+        let income = realm.objects(Income.self).filter("id = '\(id)'")
+        income.forEach { (income) in
+            
+            numberLabel.text = String(income.price)
+            
+            let number = Int(numberLabel.text!)
+            let formatter: NumberFormatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.groupingSeparator = ","
+            formatter.groupingSize = 3
+            let result: String = formatter.string(from: NSNumber.init(integerLiteral: number!))!
+            numberLabel2.text = result
+            categoryLabel.text = income.category
+            dateLabel.text = income.timestamp
+            textField.text = income.memo
+            year_month_day2 = income.date
+            year2 = income.year
+            month2 = income.month
+            day2 = income.day
+            
+            if income.isAutofill == true {
+                autofillLabel.text = "自動入力に登録済み"
+                autofillLabel.textColor = .systemGray
+                autofillSwitch.isEnabled = false
+            } else {
+                autofillLabel.text = "自動入力に登録"
+                autofillLabel.textColor = UIColor(named: O_BLACK)
+                autofillSwitch.isEnabled = true
+            }
+            
+            if income.category == "未分類" {
+                categoryImageView.image = UIImage(systemName: "questionmark.circle")
+                categoryImageView.tintColor = .systemGray
+            } else if income.category == "給与" {
+                categoryImageView.image = UIImage(named: "en_mark")
+            } else if income.category == "一時所得" {
+                categoryImageView.image = UIImage(named: "en_mark")
+            } else if income.category == "事業・副業" {
+                categoryImageView.image = UIImage(named: "en_mark")
+            } else if income.category == "年金" {
+                categoryImageView.image = UIImage(named: "en_mark")
+            } else if income.category == "配当所得" {
+                categoryImageView.image = UIImage(named: "en_mark")
+            } else if income.category == "不動産所得" {
+                categoryImageView.image = UIImage(named: "en_mark")
+            } else if income.category == "その他入金" {
+                categoryImageView.image = UIImage(named: "en_mark")
+            }
         }
     }
     
-    // MARK: - Actions
+    // MARK: - Delete
     
     @IBAction func deleteButtonPressd(_ sender: Any) {
         
         let realm = try! Realm()
-        let alert = UIAlertController(title: income.category, message: "データを削除しますか？", preferredStyle: .actionSheet)
-        let delete = UIAlertAction(title: "削除する", style: UIAlertAction.Style.default) { [self] (alert) in
+        let income = realm.objects(Income.self).filter("id = '\(id)'")
+        income.forEach { (income) in
             
-            try! realm.write {
-                realm.delete(income)
-                HUD.flash(.labeledSuccess(title: "", subtitle: "削除しました"), delay: 0.5)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    navigationController?.popViewController(animated: true)
+            let alert = UIAlertController(title: income.category, message: "データを削除しますか？", preferredStyle: .actionSheet)
+            let delete = UIAlertAction(title: "削除する", style: UIAlertAction.Style.default) { [self] (alert) in
+                
+                try! realm.write {
+                    if income.category == "給与" {
+                        salary.forEach { (salary) in
+                            let mSalary = realm.objects(MonthlySalary.self).filter("year == '\(salary.year)'").filter("month == '\(salary.month)'")
+                            mSalary.forEach { (data) in
+                                data.totalPrice = data.totalPrice - salary.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mSalary)
+                                }
+                            }
+                        }
+                        realm.delete(salary)
+                    } else if income.category == "一時所得" {
+                        temporary.forEach { (temporary) in
+                            let mTemporary = realm.objects(MonthlyTemporary.self).filter("year == '\(temporary.year)'").filter("month == '\(temporary.month)'")
+                            mTemporary.forEach { (data) in
+                                data.totalPrice = data.totalPrice - temporary.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mTemporary)
+                                }
+                            }
+                        }
+                        realm.delete(temporary)
+                    } else if income.category == "事業・副業" {
+                        business.forEach { (business) in
+                            let mBusiness = realm.objects(MonthlyBusiness.self).filter("year == '\(business.year)'").filter("month == '\(business.month)'")
+                            mBusiness.forEach { (data) in
+                                data.totalPrice = data.totalPrice - business.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mBusiness)
+                                }
+                            }
+                        }
+                        realm.delete(business)
+                    } else if income.category == "年金" {
+                        pension.forEach { (pension) in
+                            let mPension = realm.objects(MonthlyPension.self).filter("year == '\(pension.year)'").filter("month == '\(pension.month)'")
+                            mPension.forEach { (data) in
+                                data.totalPrice = data.totalPrice - pension.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mPension)
+                                }
+                            }
+                        }
+                        realm.delete(pension)
+                    } else if income.category == "配当所得" {
+                        devident.forEach { (devident) in
+                            let mDevident = realm.objects(MonthlyDevident.self).filter("year == '\(devident.year)'").filter("month == '\(devident.month)'")
+                            mDevident.forEach { (data) in
+                                data.totalPrice = data.totalPrice - devident.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mDevident)
+                                }
+                            }
+                        }
+                        realm.delete(devident)
+                    } else if income.category == "不動産所得" {
+                        estate.forEach { (estate) in
+                            let mEstate = realm.objects(MonthlyEstate.self).filter("year == '\(estate.year)'").filter("month == '\(estate.month)'")
+                            mEstate.forEach { (data) in
+                                data.totalPrice = data.totalPrice - estate.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mEstate)
+                                }
+                            }
+                        }
+                        realm.delete(estate)
+                    } else if income.category == "その他入金" {
+                        payment.forEach { (payment) in
+                            let mPayment = realm.objects(MonthlyPayment.self).filter("year == '\(payment.year)'").filter("month == '\(payment.month)'")
+                            mPayment.forEach { (data) in
+                                data.totalPrice = data.totalPrice - payment.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mPayment)
+                                }
+                            }
+                        }
+                        realm.delete(payment)
+                    } else if income.category == "未分類" {
+                        unCategory2.forEach { (unCategory2) in
+                            let mUnCategory2 = realm.objects(MonthlyUnCategory2.self).filter("year == '\(unCategory2.year)'").filter("month == '\(unCategory2.month)'")
+                            mUnCategory2.forEach { (data) in
+                                data.totalPrice = data.totalPrice - unCategory2.price
+                                if data.totalPrice == 0 {
+                                    realm.delete(mUnCategory2)
+                                }
+                            }
+                        }
+                        realm.delete(unCategory2)
+                    }
+                    realm.delete(income)
+                    HUD.flash(.labeledSuccess(title: "", subtitle: "削除しました"), delay: 0.5)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        navigationController?.popViewController(animated: true)
+                    }
                 }
             }
+            let cancel = UIAlertAction(title: "キャンセル", style: .cancel)
+            let screenSize = UIScreen.main.bounds
+            
+            alert.popoverPresentationController?.sourceView = self.view
+            alert.popoverPresentationController?.sourceRect = CGRect(x: screenSize.size.width/2, y: screenSize.size.height, width: 0, height: 0)
+            alert.addAction(delete)
+            alert.addAction(cancel)
+            self.present(alert,animated: true,completion: nil)
         }
-        let cancel = UIAlertAction(title: "キャンセル", style: .cancel)
-        let screenSize = UIScreen.main.bounds
-        
-        alert.popoverPresentationController?.sourceView = self.view
-        alert.popoverPresentationController?.sourceRect = CGRect(x: screenSize.size.width/2, y: screenSize.size.height, width: 0, height: 0)
-        alert.addAction(delete)
-        alert.addAction(cancel)
-        self.present(alert,animated: true,completion: nil)
     }
+    
+    // MARK: - Actions
     
     @IBAction func backButtonPressed(_ sender: Any) {
         navigationController?.popViewController(animated: true)
@@ -496,40 +605,61 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
         lastNumeric = false
     }
     
-    // MARK: - Helpers
+    // MARK: - Update income
     
     private func updateIncome() {
         
         let realm = try! Realm()
-
-        if autofillSwitch.isOn {
-            let auto = Auto()
-            let id = UUID().uuidString
-            conversionDay(auto, day2)
-            auto.id = id
-            auto.price = Int(numberLabel.text!) ?? 0
-            auto.category = categoryLabel.text ?? ""
-            auto.memo = textField.text ?? ""
-            auto.payment = "収入"
-            auto.timestamp = dateLabel.text ?? ""
-            auto.date = self.year_month_day2
-            auto.isInput = true
-            auto.onRegister = true
-            auto.isRegister = true
-            auto.month = Int(self.month2) ?? 0
-            auto.day = Int(self.day2) ?? 0
+        let income = realm.objects(Income.self).filter("id = '\(id)'")
+        income.forEach { (income) in
             
-            try! realm.write {
-                realm.add(auto)
+            if autofillSwitch.isOn {
+                let auto = Auto()
+                let id = UUID().uuidString
+                conversionDay(auto, day2)
+                auto.id = id
+                auto.price = Int(numberLabel.text!) ?? 0
+                auto.category = categoryLabel.text ?? ""
+                auto.memo = textField.text ?? ""
+                auto.payment = "収入"
+                auto.timestamp = dateLabel.text ?? ""
+                auto.date = self.year_month_day2
+                auto.isInput = true
+                auto.onRegister = true
+                auto.isRegister = true
+                auto.month = Int(self.month2) ?? 0
+                auto.day = Int(self.day2) ?? 0
+                
+                try! realm.write {
+                    realm.add(auto)
+                }
+                
+                try! realm.write {
+                    incomeData(income)
+                    income.isAutofill = true
+                }
+            } else {
+                try! realm.write {
+                    incomeData(income)
+                }
             }
             
-            try! realm.write {
-                incomeData(income)
-                income.isAutofill = true
-            }
-        } else {
-            try! realm.write {
-                incomeData(income)
+            if income.category == "給与" {
+                updateSalary(income)
+            } else if income.category == "一時所得" {
+                updateTemporary(income)
+            } else if income.category == "事業・副業" {
+                updateBusiness(income)
+            } else if income.category == "年金" {
+                updatePension(income)
+            } else if income.category == "配当所得" {
+                updateDevident(income)
+            } else if income.category == "不動産所得" {
+                updateEstate(income)
+            } else if income.category == "その他入金" {
+                updatePayment(income)
+            } else if income.category == "未分類" {
+                updateUnCategory2(income)
             }
         }
         navigationController?.popViewController(animated: true)
@@ -547,10 +677,196 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
         income.day = day2
     }
     
+    private func updateSalary(_ income: Income) {
+        
+        let realm = try! Realm()
+        let id = income.id
+        let salary = realm.objects(Salary.self).filter("id = '\(id)'")
+        salary.forEach { (salary) in
+            try! realm.write {
+                let mSalary = realm.objects(MonthlySalary.self).filter("year == '\(salary.year)'").filter("month == '\(salary.month)'")
+                mSalary.forEach { (mSalary) in
+                    mSalary.totalPrice = mSalary.totalPrice - salary.price
+                    mSalary.totalPrice = mSalary.totalPrice + Int(numberLabel.text!)!
+                }
+                salary.price = Int(numberLabel.text!) ?? 0
+                salary.category = categoryLabel.text ?? ""
+                salary.memo = textField.text ?? ""
+                salary.timestamp = dateLabel.text ?? ""
+                salary.year = year2
+                salary.month = month2
+                salary.day = day2
+            }
+        }
+    }
+    
+    private func updateTemporary(_ income: Income) {
+        
+        let realm = try! Realm()
+        let id = income.id
+        let temporary = realm.objects(Temporary.self).filter("id = '\(id)'")
+        temporary.forEach { (temporary) in
+            try! realm.write {
+                let mTemporary = realm.objects(MonthlyTemporary.self).filter("year == '\(temporary.year)'").filter("month == '\(temporary.month)'")
+                mTemporary.forEach { (mTemporary) in
+                    mTemporary.totalPrice = mTemporary.totalPrice - temporary.price
+                    mTemporary.totalPrice = mTemporary.totalPrice + Int(numberLabel.text!)!
+                }
+                temporary.price = Int(numberLabel.text!) ?? 0
+                temporary.category = categoryLabel.text ?? ""
+                temporary.memo = textField.text ?? ""
+                temporary.timestamp = dateLabel.text ?? ""
+                temporary.year = year2
+                temporary.month = month2
+                temporary.day = day2
+            }
+        }
+    }
+    
+    private func updateBusiness(_ income: Income) {
+        
+        let realm = try! Realm()
+        let id = income.id
+        let business = realm.objects(Business.self).filter("id = '\(id)'")
+        business.forEach { (business) in
+            try! realm.write {
+                let mBusiness = realm.objects(MonthlyBusiness.self).filter("year == '\(business.year)'").filter("month == '\(business.month)'")
+                mBusiness.forEach { (mBusiness) in
+                    mBusiness.totalPrice = mBusiness.totalPrice - business.price
+                    mBusiness.totalPrice = mBusiness.totalPrice + Int(numberLabel.text!)!
+                }
+                business.price = Int(numberLabel.text!) ?? 0
+                business.category = categoryLabel.text ?? ""
+                business.memo = textField.text ?? ""
+                business.timestamp = dateLabel.text ?? ""
+                business.year = year2
+                business.month = month2
+                business.day = day2
+            }
+        }
+    }
+    
+    private func updatePension(_ income: Income) {
+        
+        let realm = try! Realm()
+        let id = income.id
+        let pension = realm.objects(Pension.self).filter("id = '\(id)'")
+        pension.forEach { (pension) in
+            try! realm.write {
+                let mPension = realm.objects(MonthlyPension.self).filter("year == '\(pension.year)'").filter("month == '\(pension.month)'")
+                mPension.forEach { (mPension) in
+                    mPension.totalPrice = mPension.totalPrice - pension.price
+                    mPension.totalPrice = mPension.totalPrice + Int(numberLabel.text!)!
+                }
+                pension.price = Int(numberLabel.text!) ?? 0
+                pension.category = categoryLabel.text ?? ""
+                pension.memo = textField.text ?? ""
+                pension.timestamp = dateLabel.text ?? ""
+                pension.year = year2
+                pension.month = month2
+                pension.day = day2
+            }
+        }
+    }
+    
+    private func updateDevident(_ income: Income) {
+        
+        let realm = try! Realm()
+        let id = income.id
+        let devident = realm.objects(Devident.self).filter("id = '\(id)'")
+        devident.forEach { (devident) in
+            try! realm.write {
+                let mDevident = realm.objects(MonthlyDevident.self).filter("year == '\(devident.year)'").filter("month == '\(devident.month)'")
+                mDevident.forEach { (mDevident) in
+                    mDevident.totalPrice = mDevident.totalPrice - devident.price
+                    mDevident.totalPrice = mDevident.totalPrice + Int(numberLabel.text!)!
+                }
+                devident.price = Int(numberLabel.text!) ?? 0
+                devident.category = categoryLabel.text ?? ""
+                devident.memo = textField.text ?? ""
+                devident.timestamp = dateLabel.text ?? ""
+                devident.year = year2
+                devident.month = month2
+                devident.day = day2
+            }
+        }
+    }
+    
+    private func updateEstate(_ income: Income) {
+        
+        let realm = try! Realm()
+        let id = income.id
+        let estate = realm.objects(Estate.self).filter("id = '\(id)'")
+        estate.forEach { (estate) in
+            try! realm.write {
+                let mEstate = realm.objects(MonthlyEstate.self).filter("year == '\(estate.year)'").filter("month == '\(estate.month)'")
+                mEstate.forEach { (mEstate) in
+                    mEstate.totalPrice = mEstate.totalPrice - estate.price
+                    mEstate.totalPrice = mEstate.totalPrice + Int(numberLabel.text!)!
+                }
+                estate.price = Int(numberLabel.text!) ?? 0
+                estate.category = categoryLabel.text ?? ""
+                estate.memo = textField.text ?? ""
+                estate.timestamp = dateLabel.text ?? ""
+                estate.year = year2
+                estate.month = month2
+                estate.day = day2
+            }
+        }
+    }
+    
+    private func updatePayment(_ income: Income) {
+        
+        let realm = try! Realm()
+        let id = income.id
+        let payment = realm.objects(Payment.self).filter("id = '\(id)'")
+        payment.forEach { (payment) in
+            try! realm.write {
+                let mPayment = realm.objects(MonthlyPayment.self).filter("year == '\(payment.year)'").filter("month == '\(payment.month)'")
+                mPayment.forEach { (mPayment) in
+                    mPayment.totalPrice = mPayment.totalPrice - payment.price
+                    mPayment.totalPrice = mPayment.totalPrice + Int(numberLabel.text!)!
+                }
+                payment.price = Int(numberLabel.text!) ?? 0
+                payment.category = categoryLabel.text ?? ""
+                payment.memo = textField.text ?? ""
+                payment.timestamp = dateLabel.text ?? ""
+                payment.year = year2
+                payment.month = month2
+                payment.day = day2
+            }
+        }
+    }
+    
+    private func updateUnCategory2(_ income: Income) {
+        
+        let realm = try! Realm()
+        let id = income.id
+        let unCategory2 = realm.objects(UnCategory2.self).filter("id = '\(id)'")
+        unCategory2.forEach { (unCategory2) in
+            try! realm.write {
+                let mUnCategory2 = realm.objects(MonthlyUnCategory2.self).filter("year == '\(unCategory2.year)'").filter("month == '\(unCategory2.month)'")
+                mUnCategory2.forEach { (mUnCategory2) in
+                    mUnCategory2.totalPrice = mUnCategory2.totalPrice - unCategory2.price
+                    mUnCategory2.totalPrice = mUnCategory2.totalPrice + Int(numberLabel.text!)!
+                }
+                unCategory2.price = Int(numberLabel.text!) ?? 0
+                unCategory2.category = categoryLabel.text ?? ""
+                unCategory2.memo = textField.text ?? ""
+                unCategory2.timestamp = dateLabel.text ?? ""
+                unCategory2.year = year2
+                unCategory2.month = month2
+                unCategory2.day = day2
+            }
+        }
+    }
+    
+    // MARK: - Helpers
+    
     private func setCategory() {
         
         if UserDefaults.standard.object(forKey: SALARY) != nil {
-            categoryLabel.text = "給料"
+            categoryLabel.text = "給与"
             categoryImageView.image = UIImage(named: "en_mark")
             UserDefaults.standard.removeObject(forKey: SALARY)
         } else if UserDefaults.standard.object(forKey: TEMPORARY) != nil {
@@ -702,6 +1018,14 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
         calender.calendarWeekdayView.weekdayLabels[5].text = "金"
         calender.calendarWeekdayView.weekdayLabels[6].text = "土"
         navigationItem.title = "入金の修正"
+        
+        switch (UIScreen.main.nativeBounds.height) {
+        case 1334:
+            caluclatorView.isHidden = true
+            break
+        default:
+            break
+        }
     }
     
     private func removeUserDefaults() {

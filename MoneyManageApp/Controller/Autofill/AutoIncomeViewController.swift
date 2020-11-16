@@ -488,7 +488,7 @@ class AutoIncomeViewController: UIViewController, UITextFieldDelegate {
     private func setCategory() {
         
         if UserDefaults.standard.object(forKey: SALARY) != nil {
-            categoryLabel.text = "給料"
+            categoryLabel.text = "給与"
             categoryImageView.image = UIImage(named: "en_mark")
             UserDefaults.standard.removeObject(forKey: SALARY)
         } else if UserDefaults.standard.object(forKey: TEMPORARY) != nil {
@@ -565,7 +565,7 @@ class AutoIncomeViewController: UIViewController, UITextFieldDelegate {
     
     private func setupBanner() {
         
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = "ca-app-pub-4750883229624981/5979521196"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
     }
