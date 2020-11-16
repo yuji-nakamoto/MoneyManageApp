@@ -48,7 +48,8 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
     lazy var buttons = [zeroButton, oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton, sevenButton, eightButton, nineButton, clearButton, multiplyButton, minusButton, plusButton, devideButton]
     private var firstNumeric = false
     private var lastNumeric = false
-    private var year_month_day2 = ""
+    private var yyyy_mm_dd2 = ""
+    private var yyyy_mm2 = ""
     private var year2 = ""
     private var month2 = ""
     private var day2 = ""
@@ -97,7 +98,7 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
             categoryLabel.text = income.category
             dateLabel.text = income.timestamp
             textField.text = income.memo
-            year_month_day2 = income.date
+            yyyy_mm_dd2 = income.date
             year2 = income.year
             month2 = income.month
             day2 = income.day
@@ -611,6 +612,28 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
         
         let realm = try! Realm()
         let income = realm.objects(Income.self).filter("id = '\(id)'")
+        
+        let calendar = Calendar.current
+        let firstDateComp = calendar.date(from: DateComponents(year: Int(year2), month: Int(month2)!, day: 1))
+        let add = DateComponents(month: Int(month2)! + 2, day: -1)
+        let lastday = calendar.date(byAdding: add, to: firstday!)
+        
+        var yearMonthTotal: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "yyyy年M月合計"
+            return dateFormatter.string(from: firstDateComp!)
+        }
+        var firstDayString: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "M月d日"
+            return dateFormatter.string(from: firstDateComp!)
+        }
+        var lastDayString: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "M月d日"
+            return dateFormatter.string(from: lastday!)
+        }
+        
         income.forEach { (income) in
             
             if autofillSwitch.isOn {
@@ -623,7 +646,7 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                 auto.memo = textField.text ?? ""
                 auto.payment = "収入"
                 auto.timestamp = dateLabel.text ?? ""
-                auto.date = self.year_month_day2
+                auto.date = yyyy_mm_dd2
                 auto.isInput = true
                 auto.onRegister = true
                 auto.isRegister = true
@@ -645,21 +668,21 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
             }
             
             if income.category == "給与" {
-                updateSalary(income)
+                updateSalary(income, yearMonthTotal, firstDayString, lastDayString)
             } else if income.category == "一時所得" {
-                updateTemporary(income)
+                updateTemporary(income, yearMonthTotal, firstDayString, lastDayString)
             } else if income.category == "事業・副業" {
-                updateBusiness(income)
+                updateBusiness(income, yearMonthTotal, firstDayString, lastDayString)
             } else if income.category == "年金" {
-                updatePension(income)
+                updatePension(income, yearMonthTotal, firstDayString, lastDayString)
             } else if income.category == "配当所得" {
-                updateDevident(income)
+                updateDevident(income, yearMonthTotal, firstDayString, lastDayString)
             } else if income.category == "不動産所得" {
-                updateEstate(income)
+                updateEstate(income, yearMonthTotal, firstDayString, lastDayString)
             } else if income.category == "その他入金" {
-                updatePayment(income)
+                updatePayment(income, yearMonthTotal, firstDayString, lastDayString)
             } else if income.category == "未分類" {
-                updateUnCategory2(income)
+                updateUnCategory2(income, yearMonthTotal, firstDayString, lastDayString)
             }
         }
         navigationController?.popViewController(animated: true)
@@ -671,192 +694,528 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
         income.category = categoryLabel.text ?? ""
         income.memo = textField.text ?? ""
         income.timestamp = dateLabel.text ?? ""
-        income.date = year_month_day2
+        income.date = yyyy_mm_dd2
         income.year = year2
         income.month = month2
         income.day = day2
     }
     
-    private func updateSalary(_ income: Income) {
+    private func updateSalary(_ income: Income, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
         let id = income.id
         let salary = realm.objects(Salary.self).filter("id = '\(id)'")
         salary.forEach { (salary) in
-            try! realm.write {
-                let mSalary = realm.objects(MonthlySalary.self).filter("year == '\(salary.year)'").filter("month == '\(salary.month)'")
-                mSalary.forEach { (mSalary) in
-                    mSalary.totalPrice = mSalary.totalPrice - salary.price
-                    mSalary.totalPrice = mSalary.totalPrice + Int(numberLabel.text!)!
+            let mSalary = realm.objects(MonthlySalary.self).filter("year == '\(salary.year)'").filter("month == '\(salary.month)'")
+            
+            mSalary.forEach { (mData) in
+                if mData.year != year2 && mData.month != month2 || mData.year == year2 && mData.month != month2 || mData.year != year2 && mData.month == month2 {
+                    let mSalary2 = realm.objects(MonthlySalary.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+                    
+                    if mSalary2.count == 0 {
+                        let mSalary2 = MonthlySalary()
+                        mSalary2.totalPrice = Int(numberLabel.text!) ?? 0
+                        mSalary2.category = "給与"
+                        mSalary2.timestamp = yearMonthTotal
+                        mSalary2.monthly = "(\(firstDayString)~\(lastDayString))"
+                        mSalary2.date = yyyy_mm2
+                        mSalary2.year = year2
+                        mSalary2.month = month2
+                        try! realm.write() {
+                            realm.add(mSalary2)
+                        }
+                    } else {
+                        mSalary2.forEach { (mData2) in
+                            try! realm.write() {
+                                mData2.totalPrice = mData2.totalPrice + Int(numberLabel.text!)!
+                            }
+                        }
+                    }
+                    
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - salary.price
+                        if mData.totalPrice == 0 {
+                            realm.delete(mSalary)
+                            
+                            salary.price = Int(numberLabel.text!) ?? 0
+                            salary.category = categoryLabel.text ?? ""
+                            salary.memo = textField.text ?? ""
+                            salary.timestamp = dateLabel.text ?? ""
+                            salary.year = year2
+                            salary.month = month2
+                            salary.day = day2
+                        }
+                    }
+                    
+                } else {
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - salary.price
+                        mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
+                        
+                        salary.price = Int(numberLabel.text!) ?? 0
+                        salary.category = categoryLabel.text ?? ""
+                        salary.memo = textField.text ?? ""
+                        salary.timestamp = dateLabel.text ?? ""
+                        salary.year = year2
+                        salary.month = month2
+                        salary.day = day2
+                    }
                 }
-                salary.price = Int(numberLabel.text!) ?? 0
-                salary.category = categoryLabel.text ?? ""
-                salary.memo = textField.text ?? ""
-                salary.timestamp = dateLabel.text ?? ""
-                salary.year = year2
-                salary.month = month2
-                salary.day = day2
             }
         }
     }
     
-    private func updateTemporary(_ income: Income) {
+    private func updateTemporary(_ income: Income, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
         let id = income.id
         let temporary = realm.objects(Temporary.self).filter("id = '\(id)'")
         temporary.forEach { (temporary) in
-            try! realm.write {
-                let mTemporary = realm.objects(MonthlyTemporary.self).filter("year == '\(temporary.year)'").filter("month == '\(temporary.month)'")
-                mTemporary.forEach { (mTemporary) in
-                    mTemporary.totalPrice = mTemporary.totalPrice - temporary.price
-                    mTemporary.totalPrice = mTemporary.totalPrice + Int(numberLabel.text!)!
+            let mTemporary = realm.objects(MonthlyTemporary.self).filter("year == '\(temporary.year)'").filter("month == '\(temporary.month)'")
+            
+            mTemporary.forEach { (mData) in
+                if mData.year != year2 && mData.month != month2 || mData.year == year2 && mData.month != month2 || mData.year != year2 && mData.month == month2 {
+                    let mTemporary2 = realm.objects(MonthlyTemporary.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+                    
+                    if mTemporary2.count == 0 {
+                        let mTemporary2 = MonthlyTemporary()
+                        mTemporary2.totalPrice = Int(numberLabel.text!) ?? 0
+                        mTemporary2.category = "一時所得"
+                        mTemporary2.timestamp = yearMonthTotal
+                        mTemporary2.monthly = "(\(firstDayString)~\(lastDayString))"
+                        mTemporary2.date = yyyy_mm2
+                        mTemporary2.year = year2
+                        mTemporary2.month = month2
+                        try! realm.write() {
+                            realm.add(mTemporary2)
+                        }
+                    } else {
+                        mTemporary2.forEach { (mData2) in
+                            try! realm.write() {
+                                mData2.totalPrice = mData2.totalPrice + Int(numberLabel.text!)!
+                            }
+                        }
+                    }
+                    
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - temporary.price
+                        if mData.totalPrice == 0 {
+                            realm.delete(mTemporary)
+                            
+                            temporary.price = Int(numberLabel.text!) ?? 0
+                            temporary.category = categoryLabel.text ?? ""
+                            temporary.memo = textField.text ?? ""
+                            temporary.timestamp = dateLabel.text ?? ""
+                            temporary.year = year2
+                            temporary.month = month2
+                            temporary.day = day2
+                        }
+                    }
+                    
+                } else {
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - temporary.price
+                        mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
+                        
+                        temporary.price = Int(numberLabel.text!) ?? 0
+                        temporary.category = categoryLabel.text ?? ""
+                        temporary.memo = textField.text ?? ""
+                        temporary.timestamp = dateLabel.text ?? ""
+                        temporary.year = year2
+                        temporary.month = month2
+                        temporary.day = day2
+                    }
                 }
-                temporary.price = Int(numberLabel.text!) ?? 0
-                temporary.category = categoryLabel.text ?? ""
-                temporary.memo = textField.text ?? ""
-                temporary.timestamp = dateLabel.text ?? ""
-                temporary.year = year2
-                temporary.month = month2
-                temporary.day = day2
             }
         }
     }
     
-    private func updateBusiness(_ income: Income) {
+    private func updateBusiness(_ income: Income, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
         let id = income.id
         let business = realm.objects(Business.self).filter("id = '\(id)'")
         business.forEach { (business) in
-            try! realm.write {
-                let mBusiness = realm.objects(MonthlyBusiness.self).filter("year == '\(business.year)'").filter("month == '\(business.month)'")
-                mBusiness.forEach { (mBusiness) in
-                    mBusiness.totalPrice = mBusiness.totalPrice - business.price
-                    mBusiness.totalPrice = mBusiness.totalPrice + Int(numberLabel.text!)!
+            let mBusiness = realm.objects(MonthlyBusiness.self).filter("year == '\(business.year)'").filter("month == '\(business.month)'")
+            
+            mBusiness.forEach { (mData) in
+                if mData.year != year2 && mData.month != month2 || mData.year == year2 && mData.month != month2 || mData.year != year2 && mData.month == month2 {
+                    let mBusiness2 = realm.objects(MonthlyBusiness.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+                    
+                    if mBusiness2.count == 0 {
+                        let mBusiness2 = MonthlyBusiness()
+                        mBusiness2.totalPrice = Int(numberLabel.text!) ?? 0
+                        mBusiness2.category = "事業・副業"
+                        mBusiness2.timestamp = yearMonthTotal
+                        mBusiness2.monthly = "(\(firstDayString)~\(lastDayString))"
+                        mBusiness2.date = yyyy_mm2
+                        mBusiness2.year = year2
+                        mBusiness2.month = month2
+                        try! realm.write() {
+                            realm.add(mBusiness2)
+                        }
+                    } else {
+                        mBusiness2.forEach { (mData2) in
+                            try! realm.write() {
+                                mData2.totalPrice = mData2.totalPrice + Int(numberLabel.text!)!
+                            }
+                        }
+                    }
+                    
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - business.price
+                        if mData.totalPrice == 0 {
+                            realm.delete(mBusiness)
+                            
+                            business.price = Int(numberLabel.text!) ?? 0
+                            business.category = categoryLabel.text ?? ""
+                            business.memo = textField.text ?? ""
+                            business.timestamp = dateLabel.text ?? ""
+                            business.year = year2
+                            business.month = month2
+                            business.day = day2
+                        }
+                    }
+                    
+                } else {
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - business.price
+                        mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
+                        
+                        business.price = Int(numberLabel.text!) ?? 0
+                        business.category = categoryLabel.text ?? ""
+                        business.memo = textField.text ?? ""
+                        business.timestamp = dateLabel.text ?? ""
+                        business.year = year2
+                        business.month = month2
+                        business.day = day2
+                    }
                 }
-                business.price = Int(numberLabel.text!) ?? 0
-                business.category = categoryLabel.text ?? ""
-                business.memo = textField.text ?? ""
-                business.timestamp = dateLabel.text ?? ""
-                business.year = year2
-                business.month = month2
-                business.day = day2
             }
         }
     }
     
-    private func updatePension(_ income: Income) {
+    private func updatePension(_ income: Income, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
         let id = income.id
         let pension = realm.objects(Pension.self).filter("id = '\(id)'")
         pension.forEach { (pension) in
-            try! realm.write {
-                let mPension = realm.objects(MonthlyPension.self).filter("year == '\(pension.year)'").filter("month == '\(pension.month)'")
-                mPension.forEach { (mPension) in
-                    mPension.totalPrice = mPension.totalPrice - pension.price
-                    mPension.totalPrice = mPension.totalPrice + Int(numberLabel.text!)!
+            let mPension = realm.objects(MonthlyPension.self).filter("year == '\(pension.year)'").filter("month == '\(pension.month)'")
+            
+            mPension.forEach { (mData) in
+                if mData.year != year2 && mData.month != month2 || mData.year == year2 && mData.month != month2 || mData.year != year2 && mData.month == month2 {
+                    let mPension2 = realm.objects(MonthlyPension.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+                    
+                    if mPension2.count == 0 {
+                        let mPension2 = MonthlyPension()
+                        mPension2.totalPrice = Int(numberLabel.text!) ?? 0
+                        mPension2.category = "年金"
+                        mPension2.timestamp = yearMonthTotal
+                        mPension2.monthly = "(\(firstDayString)~\(lastDayString))"
+                        mPension2.date = yyyy_mm2
+                        mPension2.year = year2
+                        mPension2.month = month2
+                        try! realm.write() {
+                            realm.add(mPension2)
+                        }
+                    } else {
+                        mPension2.forEach { (mData2) in
+                            try! realm.write() {
+                                mData2.totalPrice = mData2.totalPrice + Int(numberLabel.text!)!
+                            }
+                        }
+                    }
+                    
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - pension.price
+                        if mData.totalPrice == 0 {
+                            realm.delete(mPension)
+                            
+                            pension.price = Int(numberLabel.text!) ?? 0
+                            pension.category = categoryLabel.text ?? ""
+                            pension.memo = textField.text ?? ""
+                            pension.timestamp = dateLabel.text ?? ""
+                            pension.year = year2
+                            pension.month = month2
+                            pension.day = day2
+                        }
+                    }
+                    
+                } else {
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - pension.price
+                        mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
+                        
+                        pension.price = Int(numberLabel.text!) ?? 0
+                        pension.category = categoryLabel.text ?? ""
+                        pension.memo = textField.text ?? ""
+                        pension.timestamp = dateLabel.text ?? ""
+                        pension.year = year2
+                        pension.month = month2
+                        pension.day = day2
+                    }
                 }
-                pension.price = Int(numberLabel.text!) ?? 0
-                pension.category = categoryLabel.text ?? ""
-                pension.memo = textField.text ?? ""
-                pension.timestamp = dateLabel.text ?? ""
-                pension.year = year2
-                pension.month = month2
-                pension.day = day2
             }
         }
     }
     
-    private func updateDevident(_ income: Income) {
+    private func updateDevident(_ income: Income, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
         let id = income.id
         let devident = realm.objects(Devident.self).filter("id = '\(id)'")
         devident.forEach { (devident) in
-            try! realm.write {
-                let mDevident = realm.objects(MonthlyDevident.self).filter("year == '\(devident.year)'").filter("month == '\(devident.month)'")
-                mDevident.forEach { (mDevident) in
-                    mDevident.totalPrice = mDevident.totalPrice - devident.price
-                    mDevident.totalPrice = mDevident.totalPrice + Int(numberLabel.text!)!
+            let mDevident = realm.objects(MonthlyDevident.self).filter("year == '\(devident.year)'").filter("month == '\(devident.month)'")
+            
+            mDevident.forEach { (mData) in
+                if mData.year != year2 && mData.month != month2 || mData.year == year2 && mData.month != month2 || mData.year != year2 && mData.month == month2 {
+                    let mDevident2 = realm.objects(MonthlyDevident.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+                    
+                    if mDevident2.count == 0 {
+                        let mDevident2 = MonthlyDevident()
+                        mDevident2.totalPrice = Int(numberLabel.text!) ?? 0
+                        mDevident2.category = "配当所得"
+                        mDevident2.timestamp = yearMonthTotal
+                        mDevident2.monthly = "(\(firstDayString)~\(lastDayString))"
+                        mDevident2.date = yyyy_mm2
+                        mDevident2.year = year2
+                        mDevident2.month = month2
+                        try! realm.write() {
+                            realm.add(mDevident2)
+                        }
+                    } else {
+                        mDevident2.forEach { (mData2) in
+                            try! realm.write() {
+                                mData2.totalPrice = mData2.totalPrice + Int(numberLabel.text!)!
+                            }
+                        }
+                    }
+                    
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - devident.price
+                        if mData.totalPrice == 0 {
+                            realm.delete(mDevident)
+                            
+                            devident.price = Int(numberLabel.text!) ?? 0
+                            devident.category = categoryLabel.text ?? ""
+                            devident.memo = textField.text ?? ""
+                            devident.timestamp = dateLabel.text ?? ""
+                            devident.year = year2
+                            devident.month = month2
+                            devident.day = day2
+                        }
+                    }
+                    
+                } else {
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - devident.price
+                        mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
+                        
+                        devident.price = Int(numberLabel.text!) ?? 0
+                        devident.category = categoryLabel.text ?? ""
+                        devident.memo = textField.text ?? ""
+                        devident.timestamp = dateLabel.text ?? ""
+                        devident.year = year2
+                        devident.month = month2
+                        devident.day = day2
+                    }
                 }
-                devident.price = Int(numberLabel.text!) ?? 0
-                devident.category = categoryLabel.text ?? ""
-                devident.memo = textField.text ?? ""
-                devident.timestamp = dateLabel.text ?? ""
-                devident.year = year2
-                devident.month = month2
-                devident.day = day2
             }
         }
     }
     
-    private func updateEstate(_ income: Income) {
+    private func updateEstate(_ income: Income, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
         let id = income.id
         let estate = realm.objects(Estate.self).filter("id = '\(id)'")
         estate.forEach { (estate) in
-            try! realm.write {
-                let mEstate = realm.objects(MonthlyEstate.self).filter("year == '\(estate.year)'").filter("month == '\(estate.month)'")
-                mEstate.forEach { (mEstate) in
-                    mEstate.totalPrice = mEstate.totalPrice - estate.price
-                    mEstate.totalPrice = mEstate.totalPrice + Int(numberLabel.text!)!
+            let mEstate = realm.objects(MonthlyEstate.self).filter("year == '\(estate.year)'").filter("month == '\(estate.month)'")
+            
+            mEstate.forEach { (mData) in
+                if mData.year != year2 && mData.month != month2 || mData.year == year2 && mData.month != month2 || mData.year != year2 && mData.month == month2 {
+                    let mEstate2 = realm.objects(MonthlyEstate.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+                    
+                    if mEstate2.count == 0 {
+                        let mEstate2 = MonthlyEstate()
+                        mEstate2.totalPrice = Int(numberLabel.text!) ?? 0
+                        mEstate2.category = "不動産所得"
+                        mEstate2.timestamp = yearMonthTotal
+                        mEstate2.monthly = "(\(firstDayString)~\(lastDayString))"
+                        mEstate2.date = yyyy_mm2
+                        mEstate2.year = year2
+                        mEstate2.month = month2
+                        try! realm.write() {
+                            realm.add(mEstate2)
+                        }
+                    } else {
+                        mEstate2.forEach { (mData2) in
+                            try! realm.write() {
+                                mData2.totalPrice = mData2.totalPrice + Int(numberLabel.text!)!
+                            }
+                        }
+                    }
+                    
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - estate.price
+                        if mData.totalPrice == 0 {
+                            realm.delete(mEstate)
+                            
+                            estate.price = Int(numberLabel.text!) ?? 0
+                            estate.category = categoryLabel.text ?? ""
+                            estate.memo = textField.text ?? ""
+                            estate.timestamp = dateLabel.text ?? ""
+                            estate.year = year2
+                            estate.month = month2
+                            estate.day = day2
+                        }
+                    }
+                    
+                } else {
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - estate.price
+                        mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
+                        
+                        estate.price = Int(numberLabel.text!) ?? 0
+                        estate.category = categoryLabel.text ?? ""
+                        estate.memo = textField.text ?? ""
+                        estate.timestamp = dateLabel.text ?? ""
+                        estate.year = year2
+                        estate.month = month2
+                        estate.day = day2
+                    }
                 }
-                estate.price = Int(numberLabel.text!) ?? 0
-                estate.category = categoryLabel.text ?? ""
-                estate.memo = textField.text ?? ""
-                estate.timestamp = dateLabel.text ?? ""
-                estate.year = year2
-                estate.month = month2
-                estate.day = day2
             }
         }
     }
     
-    private func updatePayment(_ income: Income) {
+    private func updatePayment(_ income: Income, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
         let id = income.id
         let payment = realm.objects(Payment.self).filter("id = '\(id)'")
         payment.forEach { (payment) in
-            try! realm.write {
-                let mPayment = realm.objects(MonthlyPayment.self).filter("year == '\(payment.year)'").filter("month == '\(payment.month)'")
-                mPayment.forEach { (mPayment) in
-                    mPayment.totalPrice = mPayment.totalPrice - payment.price
-                    mPayment.totalPrice = mPayment.totalPrice + Int(numberLabel.text!)!
+            let mPayment = realm.objects(MonthlyPayment.self).filter("year == '\(payment.year)'").filter("month == '\(payment.month)'")
+            
+            mPayment.forEach { (mData) in
+                if mData.year != year2 && mData.month != month2 || mData.year == year2 && mData.month != month2 || mData.year != year2 && mData.month == month2 {
+                    let mPayment2 = realm.objects(MonthlyPayment.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+                    
+                    if mPayment2.count == 0 {
+                        let mPayment2 = MonthlyPayment()
+                        mPayment2.totalPrice = Int(numberLabel.text!) ?? 0
+                        mPayment2.category = "その他入金"
+                        mPayment2.timestamp = yearMonthTotal
+                        mPayment2.monthly = "(\(firstDayString)~\(lastDayString))"
+                        mPayment2.date = yyyy_mm2
+                        mPayment2.year = year2
+                        mPayment2.month = month2
+                        try! realm.write() {
+                            realm.add(mPayment2)
+                        }
+                    } else {
+                        mPayment2.forEach { (mData2) in
+                            try! realm.write() {
+                                mData2.totalPrice = mData2.totalPrice + Int(numberLabel.text!)!
+                            }
+                        }
+                    }
+                    
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - payment.price
+                        if mData.totalPrice == 0 {
+                            realm.delete(mPayment)
+                            
+                            payment.price = Int(numberLabel.text!) ?? 0
+                            payment.category = categoryLabel.text ?? ""
+                            payment.memo = textField.text ?? ""
+                            payment.timestamp = dateLabel.text ?? ""
+                            payment.year = year2
+                            payment.month = month2
+                            payment.day = day2
+                        }
+                    }
+                    
+                } else {
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - payment.price
+                        mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
+                        
+                        payment.price = Int(numberLabel.text!) ?? 0
+                        payment.category = categoryLabel.text ?? ""
+                        payment.memo = textField.text ?? ""
+                        payment.timestamp = dateLabel.text ?? ""
+                        payment.year = year2
+                        payment.month = month2
+                        payment.day = day2
+                    }
                 }
-                payment.price = Int(numberLabel.text!) ?? 0
-                payment.category = categoryLabel.text ?? ""
-                payment.memo = textField.text ?? ""
-                payment.timestamp = dateLabel.text ?? ""
-                payment.year = year2
-                payment.month = month2
-                payment.day = day2
             }
         }
     }
     
-    private func updateUnCategory2(_ income: Income) {
+    private func updateUnCategory2(_ income: Income, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
         let id = income.id
         let unCategory2 = realm.objects(UnCategory2.self).filter("id = '\(id)'")
         unCategory2.forEach { (unCategory2) in
-            try! realm.write {
-                let mUnCategory2 = realm.objects(MonthlyUnCategory2.self).filter("year == '\(unCategory2.year)'").filter("month == '\(unCategory2.month)'")
-                mUnCategory2.forEach { (mUnCategory2) in
-                    mUnCategory2.totalPrice = mUnCategory2.totalPrice - unCategory2.price
-                    mUnCategory2.totalPrice = mUnCategory2.totalPrice + Int(numberLabel.text!)!
+            let mUnCategory = realm.objects(MonthlyUnCategory2.self).filter("year == '\(unCategory2.year)'").filter("month == '\(unCategory2.month)'")
+            
+            mUnCategory.forEach { (mData) in
+                if mData.year != year2 && mData.month != month2 || mData.year == year2 && mData.month != month2 || mData.year != year2 && mData.month == month2 {
+                    let mUnCategory2 = realm.objects(MonthlyUnCategory2.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
+                    
+                    if mUnCategory2.count == 0 {
+                        let mUnCategory2 = MonthlyUnCategory2()
+                        mUnCategory2.totalPrice = Int(numberLabel.text!) ?? 0
+                        mUnCategory2.category = "未分類"
+                        mUnCategory2.timestamp = yearMonthTotal
+                        mUnCategory2.monthly = "(\(firstDayString)~\(lastDayString))"
+                        mUnCategory2.date = yyyy_mm2
+                        mUnCategory2.year = year2
+                        mUnCategory2.month = month2
+                        try! realm.write() {
+                            realm.add(mUnCategory2)
+                        }
+                    } else {
+                        mUnCategory2.forEach { (mData2) in
+                            try! realm.write() {
+                                mData2.totalPrice = mData2.totalPrice + Int(numberLabel.text!)!
+                            }
+                        }
+                    }
+                    
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - unCategory2.price
+                        if mData.totalPrice == 0 {
+                            realm.delete(mUnCategory)
+                            
+                            unCategory2.price = Int(numberLabel.text!) ?? 0
+                            unCategory2.category = categoryLabel.text ?? ""
+                            unCategory2.memo = textField.text ?? ""
+                            unCategory2.timestamp = dateLabel.text ?? ""
+                            unCategory2.year = year2
+                            unCategory2.month = month2
+                            unCategory2.day = day2
+                        }
+                    }
+                    
+                } else {
+                    try! realm.write {
+                        mData.totalPrice = mData.totalPrice - unCategory2.price
+                        mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
+                        
+                        unCategory2.price = Int(numberLabel.text!) ?? 0
+                        unCategory2.category = categoryLabel.text ?? ""
+                        unCategory2.memo = textField.text ?? ""
+                        unCategory2.timestamp = dateLabel.text ?? ""
+                        unCategory2.year = year2
+                        unCategory2.month = month2
+                        unCategory2.day = day2
+                    }
                 }
-                unCategory2.price = Int(numberLabel.text!) ?? 0
-                unCategory2.category = categoryLabel.text ?? ""
-                unCategory2.memo = textField.text ?? ""
-                unCategory2.timestamp = dateLabel.text ?? ""
-                unCategory2.year = year2
-                unCategory2.month = month2
-                unCategory2.day = day2
             }
         }
     }
@@ -908,8 +1267,13 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
             dateFormatter.dateFormat = "yyyy年M月d日 (EEEEE)"
             return dateFormatter.string(from: date)
         }
-        var date2: String {
+        var yyyy_mm_dd: String {
             dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.string(from: date)
+        }
+        var yyyy_mm: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "yyyy-MM"
             return dateFormatter.string(from: date)
         }
         var year: String {
@@ -927,7 +1291,8 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
         }
         
         dateLabel.text = timestamp
-        year_month_day2 = date2
+        yyyy_mm_dd2 = yyyy_mm_dd
+        yyyy_mm2 = yyyy_mm
         year2 = year
         month2 = month
         day2 = day
