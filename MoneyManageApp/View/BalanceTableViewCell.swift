@@ -19,6 +19,24 @@ class BalanceTableViewCell: UITableViewCell {
     @IBOutlet weak var lastDayLabel: UILabel!
     @IBOutlet weak var changeButton: UIButton!
     @IBOutlet weak var noDataLabel: UILabel!
+    @IBOutlet weak var incomeLabel2: UILabel!
+    @IBOutlet weak var spendingLabel2: UILabel!
+    @IBOutlet weak var balanceLabel2: UILabel!
+    @IBOutlet weak var accountBookLabel: UILabel!
+    @IBOutlet weak var income2RightConst: NSLayoutConstraint!
+    
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var widthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var chartViewLeftConst: NSLayoutConstraint!
+    @IBOutlet weak var changeButtonHeight: NSLayoutConstraint!
+    @IBOutlet weak var changeButtonWidth: NSLayoutConstraint!
+    @IBOutlet weak var changeButtonBottom: NSLayoutConstraint!
+    @IBOutlet weak var chartViewButtomConst: NSLayoutConstraint!
+    @IBOutlet weak var incomeBottomConst: NSLayoutConstraint!
+    @IBOutlet weak var spendingBottomConst: NSLayoutConstraint!
+    @IBOutlet weak var chatViewTopConst: NSLayoutConstraint!
+    @IBOutlet weak var incomeRightConst: NSLayoutConstraint!
+    @IBOutlet weak var accountBookLeftConst: NSLayoutConstraint!
     
     var homeVC: HomeViewController?
     
@@ -255,20 +273,34 @@ class BalanceTableViewCell: UITableViewCell {
                     colors.append(.systemGray)
                 }
                 pieChartDataSet.colors = colors
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-                    pieChartView.isHidden = false
-                }
-                
+
                 if UserDefaults.standard.object(forKey: ON_ANIME) != nil {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-                        pieChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
-                    }
+                    pieChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
                 }
+                pieChartView.isHidden = false
                 pieChartView.highlightPerTapEnabled = false
                 pieChartView.legend.enabled = false
+                
+                switch (UIScreen.main.nativeBounds.height) {
+                case 2048:
+                    pieChartDataSet.entryLabelFont = UIFont(name: "HiraMaruProN-W4", size: 15)!
+                    break
+                case 2160:
+                    pieChartDataSet.entryLabelFont = UIFont(name: "HiraMaruProN-W4", size: 15)!
+                    break
+                case 2360:
+                    pieChartDataSet.entryLabelFont = UIFont(name: "HiraMaruProN-W4", size: 15)!
+                    break
+                case 2388:
+                    pieChartDataSet.entryLabelFont = UIFont(name: "HiraMaruProN-W4", size: 15)!
+                    break
+                case 2732:
+                    pieChartDataSet.entryLabelFont = UIFont(name: "HiraMaruProN-W4", size: 20)!
+                    break
+                default:
+                    break
+                }
             }
-            
         } else {
             
             let salary = realm.objects(MonthlySalary.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -365,16 +397,32 @@ class BalanceTableViewCell: UITableViewCell {
                 }
                 pieChartDataSet.colors = colors
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-                    pieChartView.isHidden = false
-                }
                 if UserDefaults.standard.object(forKey: ON_ANIME) != nil {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-                        pieChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
-                    }
+                    pieChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
                 }
+                pieChartView.isHidden = false
                 pieChartView.highlightPerTapEnabled = false
                 pieChartView.legend.enabled = false
+                
+                switch (UIScreen.main.nativeBounds.height) {
+                case 2048:
+                    pieChartDataSet.entryLabelFont = UIFont(name: "HiraMaruProN-W4", size: 15)!
+                    break
+                case 2160:
+                    pieChartDataSet.entryLabelFont = UIFont(name: "HiraMaruProN-W4", size: 15)!
+                    break
+                case 2360:
+                    pieChartDataSet.entryLabelFont = UIFont(name: "HiraMaruProN-W4", size: 15)!
+                    break
+                case 2388:
+                    pieChartDataSet.entryLabelFont = UIFont(name: "HiraMaruProN-W4", size: 15)!
+                    break
+                case 2732:
+                    pieChartDataSet.entryLabelFont = UIFont(name: "HiraMaruProN-W4", size: 20)!
+                    break
+                default:
+                    break
+                }
             }
         }
     }
@@ -396,5 +444,87 @@ class BalanceTableViewCell: UITableViewCell {
         incomeLabel.text = "¥0"
         spendingLabel.text = "¥0"
         balanceLabel.text = "¥0"
+        
+        switch (UIScreen.main.nativeBounds.height) {
+        case 2048:
+            changeLayout1()
+            break
+        case 2160:
+            changeLayout1()
+            break
+        case 2360:
+            changeLayout1()
+            break
+        case 2388:
+            changeLayout1()
+            break
+        case 2732:
+            changeLayout2()
+            break
+        default:
+            break
+        }
+    }
+    
+    private func changeLayout1() {
+        
+        heightConstraint.constant = 350
+        widthConstraint.constant = 350
+        chartViewLeftConst.constant = 20
+        chartViewButtomConst.constant = 20
+        chatViewTopConst.constant = 20
+        changeButtonHeight.constant = 30
+        changeButtonWidth.constant = 90
+        changeButtonBottom.constant = 20
+        incomeRightConst.constant = 30
+        income2RightConst.constant = 200
+        incomeBottomConst.constant = 80
+        spendingBottomConst.constant = 80
+        accountBookLeftConst.constant = 30
+        
+        incomeLabel.font = UIFont(name: "HiraMaruProN-W4", size: 25)
+        spendingLabel.font = UIFont(name: "HiraMaruProN-W4", size: 25)
+        balanceLabel.font = UIFont(name: "HiraMaruProN-W4", size: 25)
+        incomeLabel2.font = UIFont(name: "HiraMaruProN-W4", size: 25)
+        spendingLabel2.font = UIFont(name: "HiraMaruProN-W4", size: 25)
+        balanceLabel2.font = UIFont(name: "HiraMaruProN-W4", size: 25)
+        accountBookLabel.font = UIFont(name: "HiraMaruProN-W4", size: 25)
+        firstDayLabel.font = UIFont(name: "HiraMaruProN-W4", size: 15)
+        lastDayLabel.font = UIFont(name: "HiraMaruProN-W4", size: 15)
+        noDataLabel.font = UIFont(name: "HiraMaruProN-W4", size: 15)
+
+        changeButton.layer.cornerRadius = 15
+        changeButton.titleLabel?.font = UIFont(name: "HiraMaruProN-W4", size: 15)
+    }
+    
+    private func changeLayout2() {
+        
+        heightConstraint.constant = 450
+        widthConstraint.constant = 450
+        chartViewLeftConst.constant = 50
+        chartViewButtomConst.constant = 20
+        chatViewTopConst.constant = 20
+        changeButtonHeight.constant = 40
+        changeButtonWidth.constant = 100
+        changeButtonBottom.constant = 30
+        incomeRightConst.constant = 40
+        income2RightConst.constant = 200
+        incomeBottomConst.constant = 80
+        spendingBottomConst.constant = 80
+        accountBookLeftConst.constant = 40
+        
+        incomeLabel.font = UIFont(name: "HiraMaruProN-W4", size: 30)
+        spendingLabel.font = UIFont(name: "HiraMaruProN-W4", size: 30)
+        balanceLabel.font = UIFont(name: "HiraMaruProN-W4", size: 30)
+        incomeLabel2.font = UIFont(name: "HiraMaruProN-W4", size: 30)
+        spendingLabel2.font = UIFont(name: "HiraMaruProN-W4", size: 30)
+        balanceLabel2.font = UIFont(name: "HiraMaruProN-W4", size: 30)
+        accountBookLabel.font = UIFont(name: "HiraMaruProN-W4", size: 30)
+        firstDayLabel.font = UIFont(name: "HiraMaruProN-W4", size: 20)
+        lastDayLabel.font = UIFont(name: "HiraMaruProN-W4", size: 20)
+        noDataLabel.font = UIFont(name: "HiraMaruProN-W4", size: 20)
+
+        changeButton.layer.cornerRadius = 20
+        changeButton.titleLabel?.font = UIFont(name: "HiraMaruProN-W4", size: 20)
     }
 }

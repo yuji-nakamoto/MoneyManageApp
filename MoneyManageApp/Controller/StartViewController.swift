@@ -19,7 +19,7 @@ class StartViewController: UIViewController {
     private func toTabVC() {
         indicator.startAnimating()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
             
             if UserDefaults.standard.object(forKey: END_TUTORIAL) != nil {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)

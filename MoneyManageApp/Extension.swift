@@ -8,14 +8,12 @@
 import UIKit
 import Foundation
 
-extension UIView {
-    func addBorder(_ width: CGFloat, color: UIColor, alpha: CGFloat) {
-        let border = CALayer()
-        border.borderColor = color.withAlphaComponent(alpha).cgColor
-        border.borderWidth = 1
-        border.frame = CGRect(x: 0 - 1, y: 0 - 1, width: self.frame.size.width + 1, height: self.frame.size.height - 1)
-        self.layer.addSublayer(border)
-        self.layer.masksToBounds = true
+extension UIViewController {
+
+    func setSwipeBack() {
+        let target = self.navigationController?.value(forKey: "_cachedInteractionController")
+        let recognizer = UIPanGestureRecognizer(target: target, action: Selector(("handleNavigationTransition:")))
+        self.view.addGestureRecognizer(recognizer)
     }
 }
 

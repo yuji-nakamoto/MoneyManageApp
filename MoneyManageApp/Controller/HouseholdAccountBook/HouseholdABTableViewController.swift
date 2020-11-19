@@ -8,21 +8,24 @@
 import UIKit
 import GoogleMobileAds
 import RealmSwift
-import EmptyDataSet_Swift
 
 class HouseholdABTableViewController: UIViewController {
     
     // MARK: - Propeties
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var incomeLabel: UILabel!
     @IBOutlet weak var spendingLabel: UILabel!
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var viewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var topConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dateLbltopConstraint: NSLayoutConstraint!
     @IBOutlet weak var bannerView: GADBannerView!
+    @IBOutlet weak var spendingLabel2: UILabel!
+    @IBOutlet weak var incomeLabel2: UILabel!
+    @IBOutlet weak var balanceLabel2: UILabel!
+    @IBOutlet weak var spendingTopConst: NSLayoutConstraint!
+    @IBOutlet weak var spendingBottomConst: NSLayoutConstraint!
     
     private var categoryArray = [String]()
     private var priceArray = [Int]()
@@ -31,7 +34,7 @@ class HouseholdABTableViewController: UIViewController {
     private var sendYear = ""
     private var updateTimestamp = ""
     private var category = ""
-
+    
     private var timestamp: String {
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateFormat = "yyyy年M月"
@@ -44,15 +47,15 @@ class HouseholdABTableViewController: UIViewController {
         super.viewDidLoad()
         setup()
         setupBanner()
-        viewHeightChange()
+        changeLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        UserDefaults.standard.removeObject(forKey: ON_SCROLL)
         navigationController?.navigationBar.isHidden = true
         setupTopLabel(sendMonth, sendYear, updateTimestamp)
-        collectionView.reloadData()
         
         if UserDefaults.standard.object(forKey: CHANGE) != nil {
             fetchIncome(sendMonth, sendYear)
@@ -73,7 +76,7 @@ class HouseholdABTableViewController: UIViewController {
         monthCount += 1
         
         let nextMonth = calendar.date(byAdding: .month, value: monthCount, to: firstday!)
-
+        
         var month: String {
             dateFormatter.locale = Locale(identifier: "ja_JP")
             dateFormatter.dateFormat = "MM"
@@ -100,7 +103,6 @@ class HouseholdABTableViewController: UIViewController {
         } else {
             fetchSpending(month, year)
         }
-        collectionView.reloadData()
     }
     
     @IBAction func lastMonthButtonPressed(_ sender: Any) {
@@ -134,7 +136,6 @@ class HouseholdABTableViewController: UIViewController {
         } else {
             fetchSpending(month, year)
         }
-        collectionView.reloadData()
     }
     
     // MARK: - Fetch
@@ -304,9 +305,6 @@ class HouseholdABTableViewController: UIViewController {
         sendYear = year
         updateTimestamp = timestamp
         tableView.tableFooterView = UIView()
-        collectionView.addBorder(1, color: .systemGray5, alpha: 1)
-        tableView.emptyDataSetSource = self
-        tableView.emptyDataSetDelegate = self
     }
     
     private func setupTopLabel(_ month: String, _ year: String, _ timestamp: String) {
@@ -332,16 +330,65 @@ class HouseholdABTableViewController: UIViewController {
         dateLabel.text = timestamp
     }
     
-    private func viewHeightChange() {
+    private func changeLayout() {
         
         switch (UIScreen.main.nativeBounds.height) {
         case 1334:
             viewHeightConstraint.constant = 95
-            topConstraint.constant = 25
+            dateLbltopConstraint.constant = 25
+            break
+        case 2048:
+            changeLayout1()
+            break
+        case 2160:
+            changeLayout1()
+            break
+        case 2360:
+            changeLayout1()
+            break
+        case 2388:
+            changeLayout1()
+            break
+        case 2732:
+            changeLayout2()
             break
         default:
             break
         }
+    }
+    
+    private func changeLayout1() {
+        
+        viewHeightConstraint.constant = 140
+
+        dateLabel.font = UIFont(name: "HiraMaruProN-W4", size: 22)
+        incomeLabel.font = UIFont(name: "HiraMaruProN-W4", size: 19)
+        spendingLabel.font = UIFont(name: "HiraMaruProN-W4", size: 19)
+        balanceLabel.font = UIFont(name: "HiraMaruProN-W4", size: 22)
+        incomeLabel2.font = UIFont(name: "HiraMaruProN-W4", size: 15)
+        spendingLabel2.font = UIFont(name: "HiraMaruProN-W4", size: 15)
+        balanceLabel2.font = UIFont(name: "HiraMaruProN-W4", size: 18)
+        
+        spendingTopConst.constant = 15
+        spendingBottomConst.constant = 13
+        dateLbltopConstraint.constant = 30
+    }
+    
+    private func changeLayout2() {
+        
+        viewHeightConstraint.constant = 150
+        
+        dateLabel.font = UIFont(name: "HiraMaruProN-W4", size: 26)
+        incomeLabel.font = UIFont(name: "HiraMaruProN-W4", size: 21)
+        spendingLabel.font = UIFont(name: "HiraMaruProN-W4", size: 21)
+        balanceLabel.font = UIFont(name: "HiraMaruProN-W4", size: 25)
+        incomeLabel2.font = UIFont(name: "HiraMaruProN-W4", size: 17)
+        spendingLabel2.font = UIFont(name: "HiraMaruProN-W4", size: 17)
+        balanceLabel2.font = UIFont(name: "HiraMaruProN-W4", size: 20)
+        
+        spendingTopConst.constant = 15
+        spendingBottomConst.constant = 13
+        dateLbltopConstraint.constant = 35
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -355,70 +402,37 @@ class HouseholdABTableViewController: UIViewController {
     }
 }
 
-// MARK: - Collection view
-
-extension HouseholdABTableViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! HouseholdABCollectionViewCell
-        
-        cell.householdVC = self
-        cell.configureCharts(month: sendMonth, year: sendYear)
-        return cell
-    }
-}
-
 // MARK: - Table view
 
 extension HouseholdABTableViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if UserDefaults.standard.object(forKey: CHANGE) != nil {
-            return categoryArray.count
-        }
-        return categoryArray.count
+        return 1 + categoryArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! HouseholdABTableViewCell
- 
-        if UserDefaults.standard.object(forKey: CHANGE) != nil {
-            cell.incomeCell(categoryArray[indexPath.row], priceArray[indexPath.row])
-            return cell
+        let cell1 = tableView.dequeueReusableCell(withIdentifier: "Cell1", for: indexPath) as! HouseholdABTableViewCell
+        let cell2 = tableView.dequeueReusableCell(withIdentifier: "Cell2") as! HouseholdABTopViewCell
+        
+        if indexPath.row == 0 {
+            cell2.householdVC = self
+            cell2.configureCharts(month: sendMonth, year: sendYear)
+            return cell2
         }
-        cell.spendingCell(categoryArray[indexPath.row], priceArray[indexPath.row])
-        return cell
+        
+        if UserDefaults.standard.object(forKey: CHANGE) != nil {
+            cell1.incomeCell(categoryArray[indexPath.row - 1], priceArray[indexPath.row - 1])
+            return cell1
+        }
+        cell1.spendingCell(categoryArray[indexPath.row - 1], priceArray[indexPath.row - 1])
+        return cell1
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if UserDefaults.standard.object(forKey: CHANGE) != nil {
-            category = categoryArray[indexPath.row]
-            performSegue(withIdentifier: "DetailVC", sender: nil)
-        } else {
-            category = categoryArray[indexPath.row]
+        if indexPath.row >= 1 {
+            category = categoryArray[indexPath.row - 1]
             performSegue(withIdentifier: "DetailVC", sender: nil)
         }
-    }
-}
-
-extension HouseholdABTableViewController: EmptyDataSetSource, EmptyDataSetDelegate {
-    
-    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        
-        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor(named: O_BLACK) as Any, .font: UIFont(name: "HiraMaruProN-W4", size: 15) as Any]
-        return NSAttributedString(string: "\(sendYear)年\(sendMonth)月の家計簿は作成していません", attributes: attributes)
-    }
-    
-    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.systemGray2 as Any, .font: UIFont(name: "HiraMaruProN-W4", size: 13) as Any]
-        return NSAttributedString(string: "入力タブから作成できます", attributes: attributes)
-    }
-    
-    func verticalOffset(forEmptyDataSet scrollView: UIScrollView) -> CGFloat {
-        return 50
     }
 }

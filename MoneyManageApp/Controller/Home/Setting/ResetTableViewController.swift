@@ -27,7 +27,7 @@ class ResetTableViewController: UITableViewController {
     }
     
     @IBAction func backButtonPressd(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func onResetSwitch(_ sender: UISwitch) {
@@ -48,7 +48,7 @@ class ResetTableViewController: UITableViewController {
                 realm.deleteAll()
                 HUD.flash(.labeledSuccess(title: "", subtitle: "データをリセットしました"), delay: 1)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    self.navigationController?.popViewController(animated: true)
+                    self.dismiss(animated: true, completion: nil)
                 }
             }
         }

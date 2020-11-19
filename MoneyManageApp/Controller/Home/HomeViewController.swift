@@ -23,6 +23,15 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var hintView: UIView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var autofillLabel: UILabel!
+    @IBOutlet weak var autofillTopViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var autofillLeftConst: NSLayoutConstraint!
+    @IBOutlet weak var autofillViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var priceRightConst: NSLayoutConstraint!
+    @IBOutlet weak var categoryImageLeftConst: NSLayoutConstraint!
+    @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet weak var registerHeight: NSLayoutConstraint!
     
     private var player = AVAudioPlayer()
     private let soundFile = Bundle.main.path(forResource: "pa1", ofType: "mp3")
@@ -31,6 +40,7 @@ class HomeViewController: UIViewController {
     private var autoArray2 = [Auto]()
     private var autoArray3 = [Auto]()
     private var autoArray4 = [Auto]()
+    private let refresh = UIRefreshControl()
     
     private var firstDayString: String {
         dateFormatter.locale = Locale(identifier: "ja_JP")
@@ -52,7 +62,6 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setup()
         showHintView()
         setupBanner()
@@ -62,6 +71,8 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        checkMoneyRegister()
         if autofillView.isHidden == false {
             autofillView.isHidden = true
         }
@@ -70,9 +81,11 @@ class HomeViewController: UIViewController {
         tableView.reloadData()
     }
     
+    // MARK: - Actions
+    
     @IBAction func closeButtonPressd(_ sender: Any) {
         UIView.animate(withDuration: 0.5) { [self] in
-            self.autofillView.isHidden = !self.autofillView.isHidden
+            self.autofillView.isHidden = true
         }
     }
     
@@ -86,6 +99,14 @@ class HomeViewController: UIViewController {
             UserDefaults.standard.set(true, forKey: END_TUTORIAL2)
         }
     }
+    
+    @objc func refreshTableView(){
+        tableView.reloadData()
+        checkMoneyRegister()
+        refresh.endRefreshing()
+    }
+    
+    // MARK: - Auto function
     
     private func isAutofill() {
         
@@ -1444,7 +1465,7 @@ class HomeViewController: UIViewController {
         unCategory2.day = String(auto.day)
         unCategory2.id = auto.id
     }
-
+    
     private func formatterFunc1(_ auto: Auto, _ date: Date, _ nextDate: Date) {
         
         var timestamp: String {
@@ -1502,13 +1523,72 @@ class HomeViewController: UIViewController {
         tableView.reloadData()
     }
     
+    // MARK: - Helpers
+    
     private func setup() {
         navigationItem.title = "ホーム"
         tableView.tableFooterView = UIView()
         hintView.alpha = 0
         hintView.layer.cornerRadius = 10
         closeButton.layer.cornerRadius = 30 / 2
-        descriptionLabel.text = "以上でチュートリアルは終了です!\n操作が分からなくなった場合や、他のことも知りたい場合は、ホーム画面右上の歯車マークから'使い方'をタップで確認できます。\n\nまずは左上にある資産の登録を行いましょう！"
+        descriptionLabel.text = "以上でチュートリアルは終了です!\n操作が分からなくなった場合や、他のことも知りたい場合は、ホーム画面右上の歯車マークから'使い方'をタップで確認できます。\n\nまずは画面下部にある資産の登録を行いましょう！"
+        tableView.refreshControl = refresh
+        refresh.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
+        
+        switch (UIScreen.main.nativeBounds.height) {
+        case 2048:
+            changeLayout1()
+            break
+        case 2160:
+            changeLayout1()
+            break
+        case 2360:
+            changeLayout1()
+            break
+        case 2388:
+            changeLayout1()
+            break
+        case 2732:
+            changeLayout2()
+            break
+        default:
+            break
+        }
+    }
+    
+    private func changeLayout1() {
+        
+        autofillViewHeight.constant = 160
+        autofillTopViewHeight.constant = 60
+        autofillLeftConst.constant = 30
+        categoryImageLeftConst.constant = 30
+        priceRightConst.constant = 30
+        
+        autofillLabel.font = UIFont(name: "HiraMaruProN-W4", size: 20)
+    }
+    
+    private func changeLayout2() {
+        
+        autofillViewHeight.constant = 160
+        autofillTopViewHeight.constant = 60
+        autofillLeftConst.constant = 30
+        categoryImageLeftConst.constant = 30
+        priceRightConst.constant = 30
+        
+        autofillLabel.font = UIFont(name: "HiraMaruProN-W4", size: 20)
+    }
+    
+    private func checkMoneyRegister() {
+        
+        let realm = try! Realm()
+        let money = realm.objects(Money.self)
+        registerHeight.constant = 44
+        
+        money.forEach { (money) in
+            if money.createMoney == true {
+                registerHeight.constant = 0
+            }
+        }
     }
     
     private func showAutofillView() {
@@ -1532,14 +1612,12 @@ class HomeViewController: UIViewController {
     private func showHintView() {
         
         if UserDefaults.standard.object(forKey: END_TUTORIAL2) == nil {
-            
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [self] in
-                
                 visualEffectView.frame = self.view.frame
                 view.addSubview(self.visualEffectView)
                 visualEffectView.alpha = 0
                 view.addSubview(hintView)
-            
+                
                 UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                     visualEffectView.alpha = 1
                     hintView.alpha = 1
@@ -1638,6 +1716,8 @@ class HomeViewController: UIViewController {
     }
 }
 
+// MARK: - Table view
+
 extension HomeViewController: UITabBarDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
@@ -1646,7 +1726,7 @@ extension HomeViewController: UITabBarDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell1 = tableView.dequeueReusableCell(withIdentifier: "Cell1") as! TotalMoneyTableViewCell
         let cell2 = tableView.dequeueReusableCell(withIdentifier: "Cell2") as! BalanceTableViewCell
-        let cell3 = tableView.dequeueReusableCell(withIdentifier: "Cell3") as! BarChartTableViewCell
+        let cell3 = tableView.dequeueReusableCell(withIdentifier: "Cell3") as! LineChartTableViewCell
         
         if indexPath.row == 0 {
             cell1.fetchTotalMoney()

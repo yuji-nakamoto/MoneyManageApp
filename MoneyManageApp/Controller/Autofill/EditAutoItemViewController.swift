@@ -38,6 +38,13 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var pickerKeyboardView: PickerKeyboard1!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var numberLbl2TopConst: NSLayoutConstraint!
+    @IBOutlet weak var numberLbl2BottomConst: NSLayoutConstraint!
+    @IBOutlet weak var enMarkLabel: UILabel!
+    @IBOutlet weak var categoryImageTopConst: NSLayoutConstraint!
+    @IBOutlet weak var categoryImageBottomConst: NSLayoutConstraint!
+    @IBOutlet weak var calenderImageTopConst: NSLayoutConstraint!
+    @IBOutlet weak var calenderImageBottomConst: NSLayoutConstraint!
     
     lazy var buttons = [zeroButton, oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton, sevenButton, eightButton, nineButton, clearButton, multiplyButton, minusButton, plusButton, devideButton]
     private var firstNumeric = false
@@ -52,6 +59,7 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        setSwipeBack()
         fetchAuto()
     }
     
@@ -586,8 +594,25 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
         numberLabel.isHidden = true
         deleteButton.layer.cornerRadius = 10
         saveButton.layer.cornerRadius = 10
-        buttons.forEach({ $0?.layer.borderWidth = 0.2; $0?.layer.borderColor = UIColor.systemGray.cgColor })
+        buttons.forEach({ $0?.layer.borderWidth = 0.3; $0?.layer.borderColor = UIColor.systemGray.cgColor })
         textField.addTarget(self, action: #selector(textFieldTap), for: .editingDidBegin)
+        
+        switch (UIScreen.main.nativeBounds.height) {
+        case 1334:
+            numberLbl2TopConst.constant = 10
+            numberLbl2BottomConst.constant = 10
+            numberLabel2.font = UIFont(name: "HiraMaruProN-W4", size: 30)
+                enMarkLabel.font = UIFont(name: "HiraMaruProN-W4", size: 30)
+            
+            categoryImageTopConst.constant = 10
+            categoryImageBottomConst.constant = 10
+            calenderImageTopConst.constant = 10
+            calenderImageBottomConst.constant = 10
+            
+            break
+        default:
+            break
+        }
     }
     
     private func removeUserDefaults() {

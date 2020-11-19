@@ -17,6 +17,7 @@ class IncomeCategoryTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setSwipeBack()
         setupBanner()
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.title = "収入"

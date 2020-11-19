@@ -13,9 +13,7 @@ class SettingTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setup()
-        
     }
     
     @IBAction func closeButtonPressed(_ sender: Any) {
@@ -46,6 +44,5 @@ class SettingTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
     }
 }

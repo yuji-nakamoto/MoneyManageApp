@@ -16,12 +16,14 @@ class PaymentTableViewController: UIViewController {
     @IBOutlet weak var bannerView: GADBannerView!
     @IBOutlet weak var sortButton: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var sortButtonWidth: NSLayoutConstraint!
     
     private var incomeArray = [Income]()
     private var id = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
         setSearchBar()
         setupBanner()
         tableView.emptyDataSetSource = self
@@ -98,6 +100,33 @@ class PaymentTableViewController: UIViewController {
             let editIncomeVC = segue.destination as! EditIncomeViewController
             editIncomeVC.id = id
         }
+    }
+    
+    private func setup() {
+        
+        switch (UIScreen.main.nativeBounds.height) {
+        case 2048:
+            changeLayout()
+            break
+        case 2160:
+            changeLayout()
+            break
+        case 2360:
+            changeLayout()
+            break
+        case 2388:
+            changeLayout()
+            break
+        case 2732:
+            changeLayout()
+            break
+        default:
+            break
+        }
+    }
+    
+    private func changeLayout() {
+        sortButtonWidth.constant = 250
     }
 }
 

@@ -17,6 +17,7 @@ public let O_RED = "original_red"
 public let O_WHITE = "original_white"
 public let O_BROWN = "original_brown"
 public let O_PINK = "original_pink"
+public let O_GRAY = "original_gray"
 public let CARROT_ORANGE = "carrot_orange"
 public let O_BLUE = "icon_color22"
 
@@ -65,3 +66,16 @@ public let ON_AUTO = "onAuto"
 
 public let END_TUTORIAL = "endTutorial"
 public let END_TUTORIAL2 = "endTutorial2"
+
+public let CATEGORY = "category"
+public let YEAR = "year"
+public let MONTHE = "monthe"
+
+public let BACKUP1 = "backup1"
+public let BACKUP2 = "backup2"
+public let BACKUP3 = "backup3"
+public let CHECK1 = "check1"
+public let CHECK2 = "check2"
+public let CHECK3 = "check3"
+
+public let ON_SCROLL = "onScroll"

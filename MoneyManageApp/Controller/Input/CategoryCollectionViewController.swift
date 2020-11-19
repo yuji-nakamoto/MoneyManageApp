@@ -17,6 +17,7 @@ class CategoryCollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setSwipeBack()
         setupBanner()
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.title = "カテゴリ選択"
@@ -42,7 +43,6 @@ class CategoryCollectionViewController: UIViewController {
 extension CategoryCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categoryTitles.count
-
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

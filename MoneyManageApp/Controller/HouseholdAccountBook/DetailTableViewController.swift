@@ -11,9 +11,6 @@ import RealmSwift
 class DetailTableViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var timestampLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
     
     private var foodArray = [Food]()
     private var brushArray = [Brush]()
@@ -41,6 +38,7 @@ class DetailTableViewController: UIViewController {
     private var estateArray = [Estate]()
     private var paymentArray = [Payment]()
     private var unCategory2Array = [UnCategory2]()
+    private var categoryArray = [String]()
 
     var category = ""
     var year = ""
@@ -49,13 +47,81 @@ class DetailTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setSwipeBack()
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         tableView.tableFooterView = UIView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        selectCategory()
+        
+        tableView.reloadData()
+        if UserDefaults.standard.object(forKey: CATEGORY) != nil {
+            let year = UserDefaults.standard.object(forKey: YEAR) as! String
+            let month = UserDefaults.standard.object(forKey: MONTHE) as! String
+            let category = UserDefaults.standard.object(forKey: CATEGORY) as! String
+            
+            if UserDefaults.standard.object(forKey: CHANGE) == nil {
+                if category == "食費" {
+                    fetchFood(year, month)
+                } else if category == "日用品" {
+                    fetchBrush(year, month)
+                } else if category == "趣味" {
+                    fetchHobby(year, month)
+                } else if category == "交際費" {
+                    fetchDating(year, month)
+                } else if category == "交通費" {
+                    fetchTraffic(year, month)
+                } else if category == "衣服・美容" {
+                    fetchClothe(year, month)
+                } else if category == "健康・医療" {
+                    fetchHealth(year, month)
+                } else if category == "自動車" {
+                    fetchCar(year, month)
+                } else if category == "教養・教育" {
+                    fetchEducation(year, month)
+                } else if category == "特別な支出" {
+                    fetchSpecial(year, month)
+                } else if category == "現金・カード" {
+                    fetchCard(year, month)
+                } else if category == "水道・光熱費" {
+                    fetchUtility(year, month)
+                } else if category == "通信費" {
+                    fetchCommunicaton(year, month)
+                } else if category == "住宅" {
+                    fetchHouse(year, month)
+                } else if category == "税・社会保険" {
+                    fetchTax(year, month)
+                } else if category == "保険" {
+                    fetchInsrance(year, month)
+                } else if category == "その他" {
+                    fetchEtcetora(year, month)
+                } else if category == "未分類" {
+                    fetchUnCategory(year, month)
+                }
+            } else {
+                if category == "給与" {
+                    fetchSalary(year, month)
+                } else if category == "一時所得" {
+                    fetchTemporary(year, month)
+                } else if category == "事業・副業" {
+                    fetchBusiness(year, month)
+                } else if category == "年金" {
+                    fetchPension(year, month)
+                } else if category == "配当所得" {
+                    fetchDevident(year, month)
+                } else if category == "不動産所得" {
+                    fetchEstate(year, month)
+                } else if category == "その他入金" {
+                    fetchPayment(year, month)
+                } else if category == "未分類" {
+                    fetchUnCategory2(year, month)
+                }
+            }
+            
+        } else {
+            selectCategory()
+        }
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -64,13 +130,16 @@ class DetailTableViewController: UIViewController {
     
     // MARK: - Fetch
     
-    private func fetchFood() {
+    private func fetchFood(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let food = realm.objects(Food.self).filter("year == '\(year)'").filter("month == '\(month)'")
         let mFood = realm.objects(MonthlyFood.self).filter("year == '\(year)'").filter("month == '\(month)'")
         foodArray.removeAll()
         foodArray.append(contentsOf: food)
+        foodArray = foodArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if foodArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -79,21 +148,21 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color1")
         }
         mFood.forEach { (mfood) in
-            let result = String.localizedStringWithFormat("%d", mfood.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mfood.timestamp
-            dateLabel.text = mfood.monthly
+            categoryArray.append(mfood.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchBrush() {
+    private func fetchBrush(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let brush = realm.objects(Brush.self).filter("year == '\(year)'").filter("month == '\(month)'")
         let mbrush = realm.objects(MonthlyBrush.self).filter("year == '\(year)'").filter("month == '\(month)'")
         brushArray.removeAll()
         brushArray.append(contentsOf: brush)
+        brushArray = brushArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if brushArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -102,21 +171,21 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color2")
         }
         mbrush.forEach { (mbrush) in
-            let result = String.localizedStringWithFormat("%d", mbrush.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mbrush.timestamp
-            dateLabel.text = mbrush.monthly
+            categoryArray.append(mbrush.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchHobby() {
+    private func fetchHobby(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let hobby = realm.objects(Hobby.self).filter("year == '\(year)'").filter("month == '\(month)'")
         let mhobby = realm.objects(MonthlyHobby.self).filter("year == '\(year)'").filter("month == '\(month)'")
         hobbyArray.removeAll()
         hobbyArray.append(contentsOf: hobby)
+        hobbyArray = hobbyArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if hobbyArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -125,21 +194,21 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color3")
         }
         mhobby.forEach { (mhobby) in
-            let result = String.localizedStringWithFormat("%d", mhobby.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mhobby.timestamp
-            dateLabel.text = mhobby.monthly
+            categoryArray.append(mhobby.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchDating() {
+    private func fetchDating(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let dating = realm.objects(Dating.self).filter("year == '\(year)'").filter("month == '\(month)'")
         let mDating = realm.objects(MonthlyDating.self).filter("year == '\(year)'").filter("month == '\(month)'")
         datingArray.removeAll()
         datingArray.append(contentsOf: dating)
+        datingArray = datingArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if datingArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -148,15 +217,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color4")
         }
         mDating.forEach { (mDating) in
-            let result = String.localizedStringWithFormat("%d", mDating.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mDating.timestamp
-            dateLabel.text = mDating.monthly
+            categoryArray.append(mDating.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchTraffic() {
+    private func fetchTraffic(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let traffic = realm.objects(Traffic.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -164,6 +230,9 @@ class DetailTableViewController: UIViewController {
 
         trafficArray.removeAll()
         trafficArray.append(contentsOf: traffic)
+        trafficArray = trafficArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if trafficArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -172,15 +241,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color5")
         }
         mTraffic.forEach { (mTraffic) in
-            let result = String.localizedStringWithFormat("%d", mTraffic.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mTraffic.timestamp
-            dateLabel.text = mTraffic.monthly
+            categoryArray.append(mTraffic.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchClothe() {
+    private func fetchClothe(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let clothe = realm.objects(Clothe.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -188,6 +254,9 @@ class DetailTableViewController: UIViewController {
         
         clotheArray.removeAll()
         clotheArray.append(contentsOf: clothe)
+        clotheArray = clotheArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if clotheArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -196,15 +265,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color6")
         }
         mClothe.forEach { (mClothe) in
-            let result = String.localizedStringWithFormat("%d", mClothe.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mClothe.timestamp
-            dateLabel.text = mClothe.monthly
+            categoryArray.append(mClothe.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchHealth() {
+    private func fetchHealth(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let health = realm.objects(Health.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -212,6 +278,9 @@ class DetailTableViewController: UIViewController {
 
         healthArray.removeAll()
         healthArray.append(contentsOf: health)
+        healthArray = healthArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if healthArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -220,15 +289,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color7")
         }
         mHealth.forEach { (mHealth) in
-            let result = String.localizedStringWithFormat("%d", mHealth.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mHealth.timestamp
-            dateLabel.text = mHealth.monthly
+            categoryArray.append(mHealth.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchCar() {
+    private func fetchCar(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let car = realm.objects(Car.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -236,7 +302,10 @@ class DetailTableViewController: UIViewController {
 
         carArray.removeAll()
         carArray.append(contentsOf: car)
-        if cardArray.count == 0 {
+        carArray = carArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
+        if carArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
         carArray.forEach { (car) in
@@ -244,15 +313,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color8")
         }
         mCar.forEach { (mCar) in
-            let result = String.localizedStringWithFormat("%d", mCar.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mCar.timestamp
-            dateLabel.text = mCar.monthly
+            categoryArray.append(mCar.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchEducation() {
+    private func fetchEducation(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let education = realm.objects(Education.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -260,6 +326,9 @@ class DetailTableViewController: UIViewController {
 
         educationArray.removeAll()
         educationArray.append(contentsOf: education)
+        educationArray = educationArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if educationArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -268,15 +337,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color9")
         }
         mEducation.forEach { (mEducation) in
-            let result = String.localizedStringWithFormat("%d", mEducation.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mEducation.timestamp
-            dateLabel.text = mEducation.monthly
+            categoryArray.append(mEducation.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchSpecial() {
+    private func fetchSpecial(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let special = realm.objects(Special.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -284,6 +350,9 @@ class DetailTableViewController: UIViewController {
 
         specialArray.removeAll()
         specialArray.append(contentsOf: special)
+        specialArray = specialArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if specialArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -292,15 +361,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color10")
         }
         mSpecial.forEach { (mSpecial) in
-            let result = String.localizedStringWithFormat("%d", mSpecial.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mSpecial.timestamp
-            dateLabel.text = mSpecial.monthly
+            categoryArray.append(mSpecial.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchCard() {
+    private func fetchCard(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let card = realm.objects(Card.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -308,6 +374,9 @@ class DetailTableViewController: UIViewController {
 
         cardArray.removeAll()
         cardArray.append(contentsOf: card)
+        cardArray = cardArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if cardArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -316,15 +385,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color24")
         }
         mCard.forEach { (mCard) in
-            let result = String.localizedStringWithFormat("%d", mCard.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mCard.timestamp
-            dateLabel.text = mCard.monthly
+            categoryArray.append(mCard.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchUtility() {
+    private func fetchUtility(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let utility = realm.objects(Utility.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -332,6 +398,9 @@ class DetailTableViewController: UIViewController {
 
         utilityArray.removeAll()
         utilityArray.append(contentsOf: utility)
+        utilityArray = utilityArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if utilityArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -340,15 +409,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color11")
         }
         mUtility.forEach { (mUtility) in
-            let result = String.localizedStringWithFormat("%d", mUtility.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mUtility.timestamp
-            dateLabel.text = mUtility.monthly
+            categoryArray.append(mUtility.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchCommunicaton() {
+    private func fetchCommunicaton(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let communication = realm.objects(Communicaton.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -356,6 +422,9 @@ class DetailTableViewController: UIViewController {
 
         communicationArray.removeAll()
         communicationArray.append(contentsOf: communication)
+        communicationArray = communicationArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if communicationArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -364,15 +433,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color12")
         }
         mCommunication.forEach { (mCommunication) in
-            let result = String.localizedStringWithFormat("%d", mCommunication.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mCommunication.timestamp
-            dateLabel.text = mCommunication.monthly
+            categoryArray.append(mCommunication.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchHouse() {
+    private func fetchHouse(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let house = realm.objects(House.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -380,6 +446,9 @@ class DetailTableViewController: UIViewController {
 
         houseArray.removeAll()
         houseArray.append(contentsOf: house)
+        houseArray = houseArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if houseArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -388,15 +457,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color13")
         }
         mHouse.forEach { (mHouse) in
-            let result = String.localizedStringWithFormat("%d", mHouse.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mHouse.timestamp
-            dateLabel.text = mHouse.monthly
+            categoryArray.append(mHouse.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchTax() {
+    private func fetchTax(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let tax = realm.objects(Tax.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -404,6 +470,9 @@ class DetailTableViewController: UIViewController {
 
         taxArray.removeAll()
         taxArray.append(contentsOf: tax)
+        taxArray = taxArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if taxArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -412,15 +481,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color14")
         }
         mTax.forEach { (mTax) in
-            let result = String.localizedStringWithFormat("%d", mTax.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mTax.timestamp
-            dateLabel.text = mTax.monthly
+            categoryArray.append(mTax.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchInsrance() {
+    private func fetchInsrance(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let insrance = realm.objects(Insrance.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -428,6 +494,9 @@ class DetailTableViewController: UIViewController {
 
         insranceArray.removeAll()
         insranceArray.append(contentsOf: insrance)
+        insranceArray = insranceArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if insranceArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -436,15 +505,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color15")
         }
         mInsrance.forEach { (mInsrance) in
-            let result = String.localizedStringWithFormat("%d", mInsrance.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mInsrance.timestamp
-            dateLabel.text = mInsrance.monthly
+            categoryArray.append(mInsrance.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchEtcetora() {
+    private func fetchEtcetora(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let etcetora = realm.objects(Etcetora.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -452,6 +518,9 @@ class DetailTableViewController: UIViewController {
 
         etcetoraArray.removeAll()
         etcetoraArray.append(contentsOf: etcetora)
+        etcetoraArray = etcetoraArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if etcetoraArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -460,15 +529,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color16")
         }
         mEtcetora.forEach { (mEtcetora) in
-            let result = String.localizedStringWithFormat("%d", mEtcetora.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mEtcetora.timestamp
-            dateLabel.text = mEtcetora.monthly
+            categoryArray.append(mEtcetora.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchUnCategory() {
+    private func fetchUnCategory(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let unCategory = realm.objects(UnCategory.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -476,6 +542,9 @@ class DetailTableViewController: UIViewController {
 
         unCategoryArray.removeAll()
         unCategoryArray.append(contentsOf: unCategory)
+        unCategoryArray = unCategoryArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if unCategoryArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -484,15 +553,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = .systemGray
         }
         mUncategory.forEach { (mUncategory) in
-            let result = String.localizedStringWithFormat("%d", mUncategory.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mUncategory.timestamp
-            dateLabel.text = mUncategory.monthly
+            categoryArray.append(mUncategory.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchSalary() {
+    private func fetchSalary(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let salary = realm.objects(Salary.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -500,6 +566,9 @@ class DetailTableViewController: UIViewController {
 
         salaryArray.removeAll()
         salaryArray.append(contentsOf: salary)
+        salaryArray = salaryArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if salaryArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -508,15 +577,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color17")
         }
         mSalary.forEach { (mSalary) in
-            let result = String.localizedStringWithFormat("%d", mSalary.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mSalary.timestamp
-            dateLabel.text = mSalary.monthly
+            categoryArray.append(mSalary.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchTemporary() {
+    private func fetchTemporary(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let temporary = realm.objects(Temporary.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -524,6 +590,9 @@ class DetailTableViewController: UIViewController {
 
         temporaryArray.removeAll()
         temporaryArray.append(contentsOf: temporary)
+        temporaryArray = temporaryArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if temporaryArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -532,15 +601,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color18")
         }
         mTemporary.forEach { (mTemporary) in
-            let result = String.localizedStringWithFormat("%d", mTemporary.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mTemporary.timestamp
-            dateLabel.text = mTemporary.monthly
+            categoryArray.append(mTemporary.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchBusiness() {
+    private func fetchBusiness(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let business = realm.objects(Business.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -548,6 +614,9 @@ class DetailTableViewController: UIViewController {
 
         businessArray.removeAll()
         businessArray.append(contentsOf: business)
+        businessArray = businessArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if businessArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -556,15 +625,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color19")
         }
         mBusiness.forEach { (mBusiness) in
-            let result = String.localizedStringWithFormat("%d", mBusiness.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mBusiness.timestamp
-            dateLabel.text = mBusiness.monthly
+            categoryArray.append(mBusiness.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchPension() {
+    private func fetchPension(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let pension = realm.objects(Pension.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -572,6 +638,9 @@ class DetailTableViewController: UIViewController {
 
         pensionArray.removeAll()
         pensionArray.append(contentsOf: pension)
+        pensionArray = pensionArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if pensionArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -580,15 +649,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color20")
         }
         mPension.forEach { (mPension) in
-            let result = String.localizedStringWithFormat("%d", mPension.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mPension.timestamp
-            dateLabel.text = mPension.monthly
+            categoryArray.append(mPension.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchDevident() {
+    private func fetchDevident(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let devident = realm.objects(Devident.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -596,6 +662,9 @@ class DetailTableViewController: UIViewController {
 
         devidentArray.removeAll()
         devidentArray.append(contentsOf: devident)
+        devidentArray = devidentArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if devidentArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -604,15 +673,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color21")
         }
         mDevident.forEach { (mDevident) in
-            let result = String.localizedStringWithFormat("%d", mDevident.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mDevident.timestamp
-            dateLabel.text = mDevident.monthly
+            categoryArray.append(mDevident.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchEstate() {
+    private func fetchEstate(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let estate = realm.objects(Estate.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -620,6 +686,9 @@ class DetailTableViewController: UIViewController {
 
         estateArray.removeAll()
         estateArray.append(contentsOf: estate)
+        estateArray = estateArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if estateArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -628,15 +697,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color22")
         }
         mEstate.forEach { (mEstate) in
-            let result = String.localizedStringWithFormat("%d", mEstate.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mEstate.timestamp
-            dateLabel.text = mEstate.monthly
+            categoryArray.append(mEstate.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchPayment() {
+    private func fetchPayment(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let payment = realm.objects(Payment.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -644,6 +710,9 @@ class DetailTableViewController: UIViewController {
 
         paymentArray.removeAll()
         paymentArray.append(contentsOf: payment)
+        paymentArray = paymentArray.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if paymentArray.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -652,15 +721,12 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color23")
         }
         mPayment.forEach { (mPayment) in
-            let result = String.localizedStringWithFormat("%d", mPayment.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mPayment.timestamp
-            dateLabel.text = mPayment.monthly
+            categoryArray.append(mPayment.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
-    private func fetchUnCategory2() {
+    private func fetchUnCategory2(_ year: String, _ month: String) {
         
         let realm = try! Realm()
         let unCategory2 = realm.objects(UnCategory2.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -668,6 +734,9 @@ class DetailTableViewController: UIViewController {
 
         unCategory2Array.removeAll()
         unCategory2Array.append(contentsOf: unCategory2)
+        unCategory2Array = unCategory2Array.sorted(by: { (a, b) -> Bool in
+            return a.timestamp > b.timestamp
+        })
         if unCategory2Array.count == 0 {
             navigationController?.popViewController(animated: true)
         }
@@ -676,12 +745,9 @@ class DetailTableViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = .systemGray
         }
         mUnCategory2.forEach { (mUnCategory2) in
-            let result = String.localizedStringWithFormat("%d", mUnCategory2.totalPrice)
-            priceLabel.text = "¥" + result
-            timestampLabel.text = mUnCategory2.timestamp
-            dateLabel.text = mUnCategory2.monthly
+            categoryArray.append(mUnCategory2.category)
         }
-        tableView.reloadData()
+        removeObject()
     }
     
     // MARK: - Helpers
@@ -690,59 +756,59 @@ class DetailTableViewController: UIViewController {
         
         if UserDefaults.standard.object(forKey: CHANGE) == nil {
             if category == "食費" {
-                fetchFood()
+                fetchFood(year, month)
             } else if category == "日用品" {
-                fetchBrush()
+                fetchBrush(year, month)
             } else if category == "趣味" {
-                fetchHobby()
+                fetchHobby(year, month)
             } else if category == "交際費" {
-                fetchDating()
+                fetchDating(year, month)
             } else if category == "交通費" {
-                fetchTraffic()
+                fetchTraffic(year, month)
             } else if category == "衣服・美容" {
-                fetchClothe()
+                fetchClothe(year, month)
             } else if category == "健康・医療" {
-                fetchHealth()
+                fetchHealth(year, month)
             } else if category == "自動車" {
-                fetchCar()
+                fetchCar(year, month)
             } else if category == "教養・教育" {
-                fetchEducation()
+                fetchEducation(year, month)
             } else if category == "特別な支出" {
-                fetchSpecial()
+                fetchSpecial(year, month)
             } else if category == "現金・カード" {
-                fetchCard()
+                fetchCard(year, month)
             } else if category == "水道・光熱費" {
-                fetchUtility()
+                fetchUtility(year, month)
             } else if category == "通信費" {
-                fetchCommunicaton()
+                fetchCommunicaton(year, month)
             } else if category == "住宅" {
-                fetchHouse()
+                fetchHouse(year, month)
             } else if category == "税・社会保険" {
-                fetchTax()
+                fetchTax(year, month)
             } else if category == "保険" {
-                fetchInsrance()
+                fetchInsrance(year, month)
             } else if category == "その他" {
-                fetchEtcetora()
+                fetchEtcetora(year, month)
             } else if category == "未分類" {
-                fetchUnCategory()
+                fetchUnCategory(year, month)
             }
         } else {
             if category == "給与" {
-                fetchSalary()
+                fetchSalary(year, month)
             } else if category == "一時所得" {
-                fetchTemporary()
+                fetchTemporary(year, month)
             } else if category == "事業・副業" {
-                fetchBusiness()
+                fetchBusiness(year, month)
             } else if category == "年金" {
-                fetchPension()
+                fetchPension(year, month)
             } else if category == "配当所得" {
-                fetchDevident()
+                fetchDevident(year, month)
             } else if category == "不動産所得" {
-                fetchEstate()
+                fetchEstate(year, month)
             } else if category == "その他入金" {
-                fetchPayment()
+                fetchPayment(year, month)
             } else if category == "未分類" {
-                fetchUnCategory2()
+                fetchUnCategory2(year, month)
             }
         }
     }
@@ -758,6 +824,12 @@ class DetailTableViewController: UIViewController {
             let editIncomeVC = segue.destination as! EditIncomeViewController
             editIncomeVC.id = id
         }
+    }
+    
+    private func removeObject() {
+        UserDefaults.standard.removeObject(forKey: CATEGORY)
+        UserDefaults.standard.removeObject(forKey: YEAR)
+        UserDefaults.standard.removeObject(forKey: MONTHE)
     }
 }
 
@@ -824,12 +896,15 @@ extension DetailTableViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell1 = tableView.dequeueReusableCell(withIdentifier: "Cell1")
+        let cell1 = tableView.dequeueReusableCell(withIdentifier: "Cell1", for: indexPath) as! BarChartTableViewCell
         let cell2 = tableView.dequeueReusableCell(withIdentifier: "Cell2", for: indexPath) as! DetailTableViewCell
         
         if indexPath.row == 0 {
-            return cell1!
+            cell1.detailVC = self
+            cell1.configureBarChartCell(categoryArray[indexPath.row], year, month)
+            return cell1
         }
+        
         if UserDefaults.standard.object(forKey: CHANGE) == nil {
             if category == "食費" {
                 cell2.foodCell(foodArray[indexPath.row - 1])
@@ -915,64 +990,67 @@ extension DetailTableViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if UserDefaults.standard.object(forKey: CHANGE) == nil {
-            if category == "食費" {
-                id = foodArray[indexPath.row - 1].id
-            } else if category == "日用品" {
-                id = brushArray[indexPath.row - 1].id
-            } else if category == "趣味" {
-                id = hobbyArray[indexPath.row - 1].id
-            } else if category == "交際費" {
-                id = datingArray[indexPath.row - 1].id
-            } else if category == "交通費" {
-                id = trafficArray[indexPath.row - 1].id
-            } else if category == "衣服・美容" {
-                id = clotheArray[indexPath.row - 1].id
-            } else if category == "健康・医療" {
-                id = healthArray[indexPath.row - 1].id
-            } else if category == "自動車" {
-                id = carArray[indexPath.row - 1].id
-            } else if category == "教養・教育" {
-                id = educationArray[indexPath.row - 1].id
-            } else if category == "特別な支出" {
-                id = specialArray[indexPath.row - 1].id
-            } else if category == "現金・カード" {
-                id = cardArray[indexPath.row - 1].id
-            } else if category == "水道・光熱費" {
-                id = utilityArray[indexPath.row - 1].id
-            } else if category == "通信費" {
-                id = communicationArray[indexPath.row - 1].id
-            } else if category == "住宅" {
-                id = houseArray[indexPath.row - 1].id
-            } else if category == "税・社会保険" {
-                id = taxArray[indexPath.row - 1].id
-            } else if category == "保険" {
-                id = insranceArray[indexPath.row - 1].id
-            } else if category == "その他" {
-                id = etcetoraArray[indexPath.row - 1].id
-            } else if category == "未分類" {
-                id = unCategoryArray[indexPath.row - 1].id
+        
+        if indexPath.row >= 1 {
+            if UserDefaults.standard.object(forKey: CHANGE) == nil {
+                if category == "食費" {
+                    id = foodArray[indexPath.row - 1].id
+                } else if category == "日用品" {
+                    id = brushArray[indexPath.row - 1].id
+                } else if category == "趣味" {
+                    id = hobbyArray[indexPath.row - 1].id
+                } else if category == "交際費" {
+                    id = datingArray[indexPath.row - 1].id
+                } else if category == "交通費" {
+                    id = trafficArray[indexPath.row - 1].id
+                } else if category == "衣服・美容" {
+                    id = clotheArray[indexPath.row - 1].id
+                } else if category == "健康・医療" {
+                    id = healthArray[indexPath.row - 1].id
+                } else if category == "自動車" {
+                    id = carArray[indexPath.row - 1].id
+                } else if category == "教養・教育" {
+                    id = educationArray[indexPath.row - 1].id
+                } else if category == "特別な支出" {
+                    id = specialArray[indexPath.row - 1].id
+                } else if category == "現金・カード" {
+                    id = cardArray[indexPath.row - 1].id
+                } else if category == "水道・光熱費" {
+                    id = utilityArray[indexPath.row - 1].id
+                } else if category == "通信費" {
+                    id = communicationArray[indexPath.row - 1].id
+                } else if category == "住宅" {
+                    id = houseArray[indexPath.row - 1].id
+                } else if category == "税・社会保険" {
+                    id = taxArray[indexPath.row - 1].id
+                } else if category == "保険" {
+                    id = insranceArray[indexPath.row - 1].id
+                } else if category == "その他" {
+                    id = etcetoraArray[indexPath.row - 1].id
+                } else if category == "未分類" {
+                    id = unCategoryArray[indexPath.row - 1].id
+                }
+                performSegue(withIdentifier: "EditSpendingVC", sender: nil)
+                return
             }
-            performSegue(withIdentifier: "EditSpendingVC", sender: nil)
-            return
+            if category == "給与" {
+                id = salaryArray[indexPath.row - 1].id
+            } else if category == "一時所得" {
+                id = temporaryArray[indexPath.row - 1].id
+            } else if category == "事業・副業" {
+                id = businessArray[indexPath.row - 1].id
+            } else if category == "年金" {
+                id = pensionArray[indexPath.row - 1].id
+            } else if category == "配当所得" {
+                id = devidentArray[indexPath.row - 1].id
+            } else if category == "不動産所得" {
+                id = estateArray[indexPath.row - 1].id
+            } else if category == "その他入金" {
+                id = paymentArray[indexPath.row - 1].id
+            } else {
+                id = unCategory2Array[indexPath.row - 1].id
+            }
+            performSegue(withIdentifier: "EditIncomeVC", sender: nil)
         }
-        if category == "給与" {
-            id = salaryArray[indexPath.row - 1].id
-        } else if category == "一時所得" {
-            id = temporaryArray[indexPath.row - 1].id
-        } else if category == "事業・副業" {
-            id = businessArray[indexPath.row - 1].id
-        } else if category == "年金" {
-            id = pensionArray[indexPath.row - 1].id
-        } else if category == "配当所得" {
-            id = devidentArray[indexPath.row - 1].id
-        } else if category == "不動産所得" {
-            id = estateArray[indexPath.row - 1].id
-        } else if category == "その他入金" {
-            id = paymentArray[indexPath.row - 1].id
-        } else {
-            id = unCategory2Array[indexPath.row - 1].id
-        }
-        performSegue(withIdentifier: "EditIncomeVC", sender: nil)
     }
 }

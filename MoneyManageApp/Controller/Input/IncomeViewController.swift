@@ -46,8 +46,16 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
     @IBOutlet weak var bannerView: GADBannerView!
     @IBOutlet weak var completionButton: UIButton!
     @IBOutlet weak var autofillSwitch: UISwitch!
-    @IBOutlet weak var numberLblTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var numberLblBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var numberLbl2TopConst: NSLayoutConstraint!
+    @IBOutlet weak var numberLbl2BottomConst: NSLayoutConstraint!
+    @IBOutlet weak var enMarkLabel: UILabel!
+    @IBOutlet weak var categoryImageTopConst: NSLayoutConstraint!
+    @IBOutlet weak var categoryImageBottomConst: NSLayoutConstraint!
+    @IBOutlet weak var calenderImageTopConst: NSLayoutConstraint!
+    @IBOutlet weak var calenderImageBottomConst: NSLayoutConstraint!
+    @IBOutlet weak var memoImageTopConst: NSLayoutConstraint!
+    @IBOutlet weak var memoImageBottomConst: NSLayoutConstraint!
+    @IBOutlet weak var calenderHeight: NSLayoutConstraint!
     
     private let calendar = Calendar.current
     
@@ -72,6 +80,7 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         caluclatorView.isHidden = false
+        calender.isHidden = true
         setCategory()
     }
     
@@ -974,18 +983,6 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
         year2 = year
         month2 = month
         day2 = day
-        
-        switch (UIScreen.main.nativeBounds.height) {
-        case 1334:
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                UIView.animate(withDuration: 0.5) {
-                    self.calender.isHidden = true
-                }
-            }
-            break
-        default:
-            break
-        }
     }
     
     private func isNumericAndValidate() {
@@ -1031,7 +1028,7 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
         backView.alpha = 0
         completionButton.layer.cornerRadius = 3
         saveButton.layer.cornerRadius = 10
-        buttons.forEach({ $0?.layer.borderWidth = 0.2; $0?.layer.borderColor = UIColor.systemGray.cgColor })
+        buttons.forEach({ $0?.layer.borderWidth = 0.3; $0?.layer.borderColor = UIColor.systemGray.cgColor })
         textField.addTarget(self, action: #selector(textFieldTap), for: .editingDidBegin)
         
         calender.calendarWeekdayView.weekdayLabels[0].text = "日"
@@ -1044,8 +1041,19 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
         
         switch (UIScreen.main.nativeBounds.height) {
         case 1334:
-            numberLblTopConstraint.constant = 10
-            numberLblBottomConstraint.constant = 10
+            numberLbl2TopConst.constant = 10
+            numberLbl2BottomConst.constant = 10
+            numberLabel2.font = UIFont(name: "HiraMaruProN-W4", size: 30)
+                enMarkLabel.font = UIFont(name: "HiraMaruProN-W4", size: 30)
+            
+            categoryImageTopConst.constant = 10
+            categoryImageBottomConst.constant = 10
+            calenderImageTopConst.constant = 10
+            calenderImageBottomConst.constant = 10
+            memoImageTopConst.constant = 10
+            memoImageBottomConst.constant = 10
+            calenderHeight.constant = 250
+            
             break
         default:
             break

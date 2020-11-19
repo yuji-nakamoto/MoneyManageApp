@@ -85,4 +85,10 @@ class HouseholdABTableViewCell: UITableViewCell {
             categoryImageView.image = UIImage(named: "en_mark")
         }
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        categoryLabel.text = ""
+        priceLabel.text = ""
+    }
 }

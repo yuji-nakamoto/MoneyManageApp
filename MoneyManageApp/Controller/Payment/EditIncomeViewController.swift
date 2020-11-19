@@ -44,6 +44,16 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var autofillSwitch: UISwitch!
     @IBOutlet weak var autofillLabel: UILabel!
+    @IBOutlet weak var numberLbl2TopConst: NSLayoutConstraint!
+    @IBOutlet weak var numberLbl2BottomConst: NSLayoutConstraint!
+    @IBOutlet weak var enMarkLabel: UILabel!
+    @IBOutlet weak var categoryImageTopConst: NSLayoutConstraint!
+    @IBOutlet weak var categoryImageBottomConst: NSLayoutConstraint!
+    @IBOutlet weak var calenderImageTopConst: NSLayoutConstraint!
+    @IBOutlet weak var calenderImageBottomConst: NSLayoutConstraint!
+    @IBOutlet weak var memoImageTopConst: NSLayoutConstraint!
+    @IBOutlet weak var memoImageBottomConst: NSLayoutConstraint!
+    @IBOutlet weak var calenderHeight: NSLayoutConstraint!
     
     lazy var buttons = [zeroButton, oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton, sevenButton, eightButton, nineButton, clearButton, multiplyButton, minusButton, plusButton, devideButton]
     private var firstNumeric = false
@@ -68,6 +78,7 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setSwipeBack()
         fetchIncome()
         setup()
     }
@@ -1372,7 +1383,7 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
         textField.delegate = self
         deleteButton.layer.cornerRadius = 10
         saveButton.layer.cornerRadius = 10
-        buttons.forEach({ $0?.layer.borderWidth = 0.2; $0?.layer.borderColor = UIColor.systemGray.cgColor })
+        buttons.forEach({ $0?.layer.borderWidth = 0.3; $0?.layer.borderColor = UIColor.systemGray.cgColor })
         textField.addTarget(self, action: #selector(textFieldTap), for: .editingDidBegin)
         
         calender.calendarWeekdayView.weekdayLabels[0].text = "日"
@@ -1386,7 +1397,19 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
         
         switch (UIScreen.main.nativeBounds.height) {
         case 1334:
-            caluclatorView.isHidden = true
+            numberLbl2TopConst.constant = 10
+            numberLbl2BottomConst.constant = 10
+            numberLabel2.font = UIFont(name: "HiraMaruProN-W4", size: 30)
+                enMarkLabel.font = UIFont(name: "HiraMaruProN-W4", size: 30)
+            
+            categoryImageTopConst.constant = 10
+            categoryImageBottomConst.constant = 10
+            calenderImageTopConst.constant = 10
+            calenderImageBottomConst.constant = 10
+            memoImageTopConst.constant = 10
+            memoImageBottomConst.constant = 10
+            calenderHeight.constant = 250
+            
             break
         default:
             break
