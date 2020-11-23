@@ -52,9 +52,8 @@ class HouseholdABTableViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        navigationController?.navigationBar.barTintColor = UIColor(named: O_GRAY)
         UserDefaults.standard.removeObject(forKey: ON_SCROLL)
-        navigationController?.navigationBar.isHidden = true
         setupTopLabel(sendMonth, sendYear, updateTimestamp)
         
         if UserDefaults.standard.object(forKey: CHANGE) != nil {
@@ -62,6 +61,11 @@ class HouseholdABTableViewController: UIViewController {
         } else {
             fetchSpending(sendMonth, sendYear)
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.navigationBar.isHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {

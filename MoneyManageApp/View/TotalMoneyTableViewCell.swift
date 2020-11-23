@@ -79,13 +79,8 @@ class TotalMoneyTableViewCell: UITableViewCell {
         if money.count == 0 {
             totalMoneyLabel.text = "¥0"
         }
-//        registerButton.isHidden = false
         
         money.forEach { (money) in
-            
-            if money.createMoney == true {
-//                registerButton.isHidden = true
-            }
             
             let totalMoney = money.totalMoney + totalIncome - totalSpending
             let formatter: NumberFormatter = NumberFormatter()

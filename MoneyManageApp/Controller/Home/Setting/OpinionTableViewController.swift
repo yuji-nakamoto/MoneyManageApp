@@ -21,6 +21,7 @@ class OpinionTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setSwipeBack()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,6 +35,7 @@ class OpinionTableViewController: UITableViewController {
         
         if opinionLabel.text == "ご意見・ご要望・改善等" {
             HUD.flash(.labeledError(title: "", subtitle: "内容を入力してください"), delay: 1)
+            generator.notificationOccurred(.error)
             return
         }
         saveOpinion()

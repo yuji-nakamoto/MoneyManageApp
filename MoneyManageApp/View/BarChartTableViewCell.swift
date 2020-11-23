@@ -645,7 +645,7 @@ class BarChartTableViewCell: UITableViewCell, ChartViewDelegate {
         setupBarchart()
         
         if UserDefaults.standard.object(forKey: ON_SCROLL) == nil {
-            scrollView.contentOffset = CGPoint(x: chartViewWidth.constant - 400, y: 0)
+            scrollView.contentOffset = CGPoint(x: chartViewWidth.constant - 375, y: 0)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
                 detailVC?.tableView.reloadData()
                 

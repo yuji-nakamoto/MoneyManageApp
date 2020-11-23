@@ -25,7 +25,13 @@ class PickerKeyboard1: UIControl {
     }
     
     @objc private func tappedPickerKeyboard(_ sender: PickerKeyboard1) {
-        self.becomeFirstResponder()
+        if UserDefaults.standard.object(forKey: ON_DATEPICKER) != nil {
+            self.resignFirstResponder()
+            UserDefaults.standard.removeObject(forKey: ON_DATEPICKER)
+        } else {
+            self.becomeFirstResponder()
+            UserDefaults.standard.set(true, forKey: ON_DATEPICKER)
+        }
     }
     
     override var canBecomeFirstResponder: Bool {

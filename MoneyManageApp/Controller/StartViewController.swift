@@ -18,6 +18,7 @@ class StartViewController: UIViewController {
     
     private func toTabVC() {
         indicator.startAnimating()
+        UserDefaults.standard.removeObject(forKey: TIME_OUT)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
             

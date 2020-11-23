@@ -25,6 +25,7 @@ class InquiryTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setSwipeBack()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,11 +39,13 @@ class InquiryTableViewController: UITableViewController, UITextFieldDelegate {
         
         if inquiryLabel.text == "お問い合わせ内容" {
             HUD.flash(.labeledError(title: "", subtitle: "内容を入力してください"), delay: 1)
+            generator.notificationOccurred(.error)
             return
         }
         
         if emailTextField.text == "" {
             HUD.flash(.labeledError(title: "", subtitle: "メールアドレスを入力してください"), delay: 1)
+            generator.notificationOccurred(.error)
             return
         }
         saveInquiry()

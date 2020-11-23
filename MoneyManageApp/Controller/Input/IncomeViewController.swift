@@ -86,6 +86,11 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
     
     // MARK: - Actions
     
+    @IBAction func categoryButtonPressed(_ sender: Any) {
+        textField.resignFirstResponder()
+        performSegue(withIdentifier: "IncomeCategoryVC", sender: nil)
+    }
+    
     @IBAction func completionButtonPressed(_ sender: Any) {
         
         numberLabel.text = "0"

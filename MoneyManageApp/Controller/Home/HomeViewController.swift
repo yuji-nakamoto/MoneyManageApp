@@ -23,7 +23,6 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var hintView: UIView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var autofillLabel: UILabel!
     @IBOutlet weak var autofillTopViewHeight: NSLayoutConstraint!
     @IBOutlet weak var autofillLeftConst: NSLayoutConstraint!
@@ -31,7 +30,6 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var priceRightConst: NSLayoutConstraint!
     @IBOutlet weak var categoryImageLeftConst: NSLayoutConstraint!
     @IBOutlet weak var countLabel: UILabel!
-    @IBOutlet weak var registerHeight: NSLayoutConstraint!
     
     private var player = AVAudioPlayer()
     private let soundFile = Bundle.main.path(forResource: "pa1", ofType: "mp3")
@@ -67,12 +65,14 @@ class HomeViewController: UIViewController {
         setupBanner()
         removeUserDefaults()
         print(Realm.Configuration.defaultConfiguration.fileURL as Any)
+        
+        let localStr = NSLocalizedString("hello", comment: "")
+        print(localStr)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        checkMoneyRegister()
         if autofillView.isHidden == false {
             autofillView.isHidden = true
         }
@@ -102,7 +102,6 @@ class HomeViewController: UIViewController {
     
     @objc func refreshTableView(){
         tableView.reloadData()
-        checkMoneyRegister()
         refresh.endRefreshing()
     }
     
@@ -1531,7 +1530,7 @@ class HomeViewController: UIViewController {
         hintView.alpha = 0
         hintView.layer.cornerRadius = 10
         closeButton.layer.cornerRadius = 30 / 2
-        descriptionLabel.text = "以上でチュートリアルは終了です!\n操作が分からなくなった場合や、他のことも知りたい場合は、ホーム画面右上の歯車マークから'使い方'をタップで確認できます。\n\nまずは画面下部にある資産の登録を行いましょう！"
+        descriptionLabel.text = "マネーをマネージしよう！\n操作が分からなくなった場合や、他のことも知りたい場合は、ホーム画面右上の歯車マークから'使い方'をタップで確認できます。"
         tableView.refreshControl = refresh
         refresh.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
         
@@ -1578,20 +1577,8 @@ class HomeViewController: UIViewController {
         autofillLabel.font = UIFont(name: "HiraMaruProN-W4", size: 20)
     }
     
-    private func checkMoneyRegister() {
-        
-        let realm = try! Realm()
-        let money = realm.objects(Money.self)
-        registerHeight.constant = 44
-        
-        money.forEach { (money) in
-            if money.createMoney == true {
-                registerHeight.constant = 0
-            }
-        }
-    }
-    
     private func showAutofillView() {
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             UIView.animate(withDuration: 0.5) { [self] in
                 

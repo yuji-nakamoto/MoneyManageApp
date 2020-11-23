@@ -68,10 +68,16 @@ class AutoSpendingViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UserDefaults.standard.removeObject(forKey: ON_DATEPICKER)
         setCategory()
     }
     
     // MARK: - Actions
+    
+    @IBAction func categoryButtonPressed(_ sender: Any) {
+        textField.resignFirstResponder()
+        performSegue(withIdentifier: "CategoryCVC", sender: nil)
+    }
 
     @IBAction func completionButtonPressed(_ sender: Any) {
         

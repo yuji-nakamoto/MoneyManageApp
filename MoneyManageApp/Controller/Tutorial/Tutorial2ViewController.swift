@@ -13,7 +13,6 @@ class Tutorial2ViewController: UIViewController {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var seekBar: UISlider!
     @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var skipButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
@@ -23,14 +22,6 @@ class Tutorial2ViewController: UIViewController {
         super.viewDidLoad()
         
         startButton.layer.cornerRadius = 35 / 2
-        skipButton.layer.cornerRadius = 35 / 2
-        if UserDefaults.standard.object(forKey: END_TUTORIAL) != nil {
-            skipButton.isHidden = true
-            closeButton.isHidden = false
-        } else {
-            skipButton.isHidden = false
-            closeButton.isHidden = true
-        }
         setVideoPlayer()
         
         switch (UIScreen.main.nativeBounds.height) {
@@ -91,9 +82,7 @@ class Tutorial2ViewController: UIViewController {
     }
     
     @IBAction func skipButtonPressed(_ sender: Any) {
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let tutorial3VC = storyboard.instantiateViewController(withIdentifier: "Tutorial3VC")
-        self.present(tutorial3VC, animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
+        UserDefaults.standard.set(true, forKey: END_TUTORIAL3)
     }
 }

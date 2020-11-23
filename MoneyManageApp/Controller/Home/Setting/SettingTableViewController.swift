@@ -6,14 +6,22 @@
 //
 
 import UIKit
+import PKHUD
+import StoreKit
 
-class SettingTableViewController: UITableViewController {
-
+class SettingTableViewController: UITableViewController, SKStoreProductViewControllerDelegate {
+    
     @IBOutlet weak var animeSwitch: UISwitch!
+    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var loginButton: UIButton!
+    
+    private var user = User()
+    private var backupFile = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        fetchUser()
     }
     
     @IBAction func closeButtonPressed(_ sender: Any) {
@@ -29,6 +37,60 @@ class SettingTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func logoutButtonPessed(_ sender: Any) {
+        
+        let alert = UIAlertController(title: "", message: "ログアウトしますか？", preferredStyle: .actionSheet)
+        let delete = UIAlertAction(title: "ログアウトする", style: UIAlertAction.Style.default) { [self] (alert) in
+            AuthService.logoutUser { (error) in
+                if let error = error {
+                    print("Error logout user: \(error.localizedDescription)")
+                }
+                HUD.flash(.labeledSuccess(title: "", subtitle: "ログアウトしました"), delay: 1)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    dismiss(animated: true, completion: nil)
+                }
+            }
+            
+        }
+        let cancel = UIAlertAction(title: "キャンセル", style: .cancel)
+        let screenSize = UIScreen.main.bounds
+        
+        alert.popoverPresentationController?.sourceView = self.view
+        alert.popoverPresentationController?.sourceRect = CGRect(x: screenSize.size.width/2, y: screenSize.size.height, width: 0, height: 0)
+        alert.addAction(delete)
+        alert.addAction(cancel)
+        self.present(alert,animated: true,completion: nil)
+    }
+    
+    private func fetchUser() {
+        
+        User.fetchUser { [self] (user) in
+            self.user = user
+            if user.uid != "" {
+                logoutButton.isEnabled = true
+                loginButton.isEnabled = false
+                loginButton.setTitle("ログイン中", for: .normal)
+            } else {
+                logoutButton.isEnabled = false
+                loginButton.isEnabled = true
+                loginButton.setTitle("ログイン", for: .normal)
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "CloudBackupVC" {
+            let cloudBackupVC = segue.destination as! CloudBackupTableViewController
+            cloudBackupVC.backupFile = backupFile
+        }
+        
+        if segue.identifier == "CloudRestoreVC" {
+            let cloudRestoreVC = segue.destination as! CloudRestoreTableViewController
+            cloudRestoreVC.backupFile = backupFile
+        }
+    }
+    
     private func setup() {
         
         if UserDefaults.standard.object(forKey: ON_ANIME) != nil {
@@ -36,13 +98,52 @@ class SettingTableViewController: UITableViewController {
         } else {
             animeSwitch.isOn = false
         }
-        
-        navigationController?.navigationBar.titleTextAttributes
-            = [NSAttributedString.Key.font: UIFont(name: "HiraMaruProN-W4", size: 15)!, .foregroundColor: UIColor(named: O_BLACK) as Any]
         navigationItem.title = "設定"
+    }
+    
+    func showSKStoreViewController() {
+        let productViewController = SKStoreProductViewController()
+        productViewController.delegate = self
+        
+        present( productViewController, animated: true, completion: {() -> Void in
+            
+            let productID = "1540427984"
+            let parameters:Dictionary = [SKStoreProductParameterITunesItemIdentifier: productID]
+            productViewController.loadProduct( withParameters: parameters, completionBlock: {(Bool, NSError) -> Void in
+                print(Bool)
+            })
+        })
+    }
+    
+    func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
+        dismiss(animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.section == 1 && indexPath.row == 0 {
+            if user.isLogin == true {
+                backupFile = user.backupFile
+                performSegue(withIdentifier: "CloudBackupVC", sender: nil)
+            } else {
+                performSegue(withIdentifier: "AccountVC", sender: nil)
+            }
+        } else if indexPath.section == 1 && indexPath.row == 1 {
+            if user.isLogin == true {
+                backupFile = user.backupFile
+                performSegue(withIdentifier: "CloudRestoreVC", sender: nil)
+            } else {
+                generator.notificationOccurred(.error)
+                HUD.flash(.labeledError(title: "", subtitle: "進むためにはログインが必要です"), delay: 1)
+            }
+        } else if indexPath.section == 3 && indexPath.row == 4 {
+            showSKStoreViewController()
+            
+        } else if indexPath.section == 3 && indexPath.row == 5 {
+            let activityItems = ["自動で入力!簡単ラクラク家計簿アプリ　無料で使えるマネーマネージ"]
+            let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+            self.present(activityVC, animated: true)
+        }
     }
 }

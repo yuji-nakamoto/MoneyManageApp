@@ -9,6 +9,7 @@ import UIKit
 import PKHUD
 import FSCalendar
 import RealmSwift
+import AVFoundation
 import CalculateCalendarLogic
 import GoogleMobileAds
 
@@ -56,9 +57,18 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
     @IBOutlet weak var memoImageTopConst: NSLayoutConstraint!
     @IBOutlet weak var memoImageBottomConst: NSLayoutConstraint!
     @IBOutlet weak var calenderHeight: NSLayoutConstraint!
+    @IBOutlet weak var hintView: UIView!
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var seekBar: UISlider!
+    @IBOutlet weak var completionButton2: UIButton!
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var stackTopConst: NSLayoutConstraint!
+    @IBOutlet weak var contentsBottomConst: NSLayoutConstraint!
+    @IBOutlet weak var contentsTopConst: NSLayoutConstraint!
     
+    private var videoPlayer: AVPlayer!
     private let calendar = Calendar.current
-
     lazy var buttons = [zeroButton, oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton, sevenButton, eightButton, nineButton, clearButton, multiplyButton, minusButton, plusButton, devideButton]
     private var firstNumeric = false
     private var lastNumeric = false
@@ -81,9 +91,93 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         caluclatorView.isHidden = false
         calender.isHidden = true
         setCategory()
+        
+        if UserDefaults.standard.object(forKey: END_TUTORIAL3) == nil {
+            showHintView()
+        }
     }
     
     // MARK: - Actions
+    
+    private func showHintView() {
+        
+        switch (UIScreen.main.nativeBounds.height) {
+        case 1334:
+            stackTopConst.constant = 10
+            contentsBottomConst.constant = -30
+            contentsTopConst.constant = 10
+            heightConstraint.constant = 370
+            break
+        default:
+            break
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+            setVideoPlayer()
+            
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                hintView.alpha = 1
+            }, completion: nil)
+        }
+    }
+    
+    private func setVideoPlayer() {
+        
+        guard let path = Bundle.main.path(forResource: "tutorial2", ofType: "mp4") else {
+            fatalError("Movie file can not find.")
+        }
+        let fileURL = URL(fileURLWithPath: path)
+        let avAsset = AVURLAsset(url: fileURL)
+        let playerItem: AVPlayerItem = AVPlayerItem(asset: avAsset)
+        
+        videoPlayer = AVPlayer(playerItem: playerItem)
+        
+        let layer = AVPlayerLayer()
+        layer.videoGravity = AVLayerVideoGravity.resizeAspect
+        layer.player = videoPlayer
+        layer.frame = contentView.bounds
+        contentView.layer.addSublayer(layer)
+        
+        seekBar.minimumValue = 0
+        seekBar.maximumValue = Float(CMTimeGetSeconds(avAsset.duration))
+        
+        let interval : Double = Double(0.5 * seekBar.maximumValue) / Double(seekBar.bounds.maxX)
+        
+        let time : CMTime = CMTimeMakeWithSeconds(interval, preferredTimescale: Int32(NSEC_PER_SEC))
+        
+        videoPlayer.addPeriodicTimeObserver(forInterval: time, queue: nil, using: {time in
+            
+            let duration = CMTimeGetSeconds(self.videoPlayer.currentItem!.duration)
+            let time = CMTimeGetSeconds(self.videoPlayer.currentTime())
+            let value = Float(self.seekBar.maximumValue - self.seekBar.minimumValue) * Float(time) / Float(duration) + Float(self.seekBar.minimumValue)
+            self.seekBar.value = value
+        })
+        videoPlayer.seek(to: CMTimeMakeWithSeconds(0, preferredTimescale: Int32(NSEC_PER_SEC)))
+        videoPlayer.play()
+    }
+    
+    @IBAction func onSider(_ sender: UISlider) {
+        videoPlayer.seek(to: CMTimeMakeWithSeconds(Float64(seekBar.value), preferredTimescale: Int32(NSEC_PER_SEC)))
+    }
+    
+    @IBAction func startButtonPressed(_ sender: Any) {
+        videoPlayer.seek(to: CMTimeMakeWithSeconds(0, preferredTimescale: Int32(NSEC_PER_SEC)))
+        videoPlayer.play()
+    }
+    
+    @IBAction func competionButton2Pressed(_ sender: Any) {
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.hintView.alpha = 0
+        }) { (_) in
+            UserDefaults.standard.set(true, forKey: END_TUTORIAL3)
+        }
+    }
+    
+    @IBAction func categoryButtonPressed(_ sender: Any) {
+        textField.resignFirstResponder()
+        performSegue(withIdentifier: "CategoryCVC", sender: nil)
+    }
     
     @IBAction func completionButtonPressed(_ sender: Any) {
         
@@ -1511,7 +1605,10 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         textField.delegate = self
         backView.isHidden = true
         backView.alpha = 0
+        hintView.alpha = 0
         completionButton.layer.cornerRadius = 3
+        startButton.layer.cornerRadius = 35 / 2
+        completionButton2.layer.cornerRadius = 35 / 2
         saveButton.layer.cornerRadius = 10
         buttons.forEach({ $0?.layer.borderWidth = 0.3; $0?.layer.borderColor = UIColor.systemGray.cgColor })
         textField.addTarget(self, action: #selector(textFieldTap), for: .editingDidBegin)

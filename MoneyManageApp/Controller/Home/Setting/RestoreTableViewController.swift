@@ -7,9 +7,10 @@
 
 import UIKit
 import RealmSwift
+import GoogleMobileAds
 import PKHUD
 
-class RestoreTableViewController: UITableViewController {
+class RestoreTableViewController: UITableViewController, GADInterstitialDelegate {
     
     @IBOutlet weak var restoreButton: UIButton!
     @IBOutlet weak var restoreLabel1: UILabel!
@@ -19,10 +20,14 @@ class RestoreTableViewController: UITableViewController {
     @IBOutlet weak var checkMark2: UIButton!
     @IBOutlet weak var checkMark3: UIButton!
     
+    private var interstitial: GADInterstitial!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        setSwipeBack()
         setupCheckMark()
+        interstitial = createAndLoadIntersitial()
     }
     
     @IBAction func dismissButtonPressed(_ sender: Any) {
@@ -31,13 +36,18 @@ class RestoreTableViewController: UITableViewController {
     
     @IBAction func restoreButtonPressed(_ sender: Any) {
         
-        let alert = UIAlertController(title: "", message: "データを復旧しますか？", preferredStyle: .alert)
-        let restore = UIAlertAction(title: "復旧する", style: UIAlertAction.Style.default) { [self] (alert) in
+        let alert = UIAlertController(title: "", message: "データを復元しますか？", preferredStyle: .alert)
+        let restore = UIAlertAction(title: "復元する", style: UIAlertAction.Style.default) { [self] (alert) in
             
             doRestore()
-            HUD.flash(.labeledSuccess(title: "", subtitle: "復旧しました"), delay: 1)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                self.navigationController?.popViewController(animated: true)
+            HUD.flash(.labeledSuccess(title: "", subtitle: "復元しました"), delay: 1)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                if self.interstitial.isReady {
+                    self.interstitial.present(fromRootViewController: self)
+                } else {
+                    print("Error interstitial")
+                    self.navigationController?.popViewController(animated: true)
+                }
             }
         }
         let cancel = UIAlertAction(title: "キャンセル", style: .cancel)
@@ -80,7 +90,7 @@ class RestoreTableViewController: UITableViewController {
     
     private func setup() {
         
-        navigationItem.title = "復旧"
+        navigationItem.title = "バックアップの復元"
         UserDefaults.standard.removeObject(forKey: CHECK1)
         UserDefaults.standard.removeObject(forKey: CHECK2)
         UserDefaults.standard.removeObject(forKey: CHECK3)
@@ -131,6 +141,19 @@ class RestoreTableViewController: UITableViewController {
             checkMark3.isHidden = false
             restoreButton.isEnabled = true
         }
+    }
+    
+    private func createAndLoadIntersitial() -> GADInterstitial {
+        
+        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-4750883229624981/7295600156")
+        interstitial.delegate = self
+        interstitial.load(GADRequest())
+        return interstitial
+    }
+    
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        interstitial = createAndLoadIntersitial()
+        self.navigationController?.popViewController(animated: true)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

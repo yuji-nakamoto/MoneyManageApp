@@ -8,8 +8,20 @@
 import Foundation
 import Firebase
 
+public let COLLECTION_USERS = Firestore.firestore().collection("users")
 public let COLLECTION_INQUIRY = Firestore.firestore().collection("inquiry")
 public let COLLECTION_OPINION = Firestore.firestore().collection("opinion")
+public let COLLECTION_MONEY = Firestore.firestore().collection("money")
+public let COLLECTION_SPENDING = Firestore.firestore().collection("spending")
+public let COLLECTION_INCOME = Firestore.firestore().collection("income")
+public let COLLECTION_AUTO = Firestore.firestore().collection("auto")
+public let COLLECTION_MONTHLY = Firestore.firestore().collection("monthly")
+
+public let UID = "uid"
+public let EMAIL = "email"
+public let IS_LOGIN = "isLogin"
+public let BACKUP_FILE = "backupFile"
+public let BACKUP_COUNT = "backupCount"
 
 public let O_BLACK = "original_black"
 public let O_GREEN = "original_green"
@@ -66,10 +78,8 @@ public let ON_AUTO = "onAuto"
 
 public let END_TUTORIAL = "endTutorial"
 public let END_TUTORIAL2 = "endTutorial2"
-
-public let CATEGORY = "category"
-public let YEAR = "year"
-public let MONTHE = "monthe"
+public let END_TUTORIAL3 = "endTutorial3"
+public let END_TUTORIAL4 = "endTutorial4"
 
 public let BACKUP1 = "backup1"
 public let BACKUP2 = "backup2"
@@ -77,5 +87,36 @@ public let BACKUP3 = "backup3"
 public let CHECK1 = "check1"
 public let CHECK2 = "check2"
 public let CHECK3 = "check3"
+public let CLOUD_BACKUP = "cloudBackup"
 
 public let ON_SCROLL = "onScroll"
+public let ON_DATEPICKER = "onDatePicker"
+
+public let TOTAL_MONEY = "totalMoney"
+public let HOLD_MONEY = "holdMoney"
+public let CREATE_MONEY = "createMoney"
+public let NEXT_MONTH = "nextMonth"
+
+public let PRICE = "price"
+public let CATEGORY = "category"
+public let MEMO = "memo"
+public let TIMESTAMP = "timestamp"
+public let DATE = "date"
+public let YEAR = "year"
+public let MONTHE = "monthe"
+public let DAY = "day"
+public let IS_AUTOFILL = "isAutofill"
+public let ID = "id"
+
+public let IS_INPUT = "isInput"
+public let ON_REGISTER = "onRegister"
+public let IS_REGISTER = "isRegister"
+public let AUTOFILL_DAY = "autofillDay"
+
+public let MONEY = "money"
+public let PREVIOUS_MONTH = "previousMonth"
+
+public let TOTAL_PRICE = "totalPrice"
+public let MONTHLY = "monthly"
+
+public let TIME_OUT = "timeout"

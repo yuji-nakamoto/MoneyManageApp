@@ -50,10 +50,6 @@ class InputTotalMoneyViewController: UIViewController, UITextFieldDelegate {
         setSwipeBack()
     }
     
-    @IBAction func backButtobPressed(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-    }
-    
     @IBAction func saveButtonPressed(_ sender: Any) {
         
         if numberLabel.text == "0" {
@@ -91,8 +87,11 @@ class InputTotalMoneyViewController: UIViewController, UITextFieldDelegate {
             }
         }
         HUD.flash(.labeledSuccess(title: "", subtitle: "登録しました"), delay: 1)
+        UserDefaults.standard.set(true, forKey: END_TUTORIAL)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.navigationController?.popViewController(animated: true)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let tabVC = storyboard.instantiateViewController(withIdentifier: "TabVC")
+            self.present(tabVC, animated: true, completion: nil)
         }
     }
     

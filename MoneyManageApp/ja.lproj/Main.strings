@@ -1,0 +1,1656 @@
+
+/* Class = "UILabel"; text = "3"; ObjectID = "09O-Lc-hFY"; */
+"09O-Lc-hFY.text" = "3";
+
+/* Class = "UILabel"; text = "LastdayLbl"; ObjectID = "0B9-Ph-7fO"; */
+"0B9-Ph-7fO.text" = "LastdayLbl";
+
+/* Class = "UIButton"; normalTitle = "はじめから"; ObjectID = "0Kt-OO-JOt"; */
+"0Kt-OO-JOt.normalTitle" = "はじめから";
+
+/* Class = "UILabel"; text = "2.バックアップの復元をタップ→スロットを選択→復元するボタンをタップ"; ObjectID = "0NG-Y9-ySA"; */
+"0NG-Y9-ySA.text" = "2.バックアップの復元をタップ→スロットを選択→復元するボタンをタップ";
+
+/* Class = "UILabel"; text = "2.自動入力に登録をスイッチオン、修正をタップ"; ObjectID = "0oa-8W-qGw"; */
+"0oa-8W-qGw.text" = "2.自動入力に登録をスイッチオン、修正をタップ";
+
+/* Class = "UILabel"; text = "収入を保存しました"; ObjectID = "0pp-Np-U0J"; */
+"0pp-Np-U0J.text" = "収入を保存しました";
+
+/* Class = "UILabel"; text = "バックアップの復元"; ObjectID = "0ua-pM-y6E"; */
+"0ua-pM-y6E.text" = "バックアップの復元";
+
+/* Class = "UILabel"; text = "ユーザー情報"; ObjectID = "11B-u4-ysO"; */
+"11B-u4-ysO.text" = "ユーザー情報";
+
+/* Class = "UILabel"; text = "2.価格・カテゴリ・日付を入力し保存をタップ"; ObjectID = "1H2-ne-E2C"; */
+"1H2-ne-E2C.text" = "2.価格・カテゴリ・日付を入力し保存をタップ";
+
+/* Class = "UIButton"; normalTitle = "−"; ObjectID = "1HC-jU-mQ6"; */
+"1HC-jU-mQ6.normalTitle" = "−";
+
+/* Class = "UIButton"; normalTitle = "並べ替え"; ObjectID = "1PL-VF-z5o"; */
+"1PL-VF-z5o.normalTitle" = "並べ替え";
+
+/* Class = "UIButton"; normalTitle = "÷"; ObjectID = "1VZ-RO-2v8"; */
+"1VZ-RO-2v8.normalTitle" = "÷";
+
+/* Class = "UILabel"; text = "資産推移のデータはありません"; ObjectID = "1ZS-Qn-GUx"; */
+"1ZS-Qn-GUx.text" = "資産推移のデータはありません";
+
+/* Class = "UIButton"; normalTitle = "7"; ObjectID = "1o0-O0-eoc"; */
+"1o0-O0-eoc.normalTitle" = "7";
+
+/* Class = "UIButton"; normalTitle = "8"; ObjectID = "1wk-Nf-7UQ"; */
+"1wk-Nf-7UQ.normalTitle" = "8";
+
+/* Class = "UILabel"; text = "入力の仕方"; ObjectID = "28L-hD-emR"; */
+"28L-hD-emR.text" = "入力の仕方";
+
+/* Class = "UILabel"; text = "3."; ObjectID = "2YO-x1-mML"; */
+"2YO-x1-mML.text" = "3.";
+
+/* Class = "UILabel"; text = "titleLabel"; ObjectID = "2e4-q2-AJ4"; */
+"2e4-q2-AJ4.text" = "titleLabel";
+
+/* Class = "UILabel"; text = "ご意見・ご要望・改善等"; ObjectID = "2uA-ih-S2j"; */
+"2uA-ih-S2j.text" = "ご意見・ご要望・改善等";
+
+/* Class = "UILabel"; text = "Terms1Label1"; ObjectID = "2z9-Ce-WI4"; */
+"2z9-Ce-WI4.text" = "Terms1Label1";
+
+/* Class = "UILabel"; text = "自動入力の仕方その２"; ObjectID = "3E0-Be-qYF"; */
+"3E0-Be-qYF.text" = "自動入力の仕方その２";
+
+/* Class = "UILabel"; text = "資産総額"; ObjectID = "3F8-ou-ekh"; */
+"3F8-ou-ekh.text" = "資産総額";
+
+/* Class = "UIButton"; normalTitle = "完了"; ObjectID = "3IY-xU-dhG"; */
+"3IY-xU-dhG.normalTitle" = "完了";
+
+/* Class = "UIButton"; normalTitle = "下記内容を保存"; ObjectID = "3Qy-Ex-bib"; */
+"3Qy-Ex-bib.normalTitle" = "下記内容を保存";
+
+/* Class = "UILabel"; text = "Terms5Label8"; ObjectID = "3Rz-5C-kVC"; */
+"3Rz-5C-kVC.text" = "Terms5Label8";
+
+/* Class = "UITableViewSection"; headerTitle = "お困り事やご不明な点がございましたら、お問い合わせください。"; ObjectID = "3XI-wI-Zso"; */
+"3XI-wI-Zso.headerTitle" = "お困り事やご不明な点がございましたら、お問い合わせください。";
+
+/* Class = "UILabel"; text = "合計1件の自動入力を行いました"; ObjectID = "3aj-F5-Kb9"; */
+"3aj-F5-Kb9.text" = "合計1件の自動入力を行いました";
+
+/* Class = "UILabel"; text = "資産推移"; ObjectID = "3fr-S8-p3g"; */
+"3fr-S8-p3g.text" = "資産推移";
+
+/* Class = "UIButton"; normalTitle = "8"; ObjectID = "3sj-3l-3Ck"; */
+"3sj-3l-3Ck.normalTitle" = "8";
+
+/* Class = "UIButton"; normalTitle = "ログイン"; ObjectID = "4Wl-st-43D"; */
+"4Wl-st-43D.normalTitle" = "ログイン";
+
+/* Class = "UILabel"; text = "Terms10Label"; ObjectID = "4dA-4c-YKz"; */
+"4dA-4c-YKz.text" = "Terms10Label";
+
+/* Class = "UILabel"; text = "App Storeで評価する"; ObjectID = "4e9-iM-OjK"; */
+"4e9-iM-OjK.text" = "App Storeで評価する";
+
+/* Class = "UILabel"; text = "自動入力を作成しました"; ObjectID = "4fQ-HU-rA9"; */
+"4fQ-HU-rA9.text" = "自動入力を作成しました";
+
+/* Class = "UIButton"; normalTitle = "+"; ObjectID = "4hg-wA-XvQ"; */
+"4hg-wA-XvQ.normalTitle" = "+";
+
+/* Class = "UILabel"; text = "　追加する際は入力タブから収入で登録してください"; ObjectID = "4v0-sZ-MpZ"; */
+"4v0-sZ-MpZ.text" = "　追加する際は入力タブから収入で登録してください";
+
+/* Class = "UILabel"; text = "RestoreNameLbl1"; ObjectID = "5BJ-cu-k4K"; */
+"5BJ-cu-k4K.text" = "RestoreNameLbl1";
+
+/* Class = "UILabel"; text = "①"; ObjectID = "5RY-WY-eXX"; */
+"5RY-WY-eXX.text" = "①";
+
+/* Class = "UILabel"; text = "入力時に自動登録を行う"; ObjectID = "5SM-vr-wnR"; */
+"5SM-vr-wnR.text" = "入力時に自動登録を行う";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "5Za-CH-Zos"; */
+"5Za-CH-Zos.text" = "1";
+
+/* Class = "UILabel"; text = "第１条（規約への同意）"; ObjectID = "5Zo-oo-4es"; */
+"5Zo-oo-4es.text" = "第１条（規約への同意）";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "5fW-gi-yB8"; */
+"5fW-gi-yB8.normalTitle" = "2";
+
+/* Class = "UILabel"; text = "privacy4Label3"; ObjectID = "5nD-Gm-DCk"; */
+"5nD-Gm-DCk.text" = "privacy4Label3";
+
+/* Class = "UIButton"; normalTitle = "7"; ObjectID = "618-7y-lgk"; */
+"618-7y-lgk.normalTitle" = "7";
+
+/* Class = "UILabel"; text = "クラウドバックアップの復元"; ObjectID = "62Y-xL-btN"; */
+"62Y-xL-btN.text" = "クラウドバックアップの復元";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "65G-QD-eJG"; */
+"65G-QD-eJG.normalTitle" = "3";
+
+/* Class = "UILabel"; text = "privacy3Label1"; ObjectID = "68W-YE-Mzn"; */
+"68W-YE-Mzn.text" = "privacy3Label1";
+
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "6H9-ou-5qq"; */
+"6H9-ou-5qq.normalTitle" = "0";
+
+/* Class = "UIButton"; normalTitle = "1"; ObjectID = "6Q2-WI-mCZ"; */
+"6Q2-WI-mCZ.normalTitle" = "1";
+
+/* Class = "UILabel"; text = "金額（昇順）"; ObjectID = "6TW-qz-4ue"; */
+"6TW-qz-4ue.text" = "金額（昇順）";
+
+/* Class = "UILabel"; text = "未分類"; ObjectID = "6eK-GY-jI2"; */
+"6eK-GY-jI2.text" = "未分類";
+
+/* Class = "UILabel"; text = "Terms5Label10"; ObjectID = "6mI-yK-2UA"; */
+"6mI-yK-2UA.text" = "Terms5Label10";
+
+/* Class = "UIButton"; normalTitle = "="; ObjectID = "6qk-fN-5rL"; */
+"6qk-fN-5rL.normalTitle" = "=";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "6rs-pQ-Ne1"; */
+"6rs-pQ-Ne1.text" = "1";
+
+/* Class = "UILabel"; text = "入出金から自動登録を行う"; ObjectID = "71C-tz-SZB"; */
+"71C-tz-SZB.text" = "入出金から自動登録を行う";
+
+/* Class = "UILabel"; text = "1.ホーム画面右上の歯車マークをタップ"; ObjectID = "75o-9y-Zn1"; */
+"75o-9y-Zn1.text" = "1.ホーム画面右上の歯車マークをタップ";
+
+/* Class = "UILabel"; text = "メールアドレス"; ObjectID = "7AZ-ZM-Vai"; */
+"7AZ-ZM-Vai.text" = "メールアドレス";
+
+/* Class = "UILabel"; text = "Terms5Label6"; ObjectID = "7Ce-kO-xB7"; */
+"7Ce-kO-xB7.text" = "Terms5Label6";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "7dx-cX-HBs"; */
+"7dx-cX-HBs.normalTitle" = "2";
+
+/* Class = "UILabel"; text = "privacy4Label2"; ObjectID = "7ef-Qd-6Qt"; */
+"7ef-Qd-6Qt.text" = "privacy4Label2";
+
+/* Class = "UILabel"; text = "2.資産を入力して、登録をタップ"; ObjectID = "7gp-84-2Xu"; */
+"7gp-84-2Xu.text" = "2.資産を入力して、登録をタップ";
+
+/* Class = "UIButton"; normalTitle = "登録"; ObjectID = "7u4-QF-CCa"; */
+"7u4-QF-CCa.normalTitle" = "登録";
+
+/* Class = "UILabel"; text = "Terms3Label2"; ObjectID = "7yg-Ma-sFS"; */
+"7yg-Ma-sFS.text" = "Terms3Label2";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "7z5-Nb-12K"; */
+"7z5-Nb-12K.text" = "0";
+
+/* Class = "UILabel"; text = "1.自動入力タブから新規作成をタップ"; ObjectID = "80E-gx-UQG"; */
+"80E-gx-UQG.text" = "1.自動入力タブから新規作成をタップ";
+
+/* Class = "UIButton"; normalTitle = "完了"; ObjectID = "8Gj-8R-RfU"; */
+"8Gj-8R-RfU.normalTitle" = "完了";
+
+/* Class = "UILabel"; text = "3.自動入力に登録するをスイッチオン、保存をタップ"; ObjectID = "8Hl-Pt-Woj"; */
+"8Hl-Pt-Woj.text" = "3.自動入力に登録するをスイッチオン、保存をタップ";
+
+/* Class = "UIButton"; normalTitle = "+"; ObjectID = "8YS-kZ-BPQ"; */
+"8YS-kZ-BPQ.normalTitle" = "+";
+
+/* Class = "UIButton"; normalTitle = "保存"; ObjectID = "8hg-jD-oQs"; */
+"8hg-jD-oQs.normalTitle" = "保存";
+
+/* Class = "UIButton"; normalTitle = "7"; ObjectID = "8iS-ZW-w3T"; */
+"8iS-ZW-w3T.normalTitle" = "7";
+
+/* Class = "UILabel"; text = "※任意で内容・自動登録を設定"; ObjectID = "8jK-tX-bw2"; */
+"8jK-tX-bw2.text" = "※任意で内容・自動登録を設定";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "8si-zf-PCU"; */
+"8si-zf-PCU.normalTitle" = "2";
+
+/* Class = "UILabel"; text = "クラウドバックアップを"; ObjectID = "8wW-Hg-6oa"; */
+"8wW-Hg-6oa.text" = "クラウドバックアップを";
+
+/* Class = "UIButton"; normalTitle = "はじめから"; ObjectID = "8zC-ze-Yzj"; */
+"8zC-ze-Yzj.normalTitle" = "はじめから";
+
+/* Class = "UILabel"; text = "1.入力タブから支出or収入を選択"; ObjectID = "9E7-kU-xFo"; */
+"9E7-kU-xFo.text" = "1.入力タブから支出or収入を選択";
+
+/* Class = "UITableViewSection"; footerTitle = "アプリを削除するとバックアップが消去されますので、ご注意ください"; ObjectID = "9J0-rG-z2c"; */
+"9J0-rG-z2c.footerTitle" = "アプリを削除するとバックアップが消去されますので、ご注意ください";
+
+/* Class = "UITableViewSection"; headerTitle = "復元するスロットを選択してください"; ObjectID = "9J0-rG-z2c"; */
+"9J0-rG-z2c.headerTitle" = "復元するスロットを選択してください";
+
+/* Class = "UILabel"; text = "データリセット許可"; ObjectID = "9Qa-ge-tql"; */
+"9Qa-ge-tql.text" = "データリセット許可";
+
+/* Class = "UIButton"; normalTitle = "C"; ObjectID = "9aW-dy-SBy"; */
+"9aW-dy-SBy.normalTitle" = "C";
+
+/* Class = "UIButton"; normalTitle = "上記内容で送信"; ObjectID = "9eI-Bh-xVo"; */
+"9eI-Bh-xVo.normalTitle" = "上記内容で送信";
+
+/* Class = "UILabel"; text = "BackupNameLbl2"; ObjectID = "9pi-84-Nqe"; */
+"9pi-84-Nqe.text" = "BackupNameLbl2";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "A6s-zt-JS0"; */
+"A6s-zt-JS0.normalTitle" = "5";
+
+/* Class = "UITableViewSection"; headerTitle = "データリセットを行うと全データが削除されます"; ObjectID = "AFD-kG-Em8"; */
+"AFD-kG-Em8.headerTitle" = "データリセットを行うと全データが削除されます";
+
+/* Class = "UILabel"; text = "2"; ObjectID = "AHI-29-YQH"; */
+"AHI-29-YQH.text" = "2";
+
+/* Class = "UILabel"; text = "2"; ObjectID = "APD-8U-UhZ"; */
+"APD-8U-UhZ.text" = "2";
+
+/* Class = "UILabel"; text = "4. 第三者提供の制限"; ObjectID = "AQ8-wq-VRn"; */
+"AQ8-wq-VRn.text" = "4. 第三者提供の制限";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "Af9-co-NlM"; */
+"Af9-co-NlM.text" = "0";
+
+/* Class = "UILabel"; text = "1.まずは資産の登録を行いましょう！"; ObjectID = "AuJ-Cv-YIv"; */
+"AuJ-Cv-YIv.text" = "1.まずは資産の登録を行いましょう！";
+
+/* Class = "UIButton"; normalTitle = "6"; ObjectID = "B1p-TF-8RD"; */
+"B1p-TF-8RD.normalTitle" = "6";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "B29-aQ-dng"; */
+"B29-aQ-dng.normalTitle" = "3";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "Bhk-cI-LLn"; */
+"Bhk-cI-LLn.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "下記内容を保存"; ObjectID = "Biu-q3-PRN"; */
+"Biu-q3-PRN.normalTitle" = "下記内容を保存";
+
+/* Class = "UILabel"; text = "SpendingLbl"; ObjectID = "Bj8-ry-ffq"; */
+"Bj8-ry-ffq.text" = "SpendingLbl";
+
+/* Class = "UILabel"; text = "3"; ObjectID = "C01-wn-rXf"; */
+"C01-wn-rXf.text" = "3";
+
+/* Class = "UILabel"; text = "入力の仕方"; ObjectID = "CEt-V8-Rwt"; */
+"CEt-V8-Rwt.text" = "入力の仕方";
+
+/* Class = "UIButton"; normalTitle = "="; ObjectID = "CLA-4l-QJC"; */
+"CLA-4l-QJC.normalTitle" = "=";
+
+/* Class = "UILabel"; text = "バックアップ"; ObjectID = "CWF-C2-yUM"; */
+"CWF-C2-yUM.text" = "バックアップ";
+
+/* Class = "UIButton"; normalTitle = "C"; ObjectID = "CY4-Gw-eax"; */
+"CY4-Gw-eax.normalTitle" = "C";
+
+/* Class = "UILabel"; text = "お問い合わせ内容"; ObjectID = "Cfx-PU-DBb"; */
+"Cfx-PU-DBb.text" = "お問い合わせ内容";
+
+/* Class = "UILabel"; text = "3.ホーム画面に戻り、下方向にスワイプでリロードを行う"; ObjectID = "CkM-Sp-Edm"; */
+"CkM-Sp-Edm.text" = "3.ホーム画面に戻り、下方向にスワイプでリロードを行う";
+
+/* Class = "UIButton"; normalTitle = "復元する"; ObjectID = "CrF-T9-hiY"; */
+"CrF-T9-hiY.normalTitle" = "復元する";
+
+/* Class = "UILabel"; text = "4"; ObjectID = "D39-Ur-s3y"; */
+"D39-Ur-s3y.text" = "4";
+
+/* Class = "UIButton"; normalTitle = "6"; ObjectID = "DEz-3Y-Tm0"; */
+"DEz-3Y-Tm0.normalTitle" = "6";
+
+/* Class = "UILabel"; text = "2.データリセットをタップ→スイッチをオン→リセットするボタンをタップ"; ObjectID = "DJQ-kr-5aS"; */
+"DJQ-kr-5aS.text" = "2.データリセットをタップ→スイッチをオン→リセットするボタンをタップ";
+
+/* Class = "UIButton"; normalTitle = "メールアドレスを変更する"; ObjectID = "DRe-jR-oEW"; */
+"DRe-jR-oEW.normalTitle" = "メールアドレスを変更する";
+
+/* Class = "UIButton"; normalTitle = "アカウント作成がまだの場合はこちら→"; ObjectID = "DTC-jv-v4a"; */
+"DTC-jv-v4a.normalTitle" = "アカウント作成がまだの場合はこちら→";
+
+/* Class = "UILabel"; text = "第９条（準拠法・裁判管轄）"; ObjectID = "DgX-MM-Atb"; */
+"DgX-MM-Atb.text" = "第９条（準拠法・裁判管轄）";
+
+/* Class = "UIButton"; normalTitle = "1"; ObjectID = "DmB-CB-tFQ"; */
+"DmB-CB-tFQ.normalTitle" = "1";
+
+/* Class = "UILabel"; text = "MemoLabel"; ObjectID = "DnH-AC-ocX"; */
+"DnH-AC-ocX.text" = "MemoLabel";
+
+/* Class = "UIButton"; normalTitle = "復元する"; ObjectID = "Dyv-Nm-bwI"; */
+"Dyv-Nm-bwI.normalTitle" = "復元する";
+
+/* Class = "UILabel"; text = "NumericLabel"; ObjectID = "EPg-Gv-CVJ"; */
+"EPg-Gv-CVJ.text" = "NumericLabel";
+
+/* Class = "UILabel"; text = "Terms8Label1-6"; ObjectID = "Eee-Vk-UXr"; */
+"Eee-Vk-UXr.text" = "Terms8Label1-6";
+
+/* Class = "UILabel"; text = "収支"; ObjectID = "Ehg-kB-qL9"; */
+"Ehg-kB-qL9.text" = "収支";
+
+/* Class = "UIButton"; normalTitle = "−"; ObjectID = "Ejz-aD-FQI"; */
+"Ejz-aD-FQI.normalTitle" = "−";
+
+/* Class = "UILabel"; text = "バックアップの復元の仕方"; ObjectID = "Esc-dc-z3p"; */
+"Esc-dc-z3p.text" = "バックアップの復元の仕方";
+
+/* Class = "UIButton"; normalTitle = "="; ObjectID = "Ew0-kW-eYk"; */
+"Ew0-kW-eYk.normalTitle" = "=";
+
+/* Class = "UILabel"; text = "入力する"; ObjectID = "Eyc-1N-4xE"; */
+"Eyc-1N-4xE.text" = "入力する";
+
+/* Class = "UIButton"; normalTitle = "7"; ObjectID = "F2Y-VX-9fE"; */
+"F2Y-VX-9fE.normalTitle" = "7";
+
+/* Class = "UILabel"; text = "1."; ObjectID = "F3a-N4-Rby"; */
+"F3a-N4-Rby.text" = "1.";
+
+/* Class = "UILabel"; text = "5"; ObjectID = "F3p-oA-ncb"; */
+"F3p-oA-ncb.text" = "5";
+
+/* Class = "UILabel"; text = "IncomeLbl"; ObjectID = "F9z-B5-lNC"; */
+"F9z-B5-lNC.text" = "IncomeLbl";
+
+/* Class = "UILabel"; text = "RestoreNameLbl1"; ObjectID = "FA0-hc-Eus"; */
+"FA0-hc-Eus.text" = "RestoreNameLbl1";
+
+/* Class = "UILabel"; text = "入力時に自動登録を行う"; ObjectID = "FNl-Gp-Zr5"; */
+"FNl-Gp-Zr5.text" = "入力時に自動登録を行う";
+
+/* Class = "UITextField"; placeholder = "内容を入力"; ObjectID = "FPw-kP-gkM"; */
+"FPw-kP-gkM.placeholder" = "内容を入力";
+
+/* Class = "UIButton"; normalTitle = "×"; ObjectID = "FWm-jl-4Ti"; */
+"FWm-jl-4Ti.normalTitle" = "×";
+
+/* Class = "UILabel"; text = "privacy3Label"; ObjectID = "Faq-mz-W8b"; */
+"Faq-mz-W8b.text" = "privacy3Label";
+
+/* Class = "UILabel"; text = "2"; ObjectID = "FcV-qn-jYj"; */
+"FcV-qn-jYj.text" = "2";
+
+/* Class = "UILabel"; text = "2"; ObjectID = "Fd7-Yk-Y9w"; */
+"Fd7-Yk-Y9w.text" = "2";
+
+/* Class = "UILabel"; text = "RestoreNameLbl2"; ObjectID = "Fdn-77-krY"; */
+"Fdn-77-krY.text" = "RestoreNameLbl2";
+
+/* Class = "UILabel"; text = "未分類"; ObjectID = "FhT-dH-aMF"; */
+"FhT-dH-aMF.text" = "未分類";
+
+/* Class = "UILabel"; text = "⑥"; ObjectID = "FuR-aS-Njm"; */
+"FuR-aS-Njm.text" = "⑥";
+
+/* Class = "UIButton"; normalTitle = "利用規約"; ObjectID = "G72-m2-7ca"; */
+"G72-m2-7ca.normalTitle" = "利用規約";
+
+/* Class = "UIButton"; normalTitle = "C"; ObjectID = "GEI-68-KNM"; */
+"GEI-68-KNM.normalTitle" = "C";
+
+/* Class = "UILabel"; text = "データはありません"; ObjectID = "GJJ-Xf-2Bb"; */
+"GJJ-Xf-2Bb.text" = "データはありません";
+
+/* Class = "UIButton"; normalTitle = "はじめから"; ObjectID = "GKh-pP-xgd"; */
+"GKh-pP-xgd.normalTitle" = "はじめから";
+
+/* Class = "UILabel"; text = "privacy4Label4"; ObjectID = "Gb2-sN-zg2"; */
+"Gb2-sN-zg2.text" = "privacy4Label4";
+
+/* Class = "UILabel"; text = "3"; ObjectID = "Gfd-ZZ-46q"; */
+"Gfd-ZZ-46q.text" = "3";
+
+/* Class = "UIButton"; normalTitle = "6"; ObjectID = "Gg1-Mr-EdD"; */
+"Gg1-Mr-EdD.normalTitle" = "6";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "GmB-37-17o"; */
+"GmB-37-17o.normalTitle" = "3";
+
+/* Class = "UIButton"; normalTitle = "×"; ObjectID = "H0w-vx-4nb"; */
+"H0w-vx-4nb.normalTitle" = "×";
+
+/* Class = "UILabel"; text = "Terms5Label11"; ObjectID = "H6K-lp-bCS"; */
+"H6K-lp-bCS.text" = "Terms5Label11";
+
+/* Class = "UILabel"; text = "パスワードをリセットする"; ObjectID = "H83-N0-bCx"; */
+"H83-N0-bCx.text" = "パスワードをリセットする";
+
+/* Class = "UILabel"; text = "入出金から自動登録を行う"; ObjectID = "HIy-Nd-Mko"; */
+"HIy-Nd-Mko.text" = "入出金から自動登録を行う";
+
+/* Class = "UILabel"; text = "privacy3Label4"; ObjectID = "HQY-6R-j8s"; */
+"HQY-6R-j8s.text" = "privacy3Label4";
+
+/* Class = "UIButton"; normalTitle = "はじめから"; ObjectID = "HWy-be-fhl"; */
+"HWy-be-fhl.normalTitle" = "はじめから";
+
+/* Class = "UILabel"; text = "9"; ObjectID = "HYa-cA-Xo1"; */
+"HYa-cA-Xo1.text" = "9";
+
+/* Class = "UIButton"; normalTitle = "÷"; ObjectID = "Hac-z8-Hji"; */
+"Hac-z8-Hji.normalTitle" = "÷";
+
+/* Class = "UILabel"; text = "BalanceLbl"; ObjectID = "HgG-Po-tgB"; */
+"HgG-Po-tgB.text" = "BalanceLbl";
+
+/* Class = "UILabel"; text = "privacy6Label"; ObjectID = "Hgx-kQ-6iD"; */
+"Hgx-kQ-6iD.text" = "privacy6Label";
+
+/* Class = "UILabel"; text = "TimestampLabel"; ObjectID = "I46-5O-Baz"; */
+"I46-5O-Baz.text" = "TimestampLabel";
+
+/* Class = "UILabel"; text = "3.バックアップしたデータがリストに表示される"; ObjectID = "IKy-Ai-Ezr"; */
+"IKy-Ai-Ezr.text" = "3.バックアップしたデータがリストに表示される";
+
+/* Class = "UILabel"; text = "②"; ObjectID = "IUx-2D-j24"; */
+"IUx-2D-j24.text" = "②";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "IVE-Vw-NTf"; */
+"IVE-Vw-NTf.normalTitle" = "2";
+
+/* Class = "UILabel"; text = "2."; ObjectID = "Idx-bK-ynJ"; */
+"Idx-bK-ynJ.text" = "2.";
+
+/* Class = "UILabel"; text = "未分類"; ObjectID = "IeG-jb-ipI"; */
+"IeG-jb-ipI.text" = "未分類";
+
+/* Class = "UILabel"; text = "1. 個人情報の定義"; ObjectID = "Ihq-eg-Zyf"; */
+"Ihq-eg-Zyf.text" = "1. 個人情報の定義";
+
+/* Class = "UILabel"; text = "DateLabel"; ObjectID = "IvJ-vU-aGW"; */
+"IvJ-vU-aGW.text" = "DateLabel";
+
+/* Class = "UILabel"; text = "privacy2Label"; ObjectID = "J3n-28-xgf"; */
+"J3n-28-xgf.text" = "privacy2Label";
+
+/* Class = "UILabel"; text = "バックアップの仕方"; ObjectID = "JIN-Px-c50"; */
+"JIN-Px-c50.text" = "バックアップの仕方";
+
+/* Class = "UILabel"; text = "自動入力一覧"; ObjectID = "JNO-6V-sUC"; */
+"JNO-6V-sUC.text" = "自動入力一覧";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "JUx-2R-BJV"; */
+"JUx-2R-BJV.normalTitle" = "5";
+
+/* Class = "UITextField"; placeholder = "内容を入力"; ObjectID = "Jbo-3W-zLg"; */
+"Jbo-3W-zLg.placeholder" = "内容を入力";
+
+/* Class = "UILabel"; text = "500"; ObjectID = "Jgf-Ns-Wzl"; */
+"Jgf-Ns-Wzl.text" = "500";
+
+/* Class = "UILabel"; text = "※登録すると修正はできなくなります"; ObjectID = "Jxm-NS-bA6"; */
+"Jxm-NS-bA6.text" = "※登録すると修正はできなくなります";
+
+/* Class = "UILabel"; text = "パスワードの変更"; ObjectID = "JyP-OM-jvi"; */
+"JyP-OM-jvi.text" = "パスワードの変更";
+
+/* Class = "UIButton"; normalTitle = "バックアップする"; ObjectID = "K4u-jv-MZQ"; */
+"K4u-jv-MZQ.normalTitle" = "バックアップする";
+
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "KKF-37-MSD"; */
+"KKF-37-MSD.normalTitle" = "0";
+
+/* Class = "UILabel"; text = "1.ホーム画面右上の歯車マークをタップ"; ObjectID = "KNP-Vi-DLT"; */
+"KNP-Vi-DLT.text" = "1.ホーム画面右上の歯車マークをタップ";
+
+/* Class = "UIButton"; normalTitle = "="; ObjectID = "KOj-tB-cTs"; */
+"KOj-tB-cTs.normalTitle" = "=";
+
+/* Class = "UILabel"; text = "日付（降順）"; ObjectID = "Kcg-BG-aLw"; */
+"Kcg-BG-aLw.text" = "日付（降順）";
+
+/* Class = "UILabel"; text = "BalanceLbl"; ObjectID = "Kci-pb-coB"; */
+"Kci-pb-coB.text" = "BalanceLbl";
+
+/* Class = "UILabel"; text = "8"; ObjectID = "KgB-Kq-sRp"; */
+"KgB-Kq-sRp.text" = "8";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "LCG-Ba-qAW"; */
+"LCG-Ba-qAW.text" = "0";
+
+/* Class = "UILabel"; text = "2.設定日になると、ホーム画面遷移時に自動入力が反映されます"; ObjectID = "LLJ-qv-Bcz"; */
+"LLJ-qv-Bcz.text" = "2.設定日になると、ホーム画面遷移時に自動入力が反映されます";
+
+/* Class = "UILabel"; text = "privacy2Label3"; ObjectID = "LNQ-HR-ILe"; */
+"LNQ-HR-ILe.text" = "privacy2Label3";
+
+/* Class = "UIButton"; normalTitle = "ログイン"; ObjectID = "LbF-wH-bLy"; */
+"LbF-wH-bLy.normalTitle" = "ログイン";
+
+/* Class = "UITextField"; placeholder = "内容を入力"; ObjectID = "LdR-Mw-iKL"; */
+"LdR-Mw-iKL.placeholder" = "内容を入力";
+
+/* Class = "UIButton"; normalTitle = "8"; ObjectID = "Ldn-i4-NZS"; */
+"Ldn-i4-NZS.normalTitle" = "8";
+
+/* Class = "UIButton"; normalTitle = "8"; ObjectID = "LeT-4G-0Tt"; */
+"LeT-4G-0Tt.normalTitle" = "8";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "Lft-Gw-8vG"; */
+"Lft-Gw-8vG.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "LnQ-JS-W17"; */
+"LnQ-JS-W17.normalTitle" = "4";
+
+/* Class = "UIButton"; normalTitle = "8"; ObjectID = "LpF-Fg-TMa"; */
+"LpF-Fg-TMa.normalTitle" = "8";
+
+/* Class = "UIButton"; normalTitle = "自動入力を作成"; ObjectID = "M4d-gn-nTY"; */
+"M4d-gn-nTY.normalTitle" = "自動入力を作成";
+
+/* Class = "UIButton"; normalTitle = "÷"; ObjectID = "M89-pV-7vg"; */
+"M89-pV-7vg.normalTitle" = "÷";
+
+/* Class = "UILabel"; text = "3"; ObjectID = "MJf-Ez-cyg"; */
+"MJf-Ez-cyg.text" = "3";
+
+/* Class = "UILabel"; text = "④"; ObjectID = "MLQ-qx-WVp"; */
+"MLQ-qx-WVp.text" = "④";
+
+/* Class = "UIButton"; normalTitle = "支出"; ObjectID = "Mcb-Lo-OoU"; */
+"Mcb-Lo-OoU.normalTitle" = "支出";
+
+/* Class = "UILabel"; text = "¥"; ObjectID = "MgQ-5O-S22"; */
+"MgQ-5O-S22.text" = "¥";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "Mlv-Wg-VsB"; */
+"Mlv-Wg-VsB.text" = "0";
+
+/* Class = "UILabel"; text = "CategoryLabel"; ObjectID = "MpO-AI-vAI"; */
+"MpO-AI-vAI.text" = "CategoryLabel";
+
+/* Class = "UILabel"; text = "マネーマネージについて"; ObjectID = "MyE-ma-cUK"; */
+"MyE-ma-cUK.text" = "マネーマネージについて";
+
+/* Class = "UILabel"; text = "※任意で内容・自動登録を設定"; ObjectID = "N7Z-MW-ffL"; */
+"N7Z-MW-ffL.text" = "※任意で内容・自動登録を設定";
+
+/* Class = "UIButton"; normalTitle = "1"; ObjectID = "NVv-RN-Plx"; */
+"NVv-RN-Plx.normalTitle" = "1";
+
+/* Class = "UIButton"; normalTitle = "はじめから"; ObjectID = "NW8-1I-pM8"; */
+"NW8-1I-pM8.normalTitle" = "はじめから";
+
+/* Class = "UILabel"; text = "UserIdLebel"; ObjectID = "NZZ-dM-APS"; */
+"NZZ-dM-APS.text" = "UserIdLebel";
+
+/* Class = "UIButton"; normalTitle = "+"; ObjectID = "Nem-r4-QAc"; */
+"Nem-r4-QAc.normalTitle" = "+";
+
+/* Class = "UILabel"; text = "PriceLabel"; ObjectID = "Ng3-i1-jYp"; */
+"Ng3-i1-jYp.text" = "PriceLabel";
+
+/* Class = "UILabel"; text = "2."; ObjectID = "OAW-Y8-MEe"; */
+"OAW-Y8-MEe.text" = "2.";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "OCj-Pe-fIc"; */
+"OCj-Pe-fIc.normalTitle" = "5";
+
+/* Class = "UILabel"; text = "7"; ObjectID = "OEn-cu-sNf"; */
+"OEn-cu-sNf.text" = "7";
+
+/* Class = "UILabel"; text = "今月の家計簿"; ObjectID = "ORo-Kf-yhs"; */
+"ORo-Kf-yhs.text" = "今月の家計簿";
+
+/* Class = "UITableViewSection"; footerTitle = "データ量や回線状況により、バックアップに1分以上かかる場合があります"; ObjectID = "OS4-Rw-TKf"; */
+"OS4-Rw-TKf.footerTitle" = "データ量や回線状況により、バックアップに1分以上かかる場合があります";
+
+/* Class = "UITableViewSection"; headerTitle = "クラウドバックアップ"; ObjectID = "OS4-Rw-TKf"; */
+"OS4-Rw-TKf.headerTitle" = "クラウドバックアップ";
+
+/* Class = "UILabel"; text = "金額（降順）"; ObjectID = "OXr-P5-NyH"; */
+"OXr-P5-NyH.text" = "金額（降順）";
+
+/* Class = "UILabel"; text = "Terms9Label1"; ObjectID = "OdQ-bp-5o3"; */
+"OdQ-bp-5o3.text" = "Terms9Label1";
+
+/* Class = "UILabel"; text = "ご意見・ご要望・改善"; ObjectID = "Oei-8Z-sry"; */
+"Oei-8Z-sry.text" = "ご意見・ご要望・改善";
+
+/* Class = "UILabel"; text = "クラウド上で"; ObjectID = "OgL-gR-kaX"; */
+"OgL-gR-kaX.text" = "クラウド上で";
+
+/* Class = "UILabel"; text = "データリセット"; ObjectID = "OjB-oc-yZX"; */
+"OjB-oc-yZX.text" = "データリセット";
+
+/* Class = "UILabel"; text = "2.バックアップをタップ→スロットを選択→バックアップするボタンをタップ"; ObjectID = "Olk-wG-9Rt"; */
+"Olk-wG-9Rt.text" = "2.バックアップをタップ→スロットを選択→バックアップするボタンをタップ";
+
+/* Class = "UIButton"; normalTitle = "C"; ObjectID = "OwJ-bq-T3s"; */
+"OwJ-bq-T3s.normalTitle" = "C";
+
+/* Class = "UILabel"; text = "③"; ObjectID = "P4E-cJ-A72"; */
+"P4E-cJ-A72.text" = "③";
+
+/* Class = "UIButton"; normalTitle = "削除"; ObjectID = "PXB-Gl-Jr4"; */
+"PXB-Gl-Jr4.normalTitle" = "削除";
+
+/* Class = "UIButton"; normalTitle = "÷"; ObjectID = "Pb8-gx-Jjm"; */
+"Pb8-gx-Jjm.normalTitle" = "÷";
+
+/* Class = "UILabel"; text = "メールアドレス"; ObjectID = "PmQ-Hu-VOk"; */
+"PmQ-Hu-VOk.text" = "メールアドレス";
+
+/* Class = "UITableViewSection"; headerTitle = "クラウドバックアップの復元"; ObjectID = "Po7-b3-X2Y"; */
+"Po7-b3-X2Y.headerTitle" = "クラウドバックアップの復元";
+
+/* Class = "UIButton"; normalTitle = "+"; ObjectID = "QEq-I6-mJH"; */
+"QEq-I6-mJH.normalTitle" = "+";
+
+/* Class = "UIButton"; normalTitle = "保存"; ObjectID = "Qbd-vx-Rla"; */
+"Qbd-vx-Rla.normalTitle" = "保存";
+
+/* Class = "UIButton"; normalTitle = "+"; ObjectID = "Qkh-QF-lri"; */
+"Qkh-QF-lri.normalTitle" = "+";
+
+/* Class = "UILabel"; text = "第８条（連絡・また通知）"; ObjectID = "QrU-kq-bVs"; */
+"QrU-kq-bVs.text" = "第８条（連絡・また通知）";
+
+/* Class = "UIButton"; normalTitle = "C"; ObjectID = "Qtz-er-RGD"; */
+"Qtz-er-RGD.normalTitle" = "C";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "QvJ-Tn-Pj2"; */
+"QvJ-Tn-Pj2.normalTitle" = "3";
+
+/* Class = "UILabel"; text = "メールアドレスを入力して"; ObjectID = "Qwa-yI-Y6D"; */
+"Qwa-yI-Y6D.text" = "メールアドレスを入力して";
+
+/* Class = "UILabel"; text = "2"; ObjectID = "RAp-rd-JAb"; */
+"RAp-rd-JAb.text" = "2";
+
+/* Class = "UITabBarItem"; title = "入出金"; ObjectID = "RBc-hj-cD3"; */
+"RBc-hj-cD3.title" = "入出金";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "RYA-FI-z4v"; */
+"RYA-FI-z4v.normalTitle" = "2";
+
+/* Class = "UILabel"; text = "CategoryLabel"; ObjectID = "RcZ-hP-fq6"; */
+"RcZ-hP-fq6.text" = "CategoryLabel";
+
+/* Class = "UILabel"; text = "¥"; ObjectID = "Rjg-SA-1ty"; */
+"Rjg-SA-1ty.text" = "¥";
+
+/* Class = "UIButton"; normalTitle = "9"; ObjectID = "Ro5-WR-IEK"; */
+"Ro5-WR-IEK.normalTitle" = "9";
+
+/* Class = "UILabel"; text = "Terms6Label"; ObjectID = "S4n-LF-t0D"; */
+"S4n-LF-t0D.text" = "Terms6Label";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "S4q-b5-qZC"; */
+"S4q-b5-qZC.text" = "0";
+
+/* Class = "UILabel"; text = "自動入力を新規作成する"; ObjectID = "S6D-sb-u68"; */
+"S6D-sb-u68.text" = "自動入力を新規作成する";
+
+/* Class = "UILabel"; text = "届いたメールに従って"; ObjectID = "S7o-Cs-y2X"; */
+"S7o-Cs-y2X.text" = "届いたメールに従って";
+
+/* Class = "UILabel"; text = "Terms5Label5"; ObjectID = "SJD-DE-sg6"; */
+"SJD-DE-sg6.text" = "Terms5Label5";
+
+/* Class = "UIButton"; normalTitle = "並べ替え"; ObjectID = "SJe-IO-f3n"; */
+"SJe-IO-f3n.normalTitle" = "並べ替え";
+
+/* Class = "UILabel"; text = "DateLabel"; ObjectID = "SNb-YH-KZ4"; */
+"SNb-YH-KZ4.text" = "DateLabel";
+
+/* Class = "UITableViewSection"; footerTitle = "アプリを削除するとバックアップが消去されますので、ご注意ください"; ObjectID = "SYF-X2-cGs"; */
+"SYF-X2-cGs.footerTitle" = "アプリを削除するとバックアップが消去されますので、ご注意ください";
+
+/* Class = "UITableViewSection"; headerTitle = "バックアップするスロットを選択してください"; ObjectID = "SYF-X2-cGs"; */
+"SYF-X2-cGs.headerTitle" = "バックアップするスロットを選択してください";
+
+/* Class = "UILabel"; text = "¥"; ObjectID = "ShE-W3-xdB"; */
+"ShE-W3-xdB.text" = "¥";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "SwN-PK-U0T"; */
+"SwN-PK-U0T.normalTitle" = "2";
+
+/* Class = "UILabel"; text = "CategoryLabel"; ObjectID = "T4F-JM-XGw"; */
+"T4F-JM-XGw.text" = "CategoryLabel";
+
+/* Class = "UILabel"; text = "2. 個人情報利用の制限"; ObjectID = "T5i-iz-u5s"; */
+"T5i-iz-u5s.text" = "2. 個人情報利用の制限";
+
+/* Class = "UIButton"; normalTitle = "7"; ObjectID = "TCc-2f-UtI"; */
+"TCc-2f-UtI.normalTitle" = "7";
+
+/* Class = "UILabel"; text = "DateLabel"; ObjectID = "TFR-hl-Bl1"; */
+"TFR-hl-Bl1.text" = "DateLabel";
+
+/* Class = "UIButton"; normalTitle = "+"; ObjectID = "TGL-1i-R6Z"; */
+"TGL-1i-R6Z.normalTitle" = "+";
+
+/* Class = "UILabel"; text = "Terms5TitleLabel"; ObjectID = "TIx-FP-X27"; */
+"TIx-FP-X27.text" = "Terms5TitleLabel";
+
+/* Class = "UIButton"; normalTitle = "はじめから"; ObjectID = "TQh-oT-WHH"; */
+"TQh-oT-WHH.normalTitle" = "はじめから";
+
+/* Class = "UIButton"; normalTitle = "−"; ObjectID = "TXd-Xu-Lqd"; */
+"TXd-Xu-Lqd.normalTitle" = "−";
+
+/* Class = "UILabel"; text = "支出を保存しました"; ObjectID = "Tp6-5v-gy1"; */
+"Tp6-5v-gy1.text" = "支出を保存しました";
+
+/* Class = "UIButton"; normalTitle = "完了"; ObjectID = "TuZ-x7-Ia4"; */
+"TuZ-x7-Ia4.normalTitle" = "完了";
+
+/* Class = "UIButton"; normalTitle = "編集"; ObjectID = "TzG-AY-HY7"; */
+"TzG-AY-HY7.normalTitle" = "編集";
+
+/* Class = "UILabel"; text = "メールアドレスの変更"; ObjectID = "U5h-2Y-zRP"; */
+"U5h-2Y-zRP.text" = "メールアドレスの変更";
+
+/* Class = "UIButton"; normalTitle = "="; ObjectID = "U8Q-qQ-0kL"; */
+"U8Q-qQ-0kL.normalTitle" = "=";
+
+/* Class = "UIButton"; normalTitle = "収入"; ObjectID = "UJ2-UP-RTd"; */
+"UJ2-UP-RTd.normalTitle" = "収入";
+
+/* Class = "UILabel"; text = "2"; ObjectID = "UQl-dU-bel"; */
+"UQl-dU-bel.text" = "2";
+
+/* Class = "UILabel"; text = "収入"; ObjectID = "UT3-k7-hZ4"; */
+"UT3-k7-hZ4.text" = "収入";
+
+/* Class = "UIButton"; normalTitle = "6"; ObjectID = "UVI-Cw-v4l"; */
+"UVI-Cw-v4l.normalTitle" = "6";
+
+/* Class = "UIButton"; normalTitle = "C"; ObjectID = "UXU-Po-kqI"; */
+"UXU-Po-kqI.normalTitle" = "C";
+
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "Uc9-gm-c0U"; */
+"Uc9-gm-c0U.normalTitle" = "4";
+
+/* Class = "UILabel"; text = "未分類"; ObjectID = "Ucy-Qp-9rm"; */
+"Ucy-Qp-9rm.text" = "未分類";
+
+/* Class = "UILabel"; text = "BackupNameLbl1"; ObjectID = "V9W-hD-yME"; */
+"V9W-hD-yME.text" = "BackupNameLbl1";
+
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "VBL-Kl-arC"; */
+"VBL-Kl-arC.normalTitle" = "4";
+
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "VBM-b4-RU9"; */
+"VBM-b4-RU9.normalTitle" = "4";
+
+/* Class = "UILabel"; text = "未分類"; ObjectID = "VEy-Vf-eNM"; */
+"VEy-Vf-eNM.text" = "未分類";
+
+/* Class = "UIButton"; normalTitle = "上記内容で送信"; ObjectID = "VJj-dL-6An"; */
+"VJj-dL-6An.normalTitle" = "上記内容で送信";
+
+/* Class = "UISearchBar"; Vc8-Qm-A3b.scopeButtonTitles[0] = "Title"; ObjectID = "Vc8-Qm-A3b"; */
+"Vc8-Qm-A3b.scopeButtonTitles[0]" = "Title";
+
+/* Class = "UISearchBar"; Vc8-Qm-A3b.scopeButtonTitles[1] = "Title"; ObjectID = "Vc8-Qm-A3b"; */
+"Vc8-Qm-A3b.scopeButtonTitles[1]" = "Title";
+
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "VuS-vy-gxd"; */
+"VuS-vy-gxd.normalTitle" = "0";
+
+/* Class = "UILabel"; text = "3"; ObjectID = "WG3-ol-hTM"; */
+"WG3-ol-hTM.text" = "3";
+
+/* Class = "UILabel"; text = "DateLabel"; ObjectID = "WI1-vg-b9j"; */
+"WI1-vg-b9j.text" = "DateLabel";
+
+/* Class = "UILabel"; text = "未分類"; ObjectID = "WIc-HS-rPG"; */
+"WIc-HS-rPG.text" = "未分類";
+
+/* Class = "UILabel"; text = "5. 個人情報の訂正等"; ObjectID = "Wfx-wo-jRY"; */
+"Wfx-wo-jRY.text" = "5. 個人情報の訂正等";
+
+/* Class = "UILabel"; text = "自動入力日:"; ObjectID = "WgD-ys-Aqr"; */
+"WgD-ys-Aqr.text" = "自動入力日:";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "Wgt-Wn-DSr"; */
+"Wgt-Wn-DSr.normalTitle" = "3";
+
+/* Class = "UILabel"; text = "Terms8Label1-5"; ObjectID = "Wgv-qp-Z8l"; */
+"Wgv-qp-Z8l.text" = "Terms8Label1-5";
+
+/* Class = "UIButton"; normalTitle = "9"; ObjectID = "Wmi-7I-dd8"; */
+"Wmi-7I-dd8.normalTitle" = "9";
+
+/* Class = "UILabel"; text = "DateLabel"; ObjectID = "Wzl-9H-yrh"; */
+"Wzl-9H-yrh.text" = "DateLabel";
+
+/* Class = "UILabel"; text = "privacy4Label"; ObjectID = "XCW-lE-u8I"; */
+"XCW-lE-u8I.text" = "privacy4Label";
+
+/* Class = "UILabel"; text = "10"; ObjectID = "XfC-0X-x7a"; */
+"XfC-0X-x7a.text" = "10";
+
+/* Class = "UIButton"; normalTitle = "9"; ObjectID = "Xg7-jZ-30L"; */
+"Xg7-jZ-30L.normalTitle" = "9";
+
+/* Class = "UITableViewSection"; headerTitle = "設定"; ObjectID = "XkK-4C-1JG"; */
+"XkK-4C-1JG.headerTitle" = "設定";
+
+/* Class = "UILabel"; text = "PriceLabel"; ObjectID = "XyK-be-GuA"; */
+"XyK-be-GuA.text" = "PriceLabel";
+
+/* Class = "UITableViewSection"; headerTitle = "その他"; ObjectID = "Xyy-c5-ugX"; */
+"Xyy-c5-ugX.headerTitle" = "その他";
+
+/* Class = "UITableViewSection"; headerTitle = "基本操作"; ObjectID = "Y1S-2E-eQ8"; */
+"Y1S-2E-eQ8.headerTitle" = "基本操作";
+
+/* Class = "UILabel"; text = "MemoLabel"; ObjectID = "YC0-H7-00k"; */
+"YC0-H7-00k.text" = "MemoLabel";
+
+/* Class = "UILabel"; text = "グラフアニメーション"; ObjectID = "YCw-dZ-MpI"; */
+"YCw-dZ-MpI.text" = "グラフアニメーション";
+
+/* Class = "UILabel"; text = "ログインが必要となります"; ObjectID = "YF5-nf-hAe"; */
+"YF5-nf-hAe.text" = "ログインが必要となります";
+
+/* Class = "UIButton"; normalTitle = "×"; ObjectID = "YG8-86-Qwr"; */
+"YG8-86-Qwr.normalTitle" = "×";
+
+/* Class = "UIButton"; normalTitle = "1"; ObjectID = "YT4-2L-HJU"; */
+"YT4-2L-HJU.normalTitle" = "1";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "YYe-OR-zBC"; */
+"YYe-OR-zBC.normalTitle" = "5";
+
+/* Class = "UITableViewSection"; headerTitle = "ご意見・ご要望・改善してほしい機能等がございましたら、入力フォームに記入し送信してください。"; ObjectID = "Yaz-Ie-B80"; */
+"Yaz-Ie-B80.headerTitle" = "ご意見・ご要望・改善してほしい機能等がございましたら、入力フォームに記入し送信してください。";
+
+/* Class = "UIButton"; normalTitle = "7"; ObjectID = "Ydi-k5-1sn"; */
+"Ydi-k5-1sn.normalTitle" = "7";
+
+/* Class = "UILabel"; text = "EmailLebel"; ObjectID = "Yex-Df-H0X"; */
+"Yex-Df-H0X.text" = "EmailLebel";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "Yh3-Me-mHz"; */
+"Yh3-Me-mHz.text" = "0";
+
+/* Class = "UILabel"; text = "DateLabel"; ObjectID = "Yq2-Mf-p1u"; */
+"Yq2-Mf-p1u.text" = "DateLabel";
+
+/* Class = "UILabel"; text = "Terms5Label7"; ObjectID = "YwX-QF-p42"; */
+"YwX-QF-p42.text" = "Terms5Label7";
+
+/* Class = "UIButton"; normalTitle = "はじめから"; ObjectID = "Z0N-nV-j83"; */
+"Z0N-nV-j83.normalTitle" = "はじめから";
+
+/* Class = "UILabel"; text = "Terms8Label1-2"; ObjectID = "Z3r-rG-aMc"; */
+"Z3r-rG-aMc.text" = "Terms8Label1-2";
+
+/* Class = "UILabel"; text = "¥"; ObjectID = "Z8R-c1-saF"; */
+"Z8R-c1-saF.text" = "¥";
+
+/* Class = "UILabel"; text = "4"; ObjectID = "ZId-kE-840"; */
+"ZId-kE-840.text" = "4";
+
+/* Class = "UIButton"; normalTitle = "−"; ObjectID = "ZP3-iz-v3D"; */
+"ZP3-iz-v3D.normalTitle" = "−";
+
+/* Class = "UILabel"; text = "自動入力に登録"; ObjectID = "ZRC-qU-4NL"; */
+"ZRC-qU-4NL.text" = "自動入力に登録";
+
+/* Class = "UILabel"; text = "DateLabel"; ObjectID = "ZUp-3x-03y"; */
+"ZUp-3x-03y.text" = "DateLabel";
+
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "ZbW-dE-hcC"; */
+"ZbW-dE-hcC.normalTitle" = "0";
+
+/* Class = "UIButton"; normalTitle = "完了"; ObjectID = "ZnZ-ka-qQ8"; */
+"ZnZ-ka-qQ8.normalTitle" = "完了";
+
+/* Class = "UILabel"; text = "自動入力の仕方その1"; ObjectID = "Zom-oB-sIY"; */
+"Zom-oB-sIY.text" = "自動入力の仕方その1";
+
+/* Class = "UILabel"; text = "1.入出金タブから自動登録を行いたい対象をタップ"; ObjectID = "ZpV-04-X22"; */
+"ZpV-04-X22.text" = "1.入出金タブから自動登録を行いたい対象をタップ";
+
+/* Class = "UILabel"; text = "SpendingLbl"; ObjectID = "Zrk-ro-UpB"; */
+"Zrk-ro-UpB.text" = "SpendingLbl";
+
+/* Class = "UILabel"; text = "BackupNameLbl3"; ObjectID = "Zyj-33-geM"; */
+"Zyj-33-geM.text" = "BackupNameLbl3";
+
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "aBe-gX-l7t"; */
+"aBe-gX-l7t.normalTitle" = "4";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "aDm-iq-Xmd"; */
+"aDm-iq-Xmd.normalTitle" = "5";
+
+/* Class = "UILabel"; text = "MemoLabel"; ObjectID = "aOM-cl-eb3"; */
+"aOM-cl-eb3.text" = "MemoLabel";
+
+/* Class = "UILabel"; text = "4"; ObjectID = "aRk-0N-0P3"; */
+"aRk-0N-0P3.text" = "4";
+
+/* Class = "UIButton"; normalTitle = "÷"; ObjectID = "aXo-Tl-PWl"; */
+"aXo-Tl-PWl.normalTitle" = "÷";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "aa6-T4-E9X"; */
+"aa6-T4-E9X.text" = "0";
+
+/* Class = "UILabel"; text = "TimestampLabel"; ObjectID = "acl-UE-fbD"; */
+"acl-UE-fbD.text" = "TimestampLabel";
+
+/* Class = "UILabel"; text = "1.入力タブから支出or収入を選択"; ObjectID = "akP-tX-GYy"; */
+"akP-tX-GYy.text" = "1.入力タブから支出or収入を選択";
+
+/* Class = "UIButton"; normalTitle = "−"; ObjectID = "apq-90-dbr"; */
+"apq-90-dbr.normalTitle" = "−";
+
+/* Class = "UIButton"; normalTitle = "登録する"; ObjectID = "aqq-vH-2U7"; */
+"aqq-vH-2U7.normalTitle" = "登録する";
+
+/* Class = "UILabel"; text = "Terms9Label2"; ObjectID = "avA-fj-3Fg"; */
+"avA-fj-3Fg.text" = "Terms9Label2";
+
+/* Class = "UILabel"; text = "⑤"; ObjectID = "avm-ge-RPX"; */
+"avm-ge-RPX.text" = "⑤";
+
+/* Class = "UILabel"; text = "バックアップの復元の仕方"; ObjectID = "aw2-qF-vqC"; */
+"aw2-qF-vqC.text" = "バックアップの復元の仕方";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "awX-Hb-wjT"; */
+"awX-Hb-wjT.text" = "0";
+
+/* Class = "UILabel"; text = "今までのメールアドレス"; ObjectID = "az1-Ir-BBV"; */
+"az1-Ir-BBV.text" = "今までのメールアドレス";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "bAA-L9-sgC"; */
+"bAA-L9-sgC.text" = "1";
+
+/* Class = "UILabel"; text = "第２条（サービスの概要）"; ObjectID = "bFy-mL-JLk"; */
+"bFy-mL-JLk.text" = "第２条（サービスの概要）";
+
+/* Class = "UILabel"; text = "DayLabel"; ObjectID = "bKR-hG-qyU"; */
+"bKR-hG-qyU.text" = "DayLabel";
+
+/* Class = "UILabel"; text = "2.価格・カテゴリ・内容を入力"; ObjectID = "bNk-cf-mVV"; */
+"bNk-cf-mVV.text" = "2.価格・カテゴリ・内容を入力";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "bQb-fZ-x7f"; */
+"bQb-fZ-x7f.text" = "0";
+
+/* Class = "UILabel"; text = "資産登録の仕方"; ObjectID = "bR4-oG-3sy"; */
+"bR4-oG-3sy.text" = "資産登録の仕方";
+
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "bYt-mK-TWZ"; */
+"bYt-mK-TWZ.normalTitle" = "4";
+
+/* Class = "UILabel"; text = "privacy3Label3"; ObjectID = "bbp-my-9kq"; */
+"bbp-my-9kq.text" = "privacy3Label3";
+
+/* Class = "UIButton"; normalTitle = "C"; ObjectID = "bhO-5O-2gL"; */
+"bhO-5O-2gL.normalTitle" = "C";
+
+/* Class = "UILabel"; text = "Ver.1.3.1"; ObjectID = "bhO-fr-usc"; */
+"bhO-fr-usc.text" = "Ver.1.3.1";
+
+/* Class = "UILabel"; text = "データリセットの仕方"; ObjectID = "bzi-yC-BaS"; */
+"bzi-yC-BaS.text" = "データリセットの仕方";
+
+/* Class = "UILabel"; text = "Terms5Label4"; ObjectID = "c1y-gG-aHm"; */
+"c1y-gG-aHm.text" = "Terms5Label4";
+
+/* Class = "UILabel"; text = "Terms3Label1"; ObjectID = "cGb-jU-QYy"; */
+"cGb-jU-QYy.text" = "Terms3Label1";
+
+/* Class = "UIButton"; normalTitle = "削除"; ObjectID = "cGm-zy-wPQ"; */
+"cGm-zy-wPQ.normalTitle" = "削除";
+
+/* Class = "UILabel"; text = "3. 個人情報の取得に際する利用目的の通知"; ObjectID = "cK5-Fj-d62"; */
+"cK5-Fj-d62.text" = "3. 個人情報の取得に際する利用目的の通知";
+
+/* Class = "UIButton"; normalTitle = "×"; ObjectID = "cLt-C4-Xu6"; */
+"cLt-C4-Xu6.normalTitle" = "×";
+
+/* Class = "UIButton"; normalTitle = "÷"; ObjectID = "cMa-Ht-Jnh"; */
+"cMa-Ht-Jnh.normalTitle" = "÷";
+
+/* Class = "UILabel"; text = "privacy3Label2"; ObjectID = "cOd-kO-zjZ"; */
+"cOd-kO-zjZ.text" = "privacy3Label2";
+
+/* Class = "UILabel"; text = "1.自動入力タブから新規作成をタップ"; ObjectID = "cQ3-nl-fCd"; */
+"cQ3-nl-fCd.text" = "1.自動入力タブから新規作成をタップ";
+
+/* Class = "UILabel"; text = "入力の仕方"; ObjectID = "ccN-uC-7cN"; */
+"ccN-uC-7cN.text" = "入力の仕方";
+
+/* Class = "UILabel"; text = "自動入力"; ObjectID = "ced-px-BMz"; */
+"ced-px-BMz.text" = "自動入力";
+
+/* Class = "UIButton"; normalTitle = "8"; ObjectID = "ch2-dr-m6X"; */
+"ch2-dr-m6X.normalTitle" = "8";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "cj9-87-Wfz"; */
+"cj9-87-Wfz.normalTitle" = "2";
+
+/* Class = "UILabel"; text = "自動入力の仕方その1"; ObjectID = "coa-SW-gj6"; */
+"coa-SW-gj6.text" = "自動入力の仕方その1";
+
+/* Class = "UIButton"; normalTitle = "完了"; ObjectID = "cpr-Is-XKh"; */
+"cpr-Is-XKh.normalTitle" = "完了";
+
+/* Class = "UILabel"; text = "友達にすすめる"; ObjectID = "cqx-RT-WMl"; */
+"cqx-RT-WMl.text" = "友達にすすめる";
+
+/* Class = "UIButton"; normalTitle = "+"; ObjectID = "cx6-U8-nCX"; */
+"cx6-U8-nCX.normalTitle" = "+";
+
+/* Class = "UILabel"; text = "Terms5Label9"; ObjectID = "dDc-Eq-1MB"; */
+"dDc-Eq-1MB.text" = "Terms5Label9";
+
+/* Class = "UILabel"; text = "RestoreNameLbl3"; ObjectID = "dXa-s5-TpP"; */
+"dXa-s5-TpP.text" = "RestoreNameLbl3";
+
+/* Class = "UILabel"; text = "入力する"; ObjectID = "dYb-Ar-QSC"; */
+"dYb-Ar-QSC.text" = "入力する";
+
+/* Class = "UILabel"; text = "収入"; ObjectID = "dbW-Zf-VBb"; */
+"dbW-Zf-VBb.text" = "収入";
+
+/* Class = "UILabel"; text = "1.ホーム画面右上の歯車マークをタップ"; ObjectID = "ddx-rc-9dA"; */
+"ddx-rc-9dA.text" = "1.ホーム画面右上の歯車マークをタップ";
+
+/* Class = "UIButton"; normalTitle = "×"; ObjectID = "dml-gv-RsX"; */
+"dml-gv-RsX.normalTitle" = "×";
+
+/* Class = "UITabBarItem"; title = "自動入力"; ObjectID = "dwG-Ae-M0p"; */
+"dwG-Ae-M0p.title" = "自動入力";
+
+/* Class = "UIButton"; normalTitle = "1"; ObjectID = "e5k-C6-ckX"; */
+"e5k-C6-ckX.normalTitle" = "1";
+
+/* Class = "UIButton"; normalTitle = "9"; ObjectID = "eGg-Nc-qua"; */
+"eGg-Nc-qua.normalTitle" = "9";
+
+/* Class = "UITextField"; placeholder = "内容を入力"; ObjectID = "eLZ-QS-bwQ"; */
+"eLZ-QS-bwQ.placeholder" = "内容を入力";
+
+/* Class = "UILabel"; text = "アカウント"; ObjectID = "ePA-3j-yMa"; */
+"ePA-3j-yMa.text" = "アカウント";
+
+/* Class = "UILabel"; text = "カテゴリ順"; ObjectID = "eVF-Zb-thA"; */
+"eVF-Zb-thA.text" = "カテゴリ順";
+
+/* Class = "UISearchBar"; eaw-f8-zEH.scopeButtonTitles[0] = "Title"; ObjectID = "eaw-f8-zEH"; */
+"eaw-f8-zEH.scopeButtonTitles[0]" = "Title";
+
+/* Class = "UISearchBar"; eaw-f8-zEH.scopeButtonTitles[1] = "Title"; ObjectID = "eaw-f8-zEH"; */
+"eaw-f8-zEH.scopeButtonTitles[1]" = "Title";
+
+/* Class = "UILabel"; text = "Terms8Label1"; ObjectID = "em9-Fc-ajs"; */
+"em9-Fc-ajs.text" = "Terms8Label1";
+
+/* Class = "UILabel"; text = "第７条（本サービスの停止・中止・終了）"; ObjectID = "ev0-eb-BqD"; */
+"ev0-eb-BqD.text" = "第７条（本サービスの停止・中止・終了）";
+
+/* Class = "UIButton"; normalTitle = "9"; ObjectID = "evb-Vn-IMY"; */
+"evb-Vn-IMY.normalTitle" = "9";
+
+/* Class = "UIButton"; normalTitle = "送信"; ObjectID = "f17-Qb-O9g"; */
+"f17-Qb-O9g.normalTitle" = "送信";
+
+/* Class = "UILabel"; text = "第３条（情報の取り扱い）"; ObjectID = "fAc-pz-SfW"; */
+"fAc-pz-SfW.text" = "第３条（情報の取り扱い）";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "ffA-6Q-xuM"; */
+"ffA-6Q-xuM.normalTitle" = "5";
+
+/* Class = "UILabel"; text = "使い方"; ObjectID = "fp4-2x-ES3"; */
+"fp4-2x-ES3.text" = "使い方";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "fug-vk-tyY"; */
+"fug-vk-tyY.normalTitle" = "3";
+
+/* Class = "UITableViewSection"; headerTitle = "500文字以内で入力してください"; ObjectID = "g6y-gf-bGl"; */
+"g6y-gf-bGl.headerTitle" = "500文字以内で入力してください";
+
+/* Class = "UILabel"; text = "データリセットの仕方"; ObjectID = "gAM-iy-OEt"; */
+"gAM-iy-OEt.text" = "データリセットの仕方";
+
+/* Class = "UILabel"; text = "¥"; ObjectID = "gBr-0O-Lmg"; */
+"gBr-0O-Lmg.text" = "¥";
+
+/* Class = "UILabel"; text = "利用するには"; ObjectID = "gMP-Yt-YFU"; */
+"gMP-Yt-YFU.text" = "利用するには";
+
+/* Class = "UILabel"; text = "自動入力に登録"; ObjectID = "gOq-oZ-qpr"; */
+"gOq-oZ-qpr.text" = "自動入力に登録";
+
+/* Class = "UIButton"; normalTitle = "修正"; ObjectID = "gR0-O4-6q1"; */
+"gR0-O4-6q1.normalTitle" = "修正";
+
+/* Class = "UILabel"; text = "1ヶ月目以降にグラフが表示されます"; ObjectID = "gVh-II-Yzc"; */
+"gVh-II-Yzc.text" = "1ヶ月目以降にグラフが表示されます";
+
+/* Class = "UILabel"; text = "Terms8Label1-3"; ObjectID = "gaW-ny-Un4"; */
+"gaW-ny-Un4.text" = "Terms8Label1-3";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "gbL-j1-ABz"; */
+"gbL-j1-ABz.text" = "0";
+
+/* Class = "UITextField"; placeholder = "内容を入力"; ObjectID = "gfN-do-gM7"; */
+"gfN-do-gM7.placeholder" = "内容を入力";
+
+/* Class = "UILabel"; text = "バックアップを行うには"; ObjectID = "gfv-tl-aZL"; */
+"gfv-tl-aZL.text" = "バックアップを行うには";
+
+/* Class = "UILabel"; text = "NumericLabel"; ObjectID = "goH-LC-kV5"; */
+"goH-LC-kV5.text" = "NumericLabel";
+
+/* Class = "UILabel"; text = "DateLabel"; ObjectID = "gpE-8E-rff"; */
+"gpE-8E-rff.text" = "DateLabel";
+
+/* Class = "UILabel"; text = "Terms5Label2"; ObjectID = "gse-gd-wLD"; */
+"gse-gd-wLD.text" = "Terms5Label2";
+
+/* Class = "UILabel"; text = "今までのパスワード"; ObjectID = "gxU-6Q-e8T"; */
+"gxU-6Q-e8T.text" = "今までのパスワード";
+
+/* Class = "UILabel"; text = "IncomeLbl"; ObjectID = "gxn-Nr-bsB"; */
+"gxn-Nr-bsB.text" = "IncomeLbl";
+
+/* Class = "UILabel"; text = "privacy2Label2"; ObjectID = "gzs-rh-uBA"; */
+"gzs-rh-uBA.text" = "privacy2Label2";
+
+/* Class = "UILabel"; text = "3.自動入力する日にちを選択し、作成をタップ"; ObjectID = "h2h-9U-tiL"; */
+"h2h-9U-tiL.text" = "3.自動入力する日にちを選択し、作成をタップ";
+
+/* Class = "UILabel"; text = "12"; ObjectID = "h4D-80-vms"; */
+"h4D-80-vms.text" = "12";
+
+/* Class = "UIButton"; normalTitle = "完了"; ObjectID = "h59-6x-FQ8"; */
+"h59-6x-FQ8.normalTitle" = "完了";
+
+/* Class = "UILabel"; text = "FirstDaylbl"; ObjectID = "h9Q-Gj-DeG"; */
+"h9Q-Gj-DeG.text" = "FirstDaylbl";
+
+/* Class = "UIButton"; normalTitle = "ログアウト"; ObjectID = "hZ6-wX-PQi"; */
+"hZ6-wX-PQi.normalTitle" = "ログアウト";
+
+/* Class = "UILabel"; text = "新しいメールアドレス"; ObjectID = "hab-JS-d4h"; */
+"hab-JS-d4h.text" = "新しいメールアドレス";
+
+/* Class = "UILabel"; text = "privacy5Label"; ObjectID = "hb8-aD-2C8"; */
+"hb8-aD-2C8.text" = "privacy5Label";
+
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "hf4-4w-5EH"; */
+"hf4-4w-5EH.normalTitle" = "0";
+
+/* Class = "UILabel"; text = "アカウントが必要となります"; ObjectID = "ho5-0r-RoL"; */
+"ho5-0r-RoL.text" = "アカウントが必要となります";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "huD-H9-RPF"; */
+"huD-H9-RPF.text" = "1";
+
+/* Class = "UILabel"; text = "¥"; ObjectID = "i2h-4J-H1b"; */
+"i2h-4J-H1b.text" = "¥";
+
+/* Class = "UILabel"; text = "収支"; ObjectID = "i5h-L0-haB"; */
+"i5h-L0-haB.text" = "収支";
+
+/* Class = "UILabel"; text = "Terms5Label3"; ObjectID = "iA7-a0-ydc"; */
+"iA7-a0-ydc.text" = "Terms5Label3";
+
+/* Class = "UIButton"; normalTitle = "8"; ObjectID = "iNu-08-Roe"; */
+"iNu-08-Roe.normalTitle" = "8";
+
+/* Class = "UIButton"; normalTitle = "閉じる"; ObjectID = "ieu-t1-vgs"; */
+"ieu-t1-vgs.normalTitle" = "閉じる";
+
+/* Class = "UIButton"; normalTitle = "6"; ObjectID = "ifB-hv-11F"; */
+"ifB-hv-11F.normalTitle" = "6";
+
+/* Class = "UILabel"; text = "DescriptionLabel"; ObjectID = "ikJ-z8-Lwp"; */
+"ikJ-z8-Lwp.text" = "DescriptionLabel";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "isu-1K-KKG"; */
+"isu-1K-KKG.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "バックアップする"; ObjectID = "isw-Hg-9M3"; */
+"isw-Hg-9M3.normalTitle" = "バックアップする";
+
+/* Class = "UILabel"; text = "CateLbl"; ObjectID = "ith-u5-iu6"; */
+"ith-u5-iu6.text" = "CateLbl";
+
+/* Class = "UITableViewSection"; footerTitle = "クラウドバックアップを行うと、機種変更時もデータを引き継ぐことができます"; ObjectID = "jAH-Yw-hpA"; */
+"jAH-Yw-hpA.footerTitle" = "クラウドバックアップを行うと、機種変更時もデータを引き継ぐことができます";
+
+/* Class = "UITableViewSection"; headerTitle = "クラウドバックアップ"; ObjectID = "jAH-Yw-hpA"; */
+"jAH-Yw-hpA.headerTitle" = "クラウドバックアップ";
+
+/* Class = "UILabel"; text = "自動入力を作成しました"; ObjectID = "jP5-bK-xU3"; */
+"jP5-bK-xU3.text" = "自動入力を作成しました";
+
+/* Class = "UILabel"; text = "Terms5Label1"; ObjectID = "jQU-cc-FSq"; */
+"jQU-cc-FSq.text" = "Terms5Label1";
+
+/* Class = "UILabel"; text = "MemoLabel"; ObjectID = "jnO-bs-rgr"; */
+"jnO-bs-rgr.text" = "MemoLabel";
+
+/* Class = "UIButton"; normalTitle = "はじめから"; ObjectID = "jry-yS-4bm"; */
+"jry-yS-4bm.normalTitle" = "はじめから";
+
+/* Class = "UITabBarItem"; title = "家計簿"; ObjectID = "jsg-yf-jRa"; */
+"jsg-yf-jRa.title" = "家計簿";
+
+/* Class = "UITextField"; placeholder = "内容を入力"; ObjectID = "k1W-sp-zNW"; */
+"k1W-sp-zNW.placeholder" = "内容を入力";
+
+/* Class = "UILabel"; text = "Terms1Label2"; ObjectID = "k1t-md-5la"; */
+"k1t-md-5la.text" = "Terms1Label2";
+
+/* Class = "UILabel"; text = "CayrgoryLabel"; ObjectID = "k5q-H6-ptM"; */
+"k5q-H6-ptM.text" = "CayrgoryLabel";
+
+/* Class = "UIButton"; normalTitle = "2"; ObjectID = "k6F-M4-CMM"; */
+"k6F-M4-CMM.normalTitle" = "2";
+
+/* Class = "UILabel"; text = "前日比"; ObjectID = "k7M-MR-0Wd"; */
+"k7M-MR-0Wd.text" = "前日比";
+
+/* Class = "UILabel"; text = "MonthlyLabel"; ObjectID = "k8W-MR-vQR"; */
+"k8W-MR-vQR.text" = "MonthlyLabel";
+
+/* Class = "UILabel"; text = "1.入力タブから支出or収入を選択"; ObjectID = "kB8-P7-rEm"; */
+"kB8-P7-rEm.text" = "1.入力タブから支出or収入を選択";
+
+/* Class = "UILabel"; text = "2.価格・カテゴリ・日付・内容を入力"; ObjectID = "kHU-N2-S64"; */
+"kHU-N2-S64.text" = "2.価格・カテゴリ・日付・内容を入力";
+
+/* Class = "UILabel"; text = "第５条（当社に対する補償）"; ObjectID = "kJ9-79-61I"; */
+"kJ9-79-61I.text" = "第５条（当社に対する補償）";
+
+/* Class = "UILabel"; text = "BalanceLbl"; ObjectID = "kVc-SU-IhZ"; */
+"kVc-SU-IhZ.text" = "BalanceLbl";
+
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "kjF-jc-MH3"; */
+"kjF-jc-MH3.normalTitle" = "4";
+
+/* Class = "UILabel"; text = "¥"; ObjectID = "kmB-69-Ayf"; */
+"kmB-69-Ayf.text" = "¥";
+
+/* Class = "UIButton"; normalTitle = "6"; ObjectID = "l0A-a3-bLg"; */
+"l0A-a3-bLg.normalTitle" = "6";
+
+/* Class = "UIButton"; normalTitle = "×"; ObjectID = "l7L-wI-qFQ"; */
+"l7L-wI-qFQ.normalTitle" = "×";
+
+/* Class = "UIButton"; normalTitle = "6"; ObjectID = "l8R-gJ-xN1"; */
+"l8R-gJ-xN1.normalTitle" = "6";
+
+/* Class = "UIButton"; normalTitle = "9"; ObjectID = "l9m-rj-Lom"; */
+"l9m-rj-Lom.normalTitle" = "9";
+
+/* Class = "UILabel"; text = "バックアップ済みデータ数："; ObjectID = "lKh-D5-K95"; */
+"lKh-D5-K95.text" = "バックアップ済みデータ数：";
+
+/* Class = "UIButton"; normalTitle = "×"; ObjectID = "lV6-N5-6Qo"; */
+"lV6-N5-6Qo.normalTitle" = "×";
+
+/* Class = "UITableViewSection"; headerTitle = "データ"; ObjectID = "lg5-m9-F4e"; */
+"lg5-m9-F4e.headerTitle" = "データ";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "lhp-8F-Fzd"; */
+"lhp-8F-Fzd.normalTitle" = "3";
+
+/* Class = "UILabel"; text = "資産を入力してください"; ObjectID = "lmr-1o-t7G"; */
+"lmr-1o-t7G.text" = "資産を入力してください";
+
+/* Class = "UITableViewSection"; headerTitle = "500文字以内で入力してください"; ObjectID = "lnz-jG-vFA"; */
+"lnz-jG-vFA.headerTitle" = "500文字以内で入力してください";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "lrN-WI-P5l"; */
+"lrN-WI-P5l.text" = "1";
+
+/* Class = "UILabel"; text = "PriceLabel"; ObjectID = "lvV-10-pZj"; */
+"lvV-10-pZj.text" = "PriceLabel";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "m7A-dn-wNv"; */
+"m7A-dn-wNv.text" = "1";
+
+/* Class = "UIButton"; normalTitle = "1"; ObjectID = "mFR-XF-AQR"; */
+"mFR-XF-AQR.normalTitle" = "1";
+
+/* Class = "UILabel"; text = "DateLabel"; ObjectID = "mR6-YH-5wV"; */
+"mR6-YH-5wV.text" = "DateLabel";
+
+/* Class = "UILabel"; text = "IncomeLabel"; ObjectID = "mWv-CN-1rw"; */
+"mWv-CN-1rw.text" = "IncomeLabel";
+
+/* Class = "UILabel"; text = "PriceLabel"; ObjectID = "mYE-pk-U4I"; */
+"mYE-pk-U4I.text" = "PriceLabel";
+
+/* Class = "UIButton"; normalTitle = "×"; ObjectID = "mbF-U2-Upa"; */
+"mbF-U2-Upa.normalTitle" = "×";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "meb-ZO-Agc"; */
+"meb-ZO-Agc.text" = "0";
+
+/* Class = "UILabel"; text = "利用規約"; ObjectID = "mhf-El-CHt"; */
+"mhf-El-CHt.text" = "利用規約";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "mi3-0e-OAx"; */
+"mi3-0e-OAx.normalTitle" = "5";
+
+/* Class = "UIButton"; normalTitle = "1"; ObjectID = "mre-Ns-7PT"; */
+"mre-Ns-7PT.normalTitle" = "1";
+
+/* Class = "UILabel"; text = "TotalMoneyLabel"; ObjectID = "mrn-UU-OOw"; */
+"mrn-UU-OOw.text" = "TotalMoneyLabel";
+
+/* Class = "UILabel"; text = "自動入力に登録"; ObjectID = "n3D-1b-kfA"; */
+"n3D-1b-kfA.text" = "自動入力に登録";
+
+/* Class = "UIButton"; normalTitle = "7"; ObjectID = "n6z-Ck-nN3"; */
+"n6z-Ck-nN3.normalTitle" = "7";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "nDE-Wo-Lkh"; */
+"nDE-Wo-Lkh.text" = "0";
+
+/* Class = "UILabel"; text = "パスワードを入力してください"; ObjectID = "nGy-S0-oSd"; */
+"nGy-S0-oSd.text" = "パスワードを入力してください";
+
+/* Class = "UIButton"; normalTitle = "C"; ObjectID = "nNI-2Q-K87"; */
+"nNI-2Q-K87.normalTitle" = "C";
+
+/* Class = "UILabel"; text = "6"; ObjectID = "nT6-cY-Uwg"; */
+"nT6-cY-Uwg.text" = "6";
+
+/* Class = "UILabel"; text = "クラウドバックアップ"; ObjectID = "nU7-A3-MHo"; */
+"nU7-A3-MHo.text" = "クラウドバックアップ";
+
+/* Class = "UILabel"; text = "CategoryLabel"; ObjectID = "nat-ja-RpY"; */
+"nat-ja-RpY.text" = "CategoryLabel";
+
+/* Class = "UILabel"; text = "2.価格・カテゴリ・内容を入力"; ObjectID = "ngW-Fc-jd8"; */
+"ngW-Fc-jd8.text" = "2.価格・カテゴリ・内容を入力";
+
+/* Class = "UILabel"; text = "BackupNameLbl1"; ObjectID = "nh7-eX-P2w"; */
+"nh7-eX-P2w.text" = "BackupNameLbl1";
+
+/* Class = "UIButton"; normalTitle = "+"; ObjectID = "npn-OU-P6v"; */
+"npn-OU-P6v.normalTitle" = "+";
+
+/* Class = "UILabel"; text = "バックアップの仕方"; ObjectID = "o0E-8u-hF9"; */
+"o0E-8u-hF9.text" = "バックアップの仕方";
+
+/* Class = "UILabel"; text = "手続きをしてください"; ObjectID = "o3m-Kd-heC"; */
+"o3m-Kd-heC.text" = "手続きをしてください";
+
+/* Class = "UILabel"; text = "privacy4Label1"; ObjectID = "oFH-ZF-vae"; */
+"oFH-ZF-vae.text" = "privacy4Label1";
+
+/* Class = "UILabel"; text = "DateLabel"; ObjectID = "oGi-QH-sIy"; */
+"oGi-QH-sIy.text" = "DateLabel";
+
+/* Class = "UILabel"; text = "データはありません"; ObjectID = "oIn-lz-uhg"; */
+"oIn-lz-uhg.text" = "データはありません";
+
+/* Class = "UILabel"; text = "支出"; ObjectID = "oPC-do-E6L"; */
+"oPC-do-E6L.text" = "支出";
+
+/* Class = "UILabel"; text = "プライバシーポリシー"; ObjectID = "ohr-HM-fpf"; */
+"ohr-HM-fpf.text" = "プライバシーポリシー";
+
+/* Class = "UILabel"; text = "privacy2Label4"; ObjectID = "opf-lO-eC0"; */
+"opf-lO-eC0.text" = "privacy2Label4";
+
+/* Class = "UILabel"; text = "11"; ObjectID = "oqB-AD-hg6"; */
+"oqB-AD-hg6.text" = "11";
+
+/* Class = "UIButton"; normalTitle = "5"; ObjectID = "ouO-6i-PfY"; */
+"ouO-6i-PfY.normalTitle" = "5";
+
+/* Class = "UILabel"; text = "2.価格・カテゴリ・日付を入力し保存をタップ"; ObjectID = "p5W-YZ-lPK"; */
+"p5W-YZ-lPK.text" = "2.価格・カテゴリ・日付を入力し保存をタップ";
+
+/* Class = "UILabel"; text = "資産の登録"; ObjectID = "p7j-p9-BZC"; */
+"p7j-p9-BZC.text" = "資産の登録";
+
+/* Class = "UIButton"; normalTitle = "7"; ObjectID = "p95-FK-yId"; */
+"p95-FK-yId.normalTitle" = "7";
+
+/* Class = "UILabel"; text = "500"; ObjectID = "pPf-Qe-zaS"; */
+"pPf-Qe-zaS.text" = "500";
+
+/* Class = "UILabel"; text = "UserID："; ObjectID = "pWT-kK-JvI"; */
+"pWT-kK-JvI.text" = "UserID：";
+
+/* Class = "UIButton"; normalTitle = "÷"; ObjectID = "pWc-mc-avt"; */
+"pWc-mc-avt.normalTitle" = "÷";
+
+/* Class = "UILabel"; text = "3.ホーム画面に戻り、下方向にスワイプでリロードを行う"; ObjectID = "pZI-ut-2Jv"; */
+"pZI-ut-2Jv.text" = "3.ホーム画面に戻り、下方向にスワイプでリロードを行う";
+
+/* Class = "UIButton"; normalTitle = "翌月"; ObjectID = "ppK-RU-X1M"; */
+"ppK-RU-X1M.normalTitle" = "翌月";
+
+/* Class = "UILabel"; text = "送信してください"; ObjectID = "puf-Nw-gFq"; */
+"puf-Nw-gFq.text" = "送信してください";
+
+/* Class = "UIButton"; normalTitle = "削除"; ObjectID = "q1t-uf-wFT"; */
+"q1t-uf-wFT.normalTitle" = "削除";
+
+/* Class = "UILabel"; text = "第６条（退会）"; ObjectID = "q7M-rg-35d"; */
+"q7M-rg-35d.text" = "第６条（退会）";
+
+/* Class = "UIButton"; normalTitle = "パスワードを変更する"; ObjectID = "qL2-zl-nvR"; */
+"qL2-zl-nvR.normalTitle" = "パスワードを変更する";
+
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "qVH-jf-8Fk"; */
+"qVH-jf-8Fk.normalTitle" = "0";
+
+/* Class = "UILabel"; text = "~"; ObjectID = "qf6-Xr-qaE"; */
+"qf6-Xr-qaE.text" = "~";
+
+/* Class = "UIButton"; normalTitle = "リセットする"; ObjectID = "qfD-hv-q6n"; */
+"qfD-hv-q6n.normalTitle" = "リセットする";
+
+/* Class = "UILabel"; text = "previousMonthLabel"; ObjectID = "qmF-Fg-9uY"; */
+"qmF-Fg-9uY.text" = "previousMonthLabel";
+
+/* Class = "UILabel"; text = "Terms5Label12"; ObjectID = "qq7-HY-VCy"; */
+"qq7-HY-VCy.text" = "Terms5Label12";
+
+/* Class = "UILabel"; text = "支出"; ObjectID = "r9P-LV-ZFV"; */
+"r9P-LV-ZFV.text" = "支出";
+
+/* Class = "UIButton"; normalTitle = "3"; ObjectID = "rFY-WW-kue"; */
+"rFY-WW-kue.normalTitle" = "3";
+
+/* Class = "UILabel"; text = "3."; ObjectID = "rJh-41-KVt"; */
+"rJh-41-KVt.text" = "3.";
+
+/* Class = "UIButton"; normalTitle = "÷"; ObjectID = "rOH-cL-1by"; */
+"rOH-cL-1by.normalTitle" = "÷";
+
+/* Class = "UIButton"; normalTitle = "−"; ObjectID = "rV5-F1-Mmg"; */
+"rV5-F1-Mmg.normalTitle" = "−";
+
+/* Class = "UILabel"; text = "日付（昇順）"; ObjectID = "rfo-Ra-Scq"; */
+"rfo-Ra-Scq.text" = "日付（昇順）";
+
+/* Class = "UILabel"; text = "2"; ObjectID = "rhm-Qk-mOf"; */
+"rhm-Qk-mOf.text" = "2";
+
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "rk8-VR-ZVH"; */
+"rk8-VR-ZVH.normalTitle" = "0";
+
+/* Class = "UILabel"; text = "お問い合わせ"; ObjectID = "s3j-GY-Pit"; */
+"s3j-GY-Pit.text" = "お問い合わせ";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "s6p-Fo-T0D"; */
+"s6p-Fo-T0D.text" = "1";
+
+/* Class = "UILabel"; text = "メールアドレス："; ObjectID = "s8H-dQ-fLf"; */
+"s8H-dQ-fLf.text" = "メールアドレス：";
+
+/* Class = "UILabel"; text = "Money Manage"; ObjectID = "sFT-Tt-FB8"; */
+"sFT-Tt-FB8.text" = "Money Manage";
+
+/* Class = "UITabBarItem"; title = "ホーム"; ObjectID = "sJL-5R-WNH"; */
+"sJL-5R-WNH.title" = "ホーム";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "sOO-RN-s8K"; */
+"sOO-RN-s8K.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "はじめから"; ObjectID = "sUe-ke-pCh"; */
+"sUe-ke-pCh.normalTitle" = "はじめから";
+
+/* Class = "UILabel"; text = "新しいパスワードを入力してください"; ObjectID = "sln-BD-3QU"; */
+"sln-BD-3QU.text" = "新しいパスワードを入力してください";
+
+/* Class = "UILabel"; text = "terms2Label"; ObjectID = "t5W-Bt-LAr"; */
+"t5W-Bt-LAr.text" = "terms2Label";
+
+/* Class = "UIButton"; normalTitle = "8"; ObjectID = "t6M-pk-2ub"; */
+"t6M-pk-2ub.normalTitle" = "8";
+
+/* Class = "UIButton"; normalTitle = "先月"; ObjectID = "tHT-Ay-5NB"; */
+"tHT-Ay-5NB.normalTitle" = "先月";
+
+/* Class = "UILabel"; text = "Terms1Label3"; ObjectID = "tPT-Yo-3j8"; */
+"tPT-Yo-3j8.text" = "Terms1Label3";
+
+/* Class = "UILabel"; text = "1."; ObjectID = "tUx-l6-HDn"; */
+"tUx-l6-HDn.text" = "1.";
+
+/* Class = "UILabel"; text = "PriceLabel"; ObjectID = "tV5-nY-7oG"; */
+"tV5-nY-7oG.text" = "PriceLabel";
+
+/* Class = "UIButton"; normalTitle = "="; ObjectID = "ta7-ed-DDJ"; */
+"ta7-ed-DDJ.normalTitle" = "=";
+
+/* Class = "UILabel"; text = "4"; ObjectID = "tcr-nD-pYJ"; */
+"tcr-nD-pYJ.text" = "4";
+
+/* Class = "UILabel"; text = "Terms8Label1-4"; ObjectID = "tdt-Y2-r0p"; */
+"tdt-Y2-r0p.text" = "Terms8Label1-4";
+
+/* Class = "UILabel"; text = "自動入力に登録"; ObjectID = "tjz-qe-9a1"; */
+"tjz-qe-9a1.text" = "自動入力に登録";
+
+/* Class = "UILabel"; text = "自動入力の仕方その2"; ObjectID = "ty8-iR-Kcq"; */
+"ty8-iR-Kcq.text" = "自動入力の仕方その2";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "u7d-lk-2bm"; */
+"u7d-lk-2bm.text" = "1";
+
+/* Class = "UILabel"; text = "DateLabel"; ObjectID = "uJf-XZ-5cK"; */
+"uJf-XZ-5cK.text" = "DateLabel";
+
+/* Class = "UIButton"; normalTitle = "はじめから"; ObjectID = "uMZ-kb-YR3"; */
+"uMZ-kb-YR3.normalTitle" = "はじめから";
+
+/* Class = "UIButton"; normalTitle = "支出"; ObjectID = "uRu-LP-W2A"; */
+"uRu-LP-W2A.normalTitle" = "支出";
+
+/* Class = "UIButton"; normalTitle = "修正"; ObjectID = "uet-pH-jjl"; */
+"uet-pH-jjl.normalTitle" = "修正";
+
+/* Class = "UILabel"; text = "¥"; ObjectID = "uwd-dc-iKt"; */
+"uwd-dc-iKt.text" = "¥";
+
+/* Class = "UILabel"; text = "privacy1Label"; ObjectID = "v1H-5l-JVR"; */
+"v1H-5l-JVR.text" = "privacy1Label";
+
+/* Class = "UILabel"; text = "3.自動入力する日にちを選択し、作成をタップ"; ObjectID = "vAP-M0-YVu"; */
+"vAP-M0-YVu.text" = "3.自動入力する日にちを選択し、作成をタップ";
+
+/* Class = "UILabel"; text = "3.反映後は自動入力の一覧上で、未入力から入力済みとなります"; ObjectID = "vXO-hA-Zty"; */
+"vXO-hA-Zty.text" = "3.反映後は自動入力の一覧上で、未入力から入力済みとなります";
+
+/* Class = "UIButton"; normalTitle = "="; ObjectID = "vi6-PE-5wB"; */
+"vi6-PE-5wB.normalTitle" = "=";
+
+/* Class = "UILabel"; text = "6. 個人情報に関するお問い合わせ"; ObjectID = "vjd-GI-FbB"; */
+"vjd-GI-FbB.text" = "6. 個人情報に関するお問い合わせ";
+
+/* Class = "UIButton"; normalTitle = "−"; ObjectID = "vkW-On-8ES"; */
+"vkW-On-8ES.normalTitle" = "−";
+
+/* Class = "UIButton"; normalTitle = "自動入力を作成"; ObjectID = "vqN-SD-6ax"; */
+"vqN-SD-6ax.normalTitle" = "自動入力を作成";
+
+/* Class = "UIButton"; normalTitle = "0"; ObjectID = "wFN-u1-je1"; */
+"wFN-u1-je1.normalTitle" = "0";
+
+/* Class = "UILabel"; text = "1.自動入力作成後は、すぐには反映されません"; ObjectID = "woT-4Q-Tvx"; */
+"woT-4Q-Tvx.text" = "1.自動入力作成後は、すぐには反映されません";
+
+/* Class = "UIButton"; normalTitle = "1"; ObjectID = "wqY-Ql-U2Z"; */
+"wqY-Ql-U2Z.normalTitle" = "1";
+
+/* Class = "UILabel"; text = "privacy2Label1"; ObjectID = "x3j-GK-33k"; */
+"x3j-GK-33k.text" = "privacy2Label1";
+
+/* Class = "UILabel"; text = "MemoLabel"; ObjectID = "x8w-vg-ctc"; */
+"x8w-vg-ctc.text" = "MemoLabel";
+
+/* Class = "UIButton"; normalTitle = "9"; ObjectID = "xMC-gi-M8j"; */
+"xMC-gi-M8j.normalTitle" = "9";
+
+/* Class = "UIButton"; normalTitle = "−"; ObjectID = "xVU-A1-dGT"; */
+"xVU-A1-dGT.normalTitle" = "−";
+
+/* Class = "UITableViewSection"; headerTitle = "データ関連"; ObjectID = "xfJ-e0-hpI"; */
+"xfJ-e0-hpI.headerTitle" = "データ関連";
+
+/* Class = "UILabel"; text = "3.自動入力タブにて、登録した対象が表示されます"; ObjectID = "xuF-SE-ISU"; */
+"xuF-SE-ISU.text" = "3.自動入力タブにて、登録した対象が表示されます";
+
+/* Class = "UIButton"; normalTitle = "利用規約に同意してアカウントを作成する"; ObjectID = "xzw-nc-zgp"; */
+"xzw-nc-zgp.normalTitle" = "利用規約に同意してアカウントを作成する";
+
+/* Class = "UILabel"; text = "第４条（禁止事項）"; ObjectID = "y1Y-cC-qvr"; */
+"y1Y-cC-qvr.text" = "第４条（禁止事項）";
+
+/* Class = "UITabBarItem"; title = "入力"; ObjectID = "y1l-Eg-J1e"; */
+"y1l-Eg-J1e.title" = "入力";
+
+/* Class = "UIButton"; normalTitle = "9"; ObjectID = "y7L-1R-poR"; */
+"y7L-1R-poR.normalTitle" = "9";
+
+/* Class = "UIButton"; normalTitle = "="; ObjectID = "yBk-RA-AER"; */
+"yBk-RA-AER.normalTitle" = "=";
+
+/* Class = "UILabel"; text = "Terms7Label"; ObjectID = "yCC-t4-eY1"; */
+"yCC-t4-eY1.text" = "Terms7Label";
+
+/* Class = "UILabel"; text = "MoneyLabel"; ObjectID = "ydI-m5-TN1"; */
+"ydI-m5-TN1.text" = "MoneyLabel";
+
+/* Class = "UILabel"; text = "inputLabel"; ObjectID = "yfC-al-UXO"; */
+"yfC-al-UXO.text" = "inputLabel";
+
+/* Class = "UIButton"; normalTitle = "4"; ObjectID = "z2v-9p-WY9"; */
+"z2v-9p-WY9.normalTitle" = "4";
+
+/* Class = "UIButton"; normalTitle = "6"; ObjectID = "z86-IT-Kd9"; */
+"z86-IT-Kd9.normalTitle" = "6";
+
+/* Class = "UILabel"; text = "自動入力の仕方その1"; ObjectID = "zCl-Mr-QkS"; */
+"zCl-Mr-QkS.text" = "自動入力の仕方その1";
+
+/* Class = "UILabel"; text = "Terms8Label1-1"; ObjectID = "zed-Rp-R9A"; */
+"zed-Rp-R9A.text" = "Terms8Label1-1";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "zfi-fP-Ydm"; */
+"zfi-fP-Ydm.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "はじめから"; ObjectID = "zpi-0T-yoj"; */
+"zpi-0T-yoj.normalTitle" = "はじめから";
+
+/* Class = "UITextField"; placeholder = "内容を入力"; ObjectID = "zqy-Jl-6Zy"; */
+"zqy-Jl-6Zy.placeholder" = "内容を入力";

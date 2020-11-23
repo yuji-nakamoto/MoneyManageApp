@@ -15,8 +15,8 @@ class ParchmentPaymentViewController: UIViewController {
         initPagingVC()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
     
@@ -39,7 +39,7 @@ class ParchmentPaymentViewController: UIViewController {
             pagingVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pagingVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             pagingVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 35)
+            pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 55)
         ])
    
         pagingVC.font = UIFont(name: "HiraMaruProN-W4", size: 12)!
@@ -58,7 +58,7 @@ class ParchmentPaymentViewController: UIViewController {
                 pagingVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 pagingVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 pagingVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 15)
+                pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 25)
             ])
             break
         default:

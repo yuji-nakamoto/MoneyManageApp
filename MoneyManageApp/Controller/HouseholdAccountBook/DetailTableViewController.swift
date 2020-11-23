@@ -48,6 +48,7 @@ class DetailTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setSwipeBack()
+        navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         tableView.tableFooterView = UIView()
     }

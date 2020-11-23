@@ -47,7 +47,7 @@ class ResetTableViewController: UITableViewController {
             try! realm.write {
                 realm.deleteAll()
                 HUD.flash(.labeledSuccess(title: "", subtitle: "データをリセットしました"), delay: 1)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.dismiss(animated: true, completion: nil)
                 }
             }

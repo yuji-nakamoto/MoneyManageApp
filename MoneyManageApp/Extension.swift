@@ -17,6 +17,8 @@ extension UIViewController {
     }
 }
 
+public let generator = UINotificationFeedbackGenerator()
+
 public let dataArray1 = [ "未設定", "月初", "月末", "2日", "3日", "4日", "5日", "6日", "7日", "8日", "9日", "10日", "11日", "12日", "13日", "14日", "15日", "16日", "17日", "18日", "19日", "20日", "21日", "22日", "23日", "24日", "25日", "26日", "27日", "28日"]
 
 public let calendar = Calendar.current
@@ -33,6 +35,7 @@ public var previousMonthLastdayDate = calendar.date(byAdding: add3, to: firstday
 public let dateFormatter = DateFormatter()
 
 public var timestamp: String {
+    dateFormatter.locale = Locale(identifier: "ja_JP")
     dateFormatter.dateFormat = "yyyy年M月d日 (EEEEE)"
     return dateFormatter.string(from: date)
 }

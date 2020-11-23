@@ -21,6 +21,7 @@ class OpinionInputViewController: UITableViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setSwipeBack()
         setupUI()
     }
     
@@ -40,6 +41,7 @@ class OpinionInputViewController: UITableViewController, UITextViewDelegate {
         
         if textView.text.count > 500 {
             HUD.flash(.labeledError(title: "", subtitle: "文字数制限です"), delay: 1)
+            generator.notificationOccurred(.error)
         } else {
             UserDefaults.standard.set(textView.text, forKey: "opinion")
             navigationController?.popViewController(animated: true)
