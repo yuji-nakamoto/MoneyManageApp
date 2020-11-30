@@ -94,6 +94,11 @@ class TotalMoneyTableViewCell: UITableViewCell {
                 money.holdMoney = totalMoney
             }
             
+            var yyyy_mm_dd: String {
+                dateFormatter.locale = Locale(identifier: "ja_JP")
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                return dateFormatter.string(from: date)
+            }
             if yyyy_mm_dd >= money.nextMonth {
                 
                 try! realm.write() {

@@ -155,7 +155,7 @@ class CloudBackupTableViewController: UITableViewController, GADInterstitialDele
                     if count5 == count3 {
                         HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            self.navigationController?.popViewController(animated: true)
+                            self.dismiss(animated: true, completion: nil)
                         }
                     }
                 }
@@ -199,7 +199,7 @@ class CloudBackupTableViewController: UITableViewController, GADInterstitialDele
                     if count2 >= count3 {
                         HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            self.navigationController?.popViewController(animated: true)
+                            self.dismiss(animated: true, completion: nil)
                         }
                     }
                 }
@@ -1057,7 +1057,7 @@ class CloudBackupTableViewController: UITableViewController, GADInterstitialDele
                     if count4 >= count3 {
                         HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            self.navigationController?.popViewController(animated: true)
+                            self.dismiss(animated: true, completion: nil)
                         }
                     }
                 }
@@ -1086,7 +1086,7 @@ class CloudBackupTableViewController: UITableViewController, GADInterstitialDele
                     User.updateUser(value: [BACKUP_COUNT: count3])
                     HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self.navigationController?.popViewController(animated: true)
+                        self.dismiss(animated: true, completion: nil)
                     }
                 }
             }

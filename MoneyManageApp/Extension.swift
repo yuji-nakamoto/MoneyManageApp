@@ -69,7 +69,6 @@ public var month: String {
     dateFormatter.dateFormat = "MM"
     return dateFormatter.string(from: date)
 }
-
 public var day: String {
     dateFormatter.locale = Locale(identifier: "ja_JP")
     dateFormatter.dateFormat = "d"

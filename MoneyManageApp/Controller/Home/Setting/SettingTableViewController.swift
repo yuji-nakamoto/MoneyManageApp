@@ -141,7 +141,7 @@ class SettingTableViewController: UITableViewController, SKStoreProductViewContr
             showSKStoreViewController()
             
         } else if indexPath.section == 3 && indexPath.row == 5 {
-            let activityItems = ["自動で入力!簡単ラクラク家計簿アプリ　無料で使えるマネーマネージ"]
+            let activityItems = ["自動で入力!簡単ラクラク家計簿アプリ　無料で使えるマネーマネージ", URL(string: "https://apps.apple.com/us/app/%E3%83%9E%E3%83%8D%E3%83%BC%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8-%E8%87%AA%E5%8B%95%E3%81%A7%E3%83%A9%E3%82%AF%E3%83%A9%E3%82%AF%E5%AE%B6%E8%A8%88%E7%B0%BF%E3%82%A2%E3%83%97%E3%83%AA/id1540427984#?platform=iphone") as Any] as [Any]
             let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
             self.present(activityVC, animated: true)
         }

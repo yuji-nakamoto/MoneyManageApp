@@ -15,6 +15,8 @@ class Tutorial6ViewController: UIViewController {
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var viewTopConst: NSLayoutConstraint!
+
     
     var videoPlayer: AVPlayer!
     
@@ -22,14 +24,37 @@ class Tutorial6ViewController: UIViewController {
         super.viewDidLoad()
         
         startButton.layer.cornerRadius = 35 / 2
-        setVideoPlayer()
+        setupVideoViewHeight()
+    }
+    
+    private func setupVideoViewHeight() {
         
+        print(UIScreen.main.nativeBounds.height)
         switch (UIScreen.main.nativeBounds.height) {
         case 1334:
-            heightConstraint.constant = 350
-            break
+            heightConstraint.constant = 360
+            viewTopConst.constant = 15
+        case 1792:
+            heightConstraint.constant = 510
+        case 2208:
+            heightConstraint.constant = 430
+        case 2436:
+            heightConstraint.constant = 460
+        case 2532:
+            heightConstraint.constant = 480
+        case 2688:
+            heightConstraint.constant = 530
+        case 2778:
+            heightConstraint.constant = 560
         default:
             break
+        }
+        if UIScreen.main.nativeBounds.height >= 2160 {
+            heightConstraint.constant = 740
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [self] in
+            setVideoPlayer()
         }
     }
     

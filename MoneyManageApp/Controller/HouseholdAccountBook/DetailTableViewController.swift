@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import GoogleMobileAds
 import RealmSwift
 
 class DetailTableViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var bannerView: GADBannerView!
     
     private var foodArray = [Food]()
     private var brushArray = [Brush]()
@@ -48,6 +50,7 @@ class DetailTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setSwipeBack()
+        setupBanner()
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         tableView.tableFooterView = UIView()
@@ -146,7 +149,7 @@ class DetailTableViewController: UIViewController {
         }
         foodArray.forEach { (food) in
             navigationItem.title = food.category
-            navigationController?.navigationBar.barTintColor = UIColor(named: "icon_color1")
+            navigationController?.navigationBar.barTintColor = UIColor(named: "vermilion")
         }
         mFood.forEach { (mfood) in
             categoryArray.append(mfood.category)
@@ -831,6 +834,13 @@ class DetailTableViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: CATEGORY)
         UserDefaults.standard.removeObject(forKey: YEAR)
         UserDefaults.standard.removeObject(forKey: MONTHE)
+    }
+    
+    private func setupBanner() {
+        
+        bannerView.adUnitID = "ca-app-pub-4750883229624981/8398635124"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
     }
 }
 

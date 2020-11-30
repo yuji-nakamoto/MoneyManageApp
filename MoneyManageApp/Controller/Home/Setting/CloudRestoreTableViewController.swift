@@ -1132,7 +1132,7 @@ class CloudRestoreTableViewController: UITableViewController, GADInterstitialDel
                             self.interstitial.present(fromRootViewController: self)
                         } else {
                             print("Error interstitial")
-                            self.navigationController?.popViewController(animated: true)
+                            self.dismiss(animated: true, completion: nil)
                         }
                     }
                 }
@@ -1396,7 +1396,7 @@ class CloudRestoreTableViewController: UITableViewController, GADInterstitialDel
     
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
         interstitial = createAndLoadIntersitial()
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

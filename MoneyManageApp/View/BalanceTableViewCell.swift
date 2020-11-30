@@ -219,7 +219,7 @@ class BalanceTableViewCell: UITableViewCell {
                 pieChartDataSet.entryLabelFont = UIFont(name: "HiraMaruProN-W4", size: 7)!
                 
                 if categoryArray[i] == "食費" {
-                    colors.append(UIColor(named: "icon_color1")!)
+                    colors.append(UIColor(named: "vermilion")!)
                 }
                 if categoryArray[i] == "日用品" {
                     colors.append(UIColor(named: "icon_color2")!)

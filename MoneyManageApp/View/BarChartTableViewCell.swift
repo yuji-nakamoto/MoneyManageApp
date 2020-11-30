@@ -286,7 +286,7 @@ class BarChartTableViewCell: UITableViewCell, ChartViewDelegate {
                     
                     barChartView.data = data
                     setupBarWidth(dataSet, data, mArray: mFoodArray)
-                    dataSet.colors = [UIColor(named: "icon_color1")!]
+                    dataSet.colors = [UIColor(named: "vermilion")!]
                 }
             } else if category == "日用品" {
                 for i in 0..<mBrushArray.count {

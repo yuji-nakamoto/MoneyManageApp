@@ -9,15 +9,15 @@ import UIKit
 
 class StartViewController: UIViewController {
 
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    @IBOutlet weak var logoImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         toTabVC()
+        logoImageView.layer.cornerRadius = 10
     }
     
     private func toTabVC() {
-        indicator.startAnimating()
         UserDefaults.standard.removeObject(forKey: TIME_OUT)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in

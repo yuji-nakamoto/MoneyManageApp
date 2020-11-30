@@ -40,21 +40,30 @@ class HomeViewController: UIViewController {
     private var autoArray4 = [Auto]()
     private let refresh = UIRefreshControl()
     
+    private let date = Date()
     private var firstDayString: String {
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateFormat = "M月d日"
         return dateFormatter.string(from: firstday!)
     }
-    
     private var lastDayString: String {
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateFormat = "M月d日"
         return dateFormatter.string(from: lastday!)
     }
-    
-    var yearMonthTotal: String {
+    private var yearMonthTotal: String {
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateFormat = "yyyy年M月合計"
+        return dateFormatter.string(from: date)
+    }
+    private var year: String {
+        dateFormatter.locale = Locale(identifier: "ja_JP")
+        dateFormatter.dateFormat = "yyyy"
+        return dateFormatter.string(from: date)
+    }
+    private var month: String {
+        dateFormatter.locale = Locale(identifier: "ja_JP")
+        dateFormatter.dateFormat = "MM"
         return dateFormatter.string(from: date)
     }
     
@@ -65,9 +74,6 @@ class HomeViewController: UIViewController {
         setupBanner()
         removeUserDefaults()
         print(Realm.Configuration.defaultConfiguration.fileURL as Any)
-        
-        let localStr = NSLocalizedString("hello", comment: "")
-        print(localStr)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,6 +114,13 @@ class HomeViewController: UIViewController {
     // MARK: - Auto function
     
     private func isAutofill() {
+        
+        let date = Date()
+        var yyyy_mm_dd: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.string(from: date)
+        }
         
         let realm = try! Realm()
         // 自動入力作成時 & 入出金反映時
@@ -1530,7 +1543,7 @@ class HomeViewController: UIViewController {
         hintView.alpha = 0
         hintView.layer.cornerRadius = 10
         closeButton.layer.cornerRadius = 30 / 2
-        descriptionLabel.text = "マネーをマネージしよう！\n操作が分からなくなった場合や、他のことも知りたい場合は、ホーム画面右上の歯車マークから'使い方'をタップで確認できます。"
+        descriptionLabel.text = "操作が分からなくなった場合や、他のことも知りたい場合は、ホーム画面右上の歯車マークから'使い方'をタップで確認できます。"
         tableView.refreshControl = refresh
         refresh.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
         

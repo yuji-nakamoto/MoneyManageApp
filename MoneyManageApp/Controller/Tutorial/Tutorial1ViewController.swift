@@ -12,7 +12,6 @@ class Tutorial1ViewController: UIViewController {
     
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var seekBar: UISlider!
-    @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
@@ -22,24 +21,52 @@ class Tutorial1ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [self] in
+            alert()
+        }
+        startButton.isEnabled = false
+        registerButton.isEnabled = false
         startButton.layer.cornerRadius = 35 / 2
         registerButton.layer.cornerRadius = 35 / 2
-        if UserDefaults.standard.object(forKey: END_TUTORIAL) != nil {
-            registerButton.isHidden = true
-            closeButton.isHidden = false
-        } else {
-            registerButton.isHidden = false
-            closeButton.isHidden = true
-        }
-        setVideoPlayer()
+        setupVideoViewHeight()
+    }
+    
+    private func setupVideoViewHeight() {
         
+        print(UIScreen.main.nativeBounds.height)
         switch (UIScreen.main.nativeBounds.height) {
         case 1334:
-            heightConstraint.constant = 350
-            break
+            heightConstraint.constant = 400
+        case 2208:
+            heightConstraint.constant = 450
+        case 1792:
+            heightConstraint.constant = 530
+        case 2436:
+            heightConstraint.constant = 480
+        case 2532:
+            heightConstraint.constant = 500
+        case 2688:
+            heightConstraint.constant = 550
+        case 2778:
+            heightConstraint.constant = 580
         default:
             break
         }
+        if UIScreen.main.nativeBounds.height >= 2160 {
+            heightConstraint.constant = 800
+        }
+    }
+    
+    private func alert() {
+        
+        let alert = UIAlertController(title: "アプリのダウンロード\nありがとうございます😊", message: "", preferredStyle: .alert)
+        let next = UIAlertAction(title: "進む", style: UIAlertAction.Style.default) { [self] (alert) in
+            setVideoPlayer()
+            startButton.isEnabled = true
+            registerButton.isEnabled = true
+        }
+        alert.addAction(next)
+        self.present(alert, animated: true,completion: nil)
     }
     
     private func setVideoPlayer() {
@@ -84,10 +111,6 @@ class Tutorial1ViewController: UIViewController {
     @IBAction func startButtonPressed(_ sender: Any) {
         videoPlayer.seek(to: CMTimeMakeWithSeconds(0, preferredTimescale: Int32(NSEC_PER_SEC)))
         videoPlayer.play()
-    }
-    
-    @IBAction func closeButtonPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func registerButtonPressed(_ sender: Any) {
