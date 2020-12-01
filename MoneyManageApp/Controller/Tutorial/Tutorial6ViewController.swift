@@ -36,21 +36,28 @@ class Tutorial6ViewController: UIViewController {
             viewTopConst.constant = 15
         case 1792:
             heightConstraint.constant = 510
+        case 2048:
+            heightConstraint.constant = 680
+        case 2160:
+            heightConstraint.constant = 700
         case 2208:
             heightConstraint.constant = 430
+        case 2360:
+            heightConstraint.constant = 700
+        case 2388:
+            heightConstraint.constant = 700
         case 2436:
             heightConstraint.constant = 460
         case 2532:
             heightConstraint.constant = 480
         case 2688:
             heightConstraint.constant = 530
+        case 2732:
+            heightConstraint.constant = 700
         case 2778:
             heightConstraint.constant = 560
         default:
             break
-        }
-        if UIScreen.main.nativeBounds.height >= 2160 {
-            heightConstraint.constant = 740
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [self] in

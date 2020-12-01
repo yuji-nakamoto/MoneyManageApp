@@ -34,9 +34,17 @@ class WithdrawalViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UserDefaults.standard.removeObject(forKey: SPENDING_ID)
         fetchSpending()
     }
-
+    
+    @IBAction func sortButtonPressed(_ sender: Any) {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let sortListVC = storyboard.instantiateViewController(withIdentifier: "SortListVC")
+        sortListVC.presentationController?.delegate = self
+        self.present(sortListVC, animated: true, completion: nil)
+    }
+    
     private func fetchSpending() {
         
         let realm = try! Realm()
@@ -94,14 +102,6 @@ class WithdrawalViewController: UIViewController {
         bannerView.load(GADRequest())
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "EditSpendingVC" {
-            let editSpendingVC = segue.destination as! EditSpendingViewController
-            editSpendingVC.id = id
-        }
-    }
-    
     private func setup() {
         
         switch (UIScreen.main.nativeBounds.height) {
@@ -145,7 +145,12 @@ extension WithdrawalViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         id = spendingArray[indexPath.row].id
-        performSegue(withIdentifier: "EditSpendingVC", sender: nil)
+        
+        UserDefaults.standard.set(id, forKey: SPENDING_ID)
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let editSpendingVC = storyboard.instantiateViewController(withIdentifier: "EditSpendingVC")
+        editSpendingVC.presentationController?.delegate = self
+        self.present(editSpendingVC, animated: true, completion: nil)
     }
 }
 
@@ -189,4 +194,10 @@ extension WithdrawalViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         fetchSpending()
     }
+}
+
+extension WithdrawalViewController: UIAdaptivePresentationControllerDelegate {
+  func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    fetchSpending()
+  }
 }

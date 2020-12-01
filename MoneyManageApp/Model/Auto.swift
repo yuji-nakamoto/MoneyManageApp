@@ -17,6 +17,7 @@ class Auto: Object {
     @objc dynamic var timestamp = ""
     @objc dynamic var date = ""
     @objc dynamic var nextMonth = ""
+    @objc dynamic var year = 0
     @objc dynamic var month = 0
     @objc dynamic var day = 0
     @objc dynamic var isInput = false
@@ -34,6 +35,7 @@ class FAuto {
     var timestamp: String!
     var date: String!
     var nextMonth: String!
+    var year: Int!
     var month: Int!
     var day: Int!
     var isInput: Bool!
@@ -53,6 +55,7 @@ class FAuto {
         timestamp = dict[TIMESTAMP] as? String ?? ""
         date = dict[DATE] as? String ?? ""
         nextMonth = dict[NEXT_MONTH] as? String ?? ""
+        year = dict[YEAR] as? Int ?? 0
         month = dict[MONTHE] as? Int ?? 0
         day = dict[DAY] as? Int ?? 0
         isInput = dict[IS_INPUT] as? Bool ?? false

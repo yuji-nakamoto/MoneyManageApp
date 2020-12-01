@@ -120,3 +120,7 @@ public let TOTAL_PRICE = "totalPrice"
 public let MONTHLY = "monthly"
 
 public let TIME_OUT = "timeout"
+
+public let SPENDING_ID = "spendingId"
+public let INCOME_ID = "incomeId"
+public let EDIT_AUTO_ID = "editAutoId"

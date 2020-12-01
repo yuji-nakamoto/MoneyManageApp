@@ -66,6 +66,7 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
     @IBOutlet weak var stackTopConst: NSLayoutConstraint!
     @IBOutlet weak var contentsBottomConst: NSLayoutConstraint!
     @IBOutlet weak var contentsTopConst: NSLayoutConstraint!
+    @IBOutlet weak var continueButton: UIButton!
     
     private var videoPlayer: AVPlayer!
     private let calendar = Calendar.current
@@ -99,63 +100,6 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
     
     // MARK: - Actions
     
-    private func showHintView() {
-        
-        switch (UIScreen.main.nativeBounds.height) {
-        case 1334:
-            stackTopConst.constant = 10
-            contentsBottomConst.constant = -30
-            contentsTopConst.constant = 10
-            heightConstraint.constant = 370
-            break
-        default:
-            break
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
-            setVideoPlayer()
-            
-            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                hintView.alpha = 1
-            }, completion: nil)
-        }
-    }
-    
-    private func setVideoPlayer() {
-        
-        guard let path = Bundle.main.path(forResource: "tutorial2", ofType: "mp4") else {
-            fatalError("Movie file can not find.")
-        }
-        let fileURL = URL(fileURLWithPath: path)
-        let avAsset = AVURLAsset(url: fileURL)
-        let playerItem: AVPlayerItem = AVPlayerItem(asset: avAsset)
-        
-        videoPlayer = AVPlayer(playerItem: playerItem)
-        
-        let layer = AVPlayerLayer()
-        layer.videoGravity = AVLayerVideoGravity.resizeAspect
-        layer.player = videoPlayer
-        layer.frame = contentView.bounds
-        contentView.layer.addSublayer(layer)
-        
-        seekBar.minimumValue = 0
-        seekBar.maximumValue = Float(CMTimeGetSeconds(avAsset.duration))
-        
-        let interval : Double = Double(0.5 * seekBar.maximumValue) / Double(seekBar.bounds.maxX)
-        
-        let time : CMTime = CMTimeMakeWithSeconds(interval, preferredTimescale: Int32(NSEC_PER_SEC))
-        
-        videoPlayer.addPeriodicTimeObserver(forInterval: time, queue: nil, using: {time in
-            
-            let duration = CMTimeGetSeconds(self.videoPlayer.currentItem!.duration)
-            let time = CMTimeGetSeconds(self.videoPlayer.currentTime())
-            let value = Float(self.seekBar.maximumValue - self.seekBar.minimumValue) * Float(time) / Float(duration) + Float(self.seekBar.minimumValue)
-            self.seekBar.value = value
-        })
-        videoPlayer.seek(to: CMTimeMakeWithSeconds(0, preferredTimescale: Int32(NSEC_PER_SEC)))
-        videoPlayer.play()
-    }
-    
     @IBAction func onSider(_ sender: UISlider) {
         videoPlayer.seek(to: CMTimeMakeWithSeconds(Float64(seekBar.value), preferredTimescale: Int32(NSEC_PER_SEC)))
     }
@@ -176,11 +120,11 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
     
     @IBAction func categoryButtonPressed(_ sender: Any) {
         textField.resignFirstResponder()
+        navigationController?.navigationBar.isHidden = false
         performSegue(withIdentifier: "CategoryCVC", sender: nil)
     }
     
-    @IBAction func completionButtonPressed(_ sender: Any) {
-        
+    @IBAction func continueButtonPressed(_ sender: Any) {
         numberLabel.text = "0"
         numberLabel2.text = "0"
         categoryLabel.text = "未分類"
@@ -196,6 +140,19 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
             backView.alpha = 0
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 backView.isHidden = true
+            }
+        }
+    }
+    
+    @IBAction func completionButtonPressed(_ sender: Any) {
+
+        UIView.animate(withDuration: 0.3) { [self] in
+            backView.alpha = 0
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                backView.isHidden = true
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let tabVC = storyboard.instantiateViewController(withIdentifier: "TabVC")
+                self.present(tabVC, animated: true, completion: nil)
             }
         }
     }
@@ -580,7 +537,8 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         let nextDateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month)! + 1, day: 1))
         let firstDateComp = calendar.date(from: DateComponents(year: Int(year2), month: Int(month2)!, day: 1))
         
-        let add = DateComponents(month: Int(month2)! + 2, day: -1)
+        let comps = calendar.dateComponents([.year, .month,], from: firstDateComp!)
+        let firstday = calendar.date(from: comps)
         let lastday = calendar.date(byAdding: add, to: firstday!)
         
         var nextMonth: String {
@@ -618,6 +576,7 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
             auto.isInput = true
             auto.onRegister = true
             auto.isRegister = true
+            auto.year = Int(year)!
             auto.month = Int(month2)!
             auto.day = Int(day2)!
             
@@ -1566,6 +1525,85 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         day2 = day
     }
     
+    private func showHintView() {
+        
+        print(UIScreen.main.nativeBounds.height)
+        switch (UIScreen.main.nativeBounds.height) {
+        case 1334:
+            stackTopConst.constant = 10
+            contentsBottomConst.constant = -30
+            contentsTopConst.constant = 10
+            heightConstraint.constant = 370
+        case 1792:
+            heightConstraint.constant = 470
+        case 2048:
+            heightConstraint.constant = 600
+        case 2160:
+            heightConstraint.constant = 700
+        case 2208:
+            heightConstraint.constant = 380
+        case 2360:
+            heightConstraint.constant = 700
+        case 2388:
+            heightConstraint.constant = 700
+        case 2436:
+            heightConstraint.constant = 400
+        case 2532:
+            heightConstraint.constant = 420
+        case 2688:
+            heightConstraint.constant = 470
+        case 2732:
+            heightConstraint.constant = 700
+        case 2778:
+            heightConstraint.constant = 500
+        default:
+            break
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+            setVideoPlayer()
+            
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                hintView.alpha = 1
+            }, completion: nil)
+        }
+    }
+    
+    private func setVideoPlayer() {
+        
+        guard let path = Bundle.main.path(forResource: "tutorial2", ofType: "mp4") else {
+            fatalError("Movie file can not find.")
+        }
+        let fileURL = URL(fileURLWithPath: path)
+        let avAsset = AVURLAsset(url: fileURL)
+        let playerItem: AVPlayerItem = AVPlayerItem(asset: avAsset)
+        
+        videoPlayer = AVPlayer(playerItem: playerItem)
+        
+        let layer = AVPlayerLayer()
+        layer.videoGravity = AVLayerVideoGravity.resizeAspect
+        layer.player = videoPlayer
+        layer.frame = contentView.bounds
+        contentView.layer.addSublayer(layer)
+        
+        seekBar.minimumValue = 0
+        seekBar.maximumValue = Float(CMTimeGetSeconds(avAsset.duration))
+        
+        let interval : Double = Double(0.5 * seekBar.maximumValue) / Double(seekBar.bounds.maxX)
+        
+        let time : CMTime = CMTimeMakeWithSeconds(interval, preferredTimescale: Int32(NSEC_PER_SEC))
+        
+        videoPlayer.addPeriodicTimeObserver(forInterval: time, queue: nil, using: {time in
+            
+            let duration = CMTimeGetSeconds(self.videoPlayer.currentItem!.duration)
+            let time = CMTimeGetSeconds(self.videoPlayer.currentTime())
+            let value = Float(self.seekBar.maximumValue - self.seekBar.minimumValue) * Float(time) / Float(duration) + Float(self.seekBar.minimumValue)
+            self.seekBar.value = value
+        })
+        videoPlayer.seek(to: CMTimeMakeWithSeconds(0, preferredTimescale: Int32(NSEC_PER_SEC)))
+        videoPlayer.play()
+    }
+    
     private func isNumericAndValidate() {
         isNumericTrue()
         if numberLabel.text!.count > 10 { return }
@@ -1606,7 +1644,8 @@ class SpendingViewController: UIViewController, UITextFieldDelegate, FSCalendarD
         backView.isHidden = true
         backView.alpha = 0
         hintView.alpha = 0
-        completionButton.layer.cornerRadius = 3
+        continueButton.layer.cornerRadius = 5
+        completionButton.layer.cornerRadius = 5
         startButton.layer.cornerRadius = 35 / 2
         completionButton2.layer.cornerRadius = 35 / 2
         saveButton.layer.cornerRadius = 10

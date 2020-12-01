@@ -76,8 +76,8 @@ class BalanceTableViewCell: UITableViewCell {
         priceArray.removeAll()
         
         let realm = try! Realm()
-        let spenResults = realm.objects(Spending.self).filter("month == '\(month)'").filter("year == '\(year)'")
-        let incomeResults = realm.objects(Income.self).filter("month == '\(month)'").filter("year == '\(year)'")
+        let spenResults = realm.objects(Spending.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let incomeResults = realm.objects(Income.self).filter("year == '\(year)'").filter("month == '\(month)'")
         
         let totalSpending = spenResults.reduce(0) { (result, spending) -> Int in
             return result + spending.price

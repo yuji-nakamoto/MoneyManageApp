@@ -37,23 +37,30 @@ class Tutorial1ViewController: UIViewController {
         switch (UIScreen.main.nativeBounds.height) {
         case 1334:
             heightConstraint.constant = 400
-        case 2208:
-            heightConstraint.constant = 450
         case 1792:
             heightConstraint.constant = 530
+        case 2048:
+            heightConstraint.constant = 700
+        case 2160:
+            heightConstraint.constant = 800
+        case 2208:
+            heightConstraint.constant = 450
+        case 2360:
+            heightConstraint.constant = 800
+        case 2388:
+            heightConstraint.constant = 800
         case 2436:
             heightConstraint.constant = 480
         case 2532:
             heightConstraint.constant = 500
         case 2688:
             heightConstraint.constant = 550
+        case 2732:
+            heightConstraint.constant = 800
         case 2778:
             heightConstraint.constant = 580
         default:
             break
-        }
-        if UIScreen.main.nativeBounds.height >= 2160 {
-            heightConstraint.constant = 800
         }
     }
     

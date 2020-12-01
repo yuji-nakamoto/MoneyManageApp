@@ -63,7 +63,7 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
     private var year2 = ""
     private var month2 = ""
     private var day2 = ""
-    var id = ""
+    var id = UserDefaults.standard.object(forKey: INCOME_ID) as! String
     let realm = try? Realm()
     lazy var salary = realm!.objects(Salary.self).filter("id = '\(id)'")
     lazy var temporary = realm!.objects(Temporary.self).filter("id = '\(id)'")
@@ -78,7 +78,6 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setSwipeBack()
         fetchIncome()
         setup()
     }
@@ -249,7 +248,7 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                     realm.delete(income)
                     HUD.flash(.labeledSuccess(title: "", subtitle: "削除しました"), delay: 0.5)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        navigationController?.popViewController(animated: true)
+                        dismiss(animated: true, completion: nil)
                     }
                 }
             }
@@ -267,7 +266,7 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
     // MARK: - Actions
     
     @IBAction func backButtonPressed(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func datePickerButtonPressed(_ sender: Any) {
@@ -661,6 +660,7 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                 auto.isInput = true
                 auto.onRegister = true
                 auto.isRegister = true
+                auto.year = Int(self.year2) ?? 0
                 auto.month = Int(self.month2) ?? 0
                 auto.day = Int(self.day2) ?? 0
                 
@@ -696,7 +696,7 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                 updateUnCategory2(income, yearMonthTotal, firstDayString, lastDayString)
             }
         }
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     private func incomeData(_ income: Income) {
@@ -1435,5 +1435,15 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         textField.resignFirstResponder()
+    }
+}
+
+extension EditIncomeViewController {
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        super.dismiss(animated: flag, completion: completion)
+        guard let presentationController = presentationController else {
+            return
+        }
+        presentationController.delegate?.presentationControllerDidDismiss?(presentationController)
     }
 }

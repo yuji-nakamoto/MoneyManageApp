@@ -38,17 +38,7 @@ class RestoreTableViewController: UITableViewController, GADInterstitialDelegate
         
         let alert = UIAlertController(title: "", message: "データを復元しますか？", preferredStyle: .alert)
         let restore = UIAlertAction(title: "復元する", style: UIAlertAction.Style.default) { [self] (alert) in
-            
             doRestore()
-            HUD.flash(.labeledSuccess(title: "", subtitle: "復元しました"), delay: 1)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                if self.interstitial.isReady {
-                    self.interstitial.present(fromRootViewController: self)
-                } else {
-                    print("Error interstitial")
-                    self.navigationController?.popViewController(animated: true)
-                }
-            }
         }
         let cancel = UIAlertAction(title: "キャンセル", style: .cancel)
        
@@ -86,6 +76,15 @@ class RestoreTableViewController: UITableViewController, GADInterstitialDelegate
         }
         try FileManager.default.removeItem(at: realmFileUrl)
         try FileManager.default.copyItem(at: backupFileURL, to: realmFileUrl)
+        HUD.flash(.labeledSuccess(title: "", subtitle: "復元しました"), delay: 1)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            if self.interstitial.isReady {
+                self.interstitial.present(fromRootViewController: self)
+            } else {
+                print("Error interstitial")
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     
     private func setup() {

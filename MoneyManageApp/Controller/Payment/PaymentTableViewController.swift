@@ -26,17 +26,21 @@ class PaymentTableViewController: UIViewController {
         setup()
         setSearchBar()
         setupBanner()
-        tableView.emptyDataSetSource = self
-        tableView.emptyDataSetDelegate = self
-        tableView.tableFooterView = UIView()
-        sortButton.layer.cornerRadius = 35 / 2
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UserDefaults.standard.removeObject(forKey: INCOME_ID)
         fetchIncome()
     }
-
+    
+    @IBAction func sortButtonPressed(_ sender: Any) {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let sortListVC = storyboard.instantiateViewController(withIdentifier: "SortListVC")
+        sortListVC.presentationController?.delegate = self
+        self.present(sortListVC, animated: true, completion: nil)
+    }
+    
     private func fetchIncome() {
         
         let realm = try! Realm()
@@ -94,16 +98,12 @@ class PaymentTableViewController: UIViewController {
         bannerView.load(GADRequest())
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "EditIncomeVC" {
-            let editIncomeVC = segue.destination as! EditIncomeViewController
-            editIncomeVC.id = id
-        }
-    }
-    
     private func setup() {
         
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
+        tableView.tableFooterView = UIView()
+        sortButton.layer.cornerRadius = 35 / 2
         switch (UIScreen.main.nativeBounds.height) {
         case 2048:
             changeLayout()
@@ -145,7 +145,12 @@ extension PaymentTableViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         id = incomeArray[indexPath.row].id
-        performSegue(withIdentifier: "EditIncomeVC", sender: nil)
+        
+        UserDefaults.standard.set(id, forKey: INCOME_ID)
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let editIncomeVC = storyboard.instantiateViewController(withIdentifier: "EditIncomeVC")
+        editIncomeVC.presentationController?.delegate = self
+        self.present(editIncomeVC, animated: true, completion: nil)
     }
 }
 
@@ -189,4 +194,10 @@ extension PaymentTableViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         fetchIncome()
     }
+}
+
+extension PaymentTableViewController: UIAdaptivePresentationControllerDelegate {
+  func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    fetchIncome()
+  }
 }

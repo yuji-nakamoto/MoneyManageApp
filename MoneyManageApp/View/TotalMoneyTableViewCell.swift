@@ -90,10 +90,6 @@ class TotalMoneyTableViewCell: UITableViewCell {
             let result: String = formatter.string(from: NSNumber.init(integerLiteral: totalMoney))!
             totalMoneyLabel.text = "¥" + result
             
-            try! realm.write() {
-                money.holdMoney = totalMoney
-            }
-            
             var yyyy_mm_dd: String {
                 dateFormatter.locale = Locale(identifier: "ja_JP")
                 dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -120,6 +116,10 @@ class TotalMoneyTableViewCell: UITableViewCell {
             
                 try! realm.write() {
                     realm.add(monthry)
+                }
+            } else {
+                try! realm.write() {
+                    money.holdMoney = totalMoney
                 }
             }
         }

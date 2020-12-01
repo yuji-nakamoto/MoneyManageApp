@@ -155,7 +155,7 @@ class CloudBackupTableViewController: UITableViewController, GADInterstitialDele
                     if count5 == count3 {
                         HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            self.dismiss(animated: true, completion: nil)
+                            navigationController?.popViewController(animated: true)
                         }
                     }
                 }
@@ -183,6 +183,7 @@ class CloudBackupTableViewController: UITableViewController, GADInterstitialDele
                         TIMESTAMP: auto.timestamp,
                         DATE: auto.date,
                         NEXT_MONTH: auto.nextMonth,
+                        YEAR: auto.year,
                         MONTHE: auto.month,
                         DAY: auto.day,
                         IS_INPUT: auto.isInput,
@@ -199,7 +200,7 @@ class CloudBackupTableViewController: UITableViewController, GADInterstitialDele
                     if count2 >= count3 {
                         HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            self.dismiss(animated: true, completion: nil)
+                            navigationController?.popViewController(animated: true)
                         }
                     }
                 }
@@ -1057,7 +1058,7 @@ class CloudBackupTableViewController: UITableViewController, GADInterstitialDele
                     if count4 >= count3 {
                         HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            self.dismiss(animated: true, completion: nil)
+                            navigationController?.popViewController(animated: true)
                         }
                     }
                 }
@@ -1086,19 +1087,19 @@ class CloudBackupTableViewController: UITableViewController, GADInterstitialDele
                     User.updateUser(value: [BACKUP_COUNT: count3])
                     HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        self.dismiss(animated: true, completion: nil)
+                        navigationController?.popViewController(animated: true)
                     }
                 }
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
             if count2 == 0 && count5 == 0 {
                 HUD.flash(.labeledError(title: "", subtitle: "バックアップするデータがありません"), delay: 1)
                 generator.notificationOccurred(.error)
             }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             if self.interstitial.isReady {
                 self.interstitial.present(fromRootViewController: self)
             } else {
@@ -1125,7 +1126,6 @@ class CloudBackupTableViewController: UITableViewController, GADInterstitialDele
     }
     
     private func createAndLoadIntersitial() -> GADInterstitial {
-        
         let interstitial = GADInterstitial(adUnitID: "ca-app-pub-4750883229624981/7295600156")
         interstitial.delegate = self
         interstitial.load(GADRequest())

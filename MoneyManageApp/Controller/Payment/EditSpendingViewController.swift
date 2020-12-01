@@ -64,7 +64,7 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
     private var month2 = ""
     private var day2 = ""
     
-    var id = ""
+    var id = UserDefaults.standard.object(forKey: SPENDING_ID) as! String
     let realm = try? Realm()
     lazy var food = realm!.objects(Food.self).filter("id = '\(id)'")
     lazy var brush = realm!.objects(Brush.self).filter("id = '\(id)'")
@@ -89,7 +89,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setSwipeBack()
         fetchSpending()
         setup()
     }
@@ -318,7 +317,7 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         realm.delete(special)
                     } else if spending.category == "現金・カード" {
                         card.forEach { (card) in
-                            let mCard = realm.objects(MonthlyFood.self).filter("year == '\(card.year)'").filter("month == '\(card.month)'")
+                            let mCard = realm.objects(MonthlyCard.self).filter("year == '\(card.year)'").filter("month == '\(card.month)'")
                             mCard.forEach { (data) in
                                 data.totalPrice = data.totalPrice - card.price
                                 if data.totalPrice == 0 {
@@ -406,10 +405,9 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         realm.delete(unCategory)
                     }
                     realm.delete(spending)
-                    
                     HUD.flash(.labeledSuccess(title: "", subtitle: "削除しました"), delay: 0.5)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        navigationController?.popViewController(animated: true)
+                        dismiss(animated: true, completion: nil)
                     }
                 }
             }
@@ -428,7 +426,7 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
     
     
     @IBAction func backButtonPressed(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func datePickerButtonPressed(_ sender: Any) {
@@ -822,6 +820,7 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                 auto.isInput = true
                 auto.onRegister = true
                 auto.isRegister = true
+                auto.year = Int(self.year2) ?? 0
                 auto.month = Int(self.month2) ?? 0
                 auto.day = Int(self.day2) ?? 0
                 
@@ -877,7 +876,7 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                 updateUnCategory(spending, yearMonthTotal, firstDayString, lastDayString)
             }
         }
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     private func spendingData(_ spending: Spending) {
@@ -2306,5 +2305,15 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         textField.resignFirstResponder()
+    }
+}
+
+extension EditSpendingViewController {
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        super.dismiss(animated: flag, completion: completion)
+        guard let presentationController = presentationController else {
+            return
+        }
+        presentationController.delegate?.presentationControllerDidDismiss?(presentationController)
     }
 }

@@ -14,6 +14,8 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Properties
     
     @IBOutlet weak var caluclatorView: UIView!
+    @IBOutlet weak var categoryImageView: UIImageView!
+    @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var numberLabel2: UILabel!
     @IBOutlet weak var textField: UITextField!
@@ -45,6 +47,9 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var categoryImageBottomConst: NSLayoutConstraint!
     @IBOutlet weak var calenderImageTopConst: NSLayoutConstraint!
     @IBOutlet weak var calenderImageBottomConst: NSLayoutConstraint!
+    @IBOutlet weak var memoImageTopConst: NSLayoutConstraint!
+    @IBOutlet weak var memoImageBottomConst: NSLayoutConstraint!
+
     
     lazy var buttons = [zeroButton, oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton, sevenButton, eightButton, nineButton, clearButton, multiplyButton, minusButton, plusButton, devideButton]
     private var firstNumeric = false
@@ -52,14 +57,13 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
     private var inputNumber = 0
     private var autoArray = [Auto]()
     private var month = 0
-    var id = ""
+    var id = UserDefaults.standard.object(forKey: EDIT_AUTO_ID) as! String
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        setSwipeBack()
         fetchAuto()
     }
     
@@ -90,13 +94,91 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
             textField.text = auto.memo
             month = auto.month
             conversionDay()
+            
+            if auto.category == "未分類" {
+                categoryImageView.image = UIImage(systemName: "questionmark.circle")
+                categoryImageView.tintColor = .systemGray
+                categoryLabel.text = "未分類"
+            } else if auto.category == "食費" {
+                categoryImageView.image = UIImage(named: "food")
+                categoryLabel.text = "食費"
+            } else if auto.category == "日用品" {
+                categoryImageView.image = UIImage(named: "brush")
+                categoryLabel.text = "日用品"
+            } else if auto.category == "趣味" {
+                categoryImageView.image = UIImage(named: "hobby")
+                categoryLabel.text = "趣味"
+            } else if auto.category == "交際費" {
+                categoryImageView.image = UIImage(named: "dating")
+                categoryLabel.text = "交際費"
+            } else if auto.category == "交通費" {
+                categoryImageView.image = UIImage(named: "traffic")
+                categoryLabel.text = "交通費"
+            } else if auto.category == "衣服・美容" {
+                categoryImageView.image = UIImage(named: "clothe")
+                categoryLabel.text = "衣服・美容"
+            } else if auto.category == "健康・医療" {
+                categoryImageView.image = UIImage(named: "health")
+                categoryLabel.text = "健康・医療"
+            } else if auto.category == "自動車" {
+                categoryImageView.image = UIImage(named: "car")
+                categoryLabel.text = "自動車"
+            } else if auto.category == "教養・教育" {
+                categoryImageView.image = UIImage(named: "education")
+                categoryLabel.text = "教養・教育"
+            } else if auto.category == "特別な支出" {
+                categoryImageView.image = UIImage(named: "special")
+                categoryLabel.text = "特別な支出"
+            } else if auto.category == "現金・カード" {
+                categoryImageView.image = UIImage(named: "card")
+                categoryLabel.text = "現金・カード"
+            } else if auto.category == "水道・光熱費" {
+                categoryImageView.image = UIImage(named: "utility")
+                categoryLabel.text = "水道・光熱費"
+            } else if auto.category == "通信費" {
+                categoryImageView.image = UIImage(named: "communication")
+                categoryLabel.text = "通信費"
+            } else if auto.category == "住宅" {
+                categoryImageView.image = UIImage(named: "house")
+                categoryLabel.text = "住宅"
+            } else if auto.category == "税・社会保険" {
+                categoryImageView.image = UIImage(named: "tax")
+                categoryLabel.text = "税・社会保険"
+            } else if auto.category == "保険" {
+                categoryImageView.image = UIImage(named: "insrance")
+                categoryLabel.text = "保険"
+            } else if auto.category == "その他" {
+                categoryImageView.image = UIImage(named: "etcetra")
+                categoryLabel.text = "その他"
+            } else if auto.category == "給与" {
+                categoryImageView.image = UIImage(named: "en_mark")
+                categoryLabel.text = "給与"
+            } else if auto.category == "一時所得" {
+                categoryImageView.image = UIImage(named: "en_mark")
+                categoryLabel.text = "一時所得"
+            } else if auto.category == "事業・副業" {
+                categoryImageView.image = UIImage(named: "en_mark")
+                categoryLabel.text = "事業・副業"
+            } else if auto.category == "年金" {
+                categoryImageView.image = UIImage(named: "en_mark")
+                categoryLabel.text = "年金"
+            } else if auto.category == "配当所得" {
+                categoryImageView.image = UIImage(named: "en_mark")
+                categoryLabel.text = "配当所得"
+            } else if auto.category == "不動産所得" {
+                categoryImageView.image = UIImage(named: "en_mark")
+                categoryLabel.text = "不動産所得"
+            } else if auto.category == "その他入金" {
+                categoryImageView.image = UIImage(named: "en_mark")
+                categoryLabel.text = "その他入金"
+            }
         }
     }
     
     // MARK: - Actions
     
     @IBAction func backButtonPressed(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
@@ -106,12 +188,11 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
         autoArray.forEach { (auto) in
             let alert = UIAlertController(title: auto.category, message: "自動入力を削除しますか？", preferredStyle: .actionSheet)
             let delete = UIAlertAction(title: "削除する", style: UIAlertAction.Style.default) { [self] (alert) in
-                
                 try! realm.write {
                     realm.delete(auto)
                     HUD.flash(.labeledSuccess(title: "", subtitle: "削除しました"), delay: 0.5)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        navigationController?.popViewController(animated: true)
+                        dismiss(animated: true, completion: nil)
                     }
                 }
             }
@@ -494,7 +575,7 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
                         formatterFunc(auto: auto, date: dateComp2!)
                     }
                     setAutoData(auto)
-                    navigationController?.popViewController(animated: true)
+                    dismiss(animated: true)
                 }
             } else if auto.isInput == true && auto.onRegister == false {
                 
@@ -513,7 +594,7 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
                         formatterFunc(auto: auto, date: dateComp2!)
                     }
                     setAutoData(auto)
-                    navigationController?.popViewController(animated: true)
+                    dismiss(animated: true)
                 }
             } else if auto.isInput == false && auto.onRegister == false {
                 
@@ -532,7 +613,7 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
                         formatterFunc(auto: auto, date: dateComp2!)
                     }
                     setAutoData(auto)
-                    navigationController?.popViewController(animated: true)
+                    dismiss(animated: true, completion: nil)
                 }
             }
         }
@@ -608,8 +689,8 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
             categoryImageBottomConst.constant = 10
             calenderImageTopConst.constant = 10
             calenderImageBottomConst.constant = 10
-            
-            break
+            memoImageTopConst.constant = 10
+            memoImageBottomConst.constant = 10
         default:
             break
         }
@@ -712,5 +793,15 @@ extension EditAutoItemViewController: PickerKeyboard1Delegate {
             dateLabel.textColor = UIColor(named: O_BLACK)
             conversionDay()
         }
+    }
+}
+
+extension EditAutoItemViewController {
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        super.dismiss(animated: flag, completion: completion)
+        guard let presentationController = presentationController else {
+            return
+        }
+        presentationController.delegate?.presentationControllerDidDismiss?(presentationController)
     }
 }

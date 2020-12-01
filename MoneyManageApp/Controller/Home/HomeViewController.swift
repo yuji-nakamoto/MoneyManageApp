@@ -23,12 +23,14 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var hintView: UIView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var autofillLabel: UILabel!
     @IBOutlet weak var autofillTopViewHeight: NSLayoutConstraint!
     @IBOutlet weak var autofillLeftConst: NSLayoutConstraint!
     @IBOutlet weak var autofillViewHeight: NSLayoutConstraint!
     @IBOutlet weak var priceRightConst: NSLayoutConstraint!
     @IBOutlet weak var categoryImageLeftConst: NSLayoutConstraint!
+    @IBOutlet weak var registerHeight: NSLayoutConstraint!
     @IBOutlet weak var countLabel: UILabel!
     
     private var player = AVAudioPlayer()
@@ -40,40 +42,12 @@ class HomeViewController: UIViewController {
     private var autoArray4 = [Auto]()
     private let refresh = UIRefreshControl()
     
-    private let date = Date()
-    private var firstDayString: String {
-        dateFormatter.locale = Locale(identifier: "ja_JP")
-        dateFormatter.dateFormat = "M月d日"
-        return dateFormatter.string(from: firstday!)
-    }
-    private var lastDayString: String {
-        dateFormatter.locale = Locale(identifier: "ja_JP")
-        dateFormatter.dateFormat = "M月d日"
-        return dateFormatter.string(from: lastday!)
-    }
-    private var yearMonthTotal: String {
-        dateFormatter.locale = Locale(identifier: "ja_JP")
-        dateFormatter.dateFormat = "yyyy年M月合計"
-        return dateFormatter.string(from: date)
-    }
-    private var year: String {
-        dateFormatter.locale = Locale(identifier: "ja_JP")
-        dateFormatter.dateFormat = "yyyy"
-        return dateFormatter.string(from: date)
-    }
-    private var month: String {
-        dateFormatter.locale = Locale(identifier: "ja_JP")
-        dateFormatter.dateFormat = "MM"
-        return dateFormatter.string(from: date)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         showHintView()
         setupBanner()
         removeUserDefaults()
-        print(Realm.Configuration.defaultConfiguration.fileURL as Any)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,10 +58,26 @@ class HomeViewController: UIViewController {
         }
         setupSound()
         isAutofill()
+        checkRegister()
         tableView.reloadData()
+        print("Realm URL: ",Realm.Configuration.defaultConfiguration.fileURL as Any)
     }
     
     // MARK: - Actions
+    
+    @IBAction func settingButtonPressed(_ sender: Any) {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let navSettingVC = storyboard.instantiateViewController(withIdentifier: "NavSettingVC")
+        navSettingVC.presentationController?.delegate = self
+        self.present(navSettingVC, animated: true, completion: nil)
+    }
+    
+    @IBAction func registerButtonPressed(_ sender: Any) {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let inputVC = storyboard.instantiateViewController(withIdentifier: "InputVC")
+        inputVC.presentationController?.delegate = self
+        self.present(inputVC, animated: true, completion: nil)
+    }
     
     @IBAction func closeButtonPressd(_ sender: Any) {
         UIView.animate(withDuration: 0.5) { [self] in
@@ -107,6 +97,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc func refreshTableView(){
+        checkRegister()
         tableView.reloadData()
         refresh.endRefreshing()
     }
@@ -165,8 +156,35 @@ class HomeViewController: UIViewController {
         let realm = try! Realm()
         var day = auto.day
         let calendar = Calendar.current
-        var dateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month)! + 1, day: day))
-        let nextDateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month)! + 1, day: 1))
+        
+        let autoDateComp = calendar.date(from: DateComponents(year: Int(auto.year), month: auto.month))
+        let add = DateComponents(month: 1, day: -1)
+        let comps = calendar.dateComponents([.year, .month,], from: autoDateComp!)
+        let firstday = calendar.date(from: comps)
+        let lastday = calendar.date(byAdding: add, to: firstday!)
+        var firstDayString: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "M月d日"
+            return dateFormatter.string(from: firstday!)
+        }
+        var lastDayString: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "M月d日"
+            return dateFormatter.string(from: lastday!)
+        }
+        var yyyy_mm: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "yyyy-MM"
+            return dateFormatter.string(from: autoDateComp!)
+        }
+        var yearMonthTotal: String {
+            dateFormatter.locale = Locale(identifier: "ja_JP")
+            dateFormatter.dateFormat = "yyyy年M月合計"
+            return dateFormatter.string(from: autoDateComp!)
+        }
+        
+        var dateComp = calendar.date(from: DateComponents(year: Int(auto.year), month: auto.month + 1, day: day))
+        let nextDateComp = calendar.date(from: DateComponents(year: Int(auto.year), month: auto.month + 1, day: 1))
         let spending = Spending()
         let food = Food()
         let brush = Brush()
@@ -213,109 +231,109 @@ class HomeViewController: UIViewController {
             
             if auto.category == "食費" {
                 foodData(food, auto)
-                mFoodCreate(auto)
+                mFoodCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(food)
                 }
             } else if auto.category == "日用品" {
                 brushData(brush, auto)
-                mBrushCreate(auto)
+                mBrushCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(brush)
                 }
             } else if auto.category == "趣味" {
                 hobbyData(hobby, auto)
-                mHobbyCreate(auto)
+                mHobbyCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(hobby)
                 }
             } else if auto.category == "交際費" {
                 datingData(dating, auto)
-                mDatingCreate(auto)
+                mDatingCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(dating)
                 }
             } else if auto.category == "交通費" {
                 trafficData(traffic, auto)
-                mTrafficCreate(auto)
+                mTrafficCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(traffic)
                 }
             } else if auto.category == "衣服・美容" {
                 clotheData(clothe, auto)
-                mClotheCreate(auto)
+                mClotheCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(clothe)
                 }
             } else if auto.category == "健康・医療" {
                 healthData(health, auto)
-                mHealthCreate(auto)
+                mHealthCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(health)
                 }
             } else if auto.category == "自動車" {
                 carData(car, auto)
-                mCarCreate(auto)
+                mCarCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(car)
                 }
             } else if auto.category == "教養・教育" {
                 educationData(education, auto)
-                mEducationCreate(auto)
+                mEducationCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(education)
                 }
             } else if auto.category == "特別な支出" {
                 specialData(special, auto)
-                mSpecialCreate(auto)
+                mSpecialCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(special)
                 }
             } else if auto.category == "現金・カード" {
                 cardData(card, auto)
-                mCardCreate(auto)
+                mCardCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(card)
                 }
             } else if auto.category == "水道・光熱費" {
                 utilityData(utility, auto)
-                mUtilityCreate(auto)
+                mUtilityCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(utility)
                 }
             } else if auto.category == "通信費" {
                 communicationData(communication, auto)
-                mCommunicationCreate(auto)
+                mCommunicationCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(communication)
                 }
             } else if auto.category == "住宅" {
                 houseData(house, auto)
-                mHouseCreate(auto)
+                mHouseCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(house)
                 }
             } else if auto.category == "税・社会保険" {
                 taxData(tax, auto)
-                mTaxCreate(auto)
+                mTaxCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(tax)
                 }
             } else if auto.category == "保険" {
                 insranceData(insrance, auto)
-                mInsranceCreate(auto)
+                mInsranceCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(insrance)
                 }
             } else if auto.category == "その他" {
                 etcetoraData(etcetora, auto)
-                mEtcetoraCreate(auto)
+                mEtcetoraCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(etcetora)
                 }
             } else if auto.category == "未分類" {
                 unCategoryData(unCategory, auto)
-                mUnCategoryCreate(auto)
+                mUnCategoryCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(unCategory)
                 }
@@ -325,12 +343,12 @@ class HomeViewController: UIViewController {
                 if auto.autofillDay == "月末" {
                     
                     day = Int(lastDay2String)!
-                    dateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month)! + 1, day: day))
+                    dateComp = calendar.date(from: DateComponents(year: Int(auto.year), month: auto.month + 1, day: day))
                     formatterFunc1(auto, dateComp!, nextDateComp!)
                 } else {
                     formatterFunc1(auto, dateComp!, nextDateComp!)
                 }
-                auto.month = Int(month)! + 1
+                auto.month = auto.month + 1
                 auto.day = day
                 auto.isInput = true
             }
@@ -341,6 +359,7 @@ class HomeViewController: UIViewController {
             } else {
                 memoLabel.text = spending.memo
             }
+            dateLabel.text = spending.month + "月分"
             let result = String.localizedStringWithFormat("%d", spending.price)
             priceLabel.text = "¥" + result
             totalLabel.text = "合計\(autoArray4.count)件の自動入力を行いました"
@@ -364,49 +383,49 @@ class HomeViewController: UIViewController {
             
             if auto.category == "給与" {
                 salaryData(salary, auto)
-                mSalaryCreate(auto)
+                mSalaryCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(salary)
                 }
             } else if auto.category == "一時所得" {
                 temporaryData(temporary, auto)
-                mTemporaryCreate(auto)
+                mTemporaryCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(temporary)
                 }
             } else if auto.category == "事業・副業" {
                 businessData(business, auto)
-                mBusinessCreate(auto)
+                mBusinessCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(business)
                 }
             } else if auto.category == "年金" {
                 pensionData(pension, auto)
-                mPensionCreate(auto)
+                mPensionCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(pension)
                 }
             } else if auto.category == "配当所得" {
                 devidentData(devident, auto)
-                mDevidentCreate(auto)
+                mDevidentCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(devident)
                 }
             } else if auto.category == "不動産所得" {
                 estateData(estate, auto)
-                mEstateCreate(auto)
+                mEstateCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(estate)
                 }
             } else if auto.category == "その他入金" {
                 paymentData(payment, auto)
-                mPaymentCreate(auto)
+                mPaymentCreate(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(payment)
                 }
             } else if auto.category == "未分類" {
                 unCategory2Data(unCategory2, auto)
-                mUnCategory2Create(auto)
+                mUnCategory2Create(auto, yyyy_mm, yearMonthTotal, firstDayString, lastDayString)
                 try! realm.write {
                     realm.add(unCategory2)
                 }
@@ -416,7 +435,7 @@ class HomeViewController: UIViewController {
                 if auto.autofillDay == "月末" {
                     
                     day = Int(lastDay2String)!
-                    dateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month)! + 1, day: day))
+                    dateComp = calendar.date(from: DateComponents(year: Int(auto.year), month: auto.month + 1, day: day))
                     formatterFunc1(auto, dateComp!, nextDateComp!)
                 } else {
                     formatterFunc1(auto, dateComp!, nextDateComp!)
@@ -445,13 +464,13 @@ class HomeViewController: UIViewController {
         
         var day = auto.day
         let calendar = Calendar.current
-        var dateComp = calendar.date(from: DateComponents(year: Int(year), month: auto.month + 1, day: day))
-        let nextDateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month)! + 1, day: 1))
+        var dateComp = calendar.date(from: DateComponents(year: Int(auto.year), month: auto.month + 1, day: day))
+        let nextDateComp = calendar.date(from: DateComponents(year: Int(auto.year), month: auto.month + 1, day: 1))
         
         if auto.autofillDay == "月末" {
             
             day = Int(lastDay2String)!
-            dateComp = calendar.date(from: DateComponents(year: Int(year), month: Int(month)! + 1, day: day))
+            dateComp = calendar.date(from: DateComponents(year: Int(auto.year), month: auto.month + 1, day: day))
             formatterFunc2(auto, dateComp!, nextDateComp!, day)
         } else {
             formatterFunc2(auto, dateComp!, nextDateComp!, day)
@@ -467,8 +486,8 @@ class HomeViewController: UIViewController {
         spending.memo = auto.memo
         spending.timestamp = auto.timestamp
         spending.date = auto.date
-        spending.year = year
-        spending.month = month
+        spending.year = String(auto.year)
+        spending.month = String(auto.month)
         spending.day = String(auto.day)
         spending.id = auto.id
     }
@@ -479,8 +498,8 @@ class HomeViewController: UIViewController {
         food.category = auto.category
         food.memo = auto.memo
         food.timestamp = auto.timestamp
-        food.year = year
-        food.month = month
+        food.year = String(auto.year)
+        food.month = String(auto.month)
         food.day = String(auto.day)
         food.id = auto.id
     }
@@ -491,8 +510,8 @@ class HomeViewController: UIViewController {
         brush.category = auto.category
         brush.memo = auto.memo
         brush.timestamp = auto.timestamp
-        brush.year = year
-        brush.month = month
+        brush.year = String(auto.year)
+        brush.month = String(auto.month)
         brush.day = String(auto.day)
         brush.id = auto.id
     }
@@ -503,8 +522,8 @@ class HomeViewController: UIViewController {
         hobby.category = auto.category
         hobby.memo = auto.memo
         hobby.timestamp = auto.timestamp
-        hobby.year = year
-        hobby.month = month
+        hobby.year = String(auto.year)
+        hobby.month = String(auto.month)
         hobby.day = String(auto.day)
         hobby.id = auto.id
     }
@@ -515,8 +534,8 @@ class HomeViewController: UIViewController {
         dating.category = auto.category
         dating.memo = auto.memo
         dating.timestamp = auto.timestamp
-        dating.year = year
-        dating.month = month
+        dating.year = String(auto.year)
+        dating.month = String(auto.month)
         dating.day = String(auto.day)
         dating.id = auto.id
     }
@@ -527,8 +546,8 @@ class HomeViewController: UIViewController {
         traffic.category = auto.category
         traffic.memo = auto.memo
         traffic.timestamp = auto.timestamp
-        traffic.year = year
-        traffic.month = month
+        traffic.year = String(auto.year)
+        traffic.month = String(auto.month)
         traffic.day = String(auto.day)
         traffic.id = auto.id
     }
@@ -539,8 +558,8 @@ class HomeViewController: UIViewController {
         clothe.category = auto.category
         clothe.memo = auto.memo
         clothe.timestamp = auto.timestamp
-        clothe.year = year
-        clothe.month = month
+        clothe.year = String(auto.year)
+        clothe.month = String(auto.month)
         clothe.day = String(auto.day)
         clothe.id = auto.id
     }
@@ -551,8 +570,8 @@ class HomeViewController: UIViewController {
         health.category = auto.category
         health.memo = auto.memo
         health.timestamp = auto.timestamp
-        health.year = year
-        health.month = month
+        health.year = String(auto.year)
+        health.month = String(auto.month)
         health.day = String(auto.day)
         health.id = auto.id
     }
@@ -563,8 +582,8 @@ class HomeViewController: UIViewController {
         car.category = auto.category
         car.memo = auto.memo
         car.timestamp = auto.timestamp
-        car.year = year
-        car.month = month
+        car.year = String(auto.year)
+        car.month = String(auto.month)
         car.day = String(auto.day)
         car.id = auto.id
     }
@@ -575,8 +594,8 @@ class HomeViewController: UIViewController {
         education.category = auto.category
         education.memo = auto.memo
         education.timestamp = auto.timestamp
-        education.year = year
-        education.month = month
+        education.year = String(auto.year)
+        education.month = String(auto.month)
         education.day = String(auto.day)
         education.id = auto.id
     }
@@ -587,8 +606,8 @@ class HomeViewController: UIViewController {
         special.category = auto.category
         special.memo = auto.memo
         special.timestamp = auto.timestamp
-        special.year = year
-        special.month = month
+        special.year = String(auto.year)
+        special.month = String(auto.month)
         special.day = String(auto.day)
         special.id = auto.id
     }
@@ -599,8 +618,8 @@ class HomeViewController: UIViewController {
         card.category = auto.category
         card.memo = auto.memo
         card.timestamp = auto.timestamp
-        card.year = year
-        card.month = month
+        card.year = String(auto.year)
+        card.month = String(auto.month)
         card.day = String(auto.day)
         card.id = auto.id
     }
@@ -611,8 +630,8 @@ class HomeViewController: UIViewController {
         utility.category = auto.category
         utility.memo = auto.memo
         utility.timestamp = auto.timestamp
-        utility.year = year
-        utility.month = month
+        utility.year = String(auto.year)
+        utility.month = String(auto.month)
         utility.day = String(auto.day)
         utility.id = auto.id
     }
@@ -623,8 +642,8 @@ class HomeViewController: UIViewController {
         communication.category = auto.category
         communication.memo = auto.memo
         communication.timestamp = auto.timestamp
-        communication.year = year
-        communication.month = month
+        communication.year = String(auto.year)
+        communication.month = String(auto.month)
         communication.day = String(auto.day)
         communication.id = auto.id
     }
@@ -635,8 +654,8 @@ class HomeViewController: UIViewController {
         house.category = auto.category
         house.memo = auto.memo
         house.timestamp = auto.timestamp
-        house.year = year
-        house.month = month
+        house.year = String(auto.year)
+        house.month = String(auto.month)
         house.day = String(auto.day)
         house.id = auto.id
     }
@@ -647,8 +666,8 @@ class HomeViewController: UIViewController {
         tax.category = auto.category
         tax.memo = auto.memo
         tax.timestamp = auto.timestamp
-        tax.year = year
-        tax.month = month
+        tax.year = String(auto.year)
+        tax.month = String(auto.month)
         tax.day = String(auto.day)
         tax.id = auto.id
     }
@@ -659,8 +678,8 @@ class HomeViewController: UIViewController {
         insrance.category = auto.category
         insrance.memo = auto.memo
         insrance.timestamp = auto.timestamp
-        insrance.year = year
-        insrance.month = month
+        insrance.year = String(auto.year)
+        insrance.month = String(auto.month)
         insrance.day = String(auto.day)
         insrance.id = auto.id
     }
@@ -671,8 +690,8 @@ class HomeViewController: UIViewController {
         etcetora.category = auto.category
         etcetora.memo = auto.memo
         etcetora.timestamp = auto.timestamp
-        etcetora.year = year
-        etcetora.month = month
+        etcetora.year = String(auto.year)
+        etcetora.month = String(auto.month)
         etcetora.day = String(auto.day)
         etcetora.id = auto.id
     }
@@ -683,18 +702,18 @@ class HomeViewController: UIViewController {
         unCategory.category = auto.category
         unCategory.memo = auto.memo
         unCategory.timestamp = auto.timestamp
-        unCategory.year = year
-        unCategory.month = month
+        unCategory.year = String(auto.year)
+        unCategory.month = String(auto.month)
         unCategory.day = String(auto.day)
         unCategory.id = auto.id
     }
     
     // MARK: - Monthly create
     
-    private func mFoodCreate(_ auto: Auto) {
+    private func mFoodCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mFood = realm.objects(MonthlyFood.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mFood = realm.objects(MonthlyFood.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mFood.count == 0 {
             let mFood = MonthlyFood()
@@ -703,8 +722,8 @@ class HomeViewController: UIViewController {
             mFood.timestamp = yearMonthTotal
             mFood.monthly = "(\(firstDayString)~\(lastDayString))"
             mFood.date = yyyy_mm
-            mFood.year = year
-            mFood.month = month
+            mFood.year = String(auto.year)
+            mFood.month = String(auto.month)
             try! realm.write {
                 realm.add(mFood)
             }
@@ -717,10 +736,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mBrushCreate(_ auto: Auto) {
+    private func mBrushCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mBrush = realm.objects(MonthlyBrush.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mBrush = realm.objects(MonthlyBrush.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mBrush.count == 0 {
             let mBrush = MonthlyBrush()
@@ -729,8 +748,8 @@ class HomeViewController: UIViewController {
             mBrush.timestamp = yearMonthTotal
             mBrush.monthly = "(\(firstDayString)~\(lastDayString))"
             mBrush.date = yyyy_mm
-            mBrush.year = year
-            mBrush.month = month
+            mBrush.year = String(auto.year)
+            mBrush.month = String(auto.month)
             try! realm.write {
                 realm.add(mBrush)
             }
@@ -743,10 +762,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mHobbyCreate(_ auto: Auto) {
+    private func mHobbyCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mHobby = realm.objects(MonthlyHobby.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mHobby = realm.objects(MonthlyHobby.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mHobby.count == 0 {
             let mHobby = MonthlyHobby()
@@ -755,8 +774,8 @@ class HomeViewController: UIViewController {
             mHobby.timestamp = yearMonthTotal
             mHobby.monthly = "(\(firstDayString)~\(lastDayString))"
             mHobby.date = yyyy_mm
-            mHobby.year = year
-            mHobby.month = month
+            mHobby.year = String(auto.year)
+            mHobby.month = String(auto.month)
             try! realm.write {
                 realm.add(mHobby)
             }
@@ -769,10 +788,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mDatingCreate(_ auto: Auto) {
+    private func mDatingCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mDating = realm.objects(MonthlyDating.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mDating = realm.objects(MonthlyDating.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mDating.count == 0 {
             let mDating = MonthlyDating()
@@ -781,8 +800,8 @@ class HomeViewController: UIViewController {
             mDating.timestamp = yearMonthTotal
             mDating.monthly = "(\(firstDayString)~\(lastDayString))"
             mDating.date = yyyy_mm
-            mDating.year = year
-            mDating.month = month
+            mDating.year = String(auto.year)
+            mDating.month = String(auto.month)
             try! realm.write {
                 realm.add(mDating)
             }
@@ -795,10 +814,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mTrafficCreate(_ auto: Auto) {
+    private func mTrafficCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mTraffic = realm.objects(MonthlyTraffic.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mTraffic = realm.objects(MonthlyTraffic.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mTraffic.count == 0 {
             let mTraffic = MonthlyTraffic()
@@ -807,8 +826,8 @@ class HomeViewController: UIViewController {
             mTraffic.timestamp = yearMonthTotal
             mTraffic.monthly = "(\(firstDayString)~\(lastDayString))"
             mTraffic.date = yyyy_mm
-            mTraffic.year = year
-            mTraffic.month = month
+            mTraffic.year = String(auto.year)
+            mTraffic.month = String(auto.month)
             try! realm.write {
                 realm.add(mTraffic)
             }
@@ -821,10 +840,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mClotheCreate(_ auto: Auto) {
+    private func mClotheCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mClothe = realm.objects(MonthlyClothe.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mClothe = realm.objects(MonthlyClothe.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mClothe.count == 0 {
             let mClothe = MonthlyClothe()
@@ -833,8 +852,8 @@ class HomeViewController: UIViewController {
             mClothe.timestamp = yearMonthTotal
             mClothe.monthly = "(\(firstDayString)~\(lastDayString))"
             mClothe.date = yyyy_mm
-            mClothe.year = year
-            mClothe.month = month
+            mClothe.year = String(auto.year)
+            mClothe.month = String(auto.month)
             try! realm.write {
                 realm.add(mClothe)
             }
@@ -847,10 +866,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mHealthCreate(_ auto: Auto) {
+    private func mHealthCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mHealth = realm.objects(MonthlyHealth.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mHealth = realm.objects(MonthlyHealth.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mHealth.count == 0 {
             let mHealth = MonthlyHealth()
@@ -859,8 +878,8 @@ class HomeViewController: UIViewController {
             mHealth.timestamp = yearMonthTotal
             mHealth.monthly = "(\(firstDayString)~\(lastDayString))"
             mHealth.date = yyyy_mm
-            mHealth.year = year
-            mHealth.month = month
+            mHealth.year = String(auto.year)
+            mHealth.month = String(auto.month)
             try! realm.write {
                 realm.add(mHealth)
             }
@@ -873,10 +892,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mCarCreate(_ auto: Auto) {
+    private func mCarCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mCar = realm.objects(MonthlyCar.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mCar = realm.objects(MonthlyCar.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mCar.count == 0 {
             let mCar = MonthlyCar()
@@ -885,8 +904,8 @@ class HomeViewController: UIViewController {
             mCar.timestamp = yearMonthTotal
             mCar.monthly = "(\(firstDayString)~\(lastDayString))"
             mCar.date = yyyy_mm
-            mCar.year = year
-            mCar.month = month
+            mCar.year = String(auto.year)
+            mCar.month = String(auto.month)
             try! realm.write {
                 realm.add(mCar)
             }
@@ -899,10 +918,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mEducationCreate(_ auto: Auto) {
+    private func mEducationCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mEducation = realm.objects(MonthlyEducation.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mEducation = realm.objects(MonthlyEducation.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mEducation.count == 0 {
             let mEducation = MonthlyEducation()
@@ -911,8 +930,8 @@ class HomeViewController: UIViewController {
             mEducation.timestamp = yearMonthTotal
             mEducation.monthly = "(\(firstDayString)~\(lastDayString))"
             mEducation.date = yyyy_mm
-            mEducation.year = year
-            mEducation.month = month
+            mEducation.year = String(auto.year)
+            mEducation.month = String(auto.month)
             try! realm.write {
                 realm.add(mEducation)
             }
@@ -925,10 +944,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mSpecialCreate(_ auto: Auto) {
+    private func mSpecialCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mSpecial = realm.objects(MonthlySpecial.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mSpecial = realm.objects(MonthlySpecial.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mSpecial.count == 0 {
             let mSpecial = MonthlySpecial()
@@ -937,8 +956,8 @@ class HomeViewController: UIViewController {
             mSpecial.timestamp = yearMonthTotal
             mSpecial.monthly = "(\(firstDayString)~\(lastDayString))"
             mSpecial.date = yyyy_mm
-            mSpecial.year = year
-            mSpecial.month = month
+            mSpecial.year = String(auto.year)
+            mSpecial.month = String(auto.month)
             try! realm.write {
                 realm.add(mSpecial)
             }
@@ -951,10 +970,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mUtilityCreate(_ auto: Auto) {
+    private func mUtilityCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mUtility = realm.objects(MonthlyUtility.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mUtility = realm.objects(MonthlyUtility.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mUtility.count == 0 {
             let mUtility = MonthlyUtility()
@@ -963,8 +982,8 @@ class HomeViewController: UIViewController {
             mUtility.timestamp = yearMonthTotal
             mUtility.monthly = "(\(firstDayString)~\(lastDayString))"
             mUtility.date = yyyy_mm
-            mUtility.year = year
-            mUtility.month = month
+            mUtility.year = String(auto.year)
+            mUtility.month = String(auto.month)
             try! realm.write {
                 realm.add(mUtility)
             }
@@ -977,10 +996,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mCommunicationCreate(_ auto: Auto) {
+    private func mCommunicationCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mCommunication = realm.objects(MonthlyCommunication.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mCommunication = realm.objects(MonthlyCommunication.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mCommunication.count == 0 {
             let mCommunication = MonthlyCommunication()
@@ -989,8 +1008,8 @@ class HomeViewController: UIViewController {
             mCommunication.timestamp = yearMonthTotal
             mCommunication.monthly = "(\(firstDayString)~\(lastDayString))"
             mCommunication.date = yyyy_mm
-            mCommunication.year = year
-            mCommunication.month = month
+            mCommunication.year = String(auto.year)
+            mCommunication.month = String(auto.month)
             try! realm.write {
                 realm.add(mCommunication)
             }
@@ -1003,10 +1022,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mHouseCreate(_ auto: Auto) {
+    private func mHouseCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mHouse = realm.objects(MonthlyHouse.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mHouse = realm.objects(MonthlyHouse.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mHouse.count == 0 {
             let mHouse = MonthlyHouse()
@@ -1015,8 +1034,8 @@ class HomeViewController: UIViewController {
             mHouse.timestamp = yearMonthTotal
             mHouse.monthly = "(\(firstDayString)~\(lastDayString))"
             mHouse.date = yyyy_mm
-            mHouse.year = year
-            mHouse.month = month
+            mHouse.year = String(auto.year)
+            mHouse.month = String(auto.month)
             try! realm.write {
                 realm.add(mHouse)
             }
@@ -1029,10 +1048,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mCardCreate(_ auto: Auto) {
+    private func mCardCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mCard = realm.objects(MonthlyCard.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mCard = realm.objects(MonthlyCard.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mCard.count == 0 {
             let mCard = MonthlyCard()
@@ -1041,8 +1060,8 @@ class HomeViewController: UIViewController {
             mCard.timestamp = yearMonthTotal
             mCard.monthly = "(\(firstDayString)~\(lastDayString))"
             mCard.date = yyyy_mm
-            mCard.year = year
-            mCard.month = month
+            mCard.year = String(auto.year)
+            mCard.month = String(auto.month)
             try! realm.write {
                 realm.add(mCard)
             }
@@ -1055,10 +1074,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mTaxCreate(_ auto: Auto) {
+    private func mTaxCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mTax = realm.objects(MonthlyTax.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mTax = realm.objects(MonthlyTax.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mTax.count == 0 {
             let mTax = MonthlyTax()
@@ -1067,8 +1086,8 @@ class HomeViewController: UIViewController {
             mTax.timestamp = yearMonthTotal
             mTax.monthly = "(\(firstDayString)~\(lastDayString))"
             mTax.date = yyyy_mm
-            mTax.year = year
-            mTax.month = month
+            mTax.year = String(auto.year)
+            mTax.month = String(auto.month)
             try! realm.write {
                 realm.add(mTax)
             }
@@ -1081,10 +1100,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mInsranceCreate(_ auto: Auto) {
+    private func mInsranceCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mInsrance = realm.objects(MonthlyInsrance.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mInsrance = realm.objects(MonthlyInsrance.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mInsrance.count == 0 {
             let mInsrance = MonthlyInsrance()
@@ -1093,8 +1112,8 @@ class HomeViewController: UIViewController {
             mInsrance.timestamp = yearMonthTotal
             mInsrance.monthly = "(\(firstDayString)~\(lastDayString))"
             mInsrance.date = yyyy_mm
-            mInsrance.year = year
-            mInsrance.month = month
+            mInsrance.year = String(auto.year)
+            mInsrance.month = String(auto.month)
             try! realm.write {
                 realm.add(mInsrance)
             }
@@ -1107,10 +1126,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mEtcetoraCreate(_ auto: Auto) {
+    private func mEtcetoraCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mEtcetora = realm.objects(MonthlyEtcetora.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mEtcetora = realm.objects(MonthlyEtcetora.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mEtcetora.count == 0 {
             let mEtcetora = MonthlyEtcetora()
@@ -1119,8 +1138,8 @@ class HomeViewController: UIViewController {
             mEtcetora.timestamp = yearMonthTotal
             mEtcetora.monthly = "(\(firstDayString)~\(lastDayString))"
             mEtcetora.date = yyyy_mm
-            mEtcetora.year = year
-            mEtcetora.month = month
+            mEtcetora.year = String(auto.year)
+            mEtcetora.month = String(auto.month)
             try! realm.write {
                 realm.add(mEtcetora)
             }
@@ -1133,10 +1152,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mUnCategoryCreate(_ auto: Auto) {
+    private func mUnCategoryCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mUnCategory = realm.objects(MonthlyUnCategory.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mUnCategory = realm.objects(MonthlyUnCategory.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mUnCategory.count == 0 {
             let mUnCategory = MonthlyUnCategory()
@@ -1145,8 +1164,8 @@ class HomeViewController: UIViewController {
             mUnCategory.timestamp = yearMonthTotal
             mUnCategory.monthly = "(\(firstDayString)~\(lastDayString))"
             mUnCategory.date = yyyy_mm
-            mUnCategory.year = year
-            mUnCategory.month = month
+            mUnCategory.year = String(auto.year)
+            mUnCategory.month = String(auto.month)
             try! realm.write {
                 realm.add(mUnCategory)
             }
@@ -1159,10 +1178,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mSalaryCreate(_ auto: Auto) {
+    private func mSalaryCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mSalary = realm.objects(MonthlySalary.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mSalary = realm.objects(MonthlySalary.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mSalary.count == 0 {
             let mSalary = MonthlySalary()
@@ -1171,8 +1190,8 @@ class HomeViewController: UIViewController {
             mSalary.timestamp = yearMonthTotal
             mSalary.monthly = "(\(firstDayString)~\(lastDayString))"
             mSalary.date = yyyy_mm
-            mSalary.year = year
-            mSalary.month = month
+            mSalary.year = String(auto.year)
+            mSalary.month = String(auto.month)
             try! realm.write {
                 realm.add(mSalary)
             }
@@ -1185,10 +1204,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mTemporaryCreate(_ auto: Auto) {
+    private func mTemporaryCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mTemporary = realm.objects(MonthlyTemporary.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mTemporary = realm.objects(MonthlyTemporary.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mTemporary.count == 0 {
             let mTemporary = MonthlyTemporary()
@@ -1197,8 +1216,8 @@ class HomeViewController: UIViewController {
             mTemporary.timestamp = yearMonthTotal
             mTemporary.monthly = "(\(firstDayString)~\(lastDayString))"
             mTemporary.date = yyyy_mm
-            mTemporary.year = year
-            mTemporary.month = month
+            mTemporary.year = String(auto.year)
+            mTemporary.month = String(auto.month)
             try! realm.write {
                 realm.add(mTemporary)
             }
@@ -1211,10 +1230,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mBusinessCreate(_ auto: Auto) {
+    private func mBusinessCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mBusiness = realm.objects(MonthlyBusiness.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mBusiness = realm.objects(MonthlyBusiness.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mBusiness.count == 0 {
             let mBusiness = MonthlyBusiness()
@@ -1223,8 +1242,8 @@ class HomeViewController: UIViewController {
             mBusiness.timestamp = yearMonthTotal
             mBusiness.monthly = "(\(firstDayString)~\(lastDayString))"
             mBusiness.date = yyyy_mm
-            mBusiness.year = year
-            mBusiness.month = month
+            mBusiness.year = String(auto.year)
+            mBusiness.month = String(auto.month)
             try! realm.write {
                 realm.add(mBusiness)
             }
@@ -1237,10 +1256,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mPensionCreate(_ auto: Auto) {
+    private func mPensionCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mPension = realm.objects(MonthlyPension.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mPension = realm.objects(MonthlyPension.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mPension.count == 0 {
             let mPension = MonthlyPension()
@@ -1249,8 +1268,8 @@ class HomeViewController: UIViewController {
             mPension.timestamp = yearMonthTotal
             mPension.monthly = "(\(firstDayString)~\(lastDayString))"
             mPension.date = yyyy_mm
-            mPension.year = year
-            mPension.month = month
+            mPension.year = String(auto.year)
+            mPension.month = String(auto.month)
             try! realm.write {
                 realm.add(mPension)
             }
@@ -1263,10 +1282,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mDevidentCreate(_ auto: Auto) {
+    private func mDevidentCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mDevident = realm.objects(MonthlyDevident.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mDevident = realm.objects(MonthlyDevident.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mDevident.count == 0 {
             let mDevident = MonthlyDevident()
@@ -1275,8 +1294,8 @@ class HomeViewController: UIViewController {
             mDevident.timestamp = yearMonthTotal
             mDevident.monthly = "(\(firstDayString)~\(lastDayString))"
             mDevident.date = yyyy_mm
-            mDevident.year = year
-            mDevident.month = month
+            mDevident.year = String(auto.year)
+            mDevident.month = String(auto.month)
             try! realm.write {
                 realm.add(mDevident)
             }
@@ -1289,10 +1308,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mEstateCreate(_ auto: Auto) {
+    private func mEstateCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mEstate = realm.objects(MonthlyEstate.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mEstate = realm.objects(MonthlyEstate.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mEstate.count == 0 {
             let mEstate = MonthlyEstate()
@@ -1301,8 +1320,8 @@ class HomeViewController: UIViewController {
             mEstate.timestamp = yearMonthTotal
             mEstate.monthly = "(\(firstDayString)~\(lastDayString))"
             mEstate.date = yyyy_mm
-            mEstate.year = year
-            mEstate.month = month
+            mEstate.year = String(auto.year)
+            mEstate.month = String(auto.month)
             try! realm.write {
                 realm.add(mEstate)
             }
@@ -1315,10 +1334,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mPaymentCreate(_ auto: Auto) {
+    private func mPaymentCreate(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mPayment = realm.objects(MonthlyPayment.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mPayment = realm.objects(MonthlyPayment.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mPayment.count == 0 {
             let mPayment = MonthlyPayment()
@@ -1327,8 +1346,8 @@ class HomeViewController: UIViewController {
             mPayment.timestamp = yearMonthTotal
             mPayment.monthly = "(\(firstDayString)~\(lastDayString))"
             mPayment.date = yyyy_mm
-            mPayment.year = year
-            mPayment.month = month
+            mPayment.year = String(auto.year)
+            mPayment.month = String(auto.month)
             try! realm.write {
                 realm.add(mPayment)
             }
@@ -1341,10 +1360,10 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func mUnCategory2Create(_ auto: Auto) {
+    private func mUnCategory2Create(_ auto: Auto, _ yyyy_mm: String, _ yearMonthTotal: String, _ firstDayString: String, _ lastDayString: String) {
         
         let realm = try! Realm()
-        let mUnCategory2 = realm.objects(MonthlyUnCategory2.self).filter("year == '\(year)'").filter("month == '\(month)'")
+        let mUnCategory2 = realm.objects(MonthlyUnCategory2.self).filter("year == '\(auto.year)'").filter("month == '\(auto.month)'")
         
         if mUnCategory2.count == 0 {
             let mUnCategory2 = MonthlyUnCategory2()
@@ -1353,8 +1372,8 @@ class HomeViewController: UIViewController {
             mUnCategory2.timestamp = yearMonthTotal
             mUnCategory2.monthly = "(\(firstDayString)~\(lastDayString))"
             mUnCategory2.date = yyyy_mm
-            mUnCategory2.year = year
-            mUnCategory2.month = month
+            mUnCategory2.year = String(auto.year)
+            mUnCategory2.month = String(auto.month)
             try! realm.write {
                 realm.add(mUnCategory2)
             }
@@ -1376,8 +1395,8 @@ class HomeViewController: UIViewController {
         income.memo = auto.memo
         income.timestamp = auto.timestamp
         income.date = auto.date
-        income.year = year
-        income.month = month
+        income.year = String(auto.year)
+        income.month = String(auto.month)
         income.day = String(auto.day)
         income.id = auto.id
     }
@@ -1388,8 +1407,8 @@ class HomeViewController: UIViewController {
         salary.category = auto.category
         salary.memo = auto.memo
         salary.timestamp = auto.timestamp
-        salary.year = year
-        salary.month = month
+        salary.year = String(auto.year)
+        salary.month = String(auto.month)
         salary.day = String(auto.day)
         salary.id = auto.id
     }
@@ -1400,8 +1419,8 @@ class HomeViewController: UIViewController {
         temporary.category = auto.category
         temporary.memo = auto.memo
         temporary.timestamp = auto.timestamp
-        temporary.year = year
-        temporary.month = month
+        temporary.year = String(auto.year)
+        temporary.month = String(auto.month)
         temporary.day = String(auto.day)
         temporary.id = auto.id
     }
@@ -1412,8 +1431,8 @@ class HomeViewController: UIViewController {
         business.category = auto.category
         business.memo = auto.memo
         business.timestamp = auto.timestamp
-        business.year = year
-        business.month = month
+        business.year = String(auto.year)
+        business.month = String(auto.month)
         business.day = String(auto.day)
         business.id = auto.id
     }
@@ -1424,8 +1443,8 @@ class HomeViewController: UIViewController {
         pension.category = auto.category
         pension.memo = auto.memo
         pension.timestamp = auto.timestamp
-        pension.year = year
-        pension.month = month
+        pension.year = String(auto.year)
+        pension.month = String(auto.month)
         pension.day = String(auto.day)
         pension.id = auto.id
     }
@@ -1436,8 +1455,8 @@ class HomeViewController: UIViewController {
         devident.category = auto.category
         devident.memo = auto.memo
         devident.timestamp = auto.timestamp
-        devident.year = year
-        devident.month = month
+        devident.year = String(auto.year)
+        devident.month = String(auto.month)
         devident.day = String(auto.day)
         devident.id = auto.id
     }
@@ -1448,8 +1467,8 @@ class HomeViewController: UIViewController {
         estate.category = auto.category
         estate.memo = auto.memo
         estate.timestamp = auto.timestamp
-        estate.year = year
-        estate.month = month
+        estate.year = String(auto.year)
+        estate.month = String(auto.month)
         estate.day = String(auto.day)
         estate.id = auto.id
     }
@@ -1460,8 +1479,8 @@ class HomeViewController: UIViewController {
         payment.category = auto.category
         payment.memo = auto.memo
         payment.timestamp = auto.timestamp
-        payment.year = year
-        payment.month = month
+        payment.year = String(auto.year)
+        payment.month = String(auto.month)
         payment.day = String(auto.day)
         payment.id = auto.id
     }
@@ -1472,8 +1491,8 @@ class HomeViewController: UIViewController {
         unCategory2.category = auto.category
         unCategory2.memo = auto.memo
         unCategory2.timestamp = auto.timestamp
-        unCategory2.year = year
-        unCategory2.month = month
+        unCategory2.year = String(auto.year)
+        unCategory2.month = String(auto.month)
         unCategory2.day = String(auto.day)
         unCategory2.id = auto.id
     }
@@ -1523,10 +1542,12 @@ class HomeViewController: UIViewController {
     private func updateData(_ auto: Auto, _ timestamp: String, _ date: String, _ nextMonth: String, _ day: Int) {
         
         let realm = try! Realm()
+        let year = auto.year
         
         try! realm.write {
             auto.timestamp = timestamp
             auto.date = date
+            auto.year = year
             auto.month = auto.month + 1
             auto.day = day
             auto.nextMonth = nextMonth
@@ -1536,6 +1557,17 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Helpers
+    
+    private func checkRegister() {
+        
+        let realm = try! Realm()
+        let money = realm.objects(Money.self)
+        if money.count == 1 {
+            registerHeight.constant = 0
+        } else {
+            registerHeight.constant = 44
+        }
+    }
     
     private func setup() {
         navigationItem.title = "ホーム"
@@ -1627,7 +1659,6 @@ class HomeViewController: UIViewController {
     }
     
     private func removeUserDefaults() {
-        
         UserDefaults.standard.removeObject(forKey: PLUS)
         UserDefaults.standard.removeObject(forKey: MINUS)
         UserDefaults.standard.removeObject(forKey: MULTIPLY)
@@ -1635,7 +1666,6 @@ class HomeViewController: UIViewController {
     }
     
     func setupSound() {
-        
         do {
             try player = AVAudioPlayer(contentsOf: URL(fileURLWithPath: soundFile!))
             player.prepareToPlay()
@@ -1645,7 +1675,6 @@ class HomeViewController: UIViewController {
     }
     
     private func setupBanner() {
-        
         bannerView.adUnitID = "ca-app-pub-4750883229624981/6064632742"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
@@ -1739,4 +1768,11 @@ extension HomeViewController: UITabBarDelegate, UITableViewDataSource {
         cell3.configureBarChartCell()
         return cell3
     }
+}
+
+extension HomeViewController: UIAdaptivePresentationControllerDelegate {
+  func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    checkRegister()
+    tableView.reloadData()
+  }
 }

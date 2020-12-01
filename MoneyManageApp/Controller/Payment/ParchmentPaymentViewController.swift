@@ -60,7 +60,13 @@ class ParchmentPaymentViewController: UIViewController {
                 pagingVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
                 pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 25)
             ])
-            break
+        case 2208:
+            NSLayoutConstraint.activate([
+                pagingVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                pagingVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                pagingVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 25)
+            ])
         default:
             break
         }

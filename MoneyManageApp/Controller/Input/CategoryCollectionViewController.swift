@@ -19,8 +19,7 @@ class CategoryCollectionViewController: UIViewController {
         super.viewDidLoad()
         setSwipeBack()
         setupBanner()
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationItem.title = "カテゴリ選択"
+        navigationItem.title = "支出カテゴリー"
     }
     
     override func viewWillAppear(_ animated: Bool) {

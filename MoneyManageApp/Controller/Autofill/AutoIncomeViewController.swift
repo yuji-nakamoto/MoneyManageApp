@@ -86,19 +86,14 @@ class AutoIncomeViewController: UIViewController, UITextFieldDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 backView.isHidden = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    navigationController?.popViewController(animated: true)
+                    dismiss(animated: true, completion: nil)
                 }
             }
         }
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func datePickerButtonPressed(_ sender: Any) {
-        textField.resignFirstResponder()
-        caluclatorView.isHidden = true
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func calculatorButtonPressed(_ sender: Any) {
@@ -473,6 +468,7 @@ class AutoIncomeViewController: UIViewController, UITextFieldDelegate {
         auto.autofillDay = dateLabel.text ?? ""
         auto.isInput = false
         auto.isRegister = true
+        auto.year = Int(year)!
         auto.month = Int(month)!
         auto.day = inputNumber
         auto.id = id

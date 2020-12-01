@@ -52,7 +52,8 @@ class AutoSpendingViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var calenderImageBottomConst: NSLayoutConstraint!
     @IBOutlet weak var memoImageTopConst: NSLayoutConstraint!
     @IBOutlet weak var memoImageBottomConst: NSLayoutConstraint!
- 
+    @IBOutlet weak var backButton: UIButton!
+    
     lazy var buttons = [zeroButton, oneButton, twoButton, threeButton, fourButton, fiveButton, sixButton, sevenButton, eightButton, nineButton, clearButton, multiplyButton, minusButton, plusButton, devideButton]
     private var firstNumeric = false
     private var lastNumeric = false
@@ -86,20 +87,14 @@ class AutoSpendingViewController: UIViewController, UITextFieldDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 backView.isHidden = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    navigationController?.popViewController(animated: true)
+                    dismiss(animated: true, completion: nil)
                 }
             }
         }
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func datePickerButtonPressed(_ sender: Any) {
-        
-        textField.resignFirstResponder()
-        caluclatorView.isHidden = true
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func calculatorButtonPressed(_ sender: Any) {
@@ -473,6 +468,7 @@ class AutoSpendingViewController: UIViewController, UITextFieldDelegate {
         auto.payment = "支出"
         auto.autofillDay = dateLabel.text ?? ""
         auto.isInput = false
+        auto.year = Int(year)!
         auto.month = Int(month)!
         auto.day = inputNumber
         auto.isRegister = true
@@ -735,5 +731,15 @@ extension AutoSpendingViewController: PickerKeyboard1Delegate {
                 inputNumber = 29
             }
         }
+    }
+}
+
+extension AutoSpendingViewController {
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        super.dismiss(animated: flag, completion: completion)
+        guard let presentationController = presentationController else {
+            return
+        }
+        presentationController.delegate?.presentationControllerDidDismiss?(presentationController)
     }
 }

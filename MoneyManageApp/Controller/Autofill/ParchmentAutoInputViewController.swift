@@ -16,11 +16,12 @@ class ParchmentAutoInputViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         initPagingVC()
     }
-
-    @IBAction func backButtonPressed(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+
     private func initPagingVC() {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -40,7 +41,7 @@ class ParchmentAutoInputViewController: UIViewController {
             pagingVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pagingVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             pagingVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 80)
+            pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 55)
         ])
    
         pagingVC.font = UIFont(name: "HiraMaruProN-W4", size: 12)!
@@ -52,16 +53,22 @@ class ParchmentAutoInputViewController: UIViewController {
         pagingVC.menuHorizontalAlignment = .center
         pagingVC.menuBackgroundColor = UIColor(named: O_WHITE)!
         pagingVC.borderColor = .systemGray5
-        
+        print(UIScreen.main.nativeBounds.height)
         switch (UIScreen.main.nativeBounds.height) {
         case 1334:
             NSLayoutConstraint.activate([
                 pagingVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 pagingVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 pagingVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 55)
+                pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 25)
             ])
-            break
+        case 2208:
+            NSLayoutConstraint.activate([
+                pagingVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                pagingVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                pagingVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 25)
+            ])
         default:
             break
         }

@@ -56,6 +56,7 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
     @IBOutlet weak var memoImageTopConst: NSLayoutConstraint!
     @IBOutlet weak var memoImageBottomConst: NSLayoutConstraint!
     @IBOutlet weak var calenderHeight: NSLayoutConstraint!
+    @IBOutlet weak var continueButton: UIButton!
     
     private let calendar = Calendar.current
     
@@ -88,11 +89,11 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
     
     @IBAction func categoryButtonPressed(_ sender: Any) {
         textField.resignFirstResponder()
-        performSegue(withIdentifier: "IncomeCategoryVC", sender: nil)
+        navigationController?.navigationBar.isHidden = false
+        performSegue(withIdentifier: "CategoryIncomeVC", sender: nil)
     }
     
-    @IBAction func completionButtonPressed(_ sender: Any) {
-        
+    @IBAction func continueButtonPressed(_ sender: Any) {
         numberLabel.text = "0"
         numberLabel2.text = "0"
         categoryLabel.text = "未分類"
@@ -108,6 +109,19 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
             backView.alpha = 0
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 backView.isHidden = true
+            }
+        }
+    }
+    
+    @IBAction func completionButtonPressed(_ sender: Any) {
+        
+        UIView.animate(withDuration: 0.3) { [self] in
+            backView.alpha = 0
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                backView.isHidden = true
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let tabVC = storyboard.instantiateViewController(withIdentifier: "TabVC")
+                self.present(tabVC, animated: true, completion: nil)
             }
         }
     }
@@ -521,6 +535,7 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
             auto.isInput = true
             auto.onRegister = true
             auto.isRegister = true
+            auto.year = Int(year)!
             auto.month = Int(month2)!
             auto.day = Int(day2)!
             
@@ -1031,7 +1046,8 @@ class IncomeViewController: UIViewController, UITextFieldDelegate, FSCalendarDel
         textField.delegate = self
         backView.isHidden = true
         backView.alpha = 0
-        completionButton.layer.cornerRadius = 3
+        continueButton.layer.cornerRadius = 5
+        completionButton.layer.cornerRadius = 5
         saveButton.layer.cornerRadius = 10
         buttons.forEach({ $0?.layer.borderWidth = 0.3; $0?.layer.borderColor = UIColor.systemGray.cgColor })
         textField.addTarget(self, action: #selector(textFieldTap), for: .editingDidBegin)

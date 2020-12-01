@@ -1076,6 +1076,7 @@ class CloudRestoreTableViewController: UITableViewController, GADInterstitialDel
             auto.memo = fAuto.memo
             auto.timestamp = fAuto.timestamp
             auto.date = fAuto.date
+            auto.year = fAuto.year
             auto.month = fAuto.month
             auto.day = fAuto.day
             auto.nextMonth = fAuto.nextMonth
@@ -1132,7 +1133,7 @@ class CloudRestoreTableViewController: UITableViewController, GADInterstitialDel
                             self.interstitial.present(fromRootViewController: self)
                         } else {
                             print("Error interstitial")
-                            self.dismiss(animated: true, completion: nil)
+                            self.navigationController?.popViewController(animated: true)
                         }
                     }
                 }
@@ -1396,7 +1397,7 @@ class CloudRestoreTableViewController: UITableViewController, GADInterstitialDel
     
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
         interstitial = createAndLoadIntersitial()
-        self.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -19,8 +19,7 @@ class IncomeCategoryTableViewController: UIViewController {
         super.viewDidLoad()
         setSwipeBack()
         setupBanner()
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationItem.title = "収入"
+        navigationItem.title = "収入カテゴリ"
         tableView.tableFooterView = UIView()
     }
     

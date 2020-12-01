@@ -39,30 +39,10 @@ class BackupTableViewController: UITableViewController, GADInterstitialDelegate 
         let alert = UIAlertController(title: "", message: "データをバックアップしますか？", preferredStyle: .alert)
         let alert2 = UIAlertController(title: "バックアップが存在します", message: "上書きしますか？", preferredStyle: .alert)
         let backup = UIAlertAction(title: "バックアップする", style: UIAlertAction.Style.default) { [self] (alert) in
-            
             doBackup()
-            HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                if self.interstitial.isReady {
-                    self.interstitial.present(fromRootViewController: self)
-                } else {
-                    print("Error interstitial")
-                    self.navigationController?.popViewController(animated: true)
-                }
-            }
         }
         let backup2 = UIAlertAction(title: "上書きする", style: UIAlertAction.Style.default) { [self] (alert) in
-            
             doBackup()
-            HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                if self.interstitial.isReady {
-                    self.interstitial.present(fromRootViewController: self)
-                } else {
-                    print("Error interstitial")
-                    self.navigationController?.popViewController(animated: true)
-                }
-            }
         }
         let cancel = UIAlertAction(title: "キャンセル", style: .cancel)
         
@@ -114,6 +94,16 @@ class BackupTableViewController: UITableViewController, GADInterstitialDelegate 
             realm.beginWrite()
             try realm.writeCopy(toFile: backupURL)
             realm.cancelWrite()
+            HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                if self.interstitial.isReady {
+                    self.interstitial.present(fromRootViewController: self)
+                } else {
+                    print("Error interstitial")
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+            
         } catch {
             throw error
         }

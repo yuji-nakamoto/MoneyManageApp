@@ -24,7 +24,9 @@ class SortListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         selectedSort()
+        navigationItem.title = "並べ替え"
         navigationController?.navigationBar.isHidden = false
+        tableView.tableFooterView = UIView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -138,5 +140,15 @@ class SortListTableViewController: UITableViewController {
                 self.dismiss(animated: true, completion: nil)
             }
         }
+    }
+}
+
+extension SortListTableViewController {
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        super.dismiss(animated: flag, completion: completion)
+        guard let presentationController = presentationController else {
+            return
+        }
+        presentationController.delegate?.presentationControllerDidDismiss?(presentationController)
     }
 }

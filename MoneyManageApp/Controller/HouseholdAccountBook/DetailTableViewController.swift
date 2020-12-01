@@ -135,7 +135,6 @@ class DetailTableViewController: UIViewController {
     // MARK: - Fetch
     
     private func fetchFood(_ year: String, _ month: String) {
-        
         let realm = try! Realm()
         let food = realm.objects(Food.self).filter("year == '\(year)'").filter("month == '\(month)'")
         let mFood = realm.objects(MonthlyFood.self).filter("year == '\(year)'").filter("month == '\(month)'")
@@ -831,6 +830,7 @@ class DetailTableViewController: UIViewController {
     }
     
     private func removeObject() {
+        tableView.reloadData()
         UserDefaults.standard.removeObject(forKey: CATEGORY)
         UserDefaults.standard.removeObject(forKey: YEAR)
         UserDefaults.standard.removeObject(forKey: MONTHE)
@@ -1041,7 +1041,11 @@ extension DetailTableViewController: UITableViewDataSource, UITableViewDelegate 
                 } else if category == "未分類" {
                     id = unCategoryArray[indexPath.row - 1].id
                 }
-                performSegue(withIdentifier: "EditSpendingVC", sender: nil)
+                UserDefaults.standard.set(id, forKey: SPENDING_ID)
+                let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+                let editSpendingVC = storyboard.instantiateViewController(withIdentifier: "EditSpendingVC")
+                editSpendingVC.presentationController?.delegate = self
+                self.present(editSpendingVC, animated: true, completion: nil)
                 return
             }
             if category == "給与" {
@@ -1061,7 +1065,17 @@ extension DetailTableViewController: UITableViewDataSource, UITableViewDelegate 
             } else {
                 id = unCategory2Array[indexPath.row - 1].id
             }
-            performSegue(withIdentifier: "EditIncomeVC", sender: nil)
+            UserDefaults.standard.set(id, forKey: INCOME_ID)
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let editIncomeVC = storyboard.instantiateViewController(withIdentifier: "EditIncomeVC")
+            editIncomeVC.presentationController?.delegate = self
+            self.present(editIncomeVC, animated: true, completion: nil)
         }
     }
+}
+
+extension DetailTableViewController: UIAdaptivePresentationControllerDelegate {
+  func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    selectCategory()
+  }
 }

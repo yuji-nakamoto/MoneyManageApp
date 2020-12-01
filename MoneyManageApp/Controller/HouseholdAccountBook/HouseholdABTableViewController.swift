@@ -54,6 +54,8 @@ class HouseholdABTableViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.barTintColor = UIColor(named: O_GRAY)
         UserDefaults.standard.removeObject(forKey: ON_SCROLL)
+        UserDefaults.standard.removeObject(forKey: SPENDING_ID)
+        UserDefaults.standard.removeObject(forKey: INCOME_ID)
         setupTopLabel(sendMonth, sendYear, updateTimestamp)
         
         if UserDefaults.standard.object(forKey: CHANGE) != nil {
@@ -340,22 +342,19 @@ class HouseholdABTableViewController: UIViewController {
         case 1334:
             viewHeightConstraint.constant = 95
             dateLbltopConstraint.constant = 25
-            break
         case 2048:
             changeLayout1()
-            break
         case 2160:
             changeLayout1()
-            break
+        case 2208:
+            viewHeightConstraint.constant = 95
+            dateLbltopConstraint.constant = 25
         case 2360:
             changeLayout1()
-            break
         case 2388:
             changeLayout1()
-            break
         case 2732:
             changeLayout2()
-            break
         default:
             break
         }
