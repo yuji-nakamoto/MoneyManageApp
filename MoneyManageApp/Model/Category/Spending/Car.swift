@@ -63,4 +63,13 @@ class FCar {
             completion()
         }
     }
+    
+    class func deleteCar(id: String, completion: @escaping() -> Void) {
+        COLLECTION_SPENDING.document(User.currentUserId()).collection("car").document(id).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

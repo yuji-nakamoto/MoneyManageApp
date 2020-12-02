@@ -61,4 +61,13 @@ class FMonthlyHouse {
             completion()
         }
     }
+    
+    class func deleteMHouse(timestamp: String, completion: @escaping() -> Void) {
+        COLLECTION_MONTHLY.document(User.currentUserId()).collection("mHouse").document(timestamp).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

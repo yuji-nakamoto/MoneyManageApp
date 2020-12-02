@@ -63,4 +63,13 @@ class FSalary {
             completion()
         }
     }
+    
+    class func deleteSalary(id: String, completion: @escaping() -> Void) {
+        COLLECTION_INCOME.document(User.currentUserId()).collection("salary").document(id).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

@@ -63,4 +63,13 @@ class FEstate {
             completion()
         }
     }
+    
+    class func deleteEstate(id: String, completion: @escaping() -> Void) {
+        COLLECTION_INCOME.document(User.currentUserId()).collection("estate").document(id).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

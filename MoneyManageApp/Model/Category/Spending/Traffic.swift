@@ -63,4 +63,13 @@ class FTraffic {
             completion()
         }
     }
+    
+    class func deleteTraffic(id: String, completion: @escaping() -> Void) {
+        COLLECTION_SPENDING.document(User.currentUserId()).collection("traffic").document(id).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

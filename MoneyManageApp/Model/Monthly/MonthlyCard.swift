@@ -61,4 +61,13 @@ class FMonthlyCard {
             completion()
         }
     }
+    
+    class func deleteMCard(timestamp: String, completion: @escaping() -> Void) {
+        COLLECTION_MONTHLY.document(User.currentUserId()).collection("mCard").document(timestamp).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

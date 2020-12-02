@@ -63,4 +63,13 @@ class FUnCategory {
             completion()
         }
     }
+    
+    class func deleteUnCategory(id: String, completion: @escaping() -> Void) {
+        COLLECTION_SPENDING.document(User.currentUserId()).collection("unCategory").document(id).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

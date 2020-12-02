@@ -63,4 +63,13 @@ class FSpecial {
             completion()
         }
     }
+    
+    class func deleteSpecial(id: String, completion: @escaping() -> Void) {
+        COLLECTION_SPENDING.document(User.currentUserId()).collection("special").document(id).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

@@ -49,4 +49,13 @@ class FMonthly {
             completion()
         }
     }
+    
+    class func deleteMonthlry(date: String, completion: @escaping() -> Void) {
+        COLLECTION_MONTHLY.document(User.currentUserId()).collection("monthly").document(date).delete { (error) in
+            if let error = error {
+                print("Error delete monthly: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

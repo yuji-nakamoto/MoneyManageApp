@@ -625,7 +625,9 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
         
         let calendar = Calendar.current
         let firstDateComp = calendar.date(from: DateComponents(year: Int(year2), month: Int(month2)!, day: 1))
-        let add = DateComponents(month: Int(month2)! + 2, day: -1)
+        let comps = calendar.dateComponents([.year, .month,], from: firstDateComp!)
+        let firstday = calendar.date(from: comps)
+        let add = DateComponents(month: 1, day: -1)
         let lastday = calendar.date(byAdding: add, to: firstday!)
         
         var yearMonthTotal: String {
@@ -747,14 +749,6 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                         mData.totalPrice = mData.totalPrice - salary.price
                         if mData.totalPrice == 0 {
                             realm.delete(mSalary)
-                            
-                            salary.price = Int(numberLabel.text!) ?? 0
-                            salary.category = categoryLabel.text ?? ""
-                            salary.memo = textField.text ?? ""
-                            salary.timestamp = dateLabel.text ?? ""
-                            salary.year = year2
-                            salary.month = month2
-                            salary.day = day2
                         }
                     }
                     
@@ -762,15 +756,16 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - salary.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        salary.price = Int(numberLabel.text!) ?? 0
-                        salary.category = categoryLabel.text ?? ""
-                        salary.memo = textField.text ?? ""
-                        salary.timestamp = dateLabel.text ?? ""
-                        salary.year = year2
-                        salary.month = month2
-                        salary.day = day2
                     }
+                }
+                try! realm.write {
+                    salary.price = Int(numberLabel.text!) ?? 0
+                    salary.category = categoryLabel.text ?? ""
+                    salary.memo = textField.text ?? ""
+                    salary.timestamp = dateLabel.text ?? ""
+                    salary.year = year2
+                    salary.month = month2
+                    salary.day = day2
                 }
             }
         }
@@ -812,14 +807,6 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                         mData.totalPrice = mData.totalPrice - temporary.price
                         if mData.totalPrice == 0 {
                             realm.delete(mTemporary)
-                            
-                            temporary.price = Int(numberLabel.text!) ?? 0
-                            temporary.category = categoryLabel.text ?? ""
-                            temporary.memo = textField.text ?? ""
-                            temporary.timestamp = dateLabel.text ?? ""
-                            temporary.year = year2
-                            temporary.month = month2
-                            temporary.day = day2
                         }
                     }
                     
@@ -827,15 +814,16 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - temporary.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        temporary.price = Int(numberLabel.text!) ?? 0
-                        temporary.category = categoryLabel.text ?? ""
-                        temporary.memo = textField.text ?? ""
-                        temporary.timestamp = dateLabel.text ?? ""
-                        temporary.year = year2
-                        temporary.month = month2
-                        temporary.day = day2
                     }
+                }
+                try! realm.write {
+                    temporary.price = Int(numberLabel.text!) ?? 0
+                    temporary.category = categoryLabel.text ?? ""
+                    temporary.memo = textField.text ?? ""
+                    temporary.timestamp = dateLabel.text ?? ""
+                    temporary.year = year2
+                    temporary.month = month2
+                    temporary.day = day2
                 }
             }
         }
@@ -877,14 +865,6 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                         mData.totalPrice = mData.totalPrice - business.price
                         if mData.totalPrice == 0 {
                             realm.delete(mBusiness)
-                            
-                            business.price = Int(numberLabel.text!) ?? 0
-                            business.category = categoryLabel.text ?? ""
-                            business.memo = textField.text ?? ""
-                            business.timestamp = dateLabel.text ?? ""
-                            business.year = year2
-                            business.month = month2
-                            business.day = day2
                         }
                     }
                     
@@ -892,15 +872,16 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - business.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        business.price = Int(numberLabel.text!) ?? 0
-                        business.category = categoryLabel.text ?? ""
-                        business.memo = textField.text ?? ""
-                        business.timestamp = dateLabel.text ?? ""
-                        business.year = year2
-                        business.month = month2
-                        business.day = day2
                     }
+                }
+                try! realm.write {
+                    business.price = Int(numberLabel.text!) ?? 0
+                    business.category = categoryLabel.text ?? ""
+                    business.memo = textField.text ?? ""
+                    business.timestamp = dateLabel.text ?? ""
+                    business.year = year2
+                    business.month = month2
+                    business.day = day2
                 }
             }
         }
@@ -942,14 +923,6 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                         mData.totalPrice = mData.totalPrice - pension.price
                         if mData.totalPrice == 0 {
                             realm.delete(mPension)
-                            
-                            pension.price = Int(numberLabel.text!) ?? 0
-                            pension.category = categoryLabel.text ?? ""
-                            pension.memo = textField.text ?? ""
-                            pension.timestamp = dateLabel.text ?? ""
-                            pension.year = year2
-                            pension.month = month2
-                            pension.day = day2
                         }
                     }
                     
@@ -957,15 +930,16 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - pension.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        pension.price = Int(numberLabel.text!) ?? 0
-                        pension.category = categoryLabel.text ?? ""
-                        pension.memo = textField.text ?? ""
-                        pension.timestamp = dateLabel.text ?? ""
-                        pension.year = year2
-                        pension.month = month2
-                        pension.day = day2
                     }
+                }
+                try! realm.write {
+                    pension.price = Int(numberLabel.text!) ?? 0
+                    pension.category = categoryLabel.text ?? ""
+                    pension.memo = textField.text ?? ""
+                    pension.timestamp = dateLabel.text ?? ""
+                    pension.year = year2
+                    pension.month = month2
+                    pension.day = day2
                 }
             }
         }
@@ -1007,14 +981,6 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                         mData.totalPrice = mData.totalPrice - devident.price
                         if mData.totalPrice == 0 {
                             realm.delete(mDevident)
-                            
-                            devident.price = Int(numberLabel.text!) ?? 0
-                            devident.category = categoryLabel.text ?? ""
-                            devident.memo = textField.text ?? ""
-                            devident.timestamp = dateLabel.text ?? ""
-                            devident.year = year2
-                            devident.month = month2
-                            devident.day = day2
                         }
                     }
                     
@@ -1022,15 +988,16 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - devident.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        devident.price = Int(numberLabel.text!) ?? 0
-                        devident.category = categoryLabel.text ?? ""
-                        devident.memo = textField.text ?? ""
-                        devident.timestamp = dateLabel.text ?? ""
-                        devident.year = year2
-                        devident.month = month2
-                        devident.day = day2
                     }
+                }
+                try! realm.write {
+                    devident.price = Int(numberLabel.text!) ?? 0
+                    devident.category = categoryLabel.text ?? ""
+                    devident.memo = textField.text ?? ""
+                    devident.timestamp = dateLabel.text ?? ""
+                    devident.year = year2
+                    devident.month = month2
+                    devident.day = day2
                 }
             }
         }
@@ -1072,14 +1039,6 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                         mData.totalPrice = mData.totalPrice - estate.price
                         if mData.totalPrice == 0 {
                             realm.delete(mEstate)
-                            
-                            estate.price = Int(numberLabel.text!) ?? 0
-                            estate.category = categoryLabel.text ?? ""
-                            estate.memo = textField.text ?? ""
-                            estate.timestamp = dateLabel.text ?? ""
-                            estate.year = year2
-                            estate.month = month2
-                            estate.day = day2
                         }
                     }
                     
@@ -1087,15 +1046,16 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - estate.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        estate.price = Int(numberLabel.text!) ?? 0
-                        estate.category = categoryLabel.text ?? ""
-                        estate.memo = textField.text ?? ""
-                        estate.timestamp = dateLabel.text ?? ""
-                        estate.year = year2
-                        estate.month = month2
-                        estate.day = day2
                     }
+                }
+                try! realm.write {
+                    estate.price = Int(numberLabel.text!) ?? 0
+                    estate.category = categoryLabel.text ?? ""
+                    estate.memo = textField.text ?? ""
+                    estate.timestamp = dateLabel.text ?? ""
+                    estate.year = year2
+                    estate.month = month2
+                    estate.day = day2
                 }
             }
         }
@@ -1137,14 +1097,6 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                         mData.totalPrice = mData.totalPrice - payment.price
                         if mData.totalPrice == 0 {
                             realm.delete(mPayment)
-                            
-                            payment.price = Int(numberLabel.text!) ?? 0
-                            payment.category = categoryLabel.text ?? ""
-                            payment.memo = textField.text ?? ""
-                            payment.timestamp = dateLabel.text ?? ""
-                            payment.year = year2
-                            payment.month = month2
-                            payment.day = day2
                         }
                     }
                     
@@ -1152,15 +1104,16 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - payment.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        payment.price = Int(numberLabel.text!) ?? 0
-                        payment.category = categoryLabel.text ?? ""
-                        payment.memo = textField.text ?? ""
-                        payment.timestamp = dateLabel.text ?? ""
-                        payment.year = year2
-                        payment.month = month2
-                        payment.day = day2
                     }
+                }
+                try! realm.write {
+                    payment.price = Int(numberLabel.text!) ?? 0
+                    payment.category = categoryLabel.text ?? ""
+                    payment.memo = textField.text ?? ""
+                    payment.timestamp = dateLabel.text ?? ""
+                    payment.year = year2
+                    payment.month = month2
+                    payment.day = day2
                 }
             }
         }
@@ -1202,14 +1155,6 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                         mData.totalPrice = mData.totalPrice - unCategory2.price
                         if mData.totalPrice == 0 {
                             realm.delete(mUnCategory)
-                            
-                            unCategory2.price = Int(numberLabel.text!) ?? 0
-                            unCategory2.category = categoryLabel.text ?? ""
-                            unCategory2.memo = textField.text ?? ""
-                            unCategory2.timestamp = dateLabel.text ?? ""
-                            unCategory2.year = year2
-                            unCategory2.month = month2
-                            unCategory2.day = day2
                         }
                     }
                     
@@ -1217,15 +1162,16 @@ class EditIncomeViewController: UIViewController, UITextFieldDelegate, FSCalenda
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - unCategory2.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        unCategory2.price = Int(numberLabel.text!) ?? 0
-                        unCategory2.category = categoryLabel.text ?? ""
-                        unCategory2.memo = textField.text ?? ""
-                        unCategory2.timestamp = dateLabel.text ?? ""
-                        unCategory2.year = year2
-                        unCategory2.month = month2
-                        unCategory2.day = day2
                     }
+                }
+                try! realm.write {
+                    unCategory2.price = Int(numberLabel.text!) ?? 0
+                    unCategory2.category = categoryLabel.text ?? ""
+                    unCategory2.memo = textField.text ?? ""
+                    unCategory2.timestamp = dateLabel.text ?? ""
+                    unCategory2.year = year2
+                    unCategory2.month = month2
+                    unCategory2.day = day2
                 }
             }
         }

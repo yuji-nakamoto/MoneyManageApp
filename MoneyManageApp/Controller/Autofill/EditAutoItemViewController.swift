@@ -668,7 +668,6 @@ class EditAutoItemViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setup() {
-        
         navigationItem.title = "自動入力の編集"
         pickerKeyboardView.delegate = self
         textField.delegate = self

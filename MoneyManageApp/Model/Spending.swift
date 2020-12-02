@@ -72,4 +72,13 @@ class FSpending {
             completion()
         }
     }
+    
+    class func deleteSpending(id: String, completion: @escaping() -> Void) {
+        COLLECTION_SPENDING.document(User.currentUserId()).collection("spending").document(id).delete { (error) in
+            if let error = error {
+                print("Error delete spending: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

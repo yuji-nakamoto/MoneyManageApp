@@ -61,4 +61,13 @@ class FMonthlyHealth {
             completion()
         }
     }
+    
+    class func deleteMHealth(timestamp: String, completion: @escaping() -> Void) {
+        COLLECTION_MONTHLY.document(User.currentUserId()).collection("mHealth").document(timestamp).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

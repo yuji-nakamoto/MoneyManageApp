@@ -63,4 +63,13 @@ class FHealth {
             completion()
         }
     }
+    
+    class func deleteHealth(id: String, completion: @escaping() -> Void) {
+        COLLECTION_SPENDING.document(User.currentUserId()).collection("health").document(id).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

@@ -63,4 +63,13 @@ class FBusiness {
             completion()
         }
     }
+    
+    class func deleteBusiness(id: String, completion: @escaping() -> Void) {
+        COLLECTION_INCOME.document(User.currentUserId()).collection("business").document(id).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

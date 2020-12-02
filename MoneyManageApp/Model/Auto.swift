@@ -86,4 +86,13 @@ class FAuto {
             completion()
         }
     }
+    
+    class func deleteAuto(id: String, completion: @escaping() -> Void) {
+        COLLECTION_AUTO.document(User.currentUserId()).collection("auto").document(id).delete { (error) in
+            if let error = error {
+                print("Error delete auto: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

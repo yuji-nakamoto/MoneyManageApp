@@ -61,4 +61,13 @@ class FMonthlyFood {
             completion()
         }
     }
+    
+    class func deleteMFood(timestamp: String, completion: @escaping() -> Void) {
+        COLLECTION_MONTHLY.document(User.currentUserId()).collection("mFood").document(timestamp).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

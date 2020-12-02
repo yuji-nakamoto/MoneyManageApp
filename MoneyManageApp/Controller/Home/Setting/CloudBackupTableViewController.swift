@@ -162,45 +162,74 @@ class CloudBackupTableViewController: UITableViewController, GADInterstitialDele
             }
         }
         
-        monthlyArray.forEach { (monthly) in
-            
-            let dict = [MONEY: monthly.money,
-                        DATE: monthly.date,
-                        PREVIOUS_MONTH: monthly.previousMonth] as [String : Any]
-            
-            FMonthly.saveMonthy(date: monthly.date, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
+        FMonthly.fetchMonthly { (data) in
+            var dataArray = [FMonthly]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthly.deleteMonthlry(date: data.date) { [self] in
+                    count += 1
+                    count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        monthlyArray.forEach { (monthly) in
+                            
+                            let dict = [MONEY: monthly.money,
+                                        DATE: monthly.date,
+                                        PREVIOUS_MONTH: monthly.previousMonth] as [String : Any]
+                            
+                            FMonthly.saveMonthy(date: monthly.date, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
             }
         }
         
-        autoArray.forEach { (auto) in
-            
-            let dict = [PRICE: auto.price,
-                        CATEGORY: auto.category,
-                        MEMO: auto.memo,
-                        PAYMENT: auto.payment,
-                        TIMESTAMP: auto.timestamp,
-                        DATE: auto.date,
-                        NEXT_MONTH: auto.nextMonth,
-                        YEAR: auto.year,
-                        MONTHE: auto.month,
-                        DAY: auto.day,
-                        IS_INPUT: auto.isInput,
-                        ON_REGISTER: auto.onRegister,
-                        IS_REGISTER: auto.isRegister,
-                        AUTOFILL_DAY: auto.autofillDay,
-                        ID: auto.id] as [String : Any]
-            
-            FAuto.saveAutofill(id: auto.id, value: dict) {
-                self.count2 += 1
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [self] in
-                    if count2 >= count3 {
-                        HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            navigationController?.popViewController(animated: true)
+        FAuto.fetchAuto { (data) in
+            var dataArray = [FAuto]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                
+                FAuto.deleteAuto(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        autoArray.forEach { (auto) in
+                            
+                            let dict = [PRICE: auto.price,
+                                        CATEGORY: auto.category,
+                                        MEMO: auto.memo,
+                                        PAYMENT: auto.payment,
+                                        TIMESTAMP: auto.timestamp,
+                                        DATE: auto.date,
+                                        NEXT_MONTH: auto.nextMonth,
+                                        YEAR: auto.year,
+                                        MONTHE: auto.month,
+                                        DAY: auto.day,
+                                        IS_INPUT: auto.isInput,
+                                        ON_REGISTER: auto.onRegister,
+                                        IS_REGISTER: auto.isRegister,
+                                        AUTOFILL_DAY: auto.autofillDay,
+                                        ID: auto.id] as [String : Any]
+                            
+                            FAuto.saveAutofill(id: auto.id, value: dict) {
+                                self.count2 += 1
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [self] in
+                                    if count2 >= count3 {
+                                        HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            navigationController?.popViewController(animated: true)
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -209,905 +238,1681 @@ class CloudBackupTableViewController: UITableViewController, GADInterstitialDele
         
         // MARK: - Spending data
         
-        foodArray.forEach { (data) in
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FFood.saveFood(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        hobbyArray.forEach { (data) in
+        FFood.fetchFood { (data) in
+            var dataArray = [FFood]()
+            var count = 0
+            dataArray.append(data)
             
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FHobby.saveHobby(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        brushArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FBrush.saveBrush(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        datingArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FDating.saveDating(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        trafficArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FTraffic.saveTraffic(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        clotheArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FClothe.saveClothe(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        healthArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FHealth.saveFHealth(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        carArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FCar.saveFCar(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        EducationArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FEducation.saveFEducation(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        specialArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FSpecial.saveFSpecial(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        utilityArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FUtility.saveFUtility(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        communicationArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FCommmunication.saveFCommmunication(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        houseArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FHouse.saveFHouse(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        taxArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FTax.saveFTax(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        insranceArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FInsrance.saveFInsrance(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        etcetoraArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FEtcetora.saveFEtcetora(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        unCategoryArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FUnCategory.saveFUnCategory(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        cardArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FCard.saveFCard(id: data.id, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        // MARK: - Income data
-        
-        salaryArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FSalary.saveFSalary(id: data.id, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        temporaryArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FTemporary.saveFTemporary(id: data.id, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        businessArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FBusiness.saveFBusiness(id: data.id, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        pensionArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FPension.saveFPension(id: data.id, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        devidentArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FDevident.saveFDevident(id: data.id, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        estateArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FEstate.saveFEstate(id: data.id, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        paymentArray.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FPayment.saveFPayment(id: data.id, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        unCategory2Array.forEach { (data) in
-            
-            let dict = [PRICE: data.price,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MEMO: data.memo,
-                        YEAR: data.year,
-                        MONTHE: data.month,
-                        DAY: data.day,
-                        ID: data.id] as [String : Any]
-            FUnCategory2.saveFUnCategory2(id: data.id, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        // MARK: - Monthly spending
-        
-        mFoodArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyFood.saveMonthyFood(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mBrushArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyBrush.saveMonthyBrush(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mHobbyArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyHobby.saveMonthyHobby(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mDatingArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyDating.saveMonthyDating(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mTrafficArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyTraffic.saveMonthyTraffic(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mClotheArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyClothe.saveMonthyClothe(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mHealthArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyHealth.saveMonthyHealth(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mCarArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyCar.saveMonthyCar(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mEducationArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyEducation.saveMonthyEducation(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mSpecialArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlySpecial.saveMonthySpecial(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mCardArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyCard.saveMonthyCard(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mUtilityArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyUtility.saveMonthyUtility(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mCommunicationArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyCommunication.saveMonthyCommunication(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mHouseArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyHouse.saveMonthyHouse(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mTaxArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyTax.saveMonthyTax(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mInsranceArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyInsrance.saveMonthyInsrance(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mEtcetoraArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyEtcetora.saveMonthyEtcetora(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mUnCategoryArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyUnCategory.saveMonthyUnCategory(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        // MARK: - Monthly income
-
-        mSalaryArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlySalary.saveMonthySalary(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mTemporaryArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyTemporary.saveMonthyTemporary(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mBusinessArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyBusiness.saveMonthyBusiness(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mPensionArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyPension.saveMonthyPension(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mDevidentArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyDevident.saveMonthyDevident(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        mEstateArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyEstate.saveMonthyEstate(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-
-        mPaymentArray.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyPayment.saveMonthyPayment(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-
-        mUnCategory2Array.forEach { (data) in
-            
-            let dict = [TOTAL_PRICE: data.totalPrice,
-                        CATEGORY: data.category,
-                        TIMESTAMP: data.timestamp,
-                        MONTHLY: data.monthly,
-                        DATE: data.date,
-                        YEAR: data.year,
-                        MONTHE: data.month] as [String : Any]
-            FMonthlyUnCategory2.saveMonthyUnCategory2(timestamp: data.timestamp, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-            }
-        }
-        
-        // MARK: - Model
-        
-        incomeArray.forEach { (income) in
-             
-            let dict = [PRICE: income.price,
-                        CATEGORY: income.category,
-                        TIMESTAMP: income.timestamp,
-                        DATE: income.date,
-                        YEAR: income.year,
-                        MONTHE: income.month,
-                        DAY: income.day,
-                        IS_AUTOFILL: income.isAutofill,
-                        ID: income.id] as [String : Any]
-            
-            FIncome.saveIncome(id: income.id, value: dict) {
-                self.count3 += 1
-                self.count4 += 1
-                self.countLabel.text = String(self.count3)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [self] in
-                    if count4 >= count3 {
-                        HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            navigationController?.popViewController(animated: true)
+            dataArray.forEach { (d) in
+                FFood.deleteFood(id: d.id) { [self] in
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        
+                        foodArray.forEach { (data) in
+                          
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FFood.saveFood(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
                         }
                     }
                 }
             }
         }
         
-        spendingArray.forEach { (spending) in
+        FHobby.fetchHobby { (data) in
+            var dataArray = [FHobby]()
+            var count = 0
+            dataArray.append(data)
             
-            let dict = [PRICE: spending.price,
-                        CATEGORY: spending.category,
-                        TIMESTAMP: spending.timestamp,
-                        DATE: spending.date,
-                        YEAR: spending.year,
-                        MONTHE: spending.month,
-                        DAY: spending.day,
-                        IS_AUTOFILL: spending.isAutofill,
-                        ID: spending.id] as [String : Any]
-            
-            FSpending.saveSpending(id: spending.id, value: dict) { [self] in
-
-                count1 += 1
-                count3 += 1
-                countLabel.text = String(self.count3)
-                
-                if count1 == spendingArray.count {
-                    User.updateUser(value: [BACKUP_COUNT: count3])
-                    HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        navigationController?.popViewController(animated: true)
+            dataArray.forEach { (d) in
+                FHobby.deleteHobby(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        hobbyArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FHobby.saveHobby(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
                     }
                 }
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [self] in
-            if count2 == 0 && count5 == 0 {
-                HUD.flash(.labeledError(title: "", subtitle: "バックアップするデータがありません"), delay: 1)
-                generator.notificationOccurred(.error)
+            
+        FBrush.fetchBrush { (data) in
+            var dataArray = [FBrush]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FBrush.deleteBrush(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        brushArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FBrush.saveBrush(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+                
+        FDating.fetchDating { (data) in
+            var dataArray = [FDating]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FDating.deleteDating(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        datingArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FDating.saveDating(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+                
+        FTraffic.fetchTraffic { (data) in
+            var dataArray = [FTraffic]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FTraffic.deleteTraffic(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        trafficArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FTraffic.saveTraffic(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
             }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            if self.interstitial.isReady {
-                self.interstitial.present(fromRootViewController: self)
+        FClothe.fetchClothe { (data) in
+            var dataArray = [FClothe]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FClothe.deleteClothe(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        clotheArray.forEach { (data) in
+
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FClothe.saveClothe(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FHealth.fetchFHealth { (data) in
+            var dataArray = [FHealth]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FHealth.deleteHealth(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        healthArray.forEach { (data) in
+
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FHealth.saveFHealth(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FCar.fetchCar { (data) in
+            var dataArray = [FCar]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FCar.deleteCar(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        carArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FCar.saveFCar(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+                
+        FEducation.fetchFEducation { (data) in
+            var dataArray = [FEducation]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FEducation.deleteEducation(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        EducationArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FEducation.saveFEducation(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+                
+        FSpecial.fetchFSpecial { (data) in
+            var dataArray = [FSpecial]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FSpecial.deleteSpecial(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        specialArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FSpecial.saveFSpecial(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+                
+        FUtility.fetchFUtility { (data) in
+            var dataArray = [FUtility]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FUtility.deleteUtility(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        utilityArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FUtility.saveFUtility(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FCommmunication.fetchFCommmunication { (data) in
+            var dataArray = [FCommmunication]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FCommmunication.deleteCommmunication(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        communicationArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FCommmunication.saveFCommmunication(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+                
+        FHouse.fetchFHouse { (data) in
+            var dataArray = [FHouse]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FHouse.deleteHouse(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        houseArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FHouse.saveFHouse(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FTax.fetchFTax { (data) in
+            var dataArray = [FTax]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FTax.deleteTax(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        taxArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FTax.saveFTax(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FInsrance.fetchFInsrance { (data) in
+            var dataArray = [FInsrance]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FInsrance.deleteInsrance(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        insranceArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FInsrance.saveFInsrance(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+                
+        FEtcetora.fetchFEtcetora{ (data) in
+            var dataArray = [FEtcetora]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FEtcetora.deleteEtcetora(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        etcetoraArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FEtcetora.saveFEtcetora(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FUnCategory.fetchFUnCategory { (data) in
+            var dataArray = [FUnCategory]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FUnCategory.deleteUnCategory(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        unCategoryArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FUnCategory.saveFUnCategory(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FCard.fetchFCard { (data) in
+            var dataArray = [FCard]()
+            var count = 0
+            dataArray.append(data)
+            
+            dataArray.forEach { (d) in
+                FCard.deleteCard(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        cardArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FCard.saveFCard(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        // MARK: - Income data
+        
+        FSalary.fetchFSalary { (data) in
+            var dataArray = [FSalary]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FSalary.deleteSalary(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        salaryArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FSalary.saveFSalary(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+                
+        FTemporary.fetchFTemporary { (data) in
+            var dataArray = [FTemporary]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FTemporary.deleteTemporary(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        temporaryArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FTemporary.saveFTemporary(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FBusiness.fetchFBusiness { (data) in
+            var dataArray = [FBusiness]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FBusiness.deleteBusiness(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        businessArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FBusiness.saveFBusiness(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FPension.fetchFPension { (data) in
+            var dataArray = [FPension]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FPension.deletePension(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        pensionArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FPension.saveFPension(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FDevident.fetchFDevident { (data) in
+            var dataArray = [FDevident]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FDevident.deleteDevident(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        devidentArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FDevident.saveFDevident(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FEstate.fetchFEstate { (data) in
+            var dataArray = [FEstate]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FEstate.deleteEstate(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        estateArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FEstate.saveFEstate(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FPayment.fetchFPayment { (data) in
+            var dataArray = [FPayment]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FPayment.deletePayment(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        paymentArray.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FPayment.saveFPayment(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FUnCategory2.fetchFUnCategory2 { (data) in
+            var dataArray = [FUnCategory2]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FUnCategory2.deleteUnCategory2(id: d.id) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        unCategory2Array.forEach { (data) in
+                            
+                            let dict = [PRICE: data.price,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MEMO: data.memo,
+                                        YEAR: data.year,
+                                        MONTHE: data.month,
+                                        DAY: data.day,
+                                        ID: data.id] as [String : Any]
+                            FUnCategory2.saveFUnCategory2(id: data.id, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        // MARK: - Monthly spending
+        
+        FMonthlyFood.fetchMFood { (data) in
+            var dataArray = [FMonthlyFood]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyFood.deleteMFood(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mFoodArray.forEach { (data) in
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyFood.saveMonthyFood(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyBrush.fetchMBrush { (data) in
+            var dataArray = [FMonthlyBrush]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyBrush.deleteMBrush(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mBrushArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyBrush.saveMonthyBrush(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyHobby.fetchMHobby { (data) in
+            var dataArray = [FMonthlyHobby]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyHobby.deleteMHobby(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mHobbyArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyHobby.saveMonthyHobby(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyDating.fetchMDating { (data) in
+            var dataArray = [FMonthlyDating]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyDating.deleteMDating(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mDatingArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyDating.saveMonthyDating(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyTraffic.fetchMTraffic { (data) in
+            var dataArray = [FMonthlyTraffic]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyTraffic.deleteMTraffic(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mTrafficArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyTraffic.saveMonthyTraffic(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyClothe.fetchMClothe { (data) in
+            var dataArray = [FMonthlyClothe]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyClothe.deleteMClothe(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mClotheArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyClothe.saveMonthyClothe(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyHealth.fetchMHealth { (data) in
+            var dataArray = [FMonthlyHealth]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyHealth.deleteMHealth(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mHealthArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyHealth.saveMonthyHealth(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyCar.fetchMCar { (data) in
+            var dataArray = [FMonthlyCar]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyCar.deleteMCar(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mCarArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyCar.saveMonthyCar(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyEducation.fetchMEducation { (data) in
+            var dataArray = [FMonthlyEducation]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyEducation.deleteMEducation(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mEducationArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyEducation.saveMonthyEducation(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlySpecial.fetchMSpecial { (data) in
+            var dataArray = [FMonthlySpecial]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlySpecial.deleteMSpecial(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mSpecialArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlySpecial.saveMonthySpecial(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyCard.fetchMCard { (data) in
+            var dataArray = [FMonthlyCard]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyCard.deleteMCard(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mCardArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyCard.saveMonthyCard(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    
+        FMonthlyUtility.fetchMUtility { (data) in
+            var dataArray = [FMonthlyUtility]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyUtility.deleteMUtility(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mUtilityArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyUtility.saveMonthyUtility(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyCommunication.fetchMCommunication { (data) in
+            var dataArray = [FMonthlyCommunication]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyCommunication.deleteMCommunication(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mCommunicationArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyCommunication.saveMonthyCommunication(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyHouse.fetchMHouse { (data) in
+            var dataArray = [FMonthlyHouse]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyHouse.deleteMHouse(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mHouseArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyHouse.saveMonthyHouse(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyTax.fetchMTax { (data) in
+            var dataArray = [FMonthlyTax]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyTax.deleteMTax(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mTaxArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyTax.saveMonthyTax(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyInsrance.fetchMInsrance { (data) in
+            var dataArray = [FMonthlyInsrance]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyInsrance.deleteMInsrance(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mInsranceArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyInsrance.saveMonthyInsrance(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyEtcetora.fetchMEtcetora { (data) in
+            var dataArray = [FMonthlyEtcetora]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyEtcetora.deleteMEtcetora(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mEtcetoraArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyEtcetora.saveMonthyEtcetora(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyUnCategory.fetchMUnCategory { (data) in
+            var dataArray = [FMonthlyUnCategory]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyUnCategory.deleteMUnCategory(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mUnCategoryArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyUnCategory.saveMonthyUnCategory(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        // MARK: - Monthly income
+
+        FMonthlySalary.fetchMSalary { (data) in
+            var dataArray = [FMonthlySalary]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlySalary.deleteMSalary(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mSalaryArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlySalary.saveMonthySalary(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyTemporary.fetchMTemporary { (data) in
+            var dataArray = [FMonthlyTemporary]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyTemporary.deleteMTemporary(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mTemporaryArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyTemporary.saveMonthyTemporary(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyBusiness.fetchMBusiness { (data) in
+            var dataArray = [FMonthlyBusiness]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyBusiness.deleteMBusiness(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mBusinessArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyBusiness.saveMonthyBusiness(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyPension.fetchMPension { (data) in
+            var dataArray = [FMonthlyPension]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyPension.deleteMPension(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mPensionArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyPension.saveMonthyPension(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyDevident.fetchMDevident { (data) in
+            var dataArray = [FMonthlyDevident]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyDevident.deleteMDevident(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mDevidentArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyDevident.saveMonthyDevident(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyEstate.fetchMEstate { (data) in
+            var dataArray = [FMonthlyEstate]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyEstate.deleteMEstate(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mEstateArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyEstate.saveMonthyEstate(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyPayment.fetchMPayment { (data) in
+            var dataArray = [FMonthlyPayment]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyPayment.deleteMPayment(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mPaymentArray.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyPayment.saveMonthyPayment(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FMonthlyUnCategory2.fetchMUnCategory2 { (data) in
+            var dataArray = [FMonthlyUnCategory2]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FMonthlyUnCategory2.deleteMUnCategory2(timestamp: data.timestamp) {
+                    count += 1
+                    self.count3 -= 1
+                    self.countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        mUnCategory2Array.forEach { (data) in
+                            
+                            let dict = [TOTAL_PRICE: data.totalPrice,
+                                        CATEGORY: data.category,
+                                        TIMESTAMP: data.timestamp,
+                                        MONTHLY: data.monthly,
+                                        DATE: data.date,
+                                        YEAR: data.year,
+                                        MONTHE: data.month] as [String : Any]
+                            FMonthlyUnCategory2.saveMonthyUnCategory2(timestamp: data.timestamp, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        // MARK: - Model
+        
+        FIncome.fetchIncome { (data) in
+            var dataArray = [FIncome]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FIncome.deleteIncome(id: d.id) { [self] in
+                    count += 1
+                    count3 -= 1
+                    countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        incomeArray.forEach { (income) in
+                             
+                            let dict = [PRICE: income.price,
+                                        CATEGORY: income.category,
+                                        TIMESTAMP: income.timestamp,
+                                        MEMO: income.memo,
+                                        DATE: income.date,
+                                        YEAR: income.year,
+                                        MONTHE: income.month,
+                                        DAY: income.day,
+                                        IS_AUTOFILL: income.isAutofill,
+                                        ID: income.id] as [String : Any]
+                            
+                            FIncome.saveIncome(id: income.id, value: dict) {
+                                self.count3 += 1
+                                self.count4 += 1
+                                self.countLabel.text = String(self.count3)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [self] in
+                                    if count4 >= count3 {
+                                        HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 1)
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            navigationController?.popViewController(animated: true)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        FSpending.fetchSpending { (data) in
+            var dataArray = [FSpending]()
+            var count = 0
+            dataArray.append(data)
+            dataArray.forEach { (d) in
+                FSpending.deleteSpending(id: d.id) { [self] in
+                    count += 1
+                    count3 -= 1
+                    countLabel.text = String(self.count3)
+                    if count == dataArray.count {
+                        spendingArray.forEach { (spending) in
+                            
+                            let dict = [PRICE: spending.price,
+                                        CATEGORY: spending.category,
+                                        TIMESTAMP: spending.timestamp,
+                                        MEMO: spending.memo,
+                                        DATE: spending.date,
+                                        YEAR: spending.year,
+                                        MONTHE: spending.month,
+                                        DAY: spending.day,
+                                        IS_AUTOFILL: spending.isAutofill,
+                                        ID: spending.id] as [String : Any]
+                            
+                            FSpending.saveSpending(id: spending.id, value: dict) { [self] in
+
+                                count1 += 1
+                                count3 += 1
+                                countLabel.text = String(self.count3)
+                                
+                                if count1 == spendingArray.count {
+                                    User.updateUser(value: [BACKUP_COUNT: count3])
+                                    HUD.flash(.labeledSuccess(title: "", subtitle: "バックアップしました"), delay: 3)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                        navigationController?.popViewController(animated: true)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [self] in
+            if count2 == 0 && count5 == 0 {
+                HUD.flash(.labeledError(title: "", subtitle: "バックアップするデータがありません"), delay: 1)
+                generator.notificationOccurred(.error)
             } else {
-                print("Error interstitial")
+                if self.interstitial.isReady {
+                    self.interstitial.present(fromRootViewController: self)
+                } else {
+                    print("Error interstitial")
+                }
             }
         }
     }
-    
+
     private func setup() {
         
         navigationItem.title = "クラウドバックアップ"

@@ -63,4 +63,13 @@ class FDevident {
             completion()
         }
     }
+    
+    class func deleteDevident(id: String, completion: @escaping() -> Void) {
+        COLLECTION_INCOME.document(User.currentUserId()).collection("devident").document(id).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

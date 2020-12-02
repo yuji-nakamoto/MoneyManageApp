@@ -60,7 +60,7 @@ class HomeViewController: UIViewController {
         isAutofill()
         checkRegister()
         tableView.reloadData()
-        print("Realm URL: ",Realm.Configuration.defaultConfiguration.fileURL as Any)
+        print("Realm URL: \(String(describing: Realm.Configuration.defaultConfiguration.fileURL))")
     }
     
     // MARK: - Actions
@@ -98,6 +98,7 @@ class HomeViewController: UIViewController {
     
     @objc func refreshTableView(){
         checkRegister()
+        isAutofill()
         tableView.reloadData()
         refresh.endRefreshing()
     }

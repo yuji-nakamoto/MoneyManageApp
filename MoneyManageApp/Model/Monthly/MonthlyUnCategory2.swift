@@ -61,4 +61,13 @@ class FMonthlyUnCategory2 {
             completion()
         }
     }
+    
+    class func deleteMUnCategory2(timestamp: String, completion: @escaping() -> Void) {
+        COLLECTION_MONTHLY.document(User.currentUserId()).collection("mUnCategory2").document(timestamp).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

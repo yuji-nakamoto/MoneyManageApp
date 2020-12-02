@@ -61,4 +61,13 @@ class FMonthlyTemporary {
             completion()
         }
     }
+    
+    class func deleteMTemporary(timestamp: String, completion: @escaping() -> Void) {
+        COLLECTION_MONTHLY.document(User.currentUserId()).collection("mTemporary").document(timestamp).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

@@ -63,4 +63,13 @@ class FTemporary {
             completion()
         }
     }
+    
+    class func deleteTemporary(id: String, completion: @escaping() -> Void) {
+        COLLECTION_INCOME.document(User.currentUserId()).collection("temporary").document(id).delete { (error) in
+            if let error = error {
+                print("Error delete: \(error.localizedDescription)")
+            }
+            completion()
+        }
+    }
 }

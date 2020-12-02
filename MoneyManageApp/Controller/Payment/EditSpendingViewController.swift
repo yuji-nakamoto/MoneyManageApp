@@ -786,7 +786,9 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
         
         let calendar = Calendar.current
         let firstDateComp = calendar.date(from: DateComponents(year: Int(year2), month: Int(month2)!, day: 1))
-        let add = DateComponents(month: Int(month2)! + 2, day: -1)
+        let comps = calendar.dateComponents([.year, .month,], from: firstDateComp!)
+        let firstday = calendar.date(from: comps)
+        let add = DateComponents(month: 1, day: -1)
         let lastday = calendar.date(byAdding: add, to: firstday!)
         
         var yearMonthTotal: String {
@@ -901,6 +903,9 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
             let mFood = realm.objects(MonthlyFood.self).filter("year == '\(food.year)'").filter("month == '\(food.month)'")
             
             mFood.forEach { (mData) in
+                /* mFoodの年と選択年が等しくない && mFoodの月と選択月が等しくない
+                   mFoodの年と選択年が等しい && mFoodの月と選択月が等しくない
+                   mFoodの年と選択年が等しくない && mFoodの月と選択月が等しい */
                 if mData.year != year2 && mData.month != month2 || mData.year == year2 && mData.month != month2 || mData.year != year2 && mData.month == month2 {
                     let mFood2 = realm.objects(MonthlyFood.self).filter("year == '\(year2)'").filter("month == '\(month2)'")
                     
@@ -926,32 +931,24 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - food.price
-                        if mData.totalPrice == 0 {
+                        if mData.totalPrice <= 0 {
                             realm.delete(mFood)
-                            
-                            food.price = Int(numberLabel.text!) ?? 0
-                            food.category = categoryLabel.text ?? ""
-                            food.memo = textField.text ?? ""
-                            food.timestamp = dateLabel.text ?? ""
-                            food.year = year2
-                            food.month = month2
-                            food.day = day2
                         }
                     }
-                    
                 } else {
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - food.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        food.price = Int(numberLabel.text!) ?? 0
-                        food.category = categoryLabel.text ?? ""
-                        food.memo = textField.text ?? ""
-                        food.timestamp = dateLabel.text ?? ""
-                        food.year = year2
-                        food.month = month2
-                        food.day = day2
                     }
+                }
+                try! realm.write {
+                    food.price = Int(numberLabel.text!) ?? 0
+                    food.category = categoryLabel.text ?? ""
+                    food.memo = textField.text ?? ""
+                    food.timestamp = dateLabel.text ?? ""
+                    food.year = year2
+                    food.month = month2
+                    food.day = day2
                 }
             }
         }
@@ -993,30 +990,22 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - brush.price
                         if mData.totalPrice == 0 {
                             realm.delete(mBrush)
-                            
-                            brush.price = Int(numberLabel.text!) ?? 0
-                            brush.category = categoryLabel.text ?? ""
-                            brush.memo = textField.text ?? ""
-                            brush.timestamp = dateLabel.text ?? ""
-                            brush.year = year2
-                            brush.month = month2
-                            brush.day = day2
                         }
                     }
-                    
                 } else {
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - brush.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        brush.price = Int(numberLabel.text!) ?? 0
-                        brush.category = categoryLabel.text ?? ""
-                        brush.memo = textField.text ?? ""
-                        brush.timestamp = dateLabel.text ?? ""
-                        brush.year = year2
-                        brush.month = month2
-                        brush.day = day2
                     }
+                }
+                try! realm.write {
+                    brush.price = Int(numberLabel.text!) ?? 0
+                    brush.category = categoryLabel.text ?? ""
+                    brush.memo = textField.text ?? ""
+                    brush.timestamp = dateLabel.text ?? ""
+                    brush.year = year2
+                    brush.month = month2
+                    brush.day = day2
                 }
             }
         }
@@ -1058,14 +1047,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - hobby.price
                         if mData.totalPrice == 0 {
                             realm.delete(mHobby)
-                            
-                            hobby.price = Int(numberLabel.text!) ?? 0
-                            hobby.category = categoryLabel.text ?? ""
-                            hobby.memo = textField.text ?? ""
-                            hobby.timestamp = dateLabel.text ?? ""
-                            hobby.year = year2
-                            hobby.month = month2
-                            hobby.day = day2
                         }
                     }
                     
@@ -1073,15 +1054,16 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - hobby.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        hobby.price = Int(numberLabel.text!) ?? 0
-                        hobby.category = categoryLabel.text ?? ""
-                        hobby.memo = textField.text ?? ""
-                        hobby.timestamp = dateLabel.text ?? ""
-                        hobby.year = year2
-                        hobby.month = month2
-                        hobby.day = day2
                     }
+                }
+                try! realm.write {
+                    hobby.price = Int(numberLabel.text!) ?? 0
+                    hobby.category = categoryLabel.text ?? ""
+                    hobby.memo = textField.text ?? ""
+                    hobby.timestamp = dateLabel.text ?? ""
+                    hobby.year = year2
+                    hobby.month = month2
+                    hobby.day = day2
                 }
             }
         }
@@ -1123,14 +1105,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - dating.price
                         if mData.totalPrice == 0 {
                             realm.delete(mDating)
-                            
-                            dating.price = Int(numberLabel.text!) ?? 0
-                            dating.category = categoryLabel.text ?? ""
-                            dating.memo = textField.text ?? ""
-                            dating.timestamp = dateLabel.text ?? ""
-                            dating.year = year2
-                            dating.month = month2
-                            dating.day = day2
                         }
                     }
                     
@@ -1138,15 +1112,16 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - dating.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        dating.price = Int(numberLabel.text!) ?? 0
-                        dating.category = categoryLabel.text ?? ""
-                        dating.memo = textField.text ?? ""
-                        dating.timestamp = dateLabel.text ?? ""
-                        dating.year = year2
-                        dating.month = month2
-                        dating.day = day2
                     }
+                }
+                try! realm.write {
+                    dating.price = Int(numberLabel.text!) ?? 0
+                    dating.category = categoryLabel.text ?? ""
+                    dating.memo = textField.text ?? ""
+                    dating.timestamp = dateLabel.text ?? ""
+                    dating.year = year2
+                    dating.month = month2
+                    dating.day = day2
                 }
             }
         }
@@ -1188,14 +1163,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - traffic.price
                         if mData.totalPrice == 0 {
                             realm.delete(mTraffic)
-                            
-                            traffic.price = Int(numberLabel.text!) ?? 0
-                            traffic.category = categoryLabel.text ?? ""
-                            traffic.memo = textField.text ?? ""
-                            traffic.timestamp = dateLabel.text ?? ""
-                            traffic.year = year2
-                            traffic.month = month2
-                            traffic.day = day2
                         }
                     }
                     
@@ -1203,15 +1170,16 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - traffic.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        traffic.price = Int(numberLabel.text!) ?? 0
-                        traffic.category = categoryLabel.text ?? ""
-                        traffic.memo = textField.text ?? ""
-                        traffic.timestamp = dateLabel.text ?? ""
-                        traffic.year = year2
-                        traffic.month = month2
-                        traffic.day = day2
                     }
+                }
+                try! realm.write {
+                    traffic.price = Int(numberLabel.text!) ?? 0
+                    traffic.category = categoryLabel.text ?? ""
+                    traffic.memo = textField.text ?? ""
+                    traffic.timestamp = dateLabel.text ?? ""
+                    traffic.year = year2
+                    traffic.month = month2
+                    traffic.day = day2
                 }
             }
         }
@@ -1253,14 +1221,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - clothe.price
                         if mData.totalPrice == 0 {
                             realm.delete(mClothe)
-                            
-                            clothe.price = Int(numberLabel.text!) ?? 0
-                            clothe.category = categoryLabel.text ?? ""
-                            clothe.memo = textField.text ?? ""
-                            clothe.timestamp = dateLabel.text ?? ""
-                            clothe.year = year2
-                            clothe.month = month2
-                            clothe.day = day2
                         }
                     }
                     
@@ -1268,15 +1228,16 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - clothe.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        clothe.price = Int(numberLabel.text!) ?? 0
-                        clothe.category = categoryLabel.text ?? ""
-                        clothe.memo = textField.text ?? ""
-                        clothe.timestamp = dateLabel.text ?? ""
-                        clothe.year = year2
-                        clothe.month = month2
-                        clothe.day = day2
                     }
+                }
+                try! realm.write {
+                    clothe.price = Int(numberLabel.text!) ?? 0
+                    clothe.category = categoryLabel.text ?? ""
+                    clothe.memo = textField.text ?? ""
+                    clothe.timestamp = dateLabel.text ?? ""
+                    clothe.year = year2
+                    clothe.month = month2
+                    clothe.day = day2
                 }
             }
         }
@@ -1318,14 +1279,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - health.price
                         if mData.totalPrice == 0 {
                             realm.delete(mHealth)
-                            
-                            health.price = Int(numberLabel.text!) ?? 0
-                            health.category = categoryLabel.text ?? ""
-                            health.memo = textField.text ?? ""
-                            health.timestamp = dateLabel.text ?? ""
-                            health.year = year2
-                            health.month = month2
-                            health.day = day2
                         }
                     }
                     
@@ -1333,15 +1286,16 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - health.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        health.price = Int(numberLabel.text!) ?? 0
-                        health.category = categoryLabel.text ?? ""
-                        health.memo = textField.text ?? ""
-                        health.timestamp = dateLabel.text ?? ""
-                        health.year = year2
-                        health.month = month2
-                        health.day = day2
                     }
+                }
+                try! realm.write {
+                    health.price = Int(numberLabel.text!) ?? 0
+                    health.category = categoryLabel.text ?? ""
+                    health.memo = textField.text ?? ""
+                    health.timestamp = dateLabel.text ?? ""
+                    health.year = year2
+                    health.month = month2
+                    health.day = day2
                 }
             }
         }
@@ -1383,14 +1337,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - car.price
                         if mData.totalPrice == 0 {
                             realm.delete(mCar)
-                            
-                            car.price = Int(numberLabel.text!) ?? 0
-                            car.category = categoryLabel.text ?? ""
-                            car.memo = textField.text ?? ""
-                            car.timestamp = dateLabel.text ?? ""
-                            car.year = year2
-                            car.month = month2
-                            car.day = day2
                         }
                     }
                     
@@ -1398,15 +1344,16 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - car.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        car.price = Int(numberLabel.text!) ?? 0
-                        car.category = categoryLabel.text ?? ""
-                        car.memo = textField.text ?? ""
-                        car.timestamp = dateLabel.text ?? ""
-                        car.year = year2
-                        car.month = month2
-                        car.day = day2
                     }
+                }
+                try! realm.write {
+                    car.price = Int(numberLabel.text!) ?? 0
+                    car.category = categoryLabel.text ?? ""
+                    car.memo = textField.text ?? ""
+                    car.timestamp = dateLabel.text ?? ""
+                    car.year = year2
+                    car.month = month2
+                    car.day = day2
                 }
             }
         }
@@ -1448,14 +1395,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - education.price
                         if mData.totalPrice == 0 {
                             realm.delete(mEducation)
-                            
-                            education.price = Int(numberLabel.text!) ?? 0
-                            education.category = categoryLabel.text ?? ""
-                            education.memo = textField.text ?? ""
-                            education.timestamp = dateLabel.text ?? ""
-                            education.year = year2
-                            education.month = month2
-                            education.day = day2
                         }
                     }
                     
@@ -1463,15 +1402,16 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - education.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        education.price = Int(numberLabel.text!) ?? 0
-                        education.category = categoryLabel.text ?? ""
-                        education.memo = textField.text ?? ""
-                        education.timestamp = dateLabel.text ?? ""
-                        education.year = year2
-                        education.month = month2
-                        education.day = day2
                     }
+                }
+                try! realm.write {
+                    education.price = Int(numberLabel.text!) ?? 0
+                    education.category = categoryLabel.text ?? ""
+                    education.memo = textField.text ?? ""
+                    education.timestamp = dateLabel.text ?? ""
+                    education.year = year2
+                    education.month = month2
+                    education.day = day2
                 }
             }
         }
@@ -1513,30 +1453,22 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - special.price
                         if mData.totalPrice == 0 {
                             realm.delete(mSpecial)
-                            
-                            special.price = Int(numberLabel.text!) ?? 0
-                            special.category = categoryLabel.text ?? ""
-                            special.memo = textField.text ?? ""
-                            special.timestamp = dateLabel.text ?? ""
-                            special.year = year2
-                            special.month = month2
-                            special.day = day2
                         }
                     }
-                    
                 } else {
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - special.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        special.price = Int(numberLabel.text!) ?? 0
-                        special.category = categoryLabel.text ?? ""
-                        special.memo = textField.text ?? ""
-                        special.timestamp = dateLabel.text ?? ""
-                        special.year = year2
-                        special.month = month2
-                        special.day = day2
                     }
+                }
+                try! realm.write {
+                    special.price = Int(numberLabel.text!) ?? 0
+                    special.category = categoryLabel.text ?? ""
+                    special.memo = textField.text ?? ""
+                    special.timestamp = dateLabel.text ?? ""
+                    special.year = year2
+                    special.month = month2
+                    special.day = day2
                 }
             }
         }
@@ -1578,14 +1510,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - card.price
                         if mData.totalPrice == 0 {
                             realm.delete(mCard)
-                            
-                            card.price = Int(numberLabel.text!) ?? 0
-                            card.category = categoryLabel.text ?? ""
-                            card.memo = textField.text ?? ""
-                            card.timestamp = dateLabel.text ?? ""
-                            card.year = year2
-                            card.month = month2
-                            card.day = day2
                         }
                     }
                     
@@ -1593,15 +1517,16 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - card.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        card.price = Int(numberLabel.text!) ?? 0
-                        card.category = categoryLabel.text ?? ""
-                        card.memo = textField.text ?? ""
-                        card.timestamp = dateLabel.text ?? ""
-                        card.year = year2
-                        card.month = month2
-                        card.day = day2
                     }
+                }
+                try! realm.write {
+                    card.price = Int(numberLabel.text!) ?? 0
+                    card.category = categoryLabel.text ?? ""
+                    card.memo = textField.text ?? ""
+                    card.timestamp = dateLabel.text ?? ""
+                    card.year = year2
+                    card.month = month2
+                    card.day = day2
                 }
             }
         }
@@ -1643,14 +1568,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - utility.price
                         if mData.totalPrice == 0 {
                             realm.delete(mUtility)
-                            
-                            utility.price = Int(numberLabel.text!) ?? 0
-                            utility.category = categoryLabel.text ?? ""
-                            utility.memo = textField.text ?? ""
-                            utility.timestamp = dateLabel.text ?? ""
-                            utility.year = year2
-                            utility.month = month2
-                            utility.day = day2
                         }
                     }
                     
@@ -1658,15 +1575,16 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - utility.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        utility.price = Int(numberLabel.text!) ?? 0
-                        utility.category = categoryLabel.text ?? ""
-                        utility.memo = textField.text ?? ""
-                        utility.timestamp = dateLabel.text ?? ""
-                        utility.year = year2
-                        utility.month = month2
-                        utility.day = day2
                     }
+                }
+                try! realm.write {
+                    utility.price = Int(numberLabel.text!) ?? 0
+                    utility.category = categoryLabel.text ?? ""
+                    utility.memo = textField.text ?? ""
+                    utility.timestamp = dateLabel.text ?? ""
+                    utility.year = year2
+                    utility.month = month2
+                    utility.day = day2
                 }
             }
         }
@@ -1708,14 +1626,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - communication.price
                         if mData.totalPrice == 0 {
                             realm.delete(mCommunication)
-                            
-                            communication.price = Int(numberLabel.text!) ?? 0
-                            communication.category = categoryLabel.text ?? ""
-                            communication.memo = textField.text ?? ""
-                            communication.timestamp = dateLabel.text ?? ""
-                            communication.year = year2
-                            communication.month = month2
-                            communication.day = day2
                         }
                     }
                     
@@ -1723,15 +1633,16 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - communication.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        communication.price = Int(numberLabel.text!) ?? 0
-                        communication.category = categoryLabel.text ?? ""
-                        communication.memo = textField.text ?? ""
-                        communication.timestamp = dateLabel.text ?? ""
-                        communication.year = year2
-                        communication.month = month2
-                        communication.day = day2
                     }
+                }
+                try! realm.write {
+                    communication.price = Int(numberLabel.text!) ?? 0
+                    communication.category = categoryLabel.text ?? ""
+                    communication.memo = textField.text ?? ""
+                    communication.timestamp = dateLabel.text ?? ""
+                    communication.year = year2
+                    communication.month = month2
+                    communication.day = day2
                 }
             }
         }
@@ -1773,14 +1684,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - house.price
                         if mData.totalPrice == 0 {
                             realm.delete(mHouse)
-                            
-                            house.price = Int(numberLabel.text!) ?? 0
-                            house.category = categoryLabel.text ?? ""
-                            house.memo = textField.text ?? ""
-                            house.timestamp = dateLabel.text ?? ""
-                            house.year = year2
-                            house.month = month2
-                            house.day = day2
                         }
                     }
                     
@@ -1788,15 +1691,16 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - house.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        house.price = Int(numberLabel.text!) ?? 0
-                        house.category = categoryLabel.text ?? ""
-                        house.memo = textField.text ?? ""
-                        house.timestamp = dateLabel.text ?? ""
-                        house.year = year2
-                        house.month = month2
-                        house.day = day2
                     }
+                }
+                try! realm.write {
+                    house.price = Int(numberLabel.text!) ?? 0
+                    house.category = categoryLabel.text ?? ""
+                    house.memo = textField.text ?? ""
+                    house.timestamp = dateLabel.text ?? ""
+                    house.year = year2
+                    house.month = month2
+                    house.day = day2
                 }
             }
         }
@@ -1838,14 +1742,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - tax.price
                         if mData.totalPrice == 0 {
                             realm.delete(mTax)
-                            
-                            tax.price = Int(numberLabel.text!) ?? 0
-                            tax.category = categoryLabel.text ?? ""
-                            tax.memo = textField.text ?? ""
-                            tax.timestamp = dateLabel.text ?? ""
-                            tax.year = year2
-                            tax.month = month2
-                            tax.day = day2
                         }
                     }
                     
@@ -1853,15 +1749,16 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - tax.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        tax.price = Int(numberLabel.text!) ?? 0
-                        tax.category = categoryLabel.text ?? ""
-                        tax.memo = textField.text ?? ""
-                        tax.timestamp = dateLabel.text ?? ""
-                        tax.year = year2
-                        tax.month = month2
-                        tax.day = day2
                     }
+                }
+                try! realm.write {
+                    tax.price = Int(numberLabel.text!) ?? 0
+                    tax.category = categoryLabel.text ?? ""
+                    tax.memo = textField.text ?? ""
+                    tax.timestamp = dateLabel.text ?? ""
+                    tax.year = year2
+                    tax.month = month2
+                    tax.day = day2
                 }
             }
         }
@@ -1903,14 +1800,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - insrance.price
                         if mData.totalPrice == 0 {
                             realm.delete(mInsrance)
-                            
-                            insrance.price = Int(numberLabel.text!) ?? 0
-                            insrance.category = categoryLabel.text ?? ""
-                            insrance.memo = textField.text ?? ""
-                            insrance.timestamp = dateLabel.text ?? ""
-                            insrance.year = year2
-                            insrance.month = month2
-                            insrance.day = day2
                         }
                     }
                     
@@ -1918,15 +1807,16 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - insrance.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        insrance.price = Int(numberLabel.text!) ?? 0
-                        insrance.category = categoryLabel.text ?? ""
-                        insrance.memo = textField.text ?? ""
-                        insrance.timestamp = dateLabel.text ?? ""
-                        insrance.year = year2
-                        insrance.month = month2
-                        insrance.day = day2
                     }
+                }
+                try! realm.write {
+                    insrance.price = Int(numberLabel.text!) ?? 0
+                    insrance.category = categoryLabel.text ?? ""
+                    insrance.memo = textField.text ?? ""
+                    insrance.timestamp = dateLabel.text ?? ""
+                    insrance.year = year2
+                    insrance.month = month2
+                    insrance.day = day2
                 }
             }
         }
@@ -1968,14 +1858,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - etcetra.price
                         if mData.totalPrice == 0 {
                             realm.delete(mEtcetora)
-                            
-                            etcetra.price = Int(numberLabel.text!) ?? 0
-                            etcetra.category = categoryLabel.text ?? ""
-                            etcetra.memo = textField.text ?? ""
-                            etcetra.timestamp = dateLabel.text ?? ""
-                            etcetra.year = year2
-                            etcetra.month = month2
-                            etcetra.day = day2
                         }
                     }
                     
@@ -1983,15 +1865,16 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - etcetra.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        etcetra.price = Int(numberLabel.text!) ?? 0
-                        etcetra.category = categoryLabel.text ?? ""
-                        etcetra.memo = textField.text ?? ""
-                        etcetra.timestamp = dateLabel.text ?? ""
-                        etcetra.year = year2
-                        etcetra.month = month2
-                        etcetra.day = day2
                     }
+                }
+                try! realm.write {
+                    etcetra.price = Int(numberLabel.text!) ?? 0
+                    etcetra.category = categoryLabel.text ?? ""
+                    etcetra.memo = textField.text ?? ""
+                    etcetra.timestamp = dateLabel.text ?? ""
+                    etcetra.year = year2
+                    etcetra.month = month2
+                    etcetra.day = day2
                 }
             }
         }
@@ -2033,14 +1916,6 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                         mData.totalPrice = mData.totalPrice - unCategory.price
                         if mData.totalPrice == 0 {
                             realm.delete(mUnCategory)
-                            
-                            unCategory.price = Int(numberLabel.text!) ?? 0
-                            unCategory.category = categoryLabel.text ?? ""
-                            unCategory.memo = textField.text ?? ""
-                            unCategory.timestamp = dateLabel.text ?? ""
-                            unCategory.year = year2
-                            unCategory.month = month2
-                            unCategory.day = day2
                         }
                     }
                     
@@ -2048,15 +1923,16 @@ class EditSpendingViewController: UIViewController, UITextFieldDelegate, FSCalen
                     try! realm.write {
                         mData.totalPrice = mData.totalPrice - unCategory.price
                         mData.totalPrice = mData.totalPrice + Int(numberLabel.text!)!
-                        
-                        unCategory.price = Int(numberLabel.text!) ?? 0
-                        unCategory.category = categoryLabel.text ?? ""
-                        unCategory.memo = textField.text ?? ""
-                        unCategory.timestamp = dateLabel.text ?? ""
-                        unCategory.year = year2
-                        unCategory.month = month2
-                        unCategory.day = day2
                     }
+                }
+                try! realm.write {
+                    unCategory.price = Int(numberLabel.text!) ?? 0
+                    unCategory.category = categoryLabel.text ?? ""
+                    unCategory.memo = textField.text ?? ""
+                    unCategory.timestamp = dateLabel.text ?? ""
+                    unCategory.year = year2
+                    unCategory.month = month2
+                    unCategory.day = day2
                 }
             }
         }
