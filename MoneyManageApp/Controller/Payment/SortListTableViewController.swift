@@ -90,7 +90,7 @@ class SortListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 0 {
+        if indexPath.row == 1 {
             userDefaults.removeObject(forKey: DATE_ASCE)
             userDefaults.removeObject(forKey: PRICE_DESC)
             userDefaults.removeObject(forKey: PRICE_ASCE)
@@ -100,7 +100,7 @@ class SortListTableViewController: UITableViewController {
                 self.dismiss(animated: true, completion: nil)
             }
             
-        } else if indexPath.row == 1 {
+        } else if indexPath.row == 2 {
             userDefaults.set(true, forKey: DATE_ASCE)
             userDefaults.removeObject(forKey: PRICE_DESC)
             userDefaults.removeObject(forKey: PRICE_ASCE)
@@ -110,7 +110,7 @@ class SortListTableViewController: UITableViewController {
                 self.dismiss(animated: true, completion: nil)
             }
 
-        } else if indexPath.row == 2 {
+        } else if indexPath.row == 3 {
             userDefaults.removeObject(forKey: PRICE_ASCE)
             userDefaults.set(true, forKey: PRICE_DESC)
             userDefaults.removeObject(forKey: DATE_ASCE)
@@ -120,7 +120,7 @@ class SortListTableViewController: UITableViewController {
                 self.dismiss(animated: true, completion: nil)
             }
 
-        } else if indexPath.row == 3 {
+        } else if indexPath.row == 4 {
             userDefaults.removeObject(forKey: DATE_ASCE)
             userDefaults.removeObject(forKey: PRICE_DESC)
             userDefaults.set(true, forKey: PRICE_ASCE)
@@ -130,7 +130,7 @@ class SortListTableViewController: UITableViewController {
                 self.dismiss(animated: true, completion: nil)
             }
 
-        } else {
+        } else if indexPath.row == 5 {
             userDefaults.removeObject(forKey: DATE_ASCE)
             userDefaults.removeObject(forKey: PRICE_DESC)
             userDefaults.removeObject(forKey: PRICE_ASCE)

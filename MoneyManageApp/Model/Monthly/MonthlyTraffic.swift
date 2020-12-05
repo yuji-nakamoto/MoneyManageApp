@@ -45,6 +45,9 @@ class FMonthlyTraffic {
             if let error = error {
                 print("Error fetch Traffic: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FMonthlyTraffic(dict: [TOTAL_PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let mTraffic = FMonthlyTraffic(dict: dict)

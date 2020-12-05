@@ -45,6 +45,9 @@ class FMonthlyBrush {
             if let error = error {
                 print("Error fetch mbrush: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FMonthlyBrush(dict: [TOTAL_PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let mBrush = FMonthlyBrush(dict: dict)

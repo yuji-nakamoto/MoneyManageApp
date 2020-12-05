@@ -16,7 +16,6 @@ class CloudRestoreTableViewController: UITableViewController, GADInterstitialDel
     @IBOutlet weak var restoreLabel: UILabel!
     @IBOutlet weak var restoreButton: UIButton!
     
-    var backupFile = ""
     private var user = User()
     private var interstitial: GADInterstitial!
     
@@ -106,8 +105,13 @@ class CloudRestoreTableViewController: UITableViewController, GADInterstitialDel
     }
     
     private func fetchUser() {
-        User.fetchUser { (user) in
+        User.fetchUser { [self] (user) in
             self.user = user
+            if user.backupFile != "" {
+                restoreLabel.text = user.backupFile
+            } else {
+                restoreLabel.text = "バックアップはありません"
+            }
         }
     }
     
@@ -1148,238 +1152,346 @@ class CloudRestoreTableViewController: UITableViewController, GADInterstitialDel
         }
         
         FSpending.fetchSpending { (spending) in
-            self.fSpendingArray.append(spending)
+            if spending.price > 0 {
+                self.fSpendingArray.append(spending)
+            }
         }
         
         FIncome.fetchIncome { (income) in
-            self.fIncomeArray.append(income)
+            if income.price > 0 {
+                self.fIncomeArray.append(income)
+            }
         }
         
         FAuto.fetchAuto { (auto) in
-            self.fAutoArray.append(auto)
+            if auto.price > 0 {
+                self.fAutoArray.append(auto)
+            }
         }
         
         FMonthly.fetchMonthly { (monthly) in
-            self.fMonthlyArray.append(monthly)
+            if monthly.money > 0 {
+                self.fMonthlyArray.append(monthly)
+            }
         }
         
         FMonthlyFood.fetchMFood { (data) in
-            self.fMonthlyFoodArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyFoodArray.append(data)
+            }
         }
         
         FMonthlyBrush.fetchMBrush { (data) in
-            self.fMonthlyBrushArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyBrushArray.append(data)
+            }
         }
         
         FMonthlyHobby.fetchMHobby { (data) in
-            self.fMonthlyHobbyArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyHobbyArray.append(data)
+            }
         }
         
         FMonthlyDating.fetchMDating { (data) in
-            self.fMonthlyDatingArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyDatingArray.append(data)
+            }
         }
         
         FMonthlyTraffic.fetchMTraffic { (data) in
-            self.fMonthlyTrafficArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyTrafficArray.append(data)
+            }
         }
         
         FMonthlyClothe.fetchMClothe { (data) in
-            self.fMonthlyClotheArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyClotheArray.append(data)
+            }
         }
         
         FMonthlyHealth.fetchMHealth { (data) in
-            self.fMonthlyHealthArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyHealthArray.append(data)
+            }
         }
         
         FMonthlyCar.fetchMCar { (data) in
-            self.fMonthlyCarArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyCarArray.append(data)
+            }
         }
         
         FMonthlyEducation.fetchMEducation { (data) in
-            self.fMonthlyEducationArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyEducationArray.append(data)
+            }
         }
         
         FMonthlySpecial.fetchMSpecial { (data) in
-            self.fMonthlySpecialArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlySpecialArray.append(data)
+            }
         }
         
         FMonthlyCard.fetchMCard { (data) in
-            self.fMonthlyCardArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyCardArray.append(data)
+            }
         }
         
         FMonthlyUtility.fetchMUtility { (data) in
-            self.fMonthlyUtilityArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyUtilityArray.append(data)
+            }
         }
         
         FMonthlyCommunication.fetchMCommunication { (data) in
-            self.fMonthlyCommunicationArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyCommunicationArray.append(data)
+            }
         }
         
         FMonthlyHouse.fetchMHouse { (data) in
-            self.fMonthlyHouseArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyHouseArray.append(data)
+            }
         }
         
         FMonthlyTax.fetchMTax { (data) in
-            self.fMonthlyTaxArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyTaxArray.append(data)
+            }
         }
         
         FMonthlyInsrance.fetchMInsrance { (data) in
-            self.fMonthlyInsranceArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyInsranceArray.append(data)
+            }
         }
         
         FMonthlyEtcetora.fetchMEtcetora { (data) in
-            self.fMonthlyEtcetoraArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyEtcetoraArray.append(data)
+            }
         }
         
         FMonthlyUnCategory.fetchMUnCategory { (data) in
-            self.fMonthlyUnCategoryArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyUnCategoryArray.append(data)
+            }
         }
         
         FMonthlySalary.fetchMSalary { (data) in
-            self.fMonthlySalaryArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlySalaryArray.append(data)
+            }
         }
         
         FMonthlyTemporary.fetchMTemporary { (data) in
-            self.fMonthlyTemporaryArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyTemporaryArray.append(data)
+            }
         }
         
         FMonthlyBusiness.fetchMBusiness { (data) in
-            self.fMonthlyBusinessArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyBusinessArray.append(data)
+            }
         }
         
         FMonthlyPension.fetchMPension { (data) in
-            self.fMonthlyPensionArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyPensionArray.append(data)
+            }
         }
         
         FMonthlyDevident.fetchMDevident { (data) in
-            self.fMonthlyDevidentArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyDevidentArray.append(data)
+            }
         }
         
         FMonthlyEstate.fetchMEstate { (data) in
-            self.fMonthlyEstateArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyEstateArray.append(data)
+            }
         }
         
         FMonthlyPayment.fetchMPayment { (data) in
-            self.fMonthlyPaymentArray.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyPaymentArray.append(data)
+            }
         }
         
         FMonthlyUnCategory2.fetchMUnCategory2 { (data) in
-            self.fMonthlyUnCategory2Array.append(data)
+            if data.totalPrice > 0 {
+                self.fMonthlyUnCategory2Array.append(data)
+            }
         }
         
         FFood.fetchFood { (data) in
-            self.fFoodArray.append(data)
+            if data.price > 0 {
+                self.fFoodArray.append(data)
+            }
         }
         
         FBrush.fetchBrush { (data) in
-            self.fBrushArray.append(data)
+            if data.price > 0 {
+                self.fBrushArray.append(data)
+            }
         }
         
         FHobby.fetchHobby { (data) in
-            self.fHobbyArray.append(data)
+            if data.price > 0 {
+                self.fHobbyArray.append(data)
+            }
         }
         
         FDating.fetchDating { (data) in
-            self.fDatingArray.append(data)
+            if data.price > 0 {
+                self.fDatingArray.append(data)
+            }
         }
         
         FTraffic.fetchTraffic { (data) in
-            self.fTrafficArray.append(data)
+            if data.price > 0 {
+                self.fTrafficArray.append(data)
+            }
         }
         
         FClothe.fetchClothe { (data) in
-            self.fClotheArray.append(data)
+            if data.price > 0 {
+                self.fClotheArray.append(data)
+            }
         }
         
         FHealth.fetchFHealth { (data) in
-            self.fHealthArray.append(data)
+            if data.price > 0 {
+                self.fHealthArray.append(data)
+            }
         }
         
         FCar.fetchCar { (data) in
-            self.fCarArray.append(data)
+            if data.price > 0 {
+                self.fCarArray.append(data)
+            }
         }
         
         FEducation.fetchFEducation { (data) in
-            self.fEducationArray.append(data)
+            if data.price > 0 {
+                self.fEducationArray.append(data)
+            }
         }
         
         FSpecial.fetchFSpecial { (data) in
-            self.fSpecialArray.append(data)
+            if data.price > 0 {
+                self.fSpecialArray.append(data)
+            }
         }
         
         FCard.fetchFCard { (data) in
-            self.fCardArray.append(data)
+            if data.price > 0 {
+                self.fCardArray.append(data)
+            }
         }
         
         FUtility.fetchFUtility { (data) in
-            self.fUtilityArray.append(data)
+            if data.price > 0 {
+                self.fUtilityArray.append(data)
+            }
         }
         
         FCommmunication.fetchFCommmunication { (data) in
-            self.fCommunicationArray.append(data)
+            if data.price > 0 {
+                self.fCommunicationArray.append(data)
+            }
         }
         
         FHouse.fetchFHouse { (data) in
-            self.fHouseArray.append(data)
+            if data.price > 0 {
+                self.fHouseArray.append(data)
+            }
         }
         
         FTax.fetchFTax { (data) in
-            self.fTaxArray.append(data)
+            if data.price > 0 {
+                self.fTaxArray.append(data)
+            }
         }
         
         FInsrance.fetchFInsrance { (data) in
-            self.fInsranceArray.append(data)
+            if data.price > 0 {
+                self.fInsranceArray.append(data)
+            }
         }
         
         FEtcetora.fetchFEtcetora { (data) in
-            self.fEtcetoraArray.append(data)
+            if data.price > 0 {
+                self.fEtcetoraArray.append(data)
+            }
         }
         
         FUnCategory.fetchFUnCategory { (data) in
-            self.fUnCategoryArray.append(data)
+            if data.price > 0 {
+                self.fUnCategoryArray.append(data)
+            }
         }
         
         FSalary.fetchFSalary { (data) in
-            self.fSalaryArray.append(data)
+            if data.price > 0 {
+                self.fSalaryArray.append(data)
+            }
         }
         
         FTemporary.fetchFTemporary { (data) in
-            self.fTemporaryArray.append(data)
+            if data.price > 0 {
+                self.fTemporaryArray.append(data)
+            }
         }
         
         FBusiness.fetchFBusiness { (data) in
-            self.fBusinessArray.append(data)
+            if data.price > 0 {
+                self.fBusinessArray.append(data)
+            }
         }
         
         FPension.fetchFPension { (data) in
-            self.fPensionArray.append(data)
+            if data.price > 0 {
+                self.fPensionArray.append(data)
+            }
         }
         
         FDevident.fetchFDevident { (data) in
-            self.fDevidentArray.append(data)
+            if data.price > 0 {
+                self.fDevidentArray.append(data)
+            }
         }
         
         FEstate.fetchFEstate { (data) in
-            self.fEstateArray.append(data)
+            if data.price > 0 {
+                self.fEstateArray.append(data)
+            }
         }
         
         FPayment.fetchFPayment { (data) in
-            self.fPaymentArray.append(data)
+            if data.price > 0 {
+                self.fPaymentArray.append(data)
+            }
         }
         
         FUnCategory2.fetchFUnCategory2 { (data) in
-            self.fUnCategory2Array.append(data)
+            if data.price > 0 {
+                self.fUnCategory2Array.append(data)
+            }
         }
     }
     
     private func setup() {
         
-        navigationItem.title = "クラウドバックアップの復元"
-        if backupFile == "" {
-            restoreLabel.text = "バックアップはありません"
-        } else {
-            restoreLabel.text = backupFile
-        }
+        navigationItem.title = "バックアップの復元"
+        restoreLabel.text = ""
         restoreButton.layer.cornerRadius = 10
         restoreButton.isEnabled = false
         checkMark.isHidden = true
@@ -1402,7 +1514,7 @@ class CloudRestoreTableViewController: UITableViewController, GADInterstitialDel
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 0 && backupFile != "" {
+        if indexPath.row == 0 && user.backupFile != "" {
             checkMark.isHidden =  false
             UserDefaults.standard.set(true, forKey: CHECK1)
             restoreButton.isEnabled = true

@@ -47,6 +47,9 @@ class FFood {
             if let error = error {
                 print("Error fetch spending: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FFood(dict: [PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let data = FFood(dict: dict)

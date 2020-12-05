@@ -45,6 +45,9 @@ class FMonthlyHealth {
             if let error = error {
                 print("Error fetch Health: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FMonthlyHealth(dict: [TOTAL_PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let mHealth = FMonthlyHealth(dict: dict)

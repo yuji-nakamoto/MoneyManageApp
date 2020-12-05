@@ -7,30 +7,35 @@
 
 import Foundation
 import Firebase
+import RealmSwift
+
+class RUser: Object {
+    @objc dynamic var uid = ""
+    @objc dynamic var manageId = ""
+    @objc dynamic var password = ""
+}
 
 class User {
     
     var uid: String!
-    var email: String!
-    var isLogin: Bool!
+    var moneyManegeId: String!
     var backupFile: String!
-    var backupCount: Int!
+    var backupCount: Double!
     
     init() {
     }
     
     init(dict: [String: Any]) {
         uid = dict[UID] as? String ?? ""
-        email = dict[EMAIL] as? String ?? ""
-        isLogin = dict[IS_LOGIN] as? Bool ?? false
+        moneyManegeId = dict[MONEY_MANEGE_ID] as? String ?? ""
         backupFile = dict[BACKUP_FILE] as? String ?? ""
-        backupCount = dict[BACKUP_COUNT] as? Int ?? 0
+        backupCount = dict[BACKUP_COUNT] as? Double ?? 0
     }
     
     // MARK: - Return user
     
     class func currentUserId() -> String {
-        guard Auth.auth().currentUser != nil else { return "fCaTJRVce0eDLoxZAe2xLubNy893" }
+        guard Auth.auth().currentUser != nil else { return "XswnqPQzcFg4DnKubEWJ4cWjCrh1" }
         return Auth.auth().currentUser!.uid
     }
     
@@ -39,6 +44,7 @@ class User {
         COLLECTION_USERS.document(User.currentUserId()).getDocument { (snapshot, error) in
             if let error = error {
                 print("Error: fetch user: \(error.localizedDescription)")
+                completion(User(dict: [UID: ""]))
             }
             if snapshot?.data() == nil {
                 completion(User(dict: [UID: ""]))
@@ -49,8 +55,8 @@ class User {
         }
     }
     
-    class func saveUser(uid: String, email: String) {
-        COLLECTION_USERS.document(uid).setData([UID: uid, EMAIL: email, IS_LOGIN: true]) { (error) in
+    class func saveUser(uid: String, manegeId: String) {
+        COLLECTION_USERS.document(uid).setData([UID: uid, MONEY_MANEGE_ID: manegeId]) { (error) in
             if let error = error {
                 print("Error saving user: \(error.localizedDescription)")
             }

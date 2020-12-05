@@ -47,6 +47,9 @@ class FHobby {
             if let error = error {
                 print("Error fetch spending: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FHobby(dict: [PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let data = FHobby(dict: dict)

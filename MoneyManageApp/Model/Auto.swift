@@ -70,6 +70,9 @@ class FAuto {
             if let error = error {
                 print("Error fetch auto: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FAuto(dict: [PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let auto = FAuto(dict: dict)

@@ -47,6 +47,9 @@ class FEtcetora {
             if let error = error {
                 print("Error fetch spending: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FEtcetora(dict: [PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let data = FEtcetora(dict: dict)

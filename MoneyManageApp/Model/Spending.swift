@@ -55,6 +55,9 @@ class FSpending {
             if let error = error {
                 print("Error fetch spending: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FSpending(dict: [PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let spending = FSpending(dict: dict)

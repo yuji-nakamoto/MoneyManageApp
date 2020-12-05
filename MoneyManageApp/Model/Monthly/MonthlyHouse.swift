@@ -45,6 +45,9 @@ class FMonthlyHouse {
             if let error = error {
                 print("Error fetch House: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FMonthlyHouse(dict: [TOTAL_PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let mHouse = FMonthlyHouse(dict: dict)

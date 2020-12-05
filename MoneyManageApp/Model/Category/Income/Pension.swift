@@ -47,6 +47,9 @@ class FPension {
             if let error = error {
                 print("Error fetch income: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FPension(dict: [PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let data = FPension(dict: dict)

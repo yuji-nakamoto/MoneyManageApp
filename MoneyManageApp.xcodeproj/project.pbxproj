@@ -3,18 +3,165 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0179AE019BE972719519F882 /* Pods_MoneyManageApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE558408DEEA3E6A40FF811D /* Pods_MoneyManageApp.framework */; };
+		5FB19D5496481EA557066D87 /* Pods_MoneyManageApp_MoneyManageAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 930F637D6013EA7AAA4F4CCC /* Pods_MoneyManageApp_MoneyManageAppUITests.framework */; };
+		6E0790222577DFCE007EB670 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790212577DFCE007EB670 /* Money.swift */; };
+		6E0790272577DFD3007EB670 /* Spending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790262577DFD3007EB670 /* Spending.swift */; };
+		6E07902C2577DFD7007EB670 /* Income.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07902B2577DFD7007EB670 /* Income.swift */; };
+		6E0790312577DFDB007EB670 /* Monthly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790302577DFDB007EB670 /* Monthly.swift */; };
+		6E0790362577DFDD007EB670 /* Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790352577DFDD007EB670 /* Auto.swift */; };
+		6E07903B2577DFE2007EB670 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07903A2577DFE2007EB670 /* User.swift */; };
+		6E0790542577E026007EB670 /* Hobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790422577E014007EB670 /* Hobby.swift */; };
+		6E0790552577E026007EB670 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790432577E015007EB670 /* House.swift */; };
+		6E0790562577E026007EB670 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790442577E016007EB670 /* Car.swift */; };
+		6E0790572577E026007EB670 /* Education.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790452577E017007EB670 /* Education.swift */; };
+		6E0790582577E026007EB670 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790462577E018007EB670 /* Utility.swift */; };
+		6E0790592577E026007EB670 /* Etcetora.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790472577E01A007EB670 /* Etcetora.swift */; };
+		6E07905A2577E026007EB670 /* Communicaton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790482577E01B007EB670 /* Communicaton.swift */; };
+		6E07905B2577E026007EB670 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790492577E01C007EB670 /* Food.swift */; };
+		6E07905C2577E026007EB670 /* Traffic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07904A2577E01D007EB670 /* Traffic.swift */; };
+		6E07905D2577E026007EB670 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07904B2577E01E007EB670 /* Card.swift */; };
+		6E07905E2577E026007EB670 /* Special.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07904C2577E01F007EB670 /* Special.swift */; };
+		6E07905F2577E026007EB670 /* Insrance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07904D2577E020007EB670 /* Insrance.swift */; };
+		6E0790602577E026007EB670 /* Clothe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07904E2577E021007EB670 /* Clothe.swift */; };
+		6E0790612577E026007EB670 /* Brush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07904F2577E022007EB670 /* Brush.swift */; };
+		6E0790622577E026007EB670 /* Dating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790502577E023007EB670 /* Dating.swift */; };
+		6E0790632577E026007EB670 /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790512577E024007EB670 /* Health.swift */; };
+		6E0790642577E026007EB670 /* UnCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790522577E025007EB670 /* UnCategory.swift */; };
+		6E0790652577E026007EB670 /* Tax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790532577E026007EB670 /* Tax.swift */; };
+		6E0790712577E039007EB670 /* Temporary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790692577E031007EB670 /* Temporary.swift */; };
+		6E0790722577E039007EB670 /* UnCategory2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07906A2577E032007EB670 /* UnCategory2.swift */; };
+		6E0790732577E039007EB670 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07906B2577E033007EB670 /* Payment.swift */; };
+		6E0790742577E039007EB670 /* Devident.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07906C2577E034007EB670 /* Devident.swift */; };
+		6E0790752577E039007EB670 /* Pension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07906D2577E035007EB670 /* Pension.swift */; };
+		6E0790762577E039007EB670 /* Estate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07906E2577E036007EB670 /* Estate.swift */; };
+		6E0790772577E039007EB670 /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07906F2577E037007EB670 /* Business.swift */; };
+		6E0790782577E039007EB670 /* Salary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790702577E039007EB670 /* Salary.swift */; };
+		6E0790872577E0CD007EB670 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790852577E0CC007EB670 /* HomeViewController.swift */; };
+		6E0790882577E0CD007EB670 /* InputTotalMoneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790862577E0CD007EB670 /* InputTotalMoneyViewController.swift */; };
+		6E0790A32577E0F9007EB670 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07908D2577E0E2007EB670 /* AboutTableViewController.swift */; };
+		6E0790A62577E0F9007EB670 /* InquiryInputTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790902577E0E5007EB670 /* InquiryInputTableViewController.swift */; };
+		6E0790A82577E0F9007EB670 /* ResetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790922577E0E8007EB670 /* ResetTableViewController.swift */; };
+		6E0790A92577E0F9007EB670 /* OpinionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790932577E0E9007EB670 /* OpinionTableViewController.swift */; };
+		6E0790AA2577E0F9007EB670 /* CloudBackupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790942577E0EA007EB670 /* CloudBackupTableViewController.swift */; };
+		6E0790AB2577E0F9007EB670 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790952577E0EB007EB670 /* PrivacyPolicyViewController.swift */; };
+		6E0790AD2577E0F9007EB670 /* CloudRestoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790972577E0ED007EB670 /* CloudRestoreTableViewController.swift */; };
+		6E0790AE2577E0F9007EB670 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790982577E0EE007EB670 /* SettingTableViewController.swift */; };
+		6E0790B02577E0F9007EB670 /* TutorialListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07909A2577E0F0007EB670 /* TutorialListTableViewController.swift */; };
+		6E0790B12577E0F9007EB670 /* VersionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07909B2577E0F1007EB670 /* VersionTableViewController.swift */; };
+		6E0790B22577E0F9007EB670 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07909C2577E0F2007EB670 /* ChangePasswordViewController.swift */; };
+		6E0790B32577E0F9007EB670 /* TermsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07909D2577E0F4007EB670 /* TermsTableViewController.swift */; };
+		6E0790B42577E0F9007EB670 /* InquiryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07909E2577E0F5007EB670 /* InquiryTableViewController.swift */; };
+		6E0790B52577E0F9007EB670 /* OpinionInputTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07909F2577E0F6007EB670 /* OpinionInputTableViewController.swift */; };
+		6E0790B72577E0F9007EB670 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790A12577E0F8007EB670 /* AccountTableViewController.swift */; };
+		6E0790B82577E0F9007EB670 /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790A22577E0F9007EB670 /* UserTableViewController.swift */; };
+		6E0790C22577E106007EB670 /* CategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790BC2577E100007EB670 /* CategoryCollectionViewController.swift */; };
+		6E0790C32577E106007EB670 /* SpendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790BD2577E101007EB670 /* SpendingViewController.swift */; };
+		6E0790C42577E106007EB670 /* InputBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790BE2577E102007EB670 /* InputBaseViewController.swift */; };
+		6E0790C52577E106007EB670 /* IncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790BF2577E103007EB670 /* IncomeViewController.swift */; };
+		6E0790C62577E106007EB670 /* IncomeCategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790C02577E105007EB670 /* IncomeCategoryTableViewController.swift */; };
+		6E0790C72577E106007EB670 /* ParchmentInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790C12577E106007EB670 /* ParchmentInputViewController.swift */; };
+		6E0790D12577E119007EB670 /* ParchmentPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790CB2577E114007EB670 /* ParchmentPaymentViewController.swift */; };
+		6E0790D22577E119007EB670 /* EditIncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790CC2577E115007EB670 /* EditIncomeViewController.swift */; };
+		6E0790D32577E119007EB670 /* SortListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790CD2577E116007EB670 /* SortListTableViewController.swift */; };
+		6E0790D42577E119007EB670 /* EditSpendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790CE2577E117007EB670 /* EditSpendingViewController.swift */; };
+		6E0790D52577E119007EB670 /* PaymentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790CF2577E118007EB670 /* PaymentTableViewController.swift */; };
+		6E0790D62577E119007EB670 /* WithdrawalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790D02577E119007EB670 /* WithdrawalViewController.swift */; };
+		6E0790DF2577E134007EB670 /* AutofillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790DA2577E130007EB670 /* AutofillViewController.swift */; };
+		6E0790E02577E134007EB670 /* AutoSpendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790DB2577E131007EB670 /* AutoSpendingViewController.swift */; };
+		6E0790E12577E134007EB670 /* AutoIncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790DC2577E132007EB670 /* AutoIncomeViewController.swift */; };
+		6E0790E22577E134007EB670 /* ParchmentAutoInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790DD2577E133007EB670 /* ParchmentAutoInputViewController.swift */; };
+		6E0790E32577E134007EB670 /* EditAutoItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790DE2577E134007EB670 /* EditAutoItemViewController.swift */; };
+		6E0790E92577E148007EB670 /* HouseholdABTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790E72577E147007EB670 /* HouseholdABTableViewController.swift */; };
+		6E0790EA2577E148007EB670 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790E82577E148007EB670 /* DetailTableViewController.swift */; };
+		6E0790EF2577E164007EB670 /* MyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790EE2577E164007EB670 /* MyNavigationController.swift */; };
+		6E0790F42577E168007EB670 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790F32577E168007EB670 /* StartViewController.swift */; };
+		6E0791022577E18E007EB670 /* BackupTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790F92577E186007EB670 /* BackupTutorialViewController.swift */; };
+		6E0791032577E18E007EB670 /* Tutorial3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790FA2577E187007EB670 /* Tutorial3ViewController.swift */; };
+		6E0791042577E18E007EB670 /* Tutorial2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790FB2577E188007EB670 /* Tutorial2ViewController.swift */; };
+		6E0791052577E18E007EB670 /* Tutorial4VCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790FC2577E189007EB670 /* Tutorial4VCViewController.swift */; };
+		6E0791062577E18E007EB670 /* Tutorial6ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790FD2577E18A007EB670 /* Tutorial6ViewController.swift */; };
+		6E0791072577E18E007EB670 /* Tutorial1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790FE2577E18B007EB670 /* Tutorial1ViewController.swift */; };
+		6E0791082577E18E007EB670 /* RestoreTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0790FF2577E18C007EB670 /* RestoreTutorialViewController.swift */; };
+		6E0791092577E18E007EB670 /* Tutorial5ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791002577E18D007EB670 /* Tutorial5ViewController.swift */; };
+		6E07910A2577E18E007EB670 /* ResetTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791012577E18E007EB670 /* ResetTutorialViewController.swift */; };
+		6E0791912577E3F6007EB670 /* MonthlyCommunication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791772577E3DD007EB670 /* MonthlyCommunication.swift */; };
+		6E0791922577E3F6007EB670 /* MonthlyBrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791782577E3DE007EB670 /* MonthlyBrush.swift */; };
+		6E0791932577E3F6007EB670 /* MonthlyTax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791792577E3DF007EB670 /* MonthlyTax.swift */; };
+		6E0791942577E3F6007EB670 /* MonthlyCar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07917A2577E3E0007EB670 /* MonthlyCar.swift */; };
+		6E0791952577E3F6007EB670 /* MonthlyTraffic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07917B2577E3E1007EB670 /* MonthlyTraffic.swift */; };
+		6E0791962577E3F6007EB670 /* MonthlyBusiness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07917C2577E3E2007EB670 /* MonthlyBusiness.swift */; };
+		6E0791972577E3F6007EB670 /* MonthlySalary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07917D2577E3E3007EB670 /* MonthlySalary.swift */; };
+		6E0791982577E3F6007EB670 /* MonthlyUnCategory2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07917E2577E3E4007EB670 /* MonthlyUnCategory2.swift */; };
+		6E0791992577E3F6007EB670 /* MonthlyTemporary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07917F2577E3E5007EB670 /* MonthlyTemporary.swift */; };
+		6E07919A2577E3F6007EB670 /* MonthlyEducation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791802577E3E6007EB670 /* MonthlyEducation.swift */; };
+		6E07919B2577E3F6007EB670 /* MonthlyInsrance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791812577E3E7007EB670 /* MonthlyInsrance.swift */; };
+		6E07919C2577E3F6007EB670 /* MonthlyEstate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791822577E3E8007EB670 /* MonthlyEstate.swift */; };
+		6E07919D2577E3F6007EB670 /* MonthlyEtcetora.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791832577E3E9007EB670 /* MonthlyEtcetora.swift */; };
+		6E07919E2577E3F6007EB670 /* MonthyPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791842577E3EA007EB670 /* MonthyPayment.swift */; };
+		6E07919F2577E3F6007EB670 /* MonthlySpecial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791852577E3EB007EB670 /* MonthlySpecial.swift */; };
+		6E0791A02577E3F6007EB670 /* MonthlyUnCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791862577E3EC007EB670 /* MonthlyUnCategory.swift */; };
+		6E0791A12577E3F6007EB670 /* MonthlyUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791872577E3ED007EB670 /* MonthlyUtility.swift */; };
+		6E0791A22577E3F6007EB670 /* MonthlyDevident.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791882577E3EE007EB670 /* MonthlyDevident.swift */; };
+		6E0791A32577E3F6007EB670 /* MonthlyCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791892577E3EF007EB670 /* MonthlyCard.swift */; };
+		6E0791A42577E3F6007EB670 /* MonthlyHobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07918A2577E3F0007EB670 /* MonthlyHobby.swift */; };
+		6E0791A52577E3F6007EB670 /* MonthlyPension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07918B2577E3F1007EB670 /* MonthlyPension.swift */; };
+		6E0791A62577E3F6007EB670 /* MonthlyDating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07918C2577E3F2007EB670 /* MonthlyDating.swift */; };
+		6E0791A72577E3F6007EB670 /* MonthlyHealth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07918D2577E3F3007EB670 /* MonthlyHealth.swift */; };
+		6E0791A82577E3F6007EB670 /* MonthlyFood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07918E2577E3F4007EB670 /* MonthlyFood.swift */; };
+		6E0791A92577E3F6007EB670 /* MonthlyHouse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07918F2577E3F5007EB670 /* MonthlyHouse.swift */; };
+		6E0791AA2577E3F6007EB670 /* MonthlyClothe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0791902577E3F6007EB670 /* MonthlyClothe.swift */; };
+		6E0792232577E6E1007EB670 /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0792122577E6D3007EB670 /* DetailTableViewCell.swift */; };
+		6E0792242577E6E1007EB670 /* IncomeCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0792132577E6D4007EB670 /* IncomeCategoryTableViewCell.swift */; };
+		6E0792252577E6E1007EB670 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0792142577E6D5007EB670 /* CategoryCollectionViewCell.swift */; };
+		6E0792262577E6E1007EB670 /* LineChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0792182577E6D6007EB670 /* LineChartTableViewCell.swift */; };
+		6E0792272577E6E1007EB670 /* AutofillListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0792192577E6D8007EB670 /* AutofillListTableViewCell.swift */; };
+		6E0792282577E6E1007EB670 /* BarChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07921A2577E6D9007EB670 /* BarChartTableViewCell.swift */; };
+		6E0792292577E6E1007EB670 /* HouseholdABTopViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07921B2577E6DA007EB670 /* HouseholdABTopViewCell.swift */; };
+		6E07922A2577E6E1007EB670 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07921C2577E6DB007EB670 /* CustomSlider.swift */; };
+		6E07922B2577E6E1007EB670 /* HouseholdABTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07921D2577E6DC007EB670 /* HouseholdABTableViewCell.swift */; };
+		6E07922C2577E6E1007EB670 /* BalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07921E2577E6DD007EB670 /* BalanceTableViewCell.swift */; };
+		6E07922D2577E6E1007EB670 /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0792202577E6DF007EB670 /* PaymentTableViewCell.swift */; };
+		6E07922E2577E6E1007EB670 /* PickerKeyboard1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0792222577E6E1007EB670 /* PickerKeyboard1.swift */; };
+		6E0792332577E6E2007EB670 /* TermsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E07921F2577E6DE007EB670 /* TermsTableViewCell.swift */; };
+		6E0792342577E6E2007EB670 /* TotalMoneyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0792212577E6E0007EB670 /* TotalMoneyTableViewCell.swift */; };
+		6E0792352577E6E2007EB670 /* PrivacyPolicyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0792322577E6E2007EB670 /* PrivacyPolicyTableViewCell.swift */; };
+		6E6A13A32578BFA800E0E368 /* NotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6A13A22578BFA800E0E368 /* NotificationBanner.swift */; };
+		6E6A250A2577DD9500E64266 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E6A25092577DD9100E64266 /* Assets.xcassets */; };
+		6E6A25152577DDC100E64266 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6A25132577DDC100E64266 /* Extension.swift */; };
+		6E6A25162577DDC100E64266 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E6A25142577DDC100E64266 /* GoogleService-Info.plist */; };
+		6E6A25202577DDD400E64266 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6A251F2577DDD400E64266 /* AuthService.swift */; };
+		6E6A25252577DDE000E64266 /* pa1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6E6A25242577DDE000E64266 /* pa1.mp3 */; };
+		6E6A252A2577DDEF00E64266 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6A25292577DDEF00E64266 /* Constants.swift */; };
+		6E773338257A0C6700DB8456 /* tutorial1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E77332C257A0C4800DB8456 /* tutorial1.mp4 */; };
+		6E77333C257A0C6C00DB8456 /* tutorial2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E77332D257A0C4F00DB8456 /* tutorial2.mp4 */; };
+		6E773340257A0C6F00DB8456 /* tutorial6.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E773333257A0C5800DB8456 /* tutorial6.mp4 */; };
+		6E773344257A0C7200DB8456 /* tutorial5.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E773332257A0C5800DB8456 /* tutorial5.mp4 */; };
+		6E773348257A0C7500DB8456 /* tutorial4.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E773334257A0C5800DB8456 /* tutorial4.mp4 */; };
+		6E773349257A0C7800DB8456 /* tutorial3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E77332E257A0C5800DB8456 /* tutorial3.mp4 */; };
+		6E77334D257A0C7A00DB8456 /* restore.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E773330257A0C5800DB8456 /* restore.mp4 */; };
+		6E773351257A0C7D00DB8456 /* reset.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E77332F257A0C5800DB8456 /* reset.mp4 */; };
+		6E773355257A0C8000DB8456 /* backup.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6E773331257A0C5800DB8456 /* backup.mp4 */; };
+		6E773363257A180100DB8456 /* NoticeListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E773362257A180100DB8456 /* NoticeListTableViewController.swift */; };
+		6E77336E257A184300DB8456 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77336D257A184300DB8456 /* Notice.swift */; };
+		6E773373257A191B00DB8456 /* NoticeListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E773372257A191B00DB8456 /* NoticeListTableViewCell.swift */; };
+		6E773378257A199000DB8456 /* Notice1TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E773377257A199000DB8456 /* Notice1TableViewController.swift */; };
+		6E77337D257A19FA00DB8456 /* NoticeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77337C257A19FA00DB8456 /* NoticeTableViewCell.swift */; };
+		6E773382257A1A6800DB8456 /* Notice2TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E773381257A1A6800DB8456 /* Notice2TableViewController.swift */; };
+		6E773387257A1A8400DB8456 /* Notice3TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E773386257A1A8400DB8456 /* Notice3TableViewController.swift */; };
+		6E77338F257A4F7F00DB8456 /* Notice4TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77338E257A4F7F00DB8456 /* Notice4TableViewController.swift */; };
+		6E773394257A4FA400DB8456 /* Notice5TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E773393257A4FA400DB8456 /* Notice5TableViewController.swift */; };
 		6E7F669925542FF000896E28 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7F669825542FF000896E28 /* AppDelegate.swift */; };
 		6E7F669B25542FF000896E28 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7F669A25542FF000896E28 /* SceneDelegate.swift */; };
-		6E7F669D25542FF000896E28 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7F669C25542FF000896E28 /* ViewController.swift */; };
 		6E7F66A025542FF000896E28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E7F669E25542FF000896E28 /* Main.storyboard */; };
-		6E7F66A225542FF100896E28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E7F66A125542FF100896E28 /* Assets.xcassets */; };
 		6E7F66A525542FF100896E28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E7F66A325542FF100896E28 /* LaunchScreen.storyboard */; };
 		6E7F66B025542FF100896E28 /* MoneyManageAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7F66AF25542FF100896E28 /* MoneyManageAppTests.swift */; };
 		6E7F66BB25542FF100896E28 /* MoneyManageAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7F66BA25542FF100896E28 /* MoneyManageAppUITests.swift */; };
+		A5F556E0A7DA6667ECD28437 /* Pods_MoneyManageAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A30D241700C9F8408D22D999 /* Pods_MoneyManageAppTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,12 +182,159 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		069468182C7560E5B4F56697 /* Pods-MoneyManageApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyManageApp.release.xcconfig"; path = "Target Support Files/Pods-MoneyManageApp/Pods-MoneyManageApp.release.xcconfig"; sourceTree = "<group>"; };
+		329A1793FB4865A1C4A3487D /* Pods-MoneyManageApp-MoneyManageAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyManageApp-MoneyManageAppUITests.release.xcconfig"; path = "Target Support Files/Pods-MoneyManageApp-MoneyManageAppUITests/Pods-MoneyManageApp-MoneyManageAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		41F0CA1376ECD2FB08F3355F /* Pods-MoneyManageAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyManageAppTests.debug.xcconfig"; path = "Target Support Files/Pods-MoneyManageAppTests/Pods-MoneyManageAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6E0790212577DFCE007EB670 /* Money.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
+		6E0790262577DFD3007EB670 /* Spending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spending.swift; sourceTree = "<group>"; };
+		6E07902B2577DFD7007EB670 /* Income.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Income.swift; sourceTree = "<group>"; };
+		6E0790302577DFDB007EB670 /* Monthly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monthly.swift; sourceTree = "<group>"; };
+		6E0790352577DFDD007EB670 /* Auto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auto.swift; sourceTree = "<group>"; };
+		6E07903A2577DFE2007EB670 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		6E0790422577E014007EB670 /* Hobby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hobby.swift; sourceTree = "<group>"; };
+		6E0790432577E015007EB670 /* House.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
+		6E0790442577E016007EB670 /* Car.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
+		6E0790452577E017007EB670 /* Education.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Education.swift; sourceTree = "<group>"; };
+		6E0790462577E018007EB670 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		6E0790472577E01A007EB670 /* Etcetora.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Etcetora.swift; sourceTree = "<group>"; };
+		6E0790482577E01B007EB670 /* Communicaton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Communicaton.swift; sourceTree = "<group>"; };
+		6E0790492577E01C007EB670 /* Food.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		6E07904A2577E01D007EB670 /* Traffic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Traffic.swift; sourceTree = "<group>"; };
+		6E07904B2577E01E007EB670 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		6E07904C2577E01F007EB670 /* Special.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Special.swift; sourceTree = "<group>"; };
+		6E07904D2577E020007EB670 /* Insrance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Insrance.swift; sourceTree = "<group>"; };
+		6E07904E2577E021007EB670 /* Clothe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clothe.swift; sourceTree = "<group>"; };
+		6E07904F2577E022007EB670 /* Brush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brush.swift; sourceTree = "<group>"; };
+		6E0790502577E023007EB670 /* Dating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dating.swift; sourceTree = "<group>"; };
+		6E0790512577E024007EB670 /* Health.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
+		6E0790522577E025007EB670 /* UnCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnCategory.swift; sourceTree = "<group>"; };
+		6E0790532577E026007EB670 /* Tax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tax.swift; sourceTree = "<group>"; };
+		6E0790692577E031007EB670 /* Temporary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Temporary.swift; sourceTree = "<group>"; };
+		6E07906A2577E032007EB670 /* UnCategory2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnCategory2.swift; sourceTree = "<group>"; };
+		6E07906B2577E033007EB670 /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
+		6E07906C2577E034007EB670 /* Devident.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Devident.swift; sourceTree = "<group>"; };
+		6E07906D2577E035007EB670 /* Pension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pension.swift; sourceTree = "<group>"; };
+		6E07906E2577E036007EB670 /* Estate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Estate.swift; sourceTree = "<group>"; };
+		6E07906F2577E037007EB670 /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
+		6E0790702577E039007EB670 /* Salary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Salary.swift; sourceTree = "<group>"; };
+		6E0790852577E0CC007EB670 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		6E0790862577E0CD007EB670 /* InputTotalMoneyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputTotalMoneyViewController.swift; sourceTree = "<group>"; };
+		6E07908D2577E0E2007EB670 /* AboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
+		6E0790902577E0E5007EB670 /* InquiryInputTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiryInputTableViewController.swift; sourceTree = "<group>"; };
+		6E0790922577E0E8007EB670 /* ResetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetTableViewController.swift; sourceTree = "<group>"; };
+		6E0790932577E0E9007EB670 /* OpinionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpinionTableViewController.swift; sourceTree = "<group>"; };
+		6E0790942577E0EA007EB670 /* CloudBackupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudBackupTableViewController.swift; sourceTree = "<group>"; };
+		6E0790952577E0EB007EB670 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
+		6E0790972577E0ED007EB670 /* CloudRestoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudRestoreTableViewController.swift; sourceTree = "<group>"; };
+		6E0790982577E0EE007EB670 /* SettingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		6E07909A2577E0F0007EB670 /* TutorialListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialListTableViewController.swift; sourceTree = "<group>"; };
+		6E07909B2577E0F1007EB670 /* VersionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionTableViewController.swift; sourceTree = "<group>"; };
+		6E07909C2577E0F2007EB670 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		6E07909D2577E0F4007EB670 /* TermsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsTableViewController.swift; sourceTree = "<group>"; };
+		6E07909E2577E0F5007EB670 /* InquiryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InquiryTableViewController.swift; sourceTree = "<group>"; };
+		6E07909F2577E0F6007EB670 /* OpinionInputTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpinionInputTableViewController.swift; sourceTree = "<group>"; };
+		6E0790A12577E0F8007EB670 /* AccountTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
+		6E0790A22577E0F9007EB670 /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
+		6E0790BC2577E100007EB670 /* CategoryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewController.swift; sourceTree = "<group>"; };
+		6E0790BD2577E101007EB670 /* SpendingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpendingViewController.swift; sourceTree = "<group>"; };
+		6E0790BE2577E102007EB670 /* InputBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputBaseViewController.swift; sourceTree = "<group>"; };
+		6E0790BF2577E103007EB670 /* IncomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeViewController.swift; sourceTree = "<group>"; };
+		6E0790C02577E105007EB670 /* IncomeCategoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeCategoryTableViewController.swift; sourceTree = "<group>"; };
+		6E0790C12577E106007EB670 /* ParchmentInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParchmentInputViewController.swift; sourceTree = "<group>"; };
+		6E0790CB2577E114007EB670 /* ParchmentPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParchmentPaymentViewController.swift; sourceTree = "<group>"; };
+		6E0790CC2577E115007EB670 /* EditIncomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditIncomeViewController.swift; sourceTree = "<group>"; };
+		6E0790CD2577E116007EB670 /* SortListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortListTableViewController.swift; sourceTree = "<group>"; };
+		6E0790CE2577E117007EB670 /* EditSpendingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSpendingViewController.swift; sourceTree = "<group>"; };
+		6E0790CF2577E118007EB670 /* PaymentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentTableViewController.swift; sourceTree = "<group>"; };
+		6E0790D02577E119007EB670 /* WithdrawalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithdrawalViewController.swift; sourceTree = "<group>"; };
+		6E0790DA2577E130007EB670 /* AutofillViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutofillViewController.swift; sourceTree = "<group>"; };
+		6E0790DB2577E131007EB670 /* AutoSpendingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoSpendingViewController.swift; sourceTree = "<group>"; };
+		6E0790DC2577E132007EB670 /* AutoIncomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoIncomeViewController.swift; sourceTree = "<group>"; };
+		6E0790DD2577E133007EB670 /* ParchmentAutoInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParchmentAutoInputViewController.swift; sourceTree = "<group>"; };
+		6E0790DE2577E134007EB670 /* EditAutoItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAutoItemViewController.swift; sourceTree = "<group>"; };
+		6E0790E72577E147007EB670 /* HouseholdABTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdABTableViewController.swift; sourceTree = "<group>"; };
+		6E0790E82577E148007EB670 /* DetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
+		6E0790EE2577E164007EB670 /* MyNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyNavigationController.swift; sourceTree = "<group>"; };
+		6E0790F32577E168007EB670 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		6E0790F92577E186007EB670 /* BackupTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupTutorialViewController.swift; sourceTree = "<group>"; };
+		6E0790FA2577E187007EB670 /* Tutorial3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tutorial3ViewController.swift; sourceTree = "<group>"; };
+		6E0790FB2577E188007EB670 /* Tutorial2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tutorial2ViewController.swift; sourceTree = "<group>"; };
+		6E0790FC2577E189007EB670 /* Tutorial4VCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tutorial4VCViewController.swift; sourceTree = "<group>"; };
+		6E0790FD2577E18A007EB670 /* Tutorial6ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tutorial6ViewController.swift; sourceTree = "<group>"; };
+		6E0790FE2577E18B007EB670 /* Tutorial1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tutorial1ViewController.swift; sourceTree = "<group>"; };
+		6E0790FF2577E18C007EB670 /* RestoreTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoreTutorialViewController.swift; sourceTree = "<group>"; };
+		6E0791002577E18D007EB670 /* Tutorial5ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tutorial5ViewController.swift; sourceTree = "<group>"; };
+		6E0791012577E18E007EB670 /* ResetTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetTutorialViewController.swift; sourceTree = "<group>"; };
+		6E0791772577E3DD007EB670 /* MonthlyCommunication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyCommunication.swift; sourceTree = "<group>"; };
+		6E0791782577E3DE007EB670 /* MonthlyBrush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyBrush.swift; sourceTree = "<group>"; };
+		6E0791792577E3DF007EB670 /* MonthlyTax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyTax.swift; sourceTree = "<group>"; };
+		6E07917A2577E3E0007EB670 /* MonthlyCar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyCar.swift; sourceTree = "<group>"; };
+		6E07917B2577E3E1007EB670 /* MonthlyTraffic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyTraffic.swift; sourceTree = "<group>"; };
+		6E07917C2577E3E2007EB670 /* MonthlyBusiness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyBusiness.swift; sourceTree = "<group>"; };
+		6E07917D2577E3E3007EB670 /* MonthlySalary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlySalary.swift; sourceTree = "<group>"; };
+		6E07917E2577E3E4007EB670 /* MonthlyUnCategory2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyUnCategory2.swift; sourceTree = "<group>"; };
+		6E07917F2577E3E5007EB670 /* MonthlyTemporary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyTemporary.swift; sourceTree = "<group>"; };
+		6E0791802577E3E6007EB670 /* MonthlyEducation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyEducation.swift; sourceTree = "<group>"; };
+		6E0791812577E3E7007EB670 /* MonthlyInsrance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyInsrance.swift; sourceTree = "<group>"; };
+		6E0791822577E3E8007EB670 /* MonthlyEstate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyEstate.swift; sourceTree = "<group>"; };
+		6E0791832577E3E9007EB670 /* MonthlyEtcetora.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyEtcetora.swift; sourceTree = "<group>"; };
+		6E0791842577E3EA007EB670 /* MonthyPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthyPayment.swift; sourceTree = "<group>"; };
+		6E0791852577E3EB007EB670 /* MonthlySpecial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlySpecial.swift; sourceTree = "<group>"; };
+		6E0791862577E3EC007EB670 /* MonthlyUnCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyUnCategory.swift; sourceTree = "<group>"; };
+		6E0791872577E3ED007EB670 /* MonthlyUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyUtility.swift; sourceTree = "<group>"; };
+		6E0791882577E3EE007EB670 /* MonthlyDevident.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyDevident.swift; sourceTree = "<group>"; };
+		6E0791892577E3EF007EB670 /* MonthlyCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyCard.swift; sourceTree = "<group>"; };
+		6E07918A2577E3F0007EB670 /* MonthlyHobby.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyHobby.swift; sourceTree = "<group>"; };
+		6E07918B2577E3F1007EB670 /* MonthlyPension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyPension.swift; sourceTree = "<group>"; };
+		6E07918C2577E3F2007EB670 /* MonthlyDating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyDating.swift; sourceTree = "<group>"; };
+		6E07918D2577E3F3007EB670 /* MonthlyHealth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyHealth.swift; sourceTree = "<group>"; };
+		6E07918E2577E3F4007EB670 /* MonthlyFood.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyFood.swift; sourceTree = "<group>"; };
+		6E07918F2577E3F5007EB670 /* MonthlyHouse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyHouse.swift; sourceTree = "<group>"; };
+		6E0791902577E3F6007EB670 /* MonthlyClothe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyClothe.swift; sourceTree = "<group>"; };
+		6E0792122577E6D3007EB670 /* DetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
+		6E0792132577E6D4007EB670 /* IncomeCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeCategoryTableViewCell.swift; sourceTree = "<group>"; };
+		6E0792142577E6D5007EB670 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		6E0792182577E6D6007EB670 /* LineChartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChartTableViewCell.swift; sourceTree = "<group>"; };
+		6E0792192577E6D8007EB670 /* AutofillListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutofillListTableViewCell.swift; sourceTree = "<group>"; };
+		6E07921A2577E6D9007EB670 /* BarChartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarChartTableViewCell.swift; sourceTree = "<group>"; };
+		6E07921B2577E6DA007EB670 /* HouseholdABTopViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdABTopViewCell.swift; sourceTree = "<group>"; };
+		6E07921C2577E6DB007EB670 /* CustomSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
+		6E07921D2577E6DC007EB670 /* HouseholdABTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdABTableViewCell.swift; sourceTree = "<group>"; };
+		6E07921E2577E6DD007EB670 /* BalanceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCell.swift; sourceTree = "<group>"; };
+		6E07921F2577E6DE007EB670 /* TermsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsTableViewCell.swift; sourceTree = "<group>"; };
+		6E0792202577E6DF007EB670 /* PaymentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentTableViewCell.swift; sourceTree = "<group>"; };
+		6E0792212577E6E0007EB670 /* TotalMoneyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalMoneyTableViewCell.swift; sourceTree = "<group>"; };
+		6E0792222577E6E1007EB670 /* PickerKeyboard1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerKeyboard1.swift; sourceTree = "<group>"; };
+		6E0792322577E6E2007EB670 /* PrivacyPolicyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyTableViewCell.swift; sourceTree = "<group>"; };
+		6E6A13A22578BFA800E0E368 /* NotificationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBanner.swift; sourceTree = "<group>"; };
+		6E6A25092577DD9100E64266 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6E6A25132577DDC100E64266 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		6E6A25142577DDC100E64266 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6E6A251F2577DDD400E64266 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		6E6A25242577DDE000E64266 /* pa1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = pa1.mp3; sourceTree = "<group>"; };
+		6E6A25292577DDEF00E64266 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		6E77332C257A0C4800DB8456 /* tutorial1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = tutorial1.mp4; sourceTree = "<group>"; };
+		6E77332D257A0C4F00DB8456 /* tutorial2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = tutorial2.mp4; sourceTree = "<group>"; };
+		6E77332E257A0C5800DB8456 /* tutorial3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = tutorial3.mp4; sourceTree = "<group>"; };
+		6E77332F257A0C5800DB8456 /* reset.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = reset.mp4; sourceTree = "<group>"; };
+		6E773330257A0C5800DB8456 /* restore.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = restore.mp4; sourceTree = "<group>"; };
+		6E773331257A0C5800DB8456 /* backup.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = backup.mp4; sourceTree = "<group>"; };
+		6E773332257A0C5800DB8456 /* tutorial5.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = tutorial5.mp4; sourceTree = "<group>"; };
+		6E773333257A0C5800DB8456 /* tutorial6.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = tutorial6.mp4; sourceTree = "<group>"; };
+		6E773334257A0C5800DB8456 /* tutorial4.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = tutorial4.mp4; sourceTree = "<group>"; };
+		6E773362257A180100DB8456 /* NoticeListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListTableViewController.swift; sourceTree = "<group>"; };
+		6E77336D257A184300DB8456 /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
+		6E773372257A191B00DB8456 /* NoticeListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeListTableViewCell.swift; sourceTree = "<group>"; };
+		6E773377257A199000DB8456 /* Notice1TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice1TableViewController.swift; sourceTree = "<group>"; };
+		6E77337C257A19FA00DB8456 /* NoticeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTableViewCell.swift; sourceTree = "<group>"; };
+		6E773381257A1A6800DB8456 /* Notice2TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice2TableViewController.swift; sourceTree = "<group>"; };
+		6E773386257A1A8400DB8456 /* Notice3TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice3TableViewController.swift; sourceTree = "<group>"; };
+		6E77338E257A4F7F00DB8456 /* Notice4TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice4TableViewController.swift; sourceTree = "<group>"; };
+		6E773393257A4FA400DB8456 /* Notice5TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice5TableViewController.swift; sourceTree = "<group>"; };
 		6E7F669525542FF000896E28 /* MoneyManageApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyManageApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7F669825542FF000896E28 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E7F669A25542FF000896E28 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6E7F669C25542FF000896E28 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6E7F669F25542FF000896E28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6E7F66A125542FF100896E28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6E7F66A425542FF100896E28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6E7F66A625542FF100896E28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E7F66AB25542FF100896E28 /* MoneyManageAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyManageAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +343,12 @@
 		6E7F66B625542FF100896E28 /* MoneyManageAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyManageAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7F66BA25542FF100896E28 /* MoneyManageAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyManageAppUITests.swift; sourceTree = "<group>"; };
 		6E7F66BC25542FF100896E28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CD6F6CDD0308E9E06E678B4 /* Pods-MoneyManageAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyManageAppTests.release.xcconfig"; path = "Target Support Files/Pods-MoneyManageAppTests/Pods-MoneyManageAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		89DE4B3EAB1AC6F929F55CBD /* Pods-MoneyManageApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyManageApp.debug.xcconfig"; path = "Target Support Files/Pods-MoneyManageApp/Pods-MoneyManageApp.debug.xcconfig"; sourceTree = "<group>"; };
+		930F637D6013EA7AAA4F4CCC /* Pods_MoneyManageApp_MoneyManageAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyManageApp_MoneyManageAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A30D241700C9F8408D22D999 /* Pods_MoneyManageAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyManageAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8525CA70B1650935525CCA2 /* Pods-MoneyManageApp-MoneyManageAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoneyManageApp-MoneyManageAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-MoneyManageApp-MoneyManageAppUITests/Pods-MoneyManageApp-MoneyManageAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FE558408DEEA3E6A40FF811D /* Pods_MoneyManageApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoneyManageApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +356,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0179AE019BE972719519F882 /* Pods_MoneyManageApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +364,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5F556E0A7DA6667ECD28437 /* Pods_MoneyManageAppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +372,287 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FB19D5496481EA557066D87 /* Pods_MoneyManageApp_MoneyManageAppUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		404CAB714DA921B1E0A7B53F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FE558408DEEA3E6A40FF811D /* Pods_MoneyManageApp.framework */,
+				930F637D6013EA7AAA4F4CCC /* Pods_MoneyManageApp_MoneyManageAppUITests.framework */,
+				A30D241700C9F8408D22D999 /* Pods_MoneyManageAppTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6E0790202577DFB6007EB670 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6E0791762577E3C5007EB670 /* Monthly */,
+				6E07903F2577DFE8007EB670 /* Category */,
+				6E0790212577DFCE007EB670 /* Money.swift */,
+				6E0790262577DFD3007EB670 /* Spending.swift */,
+				6E07902B2577DFD7007EB670 /* Income.swift */,
+				6E0790302577DFDB007EB670 /* Monthly.swift */,
+				6E0790352577DFDD007EB670 /* Auto.swift */,
+				6E07903A2577DFE2007EB670 /* User.swift */,
+				6E77336D257A184300DB8456 /* Notice.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6E07903F2577DFE8007EB670 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				6E0790412577E001007EB670 /* Spending */,
+				6E0790402577DFFA007EB670 /* Income */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		6E0790402577DFFA007EB670 /* Income */ = {
+			isa = PBXGroup;
+			children = (
+				6E07906F2577E037007EB670 /* Business.swift */,
+				6E07906C2577E034007EB670 /* Devident.swift */,
+				6E07906E2577E036007EB670 /* Estate.swift */,
+				6E07906B2577E033007EB670 /* Payment.swift */,
+				6E07906D2577E035007EB670 /* Pension.swift */,
+				6E0790702577E039007EB670 /* Salary.swift */,
+				6E0790692577E031007EB670 /* Temporary.swift */,
+				6E07906A2577E032007EB670 /* UnCategory2.swift */,
+			);
+			path = Income;
+			sourceTree = "<group>";
+		};
+		6E0790412577E001007EB670 /* Spending */ = {
+			isa = PBXGroup;
+			children = (
+				6E07904F2577E022007EB670 /* Brush.swift */,
+				6E0790442577E016007EB670 /* Car.swift */,
+				6E07904B2577E01E007EB670 /* Card.swift */,
+				6E07904E2577E021007EB670 /* Clothe.swift */,
+				6E0790482577E01B007EB670 /* Communicaton.swift */,
+				6E0790502577E023007EB670 /* Dating.swift */,
+				6E0790452577E017007EB670 /* Education.swift */,
+				6E0790472577E01A007EB670 /* Etcetora.swift */,
+				6E0790492577E01C007EB670 /* Food.swift */,
+				6E0790512577E024007EB670 /* Health.swift */,
+				6E0790422577E014007EB670 /* Hobby.swift */,
+				6E0790432577E015007EB670 /* House.swift */,
+				6E07904D2577E020007EB670 /* Insrance.swift */,
+				6E07904C2577E01F007EB670 /* Special.swift */,
+				6E0790532577E026007EB670 /* Tax.swift */,
+				6E07904A2577E01D007EB670 /* Traffic.swift */,
+				6E0790522577E025007EB670 /* UnCategory.swift */,
+				6E0790462577E018007EB670 /* Utility.swift */,
+			);
+			path = Spending;
+			sourceTree = "<group>";
+		};
+		6E07907F2577E056007EB670 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6E0790EE2577E164007EB670 /* MyNavigationController.swift */,
+				6E0790F32577E168007EB670 /* StartViewController.swift */,
+				6E0790802577E066007EB670 /* Home */,
+				6E0790822577E0A2007EB670 /* Input */,
+				6E0790812577E094007EB670 /* Payment */,
+				6E0790832577E0A9007EB670 /* Household */,
+				6E0790842577E0BA007EB670 /* Autofill */,
+				6E0790F82577E173007EB670 /* Tutorial */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		6E0790802577E066007EB670 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				6E0790852577E0CC007EB670 /* HomeViewController.swift */,
+				6E0790862577E0CD007EB670 /* InputTotalMoneyViewController.swift */,
+				6E07908C2577E0D3007EB670 /* Setting */,
+				6E773361257A17EA00DB8456 /* Notice */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		6E0790812577E094007EB670 /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				6E0790CC2577E115007EB670 /* EditIncomeViewController.swift */,
+				6E0790CE2577E117007EB670 /* EditSpendingViewController.swift */,
+				6E0790CB2577E114007EB670 /* ParchmentPaymentViewController.swift */,
+				6E0790CF2577E118007EB670 /* PaymentTableViewController.swift */,
+				6E0790CD2577E116007EB670 /* SortListTableViewController.swift */,
+				6E0790D02577E119007EB670 /* WithdrawalViewController.swift */,
+			);
+			path = Payment;
+			sourceTree = "<group>";
+		};
+		6E0790822577E0A2007EB670 /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				6E0790BC2577E100007EB670 /* CategoryCollectionViewController.swift */,
+				6E0790C02577E105007EB670 /* IncomeCategoryTableViewController.swift */,
+				6E0790BF2577E103007EB670 /* IncomeViewController.swift */,
+				6E0790BE2577E102007EB670 /* InputBaseViewController.swift */,
+				6E0790C12577E106007EB670 /* ParchmentInputViewController.swift */,
+				6E0790BD2577E101007EB670 /* SpendingViewController.swift */,
+			);
+			path = Input;
+			sourceTree = "<group>";
+		};
+		6E0790832577E0A9007EB670 /* Household */ = {
+			isa = PBXGroup;
+			children = (
+				6E0790E82577E148007EB670 /* DetailTableViewController.swift */,
+				6E0790E72577E147007EB670 /* HouseholdABTableViewController.swift */,
+			);
+			path = Household;
+			sourceTree = "<group>";
+		};
+		6E0790842577E0BA007EB670 /* Autofill */ = {
+			isa = PBXGroup;
+			children = (
+				6E0790DA2577E130007EB670 /* AutofillViewController.swift */,
+				6E0790DC2577E132007EB670 /* AutoIncomeViewController.swift */,
+				6E0790DB2577E131007EB670 /* AutoSpendingViewController.swift */,
+				6E0790DE2577E134007EB670 /* EditAutoItemViewController.swift */,
+				6E0790DD2577E133007EB670 /* ParchmentAutoInputViewController.swift */,
+			);
+			path = Autofill;
+			sourceTree = "<group>";
+		};
+		6E07908C2577E0D3007EB670 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				6E07908D2577E0E2007EB670 /* AboutTableViewController.swift */,
+				6E0790A12577E0F8007EB670 /* AccountTableViewController.swift */,
+				6E07909C2577E0F2007EB670 /* ChangePasswordViewController.swift */,
+				6E0790942577E0EA007EB670 /* CloudBackupTableViewController.swift */,
+				6E0790972577E0ED007EB670 /* CloudRestoreTableViewController.swift */,
+				6E0790902577E0E5007EB670 /* InquiryInputTableViewController.swift */,
+				6E07909E2577E0F5007EB670 /* InquiryTableViewController.swift */,
+				6E07909F2577E0F6007EB670 /* OpinionInputTableViewController.swift */,
+				6E0790932577E0E9007EB670 /* OpinionTableViewController.swift */,
+				6E0790952577E0EB007EB670 /* PrivacyPolicyViewController.swift */,
+				6E0790922577E0E8007EB670 /* ResetTableViewController.swift */,
+				6E0790982577E0EE007EB670 /* SettingTableViewController.swift */,
+				6E07909D2577E0F4007EB670 /* TermsTableViewController.swift */,
+				6E07909A2577E0F0007EB670 /* TutorialListTableViewController.swift */,
+				6E0790A22577E0F9007EB670 /* UserTableViewController.swift */,
+				6E07909B2577E0F1007EB670 /* VersionTableViewController.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		6E0790F82577E173007EB670 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				6E0790F92577E186007EB670 /* BackupTutorialViewController.swift */,
+				6E0791012577E18E007EB670 /* ResetTutorialViewController.swift */,
+				6E0790FF2577E18C007EB670 /* RestoreTutorialViewController.swift */,
+				6E0790FE2577E18B007EB670 /* Tutorial1ViewController.swift */,
+				6E0790FB2577E188007EB670 /* Tutorial2ViewController.swift */,
+				6E0790FA2577E187007EB670 /* Tutorial3ViewController.swift */,
+				6E0790FC2577E189007EB670 /* Tutorial4VCViewController.swift */,
+				6E0791002577E18D007EB670 /* Tutorial5ViewController.swift */,
+				6E0790FD2577E18A007EB670 /* Tutorial6ViewController.swift */,
+			);
+			path = Tutorial;
+			sourceTree = "<group>";
+		};
+		6E0791762577E3C5007EB670 /* Monthly */ = {
+			isa = PBXGroup;
+			children = (
+				6E0791782577E3DE007EB670 /* MonthlyBrush.swift */,
+				6E07917C2577E3E2007EB670 /* MonthlyBusiness.swift */,
+				6E07917A2577E3E0007EB670 /* MonthlyCar.swift */,
+				6E0791892577E3EF007EB670 /* MonthlyCard.swift */,
+				6E0791902577E3F6007EB670 /* MonthlyClothe.swift */,
+				6E0791772577E3DD007EB670 /* MonthlyCommunication.swift */,
+				6E07918C2577E3F2007EB670 /* MonthlyDating.swift */,
+				6E0791882577E3EE007EB670 /* MonthlyDevident.swift */,
+				6E0791802577E3E6007EB670 /* MonthlyEducation.swift */,
+				6E0791822577E3E8007EB670 /* MonthlyEstate.swift */,
+				6E0791832577E3E9007EB670 /* MonthlyEtcetora.swift */,
+				6E07918E2577E3F4007EB670 /* MonthlyFood.swift */,
+				6E07918D2577E3F3007EB670 /* MonthlyHealth.swift */,
+				6E07918A2577E3F0007EB670 /* MonthlyHobby.swift */,
+				6E07918F2577E3F5007EB670 /* MonthlyHouse.swift */,
+				6E0791812577E3E7007EB670 /* MonthlyInsrance.swift */,
+				6E07918B2577E3F1007EB670 /* MonthlyPension.swift */,
+				6E07917D2577E3E3007EB670 /* MonthlySalary.swift */,
+				6E0791852577E3EB007EB670 /* MonthlySpecial.swift */,
+				6E0791792577E3DF007EB670 /* MonthlyTax.swift */,
+				6E07917F2577E3E5007EB670 /* MonthlyTemporary.swift */,
+				6E07917B2577E3E1007EB670 /* MonthlyTraffic.swift */,
+				6E0791862577E3EC007EB670 /* MonthlyUnCategory.swift */,
+				6E07917E2577E3E4007EB670 /* MonthlyUnCategory2.swift */,
+				6E0791872577E3ED007EB670 /* MonthlyUtility.swift */,
+				6E0791842577E3EA007EB670 /* MonthyPayment.swift */,
+			);
+			path = Monthly;
+			sourceTree = "<group>";
+		};
+		6E6A24F62577DD5000E64266 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6E0792192577E6D8007EB670 /* AutofillListTableViewCell.swift */,
+				6E07921E2577E6DD007EB670 /* BalanceTableViewCell.swift */,
+				6E0792322577E6E2007EB670 /* PrivacyPolicyTableViewCell.swift */,
+				6E07921F2577E6DE007EB670 /* TermsTableViewCell.swift */,
+				6E0792212577E6E0007EB670 /* TotalMoneyTableViewCell.swift */,
+				6E07921A2577E6D9007EB670 /* BarChartTableViewCell.swift */,
+				6E0792142577E6D5007EB670 /* CategoryCollectionViewCell.swift */,
+				6E07921C2577E6DB007EB670 /* CustomSlider.swift */,
+				6E0792122577E6D3007EB670 /* DetailTableViewCell.swift */,
+				6E07921D2577E6DC007EB670 /* HouseholdABTableViewCell.swift */,
+				6E07921B2577E6DA007EB670 /* HouseholdABTopViewCell.swift */,
+				6E0792132577E6D4007EB670 /* IncomeCategoryTableViewCell.swift */,
+				6E0792182577E6D6007EB670 /* LineChartTableViewCell.swift */,
+				6E0792202577E6DF007EB670 /* PaymentTableViewCell.swift */,
+				6E0792222577E6E1007EB670 /* PickerKeyboard1.swift */,
+				6E6A13A22578BFA800E0E368 /* NotificationBanner.swift */,
+				6E773372257A191B00DB8456 /* NoticeListTableViewCell.swift */,
+				6E77337C257A19FA00DB8456 /* NoticeTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6E773359257A0C8800DB8456 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				6E773331257A0C5800DB8456 /* backup.mp4 */,
+				6E77332F257A0C5800DB8456 /* reset.mp4 */,
+				6E773330257A0C5800DB8456 /* restore.mp4 */,
+				6E77332E257A0C5800DB8456 /* tutorial3.mp4 */,
+				6E773334257A0C5800DB8456 /* tutorial4.mp4 */,
+				6E773332257A0C5800DB8456 /* tutorial5.mp4 */,
+				6E773333257A0C5800DB8456 /* tutorial6.mp4 */,
+				6E77332C257A0C4800DB8456 /* tutorial1.mp4 */,
+				6E77332D257A0C4F00DB8456 /* tutorial2.mp4 */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		6E773361257A17EA00DB8456 /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				6E773362257A180100DB8456 /* NoticeListTableViewController.swift */,
+				6E773377257A199000DB8456 /* Notice1TableViewController.swift */,
+				6E773381257A1A6800DB8456 /* Notice2TableViewController.swift */,
+				6E773386257A1A8400DB8456 /* Notice3TableViewController.swift */,
+				6E77338E257A4F7F00DB8456 /* Notice4TableViewController.swift */,
+				6E773393257A4FA400DB8456 /* Notice5TableViewController.swift */,
+			);
+			path = Notice;
+			sourceTree = "<group>";
+		};
 		6E7F668C25542FF000896E28 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +660,8 @@
 				6E7F66AE25542FF100896E28 /* MoneyManageAppTests */,
 				6E7F66B925542FF100896E28 /* MoneyManageAppUITests */,
 				6E7F669625542FF000896E28 /* Products */,
+				9BD7B28B65658132AC08E1EC /* Pods */,
+				404CAB714DA921B1E0A7B53F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,13 +678,21 @@
 		6E7F669725542FF000896E28 /* MoneyManageApp */ = {
 			isa = PBXGroup;
 			children = (
+				6E0790202577DFB6007EB670 /* Model */,
+				6E6A24F62577DD5000E64266 /* View */,
+				6E07907F2577E056007EB670 /* Controller */,
+				6E773359257A0C8800DB8456 /* Video */,
+				6E7F669E25542FF000896E28 /* Main.storyboard */,
 				6E7F669825542FF000896E28 /* AppDelegate.swift */,
 				6E7F669A25542FF000896E28 /* SceneDelegate.swift */,
-				6E7F669C25542FF000896E28 /* ViewController.swift */,
-				6E7F669E25542FF000896E28 /* Main.storyboard */,
-				6E7F66A125542FF100896E28 /* Assets.xcassets */,
-				6E7F66A325542FF100896E28 /* LaunchScreen.storyboard */,
+				6E6A25292577DDEF00E64266 /* Constants.swift */,
+				6E6A25132577DDC100E64266 /* Extension.swift */,
+				6E6A251F2577DDD400E64266 /* AuthService.swift */,
+				6E6A25142577DDC100E64266 /* GoogleService-Info.plist */,
 				6E7F66A625542FF100896E28 /* Info.plist */,
+				6E6A25242577DDE000E64266 /* pa1.mp3 */,
+				6E7F66A325542FF100896E28 /* LaunchScreen.storyboard */,
+				6E6A25092577DD9100E64266 /* Assets.xcassets */,
 			);
 			path = MoneyManageApp;
 			sourceTree = "<group>";
@@ -128,6 +715,19 @@
 			path = MoneyManageAppUITests;
 			sourceTree = "<group>";
 		};
+		9BD7B28B65658132AC08E1EC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				89DE4B3EAB1AC6F929F55CBD /* Pods-MoneyManageApp.debug.xcconfig */,
+				069468182C7560E5B4F56697 /* Pods-MoneyManageApp.release.xcconfig */,
+				B8525CA70B1650935525CCA2 /* Pods-MoneyManageApp-MoneyManageAppUITests.debug.xcconfig */,
+				329A1793FB4865A1C4A3487D /* Pods-MoneyManageApp-MoneyManageAppUITests.release.xcconfig */,
+				41F0CA1376ECD2FB08F3355F /* Pods-MoneyManageAppTests.debug.xcconfig */,
+				7CD6F6CDD0308E9E06E678B4 /* Pods-MoneyManageAppTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +735,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E7F66BF25542FF100896E28 /* Build configuration list for PBXNativeTarget "MoneyManageApp" */;
 			buildPhases = (
+				09E9117EBCA9C3D2930AAF5D /* [CP] Check Pods Manifest.lock */,
 				6E7F669125542FF000896E28 /* Sources */,
 				6E7F669225542FF000896E28 /* Frameworks */,
 				6E7F669325542FF000896E28 /* Resources */,
+				056BA9F7FBC69DC7257198ED /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +754,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E7F66C225542FF100896E28 /* Build configuration list for PBXNativeTarget "MoneyManageAppTests" */;
 			buildPhases = (
+				95B665DAC5852121E3693904 /* [CP] Check Pods Manifest.lock */,
 				6E7F66A725542FF100896E28 /* Sources */,
 				6E7F66A825542FF100896E28 /* Frameworks */,
 				6E7F66A925542FF100896E28 /* Resources */,
@@ -170,9 +773,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E7F66C525542FF100896E28 /* Build configuration list for PBXNativeTarget "MoneyManageAppUITests" */;
 			buildPhases = (
+				8231E3473285CCE63F7DCF00 /* [CP] Check Pods Manifest.lock */,
 				6E7F66B225542FF100896E28 /* Sources */,
 				6E7F66B325542FF100896E28 /* Frameworks */,
 				6E7F66B425542FF100896E28 /* Resources */,
+				7D6F594D246E18CACC2F4A4C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -231,9 +836,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E773349257A0C7800DB8456 /* tutorial3.mp4 in Resources */,
 				6E7F66A525542FF100896E28 /* LaunchScreen.storyboard in Resources */,
-				6E7F66A225542FF100896E28 /* Assets.xcassets in Resources */,
+				6E6A250A2577DD9500E64266 /* Assets.xcassets in Resources */,
 				6E7F66A025542FF000896E28 /* Main.storyboard in Resources */,
+				6E773338257A0C6700DB8456 /* tutorial1.mp4 in Resources */,
+				6E773351257A0C7D00DB8456 /* reset.mp4 in Resources */,
+				6E6A25162577DDC100E64266 /* GoogleService-Info.plist in Resources */,
+				6E773355257A0C8000DB8456 /* backup.mp4 in Resources */,
+				6E6A25252577DDE000E64266 /* pa1.mp3 in Resources */,
+				6E773344257A0C7200DB8456 /* tutorial5.mp4 in Resources */,
+				6E773340257A0C6F00DB8456 /* tutorial6.mp4 in Resources */,
+				6E773348257A0C7500DB8456 /* tutorial4.mp4 in Resources */,
+				6E77334D257A0C7A00DB8456 /* restore.mp4 in Resources */,
+				6E77333C257A0C6C00DB8456 /* tutorial2.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,14 +869,250 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		056BA9F7FBC69DC7257198ED /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MoneyManageApp/Pods-MoneyManageApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MoneyManageApp/Pods-MoneyManageApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MoneyManageApp/Pods-MoneyManageApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		09E9117EBCA9C3D2930AAF5D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MoneyManageApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7D6F594D246E18CACC2F4A4C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MoneyManageApp-MoneyManageAppUITests/Pods-MoneyManageApp-MoneyManageAppUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MoneyManageApp-MoneyManageAppUITests/Pods-MoneyManageApp-MoneyManageAppUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MoneyManageApp-MoneyManageAppUITests/Pods-MoneyManageApp-MoneyManageAppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8231E3473285CCE63F7DCF00 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MoneyManageApp-MoneyManageAppUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		95B665DAC5852121E3693904 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MoneyManageAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6E7F669125542FF000896E28 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E7F669D25542FF000896E28 /* ViewController.swift in Sources */,
+				6E0790D52577E119007EB670 /* PaymentTableViewController.swift in Sources */,
+				6E773373257A191B00DB8456 /* NoticeListTableViewCell.swift in Sources */,
+				6E07919E2577E3F6007EB670 /* MonthyPayment.swift in Sources */,
+				6E0790C72577E106007EB670 /* ParchmentInputViewController.swift in Sources */,
+				6E07905A2577E026007EB670 /* Communicaton.swift in Sources */,
+				6E0791AA2577E3F6007EB670 /* MonthlyClothe.swift in Sources */,
+				6E0790762577E039007EB670 /* Estate.swift in Sources */,
+				6E0790C42577E106007EB670 /* InputBaseViewController.swift in Sources */,
+				6E0792272577E6E1007EB670 /* AutofillListTableViewCell.swift in Sources */,
+				6E773378257A199000DB8456 /* Notice1TableViewController.swift in Sources */,
+				6E0790A92577E0F9007EB670 /* OpinionTableViewController.swift in Sources */,
+				6E0791062577E18E007EB670 /* Tutorial6ViewController.swift in Sources */,
+				6E0791942577E3F6007EB670 /* MonthlyCar.swift in Sources */,
+				6E0790362577DFDD007EB670 /* Auto.swift in Sources */,
+				6E0790D22577E119007EB670 /* EditIncomeViewController.swift in Sources */,
+				6E0790D12577E119007EB670 /* ParchmentPaymentViewController.swift in Sources */,
+				6E0790592577E026007EB670 /* Etcetora.swift in Sources */,
+				6E0791982577E3F6007EB670 /* MonthlyUnCategory2.swift in Sources */,
+				6E0792252577E6E1007EB670 /* CategoryCollectionViewCell.swift in Sources */,
+				6E0790222577DFCE007EB670 /* Money.swift in Sources */,
+				6E0790E32577E134007EB670 /* EditAutoItemViewController.swift in Sources */,
+				6E0792352577E6E2007EB670 /* PrivacyPolicyTableViewCell.swift in Sources */,
+				6E0790E12577E134007EB670 /* AutoIncomeViewController.swift in Sources */,
+				6E0791922577E3F6007EB670 /* MonthlyBrush.swift in Sources */,
+				6E0790C32577E106007EB670 /* SpendingViewController.swift in Sources */,
+				6E07905B2577E026007EB670 /* Food.swift in Sources */,
+				6E0790A62577E0F9007EB670 /* InquiryInputTableViewController.swift in Sources */,
+				6E0791092577E18E007EB670 /* Tutorial5ViewController.swift in Sources */,
+				6E0790782577E039007EB670 /* Salary.swift in Sources */,
+				6E0790E22577E134007EB670 /* ParchmentAutoInputViewController.swift in Sources */,
+				6E0790572577E026007EB670 /* Education.swift in Sources */,
+				6E0790752577E039007EB670 /* Pension.swift in Sources */,
+				6E0792242577E6E1007EB670 /* IncomeCategoryTableViewCell.swift in Sources */,
+				6E0791972577E3F6007EB670 /* MonthlySalary.swift in Sources */,
+				6E77337D257A19FA00DB8456 /* NoticeTableViewCell.swift in Sources */,
+				6E0790732577E039007EB670 /* Payment.swift in Sources */,
+				6E07919C2577E3F6007EB670 /* MonthlyEstate.swift in Sources */,
+				6E0791962577E3F6007EB670 /* MonthlyBusiness.swift in Sources */,
+				6E0791932577E3F6007EB670 /* MonthlyTax.swift in Sources */,
+				6E0790602577E026007EB670 /* Clothe.swift in Sources */,
+				6E0790A32577E0F9007EB670 /* AboutTableViewController.swift in Sources */,
+				6E773394257A4FA400DB8456 /* Notice5TableViewController.swift in Sources */,
+				6E0790632577E026007EB670 /* Health.swift in Sources */,
+				6E0792332577E6E2007EB670 /* TermsTableViewCell.swift in Sources */,
+				6E0790552577E026007EB670 /* House.swift in Sources */,
+				6E07919B2577E3F6007EB670 /* MonthlyInsrance.swift in Sources */,
+				6E0790882577E0CD007EB670 /* InputTotalMoneyViewController.swift in Sources */,
+				6E0791A52577E3F6007EB670 /* MonthlyPension.swift in Sources */,
+				6E0791A82577E3F6007EB670 /* MonthlyFood.swift in Sources */,
+				6E0791072577E18E007EB670 /* Tutorial1ViewController.swift in Sources */,
+				6E0790AA2577E0F9007EB670 /* CloudBackupTableViewController.swift in Sources */,
+				6E0790622577E026007EB670 /* Dating.swift in Sources */,
+				6E0790A82577E0F9007EB670 /* ResetTableViewController.swift in Sources */,
+				6E0791A02577E3F6007EB670 /* MonthlyUnCategory.swift in Sources */,
+				6E0791A42577E3F6007EB670 /* MonthlyHobby.swift in Sources */,
+				6E0791A62577E3F6007EB670 /* MonthlyDating.swift in Sources */,
+				6E0791A92577E3F6007EB670 /* MonthlyHouse.swift in Sources */,
+				6E6A252A2577DDEF00E64266 /* Constants.swift in Sources */,
+				6E0792262577E6E1007EB670 /* LineChartTableViewCell.swift in Sources */,
+				6E0790E02577E134007EB670 /* AutoSpendingViewController.swift in Sources */,
+				6E07902C2577DFD7007EB670 /* Income.swift in Sources */,
+				6E0791A32577E3F6007EB670 /* MonthlyCard.swift in Sources */,
+				6E07922E2577E6E1007EB670 /* PickerKeyboard1.swift in Sources */,
+				6E0791032577E18E007EB670 /* Tutorial3ViewController.swift in Sources */,
+				6E0790722577E039007EB670 /* UnCategory2.swift in Sources */,
+				6E0791042577E18E007EB670 /* Tutorial2ViewController.swift in Sources */,
+				6E6A25152577DDC100E64266 /* Extension.swift in Sources */,
+				6E0790EA2577E148007EB670 /* DetailTableViewController.swift in Sources */,
+				6E07919F2577E3F6007EB670 /* MonthlySpecial.swift in Sources */,
+				6E0790B72577E0F9007EB670 /* AccountTableViewController.swift in Sources */,
+				6E0790712577E039007EB670 /* Temporary.swift in Sources */,
+				6E0790AB2577E0F9007EB670 /* PrivacyPolicyViewController.swift in Sources */,
+				6E0790C52577E106007EB670 /* IncomeViewController.swift in Sources */,
+				6E0790D62577E119007EB670 /* WithdrawalViewController.swift in Sources */,
 				6E7F669925542FF000896E28 /* AppDelegate.swift in Sources */,
+				6E0790F42577E168007EB670 /* StartViewController.swift in Sources */,
+				6E0790542577E026007EB670 /* Hobby.swift in Sources */,
+				6E77336E257A184300DB8456 /* Notice.swift in Sources */,
+				6E0790AE2577E0F9007EB670 /* SettingTableViewController.swift in Sources */,
+				6E0790C22577E106007EB670 /* CategoryCollectionViewController.swift in Sources */,
+				6E0790872577E0CD007EB670 /* HomeViewController.swift in Sources */,
+				6E0790272577DFD3007EB670 /* Spending.swift in Sources */,
+				6E0791952577E3F6007EB670 /* MonthlyTraffic.swift in Sources */,
+				6E0790EF2577E164007EB670 /* MyNavigationController.swift in Sources */,
+				6E0790B22577E0F9007EB670 /* ChangePasswordViewController.swift in Sources */,
+				6E773387257A1A8400DB8456 /* Notice3TableViewController.swift in Sources */,
+				6E0791992577E3F6007EB670 /* MonthlyTemporary.swift in Sources */,
+				6E0790312577DFDB007EB670 /* Monthly.swift in Sources */,
+				6E0790B32577E0F9007EB670 /* TermsTableViewController.swift in Sources */,
+				6E0792342577E6E2007EB670 /* TotalMoneyTableViewCell.swift in Sources */,
+				6E0790B02577E0F9007EB670 /* TutorialListTableViewController.swift in Sources */,
+				6E0790742577E039007EB670 /* Devident.swift in Sources */,
+				6E07905F2577E026007EB670 /* Insrance.swift in Sources */,
+				6E0790652577E026007EB670 /* Tax.swift in Sources */,
+				6E07922D2577E6E1007EB670 /* PaymentTableViewCell.swift in Sources */,
+				6E07922C2577E6E1007EB670 /* BalanceTableViewCell.swift in Sources */,
+				6E0790D32577E119007EB670 /* SortListTableViewController.swift in Sources */,
 				6E7F669B25542FF000896E28 /* SceneDelegate.swift in Sources */,
+				6E0790612577E026007EB670 /* Brush.swift in Sources */,
+				6E0791912577E3F6007EB670 /* MonthlyCommunication.swift in Sources */,
+				6E0790582577E026007EB670 /* Utility.swift in Sources */,
+				6E0791A72577E3F6007EB670 /* MonthlyHealth.swift in Sources */,
+				6E0791052577E18E007EB670 /* Tutorial4VCViewController.swift in Sources */,
+				6E07905D2577E026007EB670 /* Card.swift in Sources */,
+				6E0790DF2577E134007EB670 /* AutofillViewController.swift in Sources */,
+				6E07922A2577E6E1007EB670 /* CustomSlider.swift in Sources */,
+				6E0791A22577E3F6007EB670 /* MonthlyDevident.swift in Sources */,
+				6E6A25202577DDD400E64266 /* AuthService.swift in Sources */,
+				6E0790B82577E0F9007EB670 /* UserTableViewController.swift in Sources */,
+				6E0790AD2577E0F9007EB670 /* CloudRestoreTableViewController.swift in Sources */,
+				6E0790562577E026007EB670 /* Car.swift in Sources */,
+				6E0790642577E026007EB670 /* UnCategory.swift in Sources */,
+				6E773382257A1A6800DB8456 /* Notice2TableViewController.swift in Sources */,
+				6E0791082577E18E007EB670 /* RestoreTutorialViewController.swift in Sources */,
+				6E07919D2577E3F6007EB670 /* MonthlyEtcetora.swift in Sources */,
+				6E0792292577E6E1007EB670 /* HouseholdABTopViewCell.swift in Sources */,
+				6E0791022577E18E007EB670 /* BackupTutorialViewController.swift in Sources */,
+				6E07922B2577E6E1007EB670 /* HouseholdABTableViewCell.swift in Sources */,
+				6E0790E92577E148007EB670 /* HouseholdABTableViewController.swift in Sources */,
+				6E07905E2577E026007EB670 /* Special.swift in Sources */,
+				6E0790772577E039007EB670 /* Business.swift in Sources */,
+				6E07919A2577E3F6007EB670 /* MonthlyEducation.swift in Sources */,
+				6E0790D42577E119007EB670 /* EditSpendingViewController.swift in Sources */,
+				6E0792282577E6E1007EB670 /* BarChartTableViewCell.swift in Sources */,
+				6E0790B42577E0F9007EB670 /* InquiryTableViewController.swift in Sources */,
+				6E77338F257A4F7F00DB8456 /* Notice4TableViewController.swift in Sources */,
+				6E07903B2577DFE2007EB670 /* User.swift in Sources */,
+				6E07910A2577E18E007EB670 /* ResetTutorialViewController.swift in Sources */,
+				6E773363257A180100DB8456 /* NoticeListTableViewController.swift in Sources */,
+				6E0792232577E6E1007EB670 /* DetailTableViewCell.swift in Sources */,
+				6E6A13A32578BFA800E0E368 /* NotificationBanner.swift in Sources */,
+				6E0790B12577E0F9007EB670 /* VersionTableViewController.swift in Sources */,
+				6E07905C2577E026007EB670 /* Traffic.swift in Sources */,
+				6E0790C62577E106007EB670 /* IncomeCategoryTableViewController.swift in Sources */,
+				6E0791A12577E3F6007EB670 /* MonthlyUtility.swift in Sources */,
+				6E0790B52577E0F9007EB670 /* OpinionInputTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,16 +1285,20 @@
 		};
 		6E7F66C025542FF100896E28 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89DE4B3EAB1AC6F929F55CBD /* Pods-MoneyManageApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 2FZHPQ299M;
 				INFOPLIST_FILE = MoneyManageApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = xmlApp.MoneyManageApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -452,16 +1308,20 @@
 		};
 		6E7F66C125542FF100896E28 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 069468182C7560E5B4F56697 /* Pods-MoneyManageApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 2FZHPQ299M;
 				INFOPLIST_FILE = MoneyManageApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = xmlApp.MoneyManageApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -471,6 +1331,7 @@
 		};
 		6E7F66C325542FF100896E28 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41F0CA1376ECD2FB08F3355F /* Pods-MoneyManageAppTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -493,6 +1354,7 @@
 		};
 		6E7F66C425542FF100896E28 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7CD6F6CDD0308E9E06E678B4 /* Pods-MoneyManageAppTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -515,6 +1377,7 @@
 		};
 		6E7F66C625542FF100896E28 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B8525CA70B1650935525CCA2 /* Pods-MoneyManageApp-MoneyManageAppUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -535,6 +1398,7 @@
 		};
 		6E7F66C725542FF100896E28 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 329A1793FB4865A1C4A3487D /* Pods-MoneyManageApp-MoneyManageAppUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

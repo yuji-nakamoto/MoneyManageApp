@@ -47,6 +47,9 @@ class FUnCategory2 {
             if let error = error {
                 print("Error fetch income: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FUnCategory2(dict: [PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let data = FUnCategory2(dict: dict)

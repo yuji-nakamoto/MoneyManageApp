@@ -45,6 +45,9 @@ class FMonthlyEtcetora {
             if let error = error {
                 print("Error fetch Etcetora: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FMonthlyEtcetora(dict: [TOTAL_PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let mEtcetora = FMonthlyEtcetora(dict: dict)

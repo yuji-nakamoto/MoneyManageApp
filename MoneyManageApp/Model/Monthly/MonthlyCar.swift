@@ -45,6 +45,9 @@ class FMonthlyCar {
             if let error = error {
                 print("Error fetch Car: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FMonthlyCar(dict: [TOTAL_PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let mCar = FMonthlyCar(dict: dict)

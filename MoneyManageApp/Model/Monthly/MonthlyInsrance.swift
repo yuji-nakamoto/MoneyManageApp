@@ -45,6 +45,9 @@ class FMonthlyInsrance {
             if let error = error {
                 print("Error fetch Insrance: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FMonthlyInsrance(dict: [TOTAL_PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let mInsrance = FMonthlyInsrance(dict: dict)

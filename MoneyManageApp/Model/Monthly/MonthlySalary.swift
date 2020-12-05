@@ -45,6 +45,9 @@ class FMonthlySalary {
             if let error = error {
                 print("Error fetch Salary: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FMonthlySalary(dict: [TOTAL_PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let mSalary = FMonthlySalary(dict: dict)

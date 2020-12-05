@@ -16,12 +16,21 @@ public let COLLECTION_SPENDING = Firestore.firestore().collection("spending")
 public let COLLECTION_INCOME = Firestore.firestore().collection("income")
 public let COLLECTION_AUTO = Firestore.firestore().collection("auto")
 public let COLLECTION_MONTHLY = Firestore.firestore().collection("monthly")
+public let COLLECTION_NOTICE = Firestore.firestore().collection("notice")
 
 public let UID = "uid"
-public let EMAIL = "email"
-public let IS_LOGIN = "isLogin"
+public let MONEY_MANEGE_ID = "moneyManegeID"
 public let BACKUP_FILE = "backupFile"
 public let BACKUP_COUNT = "backupCount"
+
+public let TITLE = "title"
+public let TITLE2 = "title2"
+public let MAIN_TEXT = "mainText"
+public let GENRE = "genre"
+public let TEXT1 = "text1"
+public let TEXT2 = "text2"
+public let TEXT3 = "text3"
+public let END_TEXT = "endText"
 
 public let O_BLACK = "original_black"
 public let O_GREEN = "original_green"

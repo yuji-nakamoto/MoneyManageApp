@@ -8,6 +8,7 @@
 import UIKit
 import PKHUD
 import Firebase
+import RealmSwift
 import TextFieldEffects
 
 class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
@@ -28,6 +29,7 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         setup()
         setSwipeBack()
+        fetchUserInfo()
     }
 
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -37,7 +39,7 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
     @IBAction func passwordButtonPressed(_ sender: Any) {
         
         if emailTextField.text == "" {
-            HUD.flash(.labeledError(title: "", subtitle: "メールアドレスを入力してください"), delay: 1)
+            HUD.flash(.labeledError(title: "", subtitle: "マネーマネージIDを入力してください"), delay: 1)
             generator.notificationOccurred(.error)
             return
         } else if newPasswordTextField.text == "" {
@@ -55,9 +57,17 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
         changePassword()
     }
     
+    private func fetchUserInfo() {
+        User.fetchUser { [self] (user) in
+            emailTextField.text = user.moneyManegeId
+        }
+    }
+    
     private func changePassword() {
         
         HUD.show(.progress)
+        let realm = try! Realm()
+        let rUser = realm.objects(RUser.self)
         let email = emailTextField.text
         let password = passwordTextField.text
         let newPassword = newPasswordTextField.text
@@ -66,7 +76,7 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
         Auth.auth().currentUser?.reauthenticate(with: credential, completion: { (result, error) in
             if let error = error {
                 print("Error reauth: \(error.localizedDescription)")
-                HUD.flash(.labeledError(title: "", subtitle: " メールアドレス、もしくはパスワードが誤っています "), delay: 2)
+                HUD.flash(.labeledError(title: "", subtitle: " マネーマネージID、もしくはパスワードが誤っています "), delay: 2)
                 generator.notificationOccurred(.error)
             } else {
                 
@@ -76,6 +86,11 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
                         HUD.flash(.labeledError(title: "", subtitle: "無効なパスワードです "), delay: 2)
                         generator.notificationOccurred(.error)
                     } else {
+                        rUser.forEach { (u) in
+                            try! realm.write() {
+                                u.password = newPassword!
+                            }
+                        }
                         HUD.flash(.labeledSuccess(title: "", subtitle: "パスワードを変更しました"), delay: 1)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             self.dismiss(animated: true)
@@ -93,7 +108,7 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         newPasswordTextField.delegate = self
         emailTextField.font = UIFont(name: "HiraMaruProN-W4", size: 18)
-        emailTextField.placeholder = "メールアドレス"
+        emailTextField.placeholder = "マネーマネージID"
         emailTextField.keyboardType = .emailAddress
         newPasswordTextField.font = UIFont(name: "HiraMaruProN-W4", size: 18)
         newPasswordTextField.placeholder = "新しいパスワード"
@@ -132,22 +147,18 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
                     newPasswordTopConst.constant = 20
                     passwordTopConst.constant = 20
                     viewBottomConst.constant = view.safeAreaInsets.bottom + keyboardViewEndFrame.height
-                    break
                 case 2048:
                     viewBottomConst.constant = view.safeAreaInsets.bottom + keyboardViewEndFrame.height - 40
-                    break
                 case 2160:
                     viewBottomConst.constant = view.safeAreaInsets.bottom + keyboardViewEndFrame.height - 45
-                    break
+                case 2208:
+                    viewBottomConst.constant = view.safeAreaInsets.bottom + keyboardViewEndFrame.height
                 case 2360:
                     viewBottomConst.constant = view.safeAreaInsets.bottom + keyboardViewEndFrame.height - 140
-                    break
                 case 2388:
                     viewBottomConst.constant = view.safeAreaInsets.bottom + keyboardViewEndFrame.height - 155
-                    break
                 case 2732:
                     viewBottomConst.constant = view.safeAreaInsets.bottom + keyboardViewEndFrame.height - 328
-                    break
                 default:
                     break
                 }

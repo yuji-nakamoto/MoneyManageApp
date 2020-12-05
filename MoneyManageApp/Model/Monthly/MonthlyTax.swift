@@ -45,6 +45,9 @@ class FMonthlyTax {
             if let error = error {
                 print("Error fetch Tax: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FMonthlyTax(dict: [TOTAL_PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let mTax = FMonthlyTax(dict: dict)

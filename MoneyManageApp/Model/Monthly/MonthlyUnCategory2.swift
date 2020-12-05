@@ -45,6 +45,9 @@ class FMonthlyUnCategory2 {
             if let error = error {
                 print("Error fetch UnCategory2: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FMonthlyUnCategory2(dict: [TOTAL_PRICE: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let mUnCategory2 = FMonthlyUnCategory2(dict: dict)

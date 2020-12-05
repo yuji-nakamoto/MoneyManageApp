@@ -14,24 +14,13 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var bannerView: GADBannerView!
-    @IBOutlet weak var autofillView: UIView!
-    @IBOutlet weak var categoryImageView: UIImageView!
-    @IBOutlet weak var categoryLabel: UILabel!
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var memoLabel: UILabel!
-    @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var hintView: UIView!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var noticeButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var autofillLabel: UILabel!
-    @IBOutlet weak var autofillTopViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var autofillLeftConst: NSLayoutConstraint!
-    @IBOutlet weak var autofillViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var priceRightConst: NSLayoutConstraint!
-    @IBOutlet weak var categoryImageLeftConst: NSLayoutConstraint!
+    @IBOutlet weak var noticeView: UIView!
     @IBOutlet weak var registerHeight: NSLayoutConstraint!
-    @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet weak var topViewHeight: NSLayoutConstraint!
     
     private var player = AVAudioPlayer()
     private let soundFile = Bundle.main.path(forResource: "pa1", ofType: "mp3")
@@ -41,7 +30,10 @@ class HomeViewController: UIViewController {
     private var autoArray3 = [Auto]()
     private var autoArray4 = [Auto]()
     private let refresh = UIRefreshControl()
-    
+    private var categoryImage = UIImage()
+    private var totalString = ""
+    private var dateString = ""
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -52,18 +44,28 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if autofillView.isHidden == false {
-            autofillView.isHidden = true
-        }
         setupSound()
         isAutofill()
+        checkNotice1()
         checkRegister()
         tableView.reloadData()
+        navigationController?.navigationBar.isHidden = true
         print("Realm URL: \(String(describing: Realm.Configuration.defaultConfiguration.fileURL))")
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+
     // MARK: - Actions
+    
+    @IBAction func noticeButtonPressed(_ sender: Any) {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let noticeListVC = storyboard.instantiateViewController(withIdentifier: "NoticeListVC")
+        noticeListVC.presentationController?.delegate = self
+        self.present(noticeListVC, animated: true, completion: nil)
+    }
     
     @IBAction func settingButtonPressed(_ sender: Any) {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -79,12 +81,6 @@ class HomeViewController: UIViewController {
         self.present(inputVC, animated: true, completion: nil)
     }
     
-    @IBAction func closeButtonPressd(_ sender: Any) {
-        UIView.animate(withDuration: 0.5) { [self] in
-            self.autofillView.isHidden = true
-        }
-    }
-    
     @IBAction func closeButton2Pressed(_ sender: Any) {
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
@@ -98,12 +94,108 @@ class HomeViewController: UIViewController {
     
     @objc func refreshTableView(){
         checkRegister()
+        checkNotice1()
         isAutofill()
         tableView.reloadData()
         refresh.endRefreshing()
     }
     
-    // MARK: - Auto function
+    // MARK: - Check notice
+    
+    private func checkNotice1() {
+        
+        let realm = try! Realm()
+        let notice = realm.objects(Notice.self)
+        
+        notice.forEach { (n) in
+            FNotice.fetchNotice1 { [self] (notice1) in
+                if n.noticeId1 != notice1.uid {
+                    noticeView.isHidden = false
+                    noticeAnimation()
+                } else {
+                    noticeView.isHidden = true
+                    checkNotice2()
+                }
+            }
+        }
+    }
+    
+    private func checkNotice2() {
+        
+        let realm = try! Realm()
+        let notice = realm.objects(Notice.self)
+        
+        notice.forEach { (n) in
+       
+            FNotice.fetchNotice2 { [self] (notice2) in
+                if n.noticeId2 != notice2.uid {
+                    noticeView.isHidden = false
+                    noticeAnimation()
+                } else {
+                    noticeView.isHidden = true
+                    checkNotice3()
+                }
+            }
+        }
+    }
+    
+    private func checkNotice3() {
+        
+        let realm = try! Realm()
+        let notice = realm.objects(Notice.self)
+        
+        notice.forEach { (n) in
+       
+            FNotice.fetchNotice3 { [self] (notice3) in
+                if n.noticeId3 != notice3.uid {
+                    noticeView.isHidden = false
+                    noticeAnimation()
+                } else {
+                    noticeView.isHidden = true
+                    checkNotice4()
+                }
+            }
+        }
+    }
+    
+    private func checkNotice4() {
+        
+        let realm = try! Realm()
+        let notice = realm.objects(Notice.self)
+        
+        notice.forEach { (n) in
+       
+            FNotice.fetchNotice4 { [self] (notice4) in
+                if n.noticeId4 != notice4.uid {
+                    noticeView.isHidden = false
+                    noticeAnimation()
+                } else {
+                    noticeView.isHidden = true
+                    checkNotice5()
+                }
+            }
+        }
+    }
+    
+    private func checkNotice5() {
+        
+        let realm = try! Realm()
+        let notice = realm.objects(Notice.self)
+        
+        notice.forEach { (n) in
+       
+            FNotice.fetchNotice5 { [self] (notice5) in
+                if n.noticeId5 != notice5.uid {
+                    noticeView.isHidden = false
+                    noticeAnimation()
+                } else {
+                    noticeView.isHidden = true
+                }
+            }
+        }
+    }
+    
+    // MARK: - Autofill function
     
     private func isAutofill() {
         
@@ -119,8 +211,8 @@ class HomeViewController: UIViewController {
         let auto1 = realm.objects(Auto.self).filter("isInput == false").filter("onRegister == false")
         // 自動入力反映後
         let auto2 = realm.objects(Auto.self).filter("isInput == true").filter("onRegister == false")
-        // 入出金一覧から自動入力登録時
-        // 入力作成時の自動入力登録時
+        /* 入出金一覧から自動入力登録時
+           入力作成時の自動入力登録時 */
         let auto3 = realm.objects(Auto.self).filter("isInput == true").filter("onRegister == true")
         
         autoArray1.removeAll()
@@ -353,19 +445,9 @@ class HomeViewController: UIViewController {
                 auto.day = day
                 auto.isInput = true
             }
-            
-            categoryLabel.text = spending.category
-            if spending.memo == "" {
-                memoLabel.text = spending.category
-            } else {
-                memoLabel.text = spending.memo
-            }
-            dateLabel.text = spending.month + "月分"
-            let result = String.localizedStringWithFormat("%d", spending.price)
-            priceLabel.text = "¥" + result
-            totalLabel.text = "合計\(autoArray4.count)件の自動入力を行いました"
-            setCategorySpendingImage(spending)
-            showAutofillView()
+            dateString = spending.month + "月分"
+            totalString = "合計\(autoArray4.count)件の自動入力を行いました"
+            setCategorySpendingImage(spending: spending, title: dateString, body: totalString)
             
         } else {
             
@@ -445,18 +527,9 @@ class HomeViewController: UIViewController {
                 auto.day = day
                 auto.isInput = true
             }
-            
-            categoryLabel.text = income.category
-            if income.memo == "" {
-                memoLabel.text = income.category
-            } else {
-                memoLabel.text = income.memo
-            }
-            let result = String.localizedStringWithFormat("%d", income.price)
-            priceLabel.text = "¥" + result
-            totalLabel.text = "合計\(autoArray4.count)件の自動入力を行いました"
-            setCategoryIncomeImage(income)
-            showAutofillView()
+            dateString = income.month + "月分"
+            totalString = "合計\(autoArray4.count)件の自動入力を行いました"
+            setCategoryIncomeImage(income: income, title: dateString, body: totalString)
         }
         tableView.reloadData()
     }
@@ -1570,75 +1643,60 @@ class HomeViewController: UIViewController {
         }
     }
     
+    private func noticeAnimation() {
+        
+        let rollingAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rollingAnimation.fromValue = 0
+        rollingAnimation.toValue = CGFloat.pi * 0.1
+        rollingAnimation.duration = 0.1
+        rollingAnimation.repeatDuration = CFTimeInterval.zero
+        noticeButton.layer.add(rollingAnimation, forKey: "rollingImage")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
+            let rollingAnimation = CABasicAnimation(keyPath: "transform.rotation")
+            rollingAnimation.fromValue = 0
+            rollingAnimation.toValue = CGFloat.pi * -0.1
+            rollingAnimation.duration = 0.1
+            rollingAnimation.repeatDuration = CFTimeInterval.zero
+            noticeButton.layer.add(rollingAnimation, forKey: "rollingImage")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
+                let rollingAnimation = CABasicAnimation(keyPath: "transform.rotation")
+                rollingAnimation.fromValue = 0
+                rollingAnimation.toValue = CGFloat.pi * 0.1
+                rollingAnimation.duration = 0.1
+                rollingAnimation.repeatDuration = CFTimeInterval.zero
+                noticeButton.layer.add(rollingAnimation, forKey: "rollingImage")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
+                    let rollingAnimation = CABasicAnimation(keyPath: "transform.rotation")
+                    rollingAnimation.fromValue = 0
+                    rollingAnimation.toValue = CGFloat.pi * -0.1
+                    rollingAnimation.duration = 0.1
+                    rollingAnimation.repeatDuration = CFTimeInterval.zero
+                    noticeButton.layer.add(rollingAnimation, forKey: "rollingImage")
+                }
+            }
+        }
+    }
+    
     private func setup() {
         navigationItem.title = "ホーム"
         tableView.tableFooterView = UIView()
         hintView.alpha = 0
         hintView.layer.cornerRadius = 10
+        noticeView.layer.cornerRadius = 5
+        noticeView.isHidden = true
         closeButton.layer.cornerRadius = 30 / 2
         descriptionLabel.text = "操作が分からなくなった場合や、他のことも知りたい場合は、ホーム画面右上の歯車マークから'使い方'をタップで確認できます。"
         tableView.refreshControl = refresh
         refresh.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
         
-        switch (UIScreen.main.nativeBounds.height) {
-        case 2048:
-            changeLayout1()
-            break
-        case 2160:
-            changeLayout1()
-            break
-        case 2360:
-            changeLayout1()
-            break
-        case 2388:
-            changeLayout1()
-            break
-        case 2732:
-            changeLayout2()
-            break
+        switch UIScreen.main.nativeBounds.height {
+        case 1334:
+            topViewHeight.constant = 63
+        case 2208:
+            topViewHeight.constant = 63
         default:
             break
-        }
-    }
-    
-    private func changeLayout1() {
-        
-        autofillViewHeight.constant = 160
-        autofillTopViewHeight.constant = 60
-        autofillLeftConst.constant = 30
-        categoryImageLeftConst.constant = 30
-        priceRightConst.constant = 30
-        
-        autofillLabel.font = UIFont(name: "HiraMaruProN-W4", size: 20)
-    }
-    
-    private func changeLayout2() {
-        
-        autofillViewHeight.constant = 160
-        autofillTopViewHeight.constant = 60
-        autofillLeftConst.constant = 30
-        categoryImageLeftConst.constant = 30
-        priceRightConst.constant = 30
-        
-        autofillLabel.font = UIFont(name: "HiraMaruProN-W4", size: 20)
-    }
-    
-    private func showAutofillView() {
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            UIView.animate(withDuration: 0.5) { [self] in
-                
-                autofillView.isHidden = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    player.play()
-                    player.numberOfLoops = 1
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
-                        UIView.animate(withDuration: 0.5) {
-                            autofillView.isHidden = true
-                        }
-                    }
-                }
-            }
         }
     }
     
@@ -1681,67 +1739,74 @@ class HomeViewController: UIViewController {
         bannerView.load(GADRequest())
     }
     
-    private func setCategorySpendingImage(_ spending: Spending) {
-        
+    private func setCategorySpendingImage(spending: Spending, title: String, body: String) {
         if spending.category == "未分類" {
-            categoryImageView.image = UIImage(systemName: "questionmark.circle")
-            categoryImageView.tintColor = .systemGray
+            categoryImage = UIImage(systemName: "questionmark.circle")!
         } else if spending.category == "食費" {
-            categoryImageView.image = UIImage(named: "food")
+            categoryImage = UIImage(named: "food")!
         } else if spending.category == "日用品" {
-            categoryImageView.image = UIImage(named: "brush")
+            categoryImage = UIImage(named: "brush")!
         } else if spending.category == "趣味" {
-            categoryImageView.image = UIImage(named: "hobby")
+            categoryImage = UIImage(named: "hobby")!
         } else if spending.category == "交際費" {
-            categoryImageView.image = UIImage(named: "dating")
+            categoryImage = UIImage(named: "dating")!
         } else if spending.category == "交通費" {
-            categoryImageView.image = UIImage(named: "traffic")
+            categoryImage = UIImage(named: "traffic")!
         } else if spending.category == "衣服・美容" {
-            categoryImageView.image = UIImage(named: "clothe")
+            categoryImage = UIImage(named: "clothe")!
         } else if spending.category == "健康・医療" {
-            categoryImageView.image = UIImage(named: "health")
+            categoryImage = UIImage(named: "health")!
         } else if spending.category == "自動車" {
-            categoryImageView.image = UIImage(named: "car")
+            categoryImage = UIImage(named: "car")!
         } else if spending.category == "教養・教育" {
-            categoryImageView.image = UIImage(named: "education")
+            categoryImage = UIImage(named: "education")!
         } else if spending.category == "特別な支出" {
-            categoryImageView.image = UIImage(named: "special")
+            categoryImage = UIImage(named: "special")!
         } else if spending.category == "現金・カード" {
-            categoryImageView.image = UIImage(named: "card")
+            categoryImage = UIImage(named: "card")!
         } else if spending.category == "水道・光熱費" {
-            categoryImageView.image = UIImage(named: "utility")
+            categoryImage = UIImage(named: "utility")!
         } else if spending.category == "通信費" {
-            categoryImageView.image = UIImage(named: "communication")
+            categoryImage = UIImage(named: "communication")!
         } else if spending.category == "住宅" {
-            categoryImageView.image = UIImage(named: "house")
+            categoryImage = UIImage(named: "house")!
         } else if spending.category == "税・社会保険" {
-            categoryImageView.image = UIImage(named: "tax")
+            categoryImage = UIImage(named: "tax")!
         } else if spending.category == "保険" {
-            categoryImageView.image = UIImage(named: "insrance")
+            categoryImage = UIImage(named: "insrance")!
         } else if spending.category == "その他" {
-            categoryImageView.image = UIImage(named: "etcetra")
+            categoryImage = UIImage(named: "etcetra")!
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [self] in
+            player.play()
+            NotificationBanner.show(title: title, body: body, image: categoryImage)
+            tableView.reloadData()
         }
     }
     
-    private func setCategoryIncomeImage(_ income: Income) {
+    private func setCategoryIncomeImage(income: Income, title: String, body: String) {
         
         if income.category == "未分類" {
-            categoryImageView.image = UIImage(systemName: "questionmark.circle")
-            categoryImageView.tintColor = .systemGray
+            categoryImage = UIImage(systemName: "questionmark.circle")!
         } else if income.category == "給与" {
-            categoryImageView.image = UIImage(named: "en_mark")
+            categoryImage = UIImage(named: "en_mark")!
         } else if income.category == "一時所得" {
-            categoryImageView.image = UIImage(named: "en_mark")
+            categoryImage = UIImage(named: "en_mark")!
         } else if income.category == "事業・副業" {
-            categoryImageView.image = UIImage(named: "en_mark")
+            categoryImage = UIImage(named: "en_mark")!
         } else if income.category == "年金" {
-            categoryImageView.image = UIImage(named: "en_mark")
+            categoryImage = UIImage(named: "en_mark")!
         } else if income.category == "配当所得" {
-            categoryImageView.image = UIImage(named: "en_mark")
+            categoryImage = UIImage(named: "en_mark")!
         } else if income.category == "不動産所得" {
-            categoryImageView.image = UIImage(named: "en_mark")
+            categoryImage = UIImage(named: "en_mark")!
         } else if income.category == "その他入金" {
-            categoryImageView.image = UIImage(named: "en_mark")
+            categoryImage = UIImage(named: "en_mark")!
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [self] in
+            player.play()
+            NotificationBanner.show(title: title, body: body, image: categoryImage)
+            tableView.reloadData()
         }
     }
 }
@@ -1774,6 +1839,8 @@ extension HomeViewController: UITabBarDelegate, UITableViewDataSource {
 extension HomeViewController: UIAdaptivePresentationControllerDelegate {
   func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
     checkRegister()
+    checkNotice1()
+    isAutofill()
     tableView.reloadData()
   }
 }

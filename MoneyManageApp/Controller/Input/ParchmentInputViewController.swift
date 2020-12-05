@@ -43,8 +43,8 @@ class ParchmentInputViewController: UIViewController {
             pagingVC.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 17)
         ])
         
-        pagingVC.font = UIFont(name: "HiraMaruProN-W4", size: 12)!
-        pagingVC.selectedFont = UIFont(name: "HiraMaruProN-W4", size: 15)!
+        pagingVC.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        pagingVC.selectedFont = UIFont.systemFont(ofSize: 17, weight: .medium)
         pagingVC.selectedTextColor = UIColor(named: O_BLACK)!
         pagingVC.textColor = .systemGray
         pagingVC.indicatorColor = UIColor(named: CARROT_ORANGE)!

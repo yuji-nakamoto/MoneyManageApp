@@ -37,9 +37,7 @@ struct AuthService {
     }
     
     static func logoutUser(completion: @escaping(_ error: Error?) -> Void) {
-        
-        User.updateUser(value: [IS_LOGIN: false])
-        
+                
         do {
             try Auth.auth().signOut()
             completion(nil)
@@ -47,29 +45,6 @@ struct AuthService {
             print("Error log out: \(error.localizedDescription)")
             completion(error)
         }
-    }
-    
-    static func resetPassword(email: String, completion: @escaping(_ error: Error?) -> Void) {
-        
-        Auth.auth().sendPasswordReset(withEmail: email) { (error) in
-            
-            if error != nil {
-                print("error reset password: \(error!.localizedDescription)")
-            }
-            completion(error)
-        }
-    }
-    
-    static func changeEmail(email: String, completion: @escaping(_ error: Error?) -> Void) {
-        
-        Auth.auth().currentUser?.updateEmail(to: email, completion: { (error) in
-            if let error = error {
-                print("Error change email: \(error.localizedDescription)")
-            } else {
-                User.updateUser(value: [EMAIL: email])
-            }
-            completion(error)
-        })
     }
     
     static func changePassword(password: String, completion: @escaping(_ error: Error?) -> Void) {

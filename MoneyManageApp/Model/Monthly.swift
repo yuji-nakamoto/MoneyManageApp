@@ -33,6 +33,9 @@ class FMonthly {
             if let error = error {
                 print("Error fetch auto: \(error.localizedDescription)")
             }
+            if snapshot?.documents == [] {
+                completion(FMonthly(dict: [MONEY: 0]))
+            }
             snapshot?.documents.forEach({ (document) in
                 let dict = document.data()
                 let monthly = FMonthly(dict: dict)
